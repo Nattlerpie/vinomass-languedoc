@@ -1,5 +1,7 @@
 import DashboardHeader from "./DashboardHeader";
 import StatCard from "./StatCard";
+import ValoorizationChart from "./ValoorizationChart";
+import TopCommunes from "./TopCommunes";
 
 const Dashboard = () => {
   const stats = [
@@ -44,6 +46,11 @@ const Dashboard = () => {
               variant={stat.variant}
             />
           ))}
+        </div>
+        
+        <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <ValoorizationChart />
+          <TopCommunes />
         </div>
         
         <div className="mt-16 text-center">
