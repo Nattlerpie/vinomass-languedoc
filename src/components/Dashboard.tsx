@@ -2,6 +2,7 @@ import DashboardHeader from "./DashboardHeader";
 import StatCard from "./StatCard";
 import ValoorizationChart from "./ValoorizationChart";
 import TopCommunes from "./TopCommunes";
+import InfrastructureOverview from "./InfrastructureOverview";
 
 const Dashboard = () => {
   const stats = [
@@ -51,6 +52,10 @@ const Dashboard = () => {
         <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
           <ValoorizationChart />
           <TopCommunes />
+        </div>
+        
+        <div className="mt-8">
+          <InfrastructureOverview />
         </div>
         
         <div className="mt-16 text-center">
