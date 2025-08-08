@@ -8,33 +8,33 @@ const communes = [
 
 const TopCommunes = () => {
   return (
-    <div className="space-y-6">
-      <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-elegant">
-        <h3 className="text-xl font-bold text-wine-charcoal mb-6 text-center">
+    <div className="space-y-8">
+      <div className="bg-white/90 backdrop-blur-sm rounded-xl p-8 shadow-elegant border border-wine-cream/30 hover:shadow-wine transition-all duration-500">
+        <h3 className="text-2xl font-bold text-wine-charcoal mb-8 text-center text-shadow">
           Communes les Plus Productrices
         </h3>
-        <div className="space-y-4">
+        <div className="space-y-6">
           {communes.map((commune, index) => (
             <div
               key={commune.name}
-              className="flex items-center justify-between p-4 bg-gradient-subtle rounded-lg border border-wine-cream/30"
+              className="flex items-center justify-between p-6 bg-gradient-subtle rounded-xl border border-wine-cream/40 hover:border-wine-burgundy/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg group"
             >
-              <div className="flex items-center space-x-3">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold ${
-                  index === 0 ? 'bg-wine-burgundy' : 
-                  index === 1 ? 'bg-wine-gold' : 'bg-wine-green'
+              <div className="flex items-center space-x-4">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold transition-transform duration-300 group-hover:scale-110 ${
+                  index === 0 ? 'bg-wine-burgundy shadow-wine' : 
+                  index === 1 ? 'bg-wine-gold shadow-elegant' : 'bg-wine-green shadow-elegant'
                 }`}>
                   {index + 1}
                 </div>
-                <span className="font-semibold text-wine-charcoal">
+                <span className="font-semibold text-wine-charcoal text-lg">
                   {commune.name}
                 </span>
               </div>
               <div className="text-right">
-                <span className="text-2xl font-bold text-wine-charcoal">
+                <span className="text-3xl font-bold text-wine-charcoal group-hover:text-wine-burgundy transition-colors duration-300">
                   {commune.tonnage.toLocaleString('fr-FR')}
                 </span>
-                <span className="text-sm text-wine-charcoal/70 ml-1">tonnes</span>
+                <span className="text-base text-wine-charcoal/70 ml-2">tonnes</span>
               </div>
             </div>
           ))}

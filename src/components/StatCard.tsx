@@ -26,20 +26,20 @@ const StatCard = ({ title, value, unit, variant = "burgundy", className }: StatC
 
   return (
     <Card className={cn(
-      "transition-all duration-300 hover:scale-[1.02] border-2",
+      "transition-all duration-500 hover:scale-[1.05] hover:shadow-lg border-2 group animate-fade-in hover-glow",
       variants[variant],
       className
     )}>
-      <CardContent className="p-6">
-        <div className="space-y-2">
-          <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+      <CardContent className="p-8">
+        <div className="space-y-4">
+          <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
             {title}
           </p>
-          <div className="flex items-baseline space-x-2">
-            <span className={cn("text-3xl font-bold", valueColors[variant])}>
+          <div className="flex items-baseline space-x-3">
+            <span className={cn("text-4xl font-bold transition-colors duration-300 group-hover:scale-110", valueColors[variant])}>
               {value}
             </span>
-            <span className="text-lg text-muted-foreground font-medium">
+            <span className="text-xl text-muted-foreground font-medium">
               {unit}
             </span>
           </div>
