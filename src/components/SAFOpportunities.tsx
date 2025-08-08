@@ -1,10 +1,8 @@
-import { ArrowRight, Plane, Leaf, Fuel } from "lucide-react";
+import { ArrowRight, Plane, Leaf, Beaker, Zap, Fuel } from "lucide-react";
 
 const SAFOpportunities = () => {
-  // Realistic conversion: ~1 tonne of biomass produces ~200-300L of SAF
   const grapePomageTonnes = 266000;
-  const safLitersPerTonne = 250; // Conservative estimate
-  const totalSAFLiters = grapePomageTonnes * safLitersPerTonne;
+  const totalSAFLiters = 66500000; // 66.5 million liters as specified
   const co2ReductionPerLiter = 2.5; // kg CO2 reduction per liter vs conventional jet fuel
   const totalCO2Reduction = (totalSAFLiters * co2ReductionPerLiter) / 1000; // in tonnes
 
@@ -17,14 +15,26 @@ const SAFOpportunities = () => {
       color: "wine-green"
     },
     {
-      title: "Conversion biomasse",
-      description: "Pyrolyse + raffinage",
-      icon: Fuel,
+      title: "Fermentation alcoolique",
+      description: "Production d'éthanol",
+      icon: Beaker,
       color: "wine-gold"
     },
     {
-      title: "Carburant aviation durable",
-      value: (totalSAFLiters / 1000000).toFixed(1),
+      title: "Distillation éthanol",
+      description: "Purification",
+      icon: Zap,
+      color: "wine-burgundy"
+    },
+    {
+      title: "Alcohol-to-Jet (ATJ)",
+      description: "Conversion catalytique",
+      icon: Fuel,
+      color: "wine-charcoal"
+    },
+    {
+      title: "Carburant Aviation Durable",
+      value: "66,5",
       unit: "millions de litres",
       icon: Plane,
       color: "wine-burgundy"
@@ -48,16 +58,16 @@ const SAFOpportunities = () => {
           const IconComponent = step.icon;
           return (
             <div key={index} className="flex items-center">
-              <div className="text-center min-w-[140px]">
-                <div className={`w-16 h-16 rounded-full bg-gradient-subtle border-2 border-${step.color}/20 flex items-center justify-center mx-auto mb-3`}>
-                  <IconComponent size={28} className={`text-${step.color}`} />
+              <div className="text-center min-w-[120px]">
+                <div className={`w-12 h-12 rounded-full bg-gradient-subtle border-2 border-${step.color}/20 flex items-center justify-center mx-auto mb-2`}>
+                  <IconComponent size={20} className={`text-${step.color}`} />
                 </div>
                 <div className="space-y-1">
-                  <div className="text-sm font-semibold text-wine-charcoal">
+                  <div className="text-xs font-semibold text-wine-charcoal text-center">
                     {step.title}
                   </div>
                   {step.value && (
-                    <div className={`text-lg font-bold text-${step.color}`}>
+                    <div className={`text-sm font-bold text-${step.color}`}>
                       {step.value}
                     </div>
                   )}
@@ -74,7 +84,7 @@ const SAFOpportunities = () => {
                 </div>
               </div>
               {index < conversionSteps.length - 1 && (
-                <ArrowRight size={24} className="text-wine-charcoal/50 mx-4 flex-shrink-0" />
+                <ArrowRight size={16} className="text-wine-charcoal/50 mx-2 flex-shrink-0" />
               )}
             </div>
           );
@@ -85,7 +95,7 @@ const SAFOpportunities = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-wine-cream/30">
         <div className="text-center p-4 bg-gradient-subtle rounded-lg">
           <div className="text-2xl font-bold text-wine-burgundy">
-            {(totalSAFLiters / 1000000).toFixed(1)}M
+            66,5M
           </div>
           <div className="text-sm text-wine-charcoal/70">
             Litres SAF potentiels

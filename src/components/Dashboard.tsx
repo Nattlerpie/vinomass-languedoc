@@ -4,6 +4,7 @@ import ValoorizationChart from "./ValoorizationChart";
 import TopCommunes from "./TopCommunes";
 import InfrastructureOverview from "./InfrastructureOverview";
 import SAFOpportunities from "./SAFOpportunities";
+import PartnershipOpportunities from "./PartnershipOpportunities";
 
 const Dashboard = () => {
   const stats = [
@@ -61,6 +62,10 @@ const Dashboard = () => {
         
         <div className="mt-8">
           <SAFOpportunities />
+        </div>
+        
+        <div className="mt-8">
+          <PartnershipOpportunities />
         </div>
         
         <div className="mt-16 text-center">
