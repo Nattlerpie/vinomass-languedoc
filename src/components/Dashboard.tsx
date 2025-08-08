@@ -1,5 +1,9 @@
 import DashboardHeader from "./DashboardHeader";
 import StatCard from "./StatCard";
+import SAFCalculator from "./SAFCalculator";
+import ProjectTimeline from "./ProjectTimeline";
+import StakeholderBenefits from "./StakeholderBenefits";
+import ImplementationChallenges from "./ImplementationChallenges";
 import ValoorizationChart from "./ValoorizationChart";
 import TopCommunes from "./TopCommunes";
 import InfrastructureOverview from "./InfrastructureOverview";
@@ -51,6 +55,24 @@ const Dashboard = () => {
           ))}
         </div>
         
+        {/* Business Planning Tools */}
+        <div className="animate-fade-in">
+          <SAFCalculator />
+        </div>
+        
+        <div className="animate-fade-in">
+          <ProjectTimeline />
+        </div>
+        
+        <div className="animate-fade-in">
+          <StakeholderBenefits />
+        </div>
+        
+        <div className="animate-fade-in">
+          <ImplementationChallenges />
+        </div>
+        
+        {/* Regional Data */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div className="animate-fade-in">
             <ValoorizationChart />
@@ -72,7 +94,7 @@ const Dashboard = () => {
           <PartnershipOpportunities />
         </div>
         
-        <div className="text-center">${''}
+        <div className="text-center">
           <div className="inline-flex items-center space-x-4 bg-white/80 backdrop-blur-sm rounded-full px-6 py-3 shadow-elegant">
             <div className="w-3 h-3 rounded-full bg-wine-burgundy" />
             <span className="text-sm font-medium text-wine-charcoal">
