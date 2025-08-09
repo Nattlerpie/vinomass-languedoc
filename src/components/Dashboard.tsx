@@ -55,23 +55,6 @@ const Dashboard = () => {
           ))}
         </div>
         
-        {/* Business Planning Tools */}
-        <div className="animate-fade-in">
-          <SAFCalculator />
-        </div>
-        
-        <div className="animate-fade-in">
-          <ProjectTimeline />
-        </div>
-        
-        <div className="animate-fade-in">
-          <StakeholderBenefits />
-        </div>
-        
-        <div className="animate-fade-in">
-          <ImplementationChallenges />
-        </div>
-        
         {/* Regional Data */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div className="animate-fade-in">
@@ -92,6 +75,23 @@ const Dashboard = () => {
         
         <div className="animate-fade-in">
           <PartnershipOpportunities />
+        </div>
+        
+        {/* Business Planning Tools */}
+        <div className="animate-fade-in">
+          <SAFCalculator />
+        </div>
+        
+        <div className="animate-fade-in">
+          <ProjectTimeline />
+        </div>
+        
+        <div className="animate-fade-in">
+          <StakeholderBenefits />
+        </div>
+        
+        <div className="animate-fade-in">
+          <ImplementationChallenges />
         </div>
         
         <div className="text-center">
