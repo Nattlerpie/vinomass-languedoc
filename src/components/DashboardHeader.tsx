@@ -1,5 +1,5 @@
 import vineyardBg from "@/assets/vineyard-bg.jpg";
-import { ChevronDown, MapPin } from "lucide-react";
+import { ChevronDown, MapPin, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -30,8 +30,37 @@ const DashboardHeader = () => {
       
       {/* Content */}
       <div className="relative z-10 px-6 py-16 text-center">
-        {/* Region Selector */}
-        <div className="flex justify-center mb-8">
+        {/* Top Controls */}
+        <div className="flex justify-center items-center gap-6 mb-8">
+          {/* Language Selector */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button 
+                variant="outline" 
+                className="bg-white/10 border-white/20 text-wine-cream hover:bg-white/20 backdrop-blur-sm transition-all duration-300 hover:scale-105"
+              >
+                <Globe size={16} className="mr-2" />
+                Français
+                <ChevronDown size={16} className="ml-2" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-white/95 backdrop-blur-md border-wine-cream/20 shadow-elegant z-50">
+              <DropdownMenuItem className="transition-all duration-200 hover:bg-wine-burgundy/10 hover:text-wine-burgundy cursor-pointer p-3">
+                <Globe size={14} className="mr-2" />
+                <span className="font-medium">Français</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="transition-all duration-200 hover:bg-wine-burgundy/10 hover:text-wine-burgundy cursor-pointer p-3">
+                <Globe size={14} className="mr-2" />
+                <span className="font-medium">English</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="transition-all duration-200 hover:bg-wine-burgundy/10 hover:text-wine-burgundy cursor-pointer p-3">
+                <Globe size={14} className="mr-2" />
+                <span className="font-medium">Español</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* Region Selector */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button 

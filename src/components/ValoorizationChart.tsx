@@ -13,7 +13,7 @@ const ValoorizationChart = () => {
       <h3 className="text-xl font-bold text-wine-charcoal mb-6 text-center">
         Méthodes de Valorisation Actuelles
       </h3>
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={400}>
         <PieChart>
           <Pie
             data={data}

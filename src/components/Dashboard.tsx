@@ -56,13 +56,12 @@ const Dashboard = () => {
         </div>
         
         {/* Regional Data */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div className="animate-fade-in">
-            <ValoorizationChart />
-          </div>
-          <div className="animate-fade-in">
-            <TopCommunes />
-          </div>
+        <div className="animate-fade-in">
+          <TopCommunes />
+        </div>
+        
+        <div className="animate-fade-in">
+          <ValoorizationChart />
         </div>
         
         <div className="animate-fade-in">
