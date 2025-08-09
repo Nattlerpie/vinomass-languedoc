@@ -6,22 +6,15 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
 const SAFCalculator = () => {
-  const [wineProduction, setWineProduction] = useState<number>(1000);
+  const [grapePomace, setGrapePomace] = useState<number>(266000);
+  const [collectionCost, setCollectionCost] = useState<number>(40);
+  const [processingEfficiency, setProcessingEfficiency] = useState<number>(70);
   
-  // Calculation constants
-  const marcPerWineRatio = 0.2; // 20% marc de raisin per wine production
-  const safPerMarcRatio = 250; // liters SAF per tonne of marc
-  const safPricePerLiter = 2.5; // €2.50 per liter SAF
-  const co2ReductionPerLiter = 2.5; // kg CO2 per liter
-  const wasteDisposalSavings = 50; // €50 per tonne disposal cost savings
-  
-  // Calculations
-  const marcProduced = wineProduction * marcPerWineRatio;
-  const safProduced = marcProduced * safPerMarcRatio;
-  const totalRevenue = safProduced * safPricePerLiter;
-  const disposalSavings = marcProduced * wasteDisposalSavings;
-  const totalBenefit = totalRevenue + disposalSavings;
-  const co2Reduction = (safProduced * co2ReductionPerLiter) / 1000; // in tonnes
+  // Calculations using the new formulas
+  const safProduction = grapePomace * 280 * (processingEfficiency / 100);
+  const potentialRevenue = safProduction * 1.22;
+  const co2Reduction = safProduction * 0.0032;
+  const collectionCosts = grapePomace * collectionCost;
   
   const handleCalculate = () => {
     // Trigger recalculation (already reactive)
@@ -32,105 +25,148 @@ const SAFCalculator = () => {
       <CardHeader className="pb-6">
         <CardTitle className="flex items-center gap-3 text-2xl text-wine-charcoal">
           <Calculator className="text-wine-burgundy" size={28} />
-          Calculateur SAF - Outil de Partenariat
+          Calculateur ROI - Potentiel de Partenariat SAF
         </CardTitle>
         <p className="text-wine-charcoal/70">
-          Estimez le potentiel de valorisation de vos sous-produits viticoles
+          Estimez le potentiel économique et environnemental de la valorisation biomasse
         </p>
       </CardHeader>
       
       <CardContent className="space-y-8">
         {/* Input Section */}
-        <div className="bg-gradient-subtle p-6 rounded-xl border border-wine-cream/40">
-          <Label htmlFor="wine-production" className="text-base font-semibold text-wine-charcoal mb-4 block">
-            Volume de production viticole annuel
-          </Label>
-          <div className="flex gap-4 items-end">
-            <div className="flex-1">
+        <div className="bg-gradient-subtle p-6 rounded-xl border border-wine-cream/40 space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+              <Label htmlFor="grape-pomace" className="text-base font-semibold text-wine-charcoal mb-2 block">
+                Marc de raisin annuel
+              </Label>
               <Input
-                id="wine-production"
+                id="grape-pomace"
                 type="number"
-                value={wineProduction}
-                onChange={(e) => setWineProduction(Number(e.target.value))}
-                className="text-xl p-4 border-wine-burgundy/30 focus:border-wine-burgundy"
+                value={grapePomace}
+                onChange={(e) => setGrapePomace(Number(e.target.value))}
+                className="text-lg p-3 border-wine-burgundy/30 focus:border-wine-burgundy"
                 min="0"
-                step="100"
+                step="1000"
               />
-              <span className="text-sm text-wine-charcoal/70 mt-1 block">tonnes de raisin</span>
+              <span className="text-sm text-wine-charcoal/70 mt-1 block">tonnes</span>
             </div>
-            <Button 
-              onClick={handleCalculate}
-              className="bg-wine-burgundy hover:bg-wine-burgundy/90 text-white px-8 py-4 text-base"
-            >
-              Calculer
-            </Button>
+            
+            <div>
+              <Label htmlFor="collection-cost" className="text-base font-semibold text-wine-charcoal mb-2 block">
+                Coût de collecte
+              </Label>
+              <Input
+                id="collection-cost"
+                type="number"
+                value={collectionCost}
+                onChange={(e) => setCollectionCost(Number(e.target.value))}
+                className="text-lg p-3 border-wine-burgundy/30 focus:border-wine-burgundy"
+                min="0"
+                step="5"
+              />
+              <span className="text-sm text-wine-charcoal/70 mt-1 block">€/tonne</span>
+            </div>
+            
+            <div>
+              <Label htmlFor="efficiency" className="text-base font-semibold text-wine-charcoal mb-2 block">
+                Efficacité traitement
+              </Label>
+              <Input
+                id="efficiency"
+                type="number"
+                value={processingEfficiency}
+                onChange={(e) => setProcessingEfficiency(Number(e.target.value))}
+                className="text-lg p-3 border-wine-burgundy/30 focus:border-wine-burgundy"
+                min="0"
+                max="100"
+                step="5"
+              />
+              <span className="text-sm text-wine-charcoal/70 mt-1 block">%</span>
+            </div>
           </div>
         </div>
 
         {/* Results Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="text-center p-6 bg-gradient-to-br from-wine-green/5 to-wine-green/10 rounded-xl border border-wine-green/20">
-            <Leaf className="text-wine-green mx-auto mb-3" size={32} />
-            <div className="text-3xl font-bold text-wine-green mb-2">
-              {marcProduced.toLocaleString('fr-FR')}
-            </div>
-            <div className="text-sm text-wine-charcoal/70">tonnes de marc</div>
-          </div>
-          
           <div className="text-center p-6 bg-gradient-to-br from-wine-burgundy/5 to-wine-burgundy/10 rounded-xl border border-wine-burgundy/20">
             <TrendingUp className="text-wine-burgundy mx-auto mb-3" size={32} />
             <div className="text-3xl font-bold text-wine-burgundy mb-2">
-              {(safProduced / 1000).toLocaleString('fr-FR', { maximumFractionDigits: 0 })}k
+              {(safProduction / 1000000).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}M
             </div>
-            <div className="text-sm text-wine-charcoal/70">litres SAF</div>
+            <div className="text-sm text-wine-charcoal/70">litres SAF/an</div>
           </div>
           
           <div className="text-center p-6 bg-gradient-to-br from-wine-gold/5 to-wine-gold/10 rounded-xl border border-wine-gold/20">
             <Euro className="text-wine-gold mx-auto mb-3" size={32} />
             <div className="text-3xl font-bold text-wine-gold mb-2">
-              {(totalBenefit / 1000).toLocaleString('fr-FR', { maximumFractionDigits: 0 })}k€
+              €{(potentialRevenue / 1000000).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}M
             </div>
-            <div className="text-sm text-wine-charcoal/70">bénéfice total</div>
+            <div className="text-sm text-wine-charcoal/70">revenus potentiels/an</div>
+          </div>
+          
+          <div className="text-center p-6 bg-gradient-to-br from-wine-green/5 to-wine-green/10 rounded-xl border border-wine-green/20">
+            <Leaf className="text-wine-green mx-auto mb-3" size={32} />
+            <div className="text-3xl font-bold text-wine-green mb-2">
+              {(co2Reduction / 1000).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}k
+            </div>
+            <div className="text-sm text-wine-charcoal/70">tonnes CO₂ réduites/an</div>
           </div>
           
           <div className="text-center p-6 bg-gradient-to-br from-wine-charcoal/5 to-wine-charcoal/10 rounded-xl border border-wine-charcoal/20">
-            <Leaf className="text-wine-charcoal mx-auto mb-3" size={32} />
+            <Calculator className="text-wine-charcoal mx-auto mb-3" size={32} />
             <div className="text-3xl font-bold text-wine-charcoal mb-2">
-              {co2Reduction.toLocaleString('fr-FR', { maximumFractionDigits: 0 })}
+              €{(collectionCosts / 1000000).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}M
             </div>
-            <div className="text-sm text-wine-charcoal/70">tonnes CO₂ évitées</div>
+            <div className="text-sm text-wine-charcoal/70">coûts collecte/an</div>
           </div>
         </div>
 
-        {/* Breakdown */}
-        <div className="bg-wine-cream/30 p-6 rounded-xl space-y-4">
-          <h4 className="font-semibold text-wine-charcoal text-lg mb-4">Détail des bénéfices économiques</h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-            <div className="flex justify-between">
-              <span className="text-wine-charcoal/70">Revenus SAF:</span>
-              <span className="font-semibold text-wine-burgundy">
-                {totalRevenue.toLocaleString('fr-FR', { maximumFractionDigits: 0 })}€
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-wine-charcoal/70">Économies traitement déchets:</span>
-              <span className="font-semibold text-wine-green">
-                {disposalSavings.toLocaleString('fr-FR', { maximumFractionDigits: 0 })}€
-              </span>
+        {/* Market Context Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="bg-gradient-to-br from-wine-burgundy/10 to-wine-burgundy/5 p-4 rounded-xl border border-wine-burgundy/20">
+            <h5 className="font-bold text-wine-burgundy text-sm mb-2">Mandat UE SAF</h5>
+            <div className="text-xs text-wine-charcoal/80">
+              <div className="flex justify-between mb-1">
+                <span>2025:</span>
+                <span className="font-semibold">2%</span>
+              </div>
+              <div className="flex justify-between">
+                <span>2050:</span>
+                <span className="font-semibold">70%</span>
+              </div>
             </div>
           </div>
-          <div className="pt-4 border-t border-wine-cream/50">
-            <div className="flex justify-between text-lg font-bold">
-              <span className="text-wine-charcoal">Total annuel:</span>
-              <span className="text-wine-burgundy">
-                {totalBenefit.toLocaleString('fr-FR', { maximumFractionDigits: 0 })}€
-              </span>
+          
+          <div className="bg-gradient-to-br from-wine-gold/10 to-wine-gold/5 p-4 rounded-xl border border-wine-gold/20">
+            <h5 className="font-bold text-wine-gold text-sm mb-2">Approvisionnement SAF</h5>
+            <div className="text-xl font-bold text-wine-charcoal mb-1">0.53%</div>
+            <div className="text-xs text-wine-charcoal/70">de la demande actuelle</div>
+          </div>
+          
+          <div className="bg-gradient-to-br from-wine-green/10 to-wine-green/5 p-4 rounded-xl border border-wine-green/20">
+            <h5 className="font-bold text-wine-green text-sm mb-2">Part marché ATJ</h5>
+            <div className="text-xl font-bold text-wine-charcoal mb-1">8%</div>
+            <div className="text-xs text-wine-charcoal/70">capacité annoncée 2030</div>
+          </div>
+          
+          <div className="bg-gradient-to-br from-wine-charcoal/10 to-wine-charcoal/5 p-4 rounded-xl border border-wine-charcoal/20">
+            <h5 className="font-bold text-wine-charcoal text-sm mb-2">Prime prix SAF</h5>
+            <div className="text-xs text-wine-charcoal/80">
+              <div className="flex justify-between mb-1">
+                <span>SAF:</span>
+                <span className="font-semibold">€1.22/L</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Kérosène:</span>
+                <span className="font-semibold">€0.45/L</span>
+              </div>
             </div>
           </div>
         </div>
 
         <div className="text-center text-xs text-wine-charcoal/60 bg-wine-cream/20 p-3 rounded">
-          <strong>Note:</strong> Estimations basées sur les technologies actuelles et les prix du marché européen SAF 2024
+          <strong>Note:</strong> Calculs basés sur la technologie ATJ (Alcohol-to-Jet) et les prix du marché européen SAF 2024
         </div>
       </CardContent>
     </Card>

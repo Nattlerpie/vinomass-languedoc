@@ -9,12 +9,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const regions = [
-  { name: "Languedoc-Roussillon", active: true },
-  { name: "Bordeaux", active: false },
-  { name: "Bourgogne", active: false },
-  { name: "Champagne", active: false },
-  { name: "Vallée du Rhône", active: false },
-  { name: "Loire", active: false }
+  { name: "Languedoc-Roussillon", active: true, tonnage: 266000, revenue: 90.9 },
+  { name: "Bordeaux", active: false, tonnage: 180000, revenue: 61.5 },
+  { name: "Burgundy", active: false, tonnage: 45000, revenue: 15.4 },
+  { name: "Loire Valley", active: false, tonnage: 85000, revenue: 29.1 }
 ];
 
 const DashboardHeader = () => {
@@ -45,17 +43,25 @@ const DashboardHeader = () => {
                 <ChevronDown size={16} className="ml-2" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-white/95 backdrop-blur-md border-wine-cream/20 shadow-elegant z-50">
+            <DropdownMenuContent className="bg-white/95 backdrop-blur-md border-wine-cream/20 shadow-elegant z-50 w-80">
               {regions.map((region) => (
                 <DropdownMenuItem 
                   key={region.name}
-                  className={`transition-all duration-200 hover:bg-wine-burgundy/10 hover:text-wine-burgundy cursor-pointer ${
+                  className={`transition-all duration-200 hover:bg-wine-burgundy/10 hover:text-wine-burgundy cursor-pointer p-4 ${
                     region.active ? 'bg-wine-burgundy/5 text-wine-burgundy font-medium' : 'text-wine-charcoal'
                   }`}
                 >
-                  <MapPin size={14} className="mr-2 opacity-60" />
-                  {region.name}
-                  {!region.active && <span className="ml-auto text-xs text-muted-foreground">(Bientôt)</span>}
+                  <div className="flex flex-col w-full">
+                    <div className="flex items-center mb-1">
+                      <MapPin size={14} className="mr-2 opacity-60" />
+                      <span className="font-medium">{region.name}</span>
+                      {!region.active && <span className="ml-auto text-xs text-muted-foreground">(Bientôt)</span>}
+                    </div>
+                    <div className="flex justify-between text-xs text-wine-charcoal/70 ml-5">
+                      <span>{region.tonnage.toLocaleString('fr-FR')}t pomace</span>
+                      <span className="font-semibold text-wine-gold">€{region.revenue}M ROI</span>
+                    </div>
+                  </div>
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
