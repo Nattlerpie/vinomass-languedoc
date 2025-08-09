@@ -4,56 +4,78 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 const timelinePhases = [
   {
     year: "Année 1",
-    title: "Partenariat & Pilote",
+    title: "Partnership & Pilot",
+    investment: "€2-5M investment",
     status: "planning",
-    description: "Établissement des partenariats et test de faisabilité",
+    description: "Établissement des partenariats et validation technique",
     milestones: [
       "Signature accords avec domaines partenaires",
       "Étude de faisabilité technique détaillée",
-      "Pilote de collecte et conversion (100t)",
+      "Pilote de collecte et conversion (1,000t)",
       "Validation qualité SAF produit",
-      "Obtention autorisations préliminaires"
+      "Tests de marché avec compagnies aériennes"
     ],
     keyDecisions: [
-      "Choix des domaines partenaires stratégiques",
-      "Sélection technologie de conversion",
-      "Validation modèle économique"
+      "Sélection des domaines partenaires stratégiques",
+      "Choix de la technologie de conversion optimale",
+      "Validation du modèle économique pilote"
     ]
   },
   {
     year: "Année 2", 
-    title: "Infrastructure",
+    title: "Infrastructure Development",
+    investment: "€50-100M investment",
     status: "future",
-    description: "Construction des installations et mise en place de la chaîne logistique",
+    description: "Construction des installations industrielles",
     milestones: [
-      "Construction unité de conversion (10,000t/an)",
-      "Mise en place réseau de collecte",
+      "Construction unité de conversion (25,000t/an)",
+      "Mise en place réseau de collecte régional",
+      "Certification ISCC-EU et autres standards",
       "Formation équipes opérationnelles",
-      "Certification ISCC-EU pour SAF",
-      "Tests de montée en charge"
+      "Partenariats logistiques établis"
     ],
     keyDecisions: [
       "Localisation optimale des installations",
-      "Capacité de production initiale",
-      "Partenariats logistiques"
+      "Financement infrastructure (dette/equity)",
+      "Stratégie de montée en charge"
     ]
   },
   {
     year: "Année 3",
-    title: "Production Complète", 
+    title: "Full Production", 
+    investment: "€90M annual revenue potential",
     status: "future",
-    description: "Déploiement commercial et optimisation opérationnelle",
+    description: "Production commerciale complète",
     milestones: [
-      "Production commerciale 50,000t marc/an",
-      "Contrats long-terme avec compagnies aériennes",
-      "Expansion réseau domaines partenaires",
-      "Optimisation rendements de conversion",
-      "ROI positif atteint"
+      "Production 75,000 litres SAF/jour",
+      "Contrats long-terme sécurisés",
+      "Réseau 50+ domaines partenaires",
+      "Optimisation rendements 85%+",
+      "Break-even operationnel atteint"
     ],
     keyDecisions: [
-      "Stratégie d'expansion géographique", 
-      "Diversification produits (biocarburants)",
-      "Partenariats internationaux"
+      "Stratégie de pricing SAF",
+      "Expansion capacité production",
+      "Diversification géographique"
+    ]
+  },
+  {
+    year: "Année 5",
+    title: "Scale Expansion",
+    investment: "Multi-regional growth",
+    status: "future",
+    description: "Expansion vers d'autres régions viticoles",
+    milestones: [
+      "Déploiement dans 3+ régions françaises",
+      "Partenariats internationaux (Espagne, Italie)",
+      "Technologies de 2ème génération",
+      "Portfolio produits élargi",
+      "Leadership marché ATJ européen"
+    ],
+    keyDecisions: [
+      "Stratégie d'expansion internationale",
+      "Acquisition vs développement organique",
+      "Innovation technologique continue"
     ]
   }
 ];
@@ -114,6 +136,7 @@ const ProjectTimeline = () => {
                     <h3 className="text-xl font-bold text-wine-charcoal">{phase.year}</h3>
                     <span className="text-lg font-semibold text-wine-burgundy">{phase.title}</span>
                   </div>
+                  <div className="text-base font-medium text-wine-gold mb-2">{phase.investment}</div>
                   <p className="text-wine-charcoal/70 text-base">{phase.description}</p>
                 </div>
               </div>
