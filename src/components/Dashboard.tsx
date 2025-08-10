@@ -9,31 +9,34 @@ import TopCommunes from "./TopCommunes";
 import InfrastructureOverview from "./InfrastructureOverview";
 import SAFOpportunities from "./SAFOpportunities";
 import PartnershipOpportunities from "./PartnershipOpportunities";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Dashboard = () => {
+  const { t } = useLanguage();
+  
   const stats = [
     {
-      title: "Superficie viticole",
+      title: t("stats.vineyard.surface"),
       value: "220 000",
-      unit: "hectares",
+      unit: t("stats.hectares"),
       variant: "burgundy" as const
     },
     {
-      title: "Production annuelle de marc",
+      title: t("stats.annual.marc"),
       value: "266 000",
-      unit: "tonnes",
+      unit: t("stats.tonnes"),
       variant: "gold" as const
     },
     {
-      title: "Installations de valorisation",
+      title: t("stats.valorization.installations"),
       value: "73",
-      unit: "unités",
+      unit: t("stats.units"),
       variant: "green" as const
     },
     {
-      title: "Sous-produits liquides",
+      title: t("stats.liquid.byproducts"),
       value: "480 000",
-      unit: "hectolitres",
+      unit: t("stats.hectoliters"),
       variant: "charcoal" as const
     }
   ];
@@ -56,12 +59,13 @@ const Dashboard = () => {
         </div>
         
         {/* Regional Data */}
-        <div className="animate-fade-in">
-          <TopCommunes />
-        </div>
-        
-        <div className="animate-fade-in">
-          <ValoorizationChart />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="animate-fade-in">
+            <TopCommunes />
+          </div>
+          <div className="animate-fade-in">
+            <ValoorizationChart />
+          </div>
         </div>
         
         <div className="animate-fade-in">
@@ -93,13 +97,20 @@ const Dashboard = () => {
           <ImplementationChallenges />
         </div>
         
-        <div className="text-center">
+        <div className="text-center space-y-6">
           <div className="inline-flex items-center space-x-4 bg-white/80 backdrop-blur-sm rounded-full px-6 py-3 shadow-elegant">
             <div className="w-3 h-3 rounded-full bg-wine-burgundy" />
             <span className="text-sm font-medium text-wine-charcoal">
-              Données actualisées - Région Languedoc-Roussillon
+              {t("footer.data.updated")} Languedoc-Roussillon
             </span>
             <div className="w-3 h-3 rounded-full bg-wine-gold" />
+          </div>
+          
+          {/* Data Sources */}
+          <div className="max-w-4xl mx-auto">
+            <p className="text-xs text-wine-charcoal/60 leading-relaxed px-4">
+              {t("footer.data.sources")}
+            </p>
           </div>
         </div>
       </div>

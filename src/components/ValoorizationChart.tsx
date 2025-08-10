@@ -1,4 +1,5 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const data = [
   { name: 'Distillation', value: 45, color: 'hsl(var(--wine-burgundy))' },
@@ -8,12 +9,14 @@ const data = [
 ];
 
 const ValoorizationChart = () => {
+  const { t } = useLanguage();
+  
   return (
-    <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-elegant">
+    <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-elegant border border-wine-cream/30">
       <h3 className="text-xl font-bold text-wine-charcoal mb-6 text-center">
-        Méthodes de Valorisation Actuelles
+        {t('valorization.title')}
       </h3>
-      <ResponsiveContainer width="100%" height={400}>
+      <ResponsiveContainer width="100%" height={300}>
         <PieChart>
           <Pie
             data={data}

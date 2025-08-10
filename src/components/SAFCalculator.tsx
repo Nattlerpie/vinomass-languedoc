@@ -4,8 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const SAFCalculator = () => {
+  const { t } = useLanguage();
   const [grapePomace, setGrapePomace] = useState<number>(266000);
   const [collectionCost, setCollectionCost] = useState<number>(40);
   const [processingEfficiency, setProcessingEfficiency] = useState<number>(70);
@@ -25,10 +27,10 @@ const SAFCalculator = () => {
       <CardHeader className="pb-6">
         <CardTitle className="flex items-center gap-3 text-2xl text-wine-charcoal">
           <Calculator className="text-wine-burgundy" size={28} />
-          Calculateur ROI - Potentiel de Partenariat SAF
+          {t('saf.title')}
         </CardTitle>
         <p className="text-wine-charcoal/70">
-          Estimez le potentiel économique et environnemental de la valorisation biomasse
+          {t('saf.description')}
         </p>
       </CardHeader>
       
@@ -38,7 +40,7 @@ const SAFCalculator = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
               <Label htmlFor="grape-pomace" className="text-base font-semibold text-wine-charcoal mb-2 block">
-                Marc de raisin annuel
+                {t('saf.grape.pomace')}
               </Label>
               <Input
                 id="grape-pomace"
@@ -54,7 +56,7 @@ const SAFCalculator = () => {
             
             <div>
               <Label htmlFor="collection-cost" className="text-base font-semibold text-wine-charcoal mb-2 block">
-                Coût de collecte
+                {t('saf.collection.cost')}
               </Label>
               <Input
                 id="collection-cost"
@@ -70,7 +72,7 @@ const SAFCalculator = () => {
             
             <div>
               <Label htmlFor="efficiency" className="text-base font-semibold text-wine-charcoal mb-2 block">
-                Efficacité traitement
+                {t('saf.processing.efficiency')}
               </Label>
               <Input
                 id="efficiency"
@@ -94,7 +96,7 @@ const SAFCalculator = () => {
             <div className="text-3xl font-bold text-wine-burgundy mb-2">
               {(safProduction / 1000000).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}M
             </div>
-            <div className="text-sm text-wine-charcoal/70">litres SAF/an</div>
+            <div className="text-sm text-wine-charcoal/70">{t('saf.production')}</div>
           </div>
           
           <div className="text-center p-6 bg-gradient-to-br from-wine-gold/5 to-wine-gold/10 rounded-xl border border-wine-gold/20">
@@ -102,7 +104,7 @@ const SAFCalculator = () => {
             <div className="text-3xl font-bold text-wine-gold mb-2">
               €{(potentialRevenue / 1000000).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}M
             </div>
-            <div className="text-sm text-wine-charcoal/70">revenus potentiels/an</div>
+            <div className="text-sm text-wine-charcoal/70">{t('saf.revenue')}</div>
           </div>
           
           <div className="text-center p-6 bg-gradient-to-br from-wine-green/5 to-wine-green/10 rounded-xl border border-wine-green/20">
@@ -110,7 +112,7 @@ const SAFCalculator = () => {
             <div className="text-3xl font-bold text-wine-green mb-2">
               {(co2Reduction / 1000).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}k
             </div>
-            <div className="text-sm text-wine-charcoal/70">tonnes CO₂ réduites/an</div>
+            <div className="text-sm text-wine-charcoal/70">{t('saf.co2.reduction')}</div>
           </div>
           
           <div className="text-center p-6 bg-gradient-to-br from-wine-charcoal/5 to-wine-charcoal/10 rounded-xl border border-wine-charcoal/20">
@@ -118,14 +120,14 @@ const SAFCalculator = () => {
             <div className="text-3xl font-bold text-wine-charcoal mb-2">
               €{(collectionCosts / 1000000).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}M
             </div>
-            <div className="text-sm text-wine-charcoal/70">coûts collecte/an</div>
+            <div className="text-sm text-wine-charcoal/70">{t('saf.collection.costs')}</div>
           </div>
         </div>
 
         {/* Market Context Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-gradient-to-br from-wine-burgundy/10 to-wine-burgundy/5 p-4 rounded-xl border border-wine-burgundy/20">
-            <h5 className="font-bold text-wine-burgundy text-sm mb-2">Mandat UE SAF</h5>
+            <h5 className="font-bold text-wine-burgundy text-sm mb-2">{t('saf.eu.mandate')}</h5>
             <div className="text-xs text-wine-charcoal/80">
               <div className="flex justify-between mb-1">
                 <span>2025:</span>
@@ -139,19 +141,19 @@ const SAFCalculator = () => {
           </div>
           
           <div className="bg-gradient-to-br from-wine-gold/10 to-wine-gold/5 p-4 rounded-xl border border-wine-gold/20">
-            <h5 className="font-bold text-wine-gold text-sm mb-2">Approvisionnement SAF</h5>
+            <h5 className="font-bold text-wine-gold text-sm mb-2">{t('saf.current.supply')}</h5>
             <div className="text-xl font-bold text-wine-charcoal mb-1">0.53%</div>
             <div className="text-xs text-wine-charcoal/70">de la demande actuelle</div>
           </div>
           
           <div className="bg-gradient-to-br from-wine-green/10 to-wine-green/5 p-4 rounded-xl border border-wine-green/20">
-            <h5 className="font-bold text-wine-green text-sm mb-2">Part marché ATJ</h5>
+            <h5 className="font-bold text-wine-green text-sm mb-2">{t('saf.atj.market')}</h5>
             <div className="text-xl font-bold text-wine-charcoal mb-1">8%</div>
             <div className="text-xs text-wine-charcoal/70">capacité annoncée 2030</div>
           </div>
           
           <div className="bg-gradient-to-br from-wine-charcoal/10 to-wine-charcoal/5 p-4 rounded-xl border border-wine-charcoal/20">
-            <h5 className="font-bold text-wine-charcoal text-sm mb-2">Prime prix SAF</h5>
+            <h5 className="font-bold text-wine-charcoal text-sm mb-2">{t('saf.price.premium')}</h5>
             <div className="text-xs text-wine-charcoal/80">
               <div className="flex justify-between mb-1">
                 <span>SAF:</span>
@@ -166,7 +168,7 @@ const SAFCalculator = () => {
         </div>
 
         <div className="text-center text-xs text-wine-charcoal/60 bg-wine-cream/20 p-3 rounded">
-          <strong>Note:</strong> Calculs basés sur la technologie ATJ (Alcohol-to-Jet) et les prix du marché européen SAF 2024
+          <strong>Note:</strong> {t('saf.note')}
         </div>
       </CardContent>
     </Card>

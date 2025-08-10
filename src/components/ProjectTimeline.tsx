@@ -1,86 +1,88 @@
 import { CheckCircle, Clock, Target, AlertCircle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-const timelinePhases = [
-  {
-    year: "Année 1",
-    title: "Partnership & Pilot",
-    investment: "€2-5M investment",
-    status: "planning",
-    description: "Établissement des partenariats et validation technique",
-    milestones: [
-      "Signature accords avec domaines partenaires",
-      "Étude de faisabilité technique détaillée",
-      "Pilote de collecte et conversion (1,000t)",
-      "Validation qualité SAF produit",
-      "Tests de marché avec compagnies aériennes"
-    ],
-    keyDecisions: [
-      "Sélection des domaines partenaires stratégiques",
-      "Choix de la technologie de conversion optimale",
-      "Validation du modèle économique pilote"
-    ]
-  },
-  {
-    year: "Année 2", 
-    title: "Infrastructure Development",
-    investment: "€50-100M investment",
-    status: "future",
-    description: "Construction des installations industrielles",
-    milestones: [
-      "Construction unité de conversion (25,000t/an)",
-      "Mise en place réseau de collecte régional",
-      "Certification ISCC-EU et autres standards",
-      "Formation équipes opérationnelles",
-      "Partenariats logistiques établis"
-    ],
-    keyDecisions: [
-      "Localisation optimale des installations",
-      "Financement infrastructure (dette/equity)",
-      "Stratégie de montée en charge"
-    ]
-  },
-  {
-    year: "Année 3",
-    title: "Full Production", 
-    investment: "€90M annual revenue potential",
-    status: "future",
-    description: "Production commerciale complète",
-    milestones: [
-      "Production 75,000 litres SAF/jour",
-      "Contrats long-terme sécurisés",
-      "Réseau 50+ domaines partenaires",
-      "Optimisation rendements 85%+",
-      "Break-even operationnel atteint"
-    ],
-    keyDecisions: [
-      "Stratégie de pricing SAF",
-      "Expansion capacité production",
-      "Diversification géographique"
-    ]
-  },
-  {
-    year: "Année 5",
-    title: "Scale Expansion",
-    investment: "Multi-regional growth",
-    status: "future",
-    description: "Expansion vers d'autres régions viticoles",
-    milestones: [
-      "Déploiement dans 3+ régions françaises",
-      "Partenariats internationaux (Espagne, Italie)",
-      "Technologies de 2ème génération",
-      "Portfolio produits élargi",
-      "Leadership marché ATJ européen"
-    ],
-    keyDecisions: [
-      "Stratégie d'expansion internationale",
-      "Acquisition vs développement organique",
-      "Innovation technologique continue"
-    ]
-  }
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ProjectTimeline = () => {
+  const { t } = useLanguage();
+  
+  const timelinePhases = [
+    {
+      year: "Année 1",
+      title: t("timeline.year1"),
+      investment: `€2-5M ${t("timeline.investment")}`,
+      status: "planning",
+      description: "Établissement des partenariats et validation technique",
+      milestones: [
+        "Signature accords avec domaines partenaires",
+        "Étude de faisabilité technique détaillée",
+        "Pilote de collecte et conversion (1,000t)",
+        "Validation qualité SAF produit",
+        "Tests de marché avec compagnies aériennes"
+      ],
+      keyDecisions: [
+        "Sélection des domaines partenaires stratégiques",
+        "Choix de la technologie de conversion optimale",
+        "Validation du modèle économique pilote"
+      ]
+    },
+    {
+      year: "Année 2", 
+      title: t("timeline.year2"),
+      investment: "€50-100M",
+      status: "future",
+      description: "Construction des installations industrielles",
+      milestones: [
+        "Construction unité de conversion (25,000t/an)",
+        "Mise en place réseau de collecte régional",
+        "Certification ISCC-EU et autres standards",
+        "Formation équipes opérationnelles",
+        "Partenariats logistiques établis"
+      ],
+      keyDecisions: [
+        "Localisation optimale des installations",
+        "Financement infrastructure (dette/equity)",
+        "Stratégie de montée en charge"
+      ]
+    },
+    {
+      year: "Année 3",
+      title: t("timeline.year3"), 
+      investment: `€90M ${t("timeline.revenue.potential")}`,
+      status: "future",
+      description: "Production commerciale complète",
+      milestones: [
+        "Production 75,000 litres SAF/jour",
+        "Contrats long-terme sécurisés",
+        "Réseau 50+ domaines partenaires",
+        "Optimisation rendements 85%+",
+        "Break-even operationnel atteint"
+      ],
+      keyDecisions: [
+        "Stratégie de pricing SAF",
+        "Expansion capacité production",
+        "Diversification géographique"
+      ]
+    },
+    {
+      year: "Année 5",
+      title: t("timeline.year5"),
+      investment: "Multi-regional growth",
+      status: "future",
+      description: "Expansion vers d'autres régions viticoles",
+      milestones: [
+        "Déploiement dans 3+ régions françaises",
+        "Partenariats internationaux (Espagne, Italie)",
+        "Technologies de 2ème génération",
+        "Portfolio produits élargi",
+        "Leadership marché ATJ européen"
+      ],
+      keyDecisions: [
+        "Stratégie d'expansion internationale",
+        "Acquisition vs développement organique",
+        "Innovation technologique continue"
+      ]
+    }
+  ];
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'planning':
@@ -112,7 +114,7 @@ const ProjectTimeline = () => {
       <CardHeader className="pb-6">
         <CardTitle className="flex items-center gap-3 text-2xl text-wine-charcoal">
           <Target className="text-wine-burgundy" size={28} />
-          Roadmap Projet SAF
+          {t("timeline.title")}
         </CardTitle>
         <p className="text-wine-charcoal/70">
           Planning stratégique sur 3 ans avec jalons clés et points de décision
