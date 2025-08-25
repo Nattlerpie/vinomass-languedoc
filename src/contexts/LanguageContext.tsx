@@ -36,6 +36,11 @@ const translations = {
     
     // Valorization Chart
     'valorization.title': 'Méthodes de Valorisation Actuelles',
+    'valorization.distillation': 'Distillation',
+    'valorization.composting': 'Compostage',
+    'valorization.methanization': 'Méthanisation',
+    'valorization.direct.spreading': 'Épandage direct',
+    'valorization.percentage': 'Pourcentage',
     
     // SAF Calculator
     'saf.title': 'Calculateur ROI - Partenariat SAF',
@@ -52,6 +57,9 @@ const translations = {
     'saf.atj.market': 'Part de marché ATJ',
     'saf.price.premium': 'Prime prix SAF',
     'saf.note': 'Calculs basés sur les données du marché européen SAF 2024',
+    'saf.current.demand': 'de la demande actuelle',
+    'saf.announced.capacity': 'capacité annoncée 2030',
+    'saf.kerosene': 'Kérosène',
     
     // Project Timeline
     'timeline.title': 'Chronologie du Projet',
@@ -92,6 +100,11 @@ const translations = {
     
     // Valorization Chart
     'valorization.title': 'Current Valorization Methods',
+    'valorization.distillation': 'Distillation',
+    'valorization.composting': 'Composting',
+    'valorization.methanization': 'Methanization',
+    'valorization.direct.spreading': 'Direct spreading',
+    'valorization.percentage': 'Percentage',
     
     // SAF Calculator
     'saf.title': 'ROI Calculator - SAF Partnership',
@@ -108,6 +121,9 @@ const translations = {
     'saf.atj.market': 'ATJ Market Share',
     'saf.price.premium': 'SAF Price Premium',
     'saf.note': 'Calculations based on European SAF market data 2024',
+    'saf.current.demand': 'of current demand',
+    'saf.announced.capacity': 'announced capacity 2030',
+    'saf.kerosene': 'Kerosene',
     
     // Project Timeline
     'timeline.title': 'Project Timeline',
@@ -148,6 +164,11 @@ const translations = {
     
     // Valorization Chart
     'valorization.title': 'Métodos de Valorización Actuales',
+    'valorization.distillation': 'Destilación',
+    'valorization.composting': 'Compostaje',
+    'valorization.methanization': 'Metanización',
+    'valorization.direct.spreading': 'Esparcido directo',
+    'valorization.percentage': 'Porcentaje',
     
     // SAF Calculator
     'saf.title': 'Calculadora ROI - Alianza SAF',
@@ -164,6 +185,9 @@ const translations = {
     'saf.atj.market': 'Cuota mercado ATJ',
     'saf.price.premium': 'Prima precio SAF',
     'saf.note': 'Cálculos basados en datos del mercado europeo SAF 2024',
+    'saf.current.demand': 'de la demanda actual',
+    'saf.announced.capacity': 'capacidad anunciada 2030',
+    'saf.kerosene': 'Queroseno',
     
     // Project Timeline
     'timeline.title': 'Cronología del Proyecto',

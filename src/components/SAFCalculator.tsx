@@ -51,7 +51,7 @@ const SAFCalculator = () => {
                 min="0"
                 step="1000"
               />
-              <span className="text-sm text-wine-charcoal/70 mt-1 block">tonnes</span>
+              <span className="text-sm text-wine-charcoal/70 mt-1 block">{t('stats.tonnes')}</span>
             </div>
             
             <div>
@@ -143,13 +143,13 @@ const SAFCalculator = () => {
           <div className="bg-gradient-to-br from-wine-gold/10 to-wine-gold/5 p-4 rounded-xl border border-wine-gold/20">
             <h5 className="font-bold text-wine-gold text-sm mb-2">{t('saf.current.supply')}</h5>
             <div className="text-xl font-bold text-wine-charcoal mb-1">0.53%</div>
-            <div className="text-xs text-wine-charcoal/70">de la demande actuelle</div>
+            <div className="text-xs text-wine-charcoal/70">{t('saf.current.demand')}</div>
           </div>
           
           <div className="bg-gradient-to-br from-wine-green/10 to-wine-green/5 p-4 rounded-xl border border-wine-green/20">
             <h5 className="font-bold text-wine-green text-sm mb-2">{t('saf.atj.market')}</h5>
             <div className="text-xl font-bold text-wine-charcoal mb-1">8%</div>
-            <div className="text-xs text-wine-charcoal/70">capacité annoncée 2030</div>
+            <div className="text-xs text-wine-charcoal/70">{t('saf.announced.capacity')}</div>
           </div>
           
           <div className="bg-gradient-to-br from-wine-charcoal/10 to-wine-charcoal/5 p-4 rounded-xl border border-wine-charcoal/20">
@@ -160,7 +160,7 @@ const SAFCalculator = () => {
                 <span className="font-semibold">€1.22/L</span>
               </div>
               <div className="flex justify-between">
-                <span>Kérosène:</span>
+                <span>{t('saf.kerosene')}:</span>
                 <span className="font-semibold">€0.45/L</span>
               </div>
             </div>

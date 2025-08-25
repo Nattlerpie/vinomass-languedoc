@@ -1,15 +1,15 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const data = [
-  { name: 'Distillation', value: 45, color: 'hsl(var(--wine-burgundy))' },
-  { name: 'Compostage', value: 25, color: 'hsl(var(--wine-gold))' },
-  { name: 'Méthanisation', value: 20, color: 'hsl(var(--wine-green))' },
-  { name: 'Épandage direct', value: 10, color: 'hsl(var(--wine-charcoal))' }
-];
-
 const ValoorizationChart = () => {
   const { t } = useLanguage();
+  
+  const data = [
+    { name: t('valorization.distillation'), value: 45, color: 'hsl(var(--wine-burgundy))' },
+    { name: t('valorization.composting'), value: 25, color: 'hsl(var(--wine-gold))' },
+    { name: t('valorization.methanization'), value: 20, color: 'hsl(var(--wine-green))' },
+    { name: t('valorization.direct.spreading'), value: 10, color: 'hsl(var(--wine-charcoal))' }
+  ];
   
   return (
     <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-elegant border border-wine-cream/30">
@@ -33,7 +33,7 @@ const ValoorizationChart = () => {
             ))}
           </Pie>
           <Tooltip 
-            formatter={(value) => [`${value}%`, 'Pourcentage']}
+            formatter={(value) => [`${value}%`, t('valorization.percentage')]}
             contentStyle={{
               backgroundColor: 'white',
               border: '1px solid hsl(var(--wine-charcoal))',
