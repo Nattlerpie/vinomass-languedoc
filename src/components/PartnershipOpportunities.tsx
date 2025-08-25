@@ -1,45 +1,47 @@
 import { Grape, Plane, Users, Building } from "lucide-react";
-
-const partnerships = [
-  {
-    title: "Wine Producers",
-    description: "266,000t waste available",
-    detail: "Partenariat avec les producteurs viticoles pour sécuriser l'approvisionnement en marc de raisin",
-    icon: Grape,
-    color: "wine-burgundy"
-  },
-  {
-    title: "SAF Companies",
-    description: "Growing demand for feedstock",
-    detail: "Collaboration avec les producteurs de carburant aviation durable pour répondre à la demande croissante",
-    icon: Plane,
-    color: "wine-gold"
-  },
-  {
-    title: "Tourism Operators",
-    description: "Sustainability storytelling",
-    detail: "Valorisation de l'image durable auprès des opérateurs touristiques et compagnies aériennes",
-    icon: Users,
-    color: "wine-green"
-  },
-  {
-    title: "Regional Government",
-    description: "Circular economy support",
-    detail: "Accompagnement public pour développer l'économie circulaire et les filières durables",
-    icon: Building,
-    color: "wine-charcoal"
-  }
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const PartnershipOpportunities = () => {
+  const { t } = useLanguage();
+  
+  const partnerships = [
+    {
+      title: t("partnerships.wine.producers"),
+      description: t("partnerships.waste.available"),
+      detail: "Partenariat avec les producteurs viticoles pour sécuriser l'approvisionnement en marc de raisin",
+      icon: Grape,
+      color: "wine-burgundy"
+    },
+    {
+      title: t("partnerships.saf.companies"),
+      description: t("partnerships.growing.demand"),
+      detail: "Collaboration avec les producteurs de carburant aviation durable pour répondre à la demande croissante",
+      icon: Plane,
+      color: "wine-gold"
+    },
+    {
+      title: t("partnerships.tourism.operators"),
+      description: t("partnerships.sustainability.storytelling"),
+      detail: "Valorisation de l'image durable auprès des opérateurs touristiques et compagnies aériennes",
+      icon: Users,
+      color: "wine-green"
+    },
+    {
+      title: t("partnerships.regional.government"),
+      description: t("partnerships.circular.economy"),
+      detail: "Accompagnement public pour développer l'économie circulaire et les filières durables",
+      icon: Building,
+      color: "wine-charcoal"
+    }
+  ];
   return (
     <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-elegant">
       <div className="text-center mb-8">
         <h3 className="text-xl font-bold text-wine-charcoal mb-2">
-          Opportunités de Partenariats
+          {t("partnerships.title")}
         </h3>
         <p className="text-sm text-wine-charcoal/70">
-          Écosystème collaboratif pour le développement du SAF
+          {t("partnerships.subtitle")}
         </p>
       </div>
 
@@ -76,7 +78,7 @@ const PartnershipOpportunities = () => {
         <div className="inline-flex items-center space-x-2 bg-gradient-subtle rounded-full px-4 py-2">
           <div className="w-2 h-2 rounded-full bg-wine-burgundy" />
           <span className="text-sm font-medium text-wine-charcoal">
-            Partenariats stratégiques pour une filière SAF régionale
+            {t("partnerships.strategic.note")}
           </span>
           <div className="w-2 h-2 rounded-full bg-wine-gold" />
         </div>

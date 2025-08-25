@@ -1,17 +1,20 @@
 import { Factory, Zap, Recycle, Flame } from "lucide-react";
-
-const facilities = [
-  { name: 'Distilleries', count: 16, icon: Factory, color: 'text-wine-burgundy' },
-  { name: 'Unités de méthanisation', count: 27, icon: Zap, color: 'text-wine-gold' },
-  { name: 'Plateformes de compostage', count: 26, icon: Recycle, color: 'text-wine-green' },
-  { name: 'Chaudières biomasse', count: 4, icon: Flame, color: 'text-wine-charcoal' }
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const InfrastructureOverview = () => {
+  const { t } = useLanguage();
+  
+  const facilities = [
+    { name: t('infrastructure.distilleries'), count: 16, icon: Factory, color: 'text-wine-burgundy' },
+    { name: t('infrastructure.methanization'), count: 27, icon: Zap, color: 'text-wine-gold' },
+    { name: t('infrastructure.composting'), count: 26, icon: Recycle, color: 'text-wine-green' },
+    { name: t('infrastructure.biomass'), count: 4, icon: Flame, color: 'text-wine-charcoal' }
+  ];
+
   return (
     <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-elegant">
       <h3 className="text-xl font-bold text-wine-charcoal mb-6 text-center">
-        Infrastructure de Valorisation
+        {t('infrastructure.title')}
       </h3>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {facilities.map((facility) => {

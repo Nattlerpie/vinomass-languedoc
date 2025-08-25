@@ -1,6 +1,8 @@
 import { ArrowRight, Plane, Leaf, Beaker, Zap, Fuel } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const SAFOpportunities = () => {
+  const { t } = useLanguage();
   const grapePomageTonnes = 266000;
   const totalSAFLiters = 66500000; // 66.5 million liters as specified
   const co2ReductionPerLiter = 2.5; // kg CO2 reduction per liter vs conventional jet fuel
@@ -8,34 +10,34 @@ const SAFOpportunities = () => {
 
   const conversionSteps = [
     {
-      title: "Marc de raisin",
+      title: t("saf.grape.marc"),
       value: "266 000",
-      unit: "tonnes",
+      unit: t("stats.tonnes"),
       icon: Leaf,
       color: "wine-green"
     },
     {
-      title: "Fermentation alcoolique",
-      description: "Production d'éthanol",
+      title: t("saf.alcoholic.fermentation"),
+      description: t("saf.ethanol.production"),
       icon: Beaker,
       color: "wine-gold"
     },
     {
-      title: "Distillation éthanol",
-      description: "Purification",
+      title: t("saf.ethanol.distillation"),
+      description: t("saf.purification"),
       icon: Zap,
       color: "wine-burgundy"
     },
     {
-      title: "Alcohol-to-Jet (ATJ)",
-      description: "Conversion catalytique",
+      title: t("saf.alcohol.to.jet"),
+      description: t("saf.catalytic.conversion"),
       icon: Fuel,
       color: "wine-charcoal"
     },
     {
-      title: "Carburant Aviation Durable",
+      title: t("saf.sustainable.aviation.fuel"),
       value: "66,5",
-      unit: "millions de litres",
+      unit: t("saf.millions.liters"),
       icon: Plane,
       color: "wine-burgundy"
     }
@@ -45,10 +47,10 @@ const SAFOpportunities = () => {
     <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-elegant">
       <div className="text-center mb-8">
         <h3 className="text-xl font-bold text-wine-charcoal mb-2">
-          Opportunités SAF (Sustainable Aviation Fuel)
+          {t("saf.opportunities.title")}
         </h3>
         <p className="text-sm text-wine-charcoal/70">
-          Valorisation du marc de raisin en carburant aviation durable
+          {t("saf.opportunities.subtitle")}
         </p>
       </div>
 
@@ -98,7 +100,7 @@ const SAFOpportunities = () => {
             66,5M
           </div>
           <div className="text-sm text-wine-charcoal/70">
-            Litres SAF potentiels
+            {t("saf.potential.liters")}
           </div>
         </div>
         <div className="text-center p-4 bg-gradient-subtle rounded-lg">
@@ -106,7 +108,7 @@ const SAFOpportunities = () => {
             {totalCO2Reduction.toLocaleString('fr-FR')}
           </div>
           <div className="text-sm text-wine-charcoal/70">
-            Tonnes CO₂ évitées/an
+            {t("saf.co2.avoided")}
           </div>
         </div>
         <div className="text-center p-4 bg-gradient-subtle rounded-lg">
@@ -114,14 +116,14 @@ const SAFOpportunities = () => {
             ~25%
           </div>
           <div className="text-sm text-wine-charcoal/70">
-            Taux de conversion
+            {t("saf.conversion.rate")}
           </div>
         </div>
       </div>
 
       <div className="mt-4 text-center">
         <p className="text-xs text-wine-charcoal/60">
-          * Estimations basées sur les technologies actuelles de conversion biomasse-to-liquids
+          {t("saf.estimates.note")}
         </p>
       </div>
     </div>
