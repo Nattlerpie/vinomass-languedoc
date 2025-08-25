@@ -1,4 +1,6 @@
 import RegionalMap from './RegionalMap';
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { HelpCircle } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const communes = [
@@ -34,10 +36,20 @@ const TopCommunes = () => {
                 </span>
               </div>
               <div className="text-right">
-                <span className="text-xl font-bold text-wine-charcoal group-hover:text-wine-burgundy transition-colors duration-300">
-                  {commune.tonnage.toLocaleString('fr-FR')}
-                </span>
-                <span className="text-sm text-wine-charcoal/70 ml-2">{t('communes.tonnes')}</span>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div className="flex items-center cursor-help">
+                      <span className="text-xl font-bold text-wine-charcoal group-hover:text-wine-burgundy transition-colors duration-300">
+                        {commune.tonnage.toLocaleString('fr-FR')}
+                      </span>
+                      <span className="text-sm text-wine-charcoal/70 ml-2">{t('communes.tonnes')}</span>
+                      <HelpCircle size={12} className="ml-1 opacity-50" />
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="text-xs">{t('tooltip.source')}</p>
+                  </TooltipContent>
+                </Tooltip>
               </div>
             </div>
           ))}

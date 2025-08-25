@@ -1,5 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { HelpCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface StatCardProps {
   title: string;
@@ -10,6 +13,8 @@ interface StatCardProps {
 }
 
 const StatCard = ({ title, value, unit, variant = "burgundy", className }: StatCardProps) => {
+  const { t } = useLanguage();
+  
   const variants = {
     burgundy: "border-wine-burgundy/20 bg-gradient-to-br from-wine-burgundy/5 to-wine-burgundy/10 hover:shadow-wine",
     gold: "border-wine-gold/20 bg-gradient-to-br from-wine-gold/5 to-wine-gold/10 hover:shadow-elegant",
@@ -36,9 +41,19 @@ const StatCard = ({ title, value, unit, variant = "burgundy", className }: StatC
             {title}
           </p>
           <div className="flex items-baseline space-x-3">
-            <span className={cn("text-4xl font-bold transition-colors duration-300 group-hover:scale-110", valueColors[variant])}>
-              {value}
-            </span>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className="flex items-center cursor-help">
+                  <span className={cn("text-4xl font-bold transition-colors duration-300 group-hover:scale-110", valueColors[variant])}>
+                    {value}
+                  </span>
+                  <HelpCircle size={16} className="ml-2 opacity-50 text-muted-foreground" />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className="text-xs">{t('tooltip.source')}</p>
+              </TooltipContent>
+            </Tooltip>
             <span className="text-xl text-muted-foreground font-medium">
               {unit}
             </span>
