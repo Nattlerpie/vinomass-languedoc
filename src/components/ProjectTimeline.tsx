@@ -8,8 +8,8 @@ const ProjectTimeline = () => {
   const timelinePhases = [
     {
       year: "Année 1",
-      title: t("timeline.year1"),
-      investment: `€2-5M ${t("timeline.investment")}`,
+      title: "Partenariat & Pilote",
+      investment: `€2-5M investissement`,
       status: "planning",
       description: "Établissement des partenariats et validation technique",
       milestones: [
@@ -27,7 +27,7 @@ const ProjectTimeline = () => {
     },
     {
       year: "Année 2", 
-      title: t("timeline.year2"),
+      title: "Développement Infrastructure",
       investment: "€50-100M",
       status: "future",
       description: "Construction des installations industrielles",
@@ -46,8 +46,8 @@ const ProjectTimeline = () => {
     },
     {
       year: "Année 3",
-      title: t("timeline.year3"), 
-      investment: `€90M ${t("timeline.revenue.potential")}`,
+      title: "Production Complète", 
+      investment: "€90M potentiel de revenus annuels",
       status: "future",
       description: "Production commerciale complète",
       milestones: [
@@ -65,8 +65,8 @@ const ProjectTimeline = () => {
     },
     {
       year: "Année 5",
-      title: t("timeline.year5"),
-      investment: "Multi-regional growth",
+      title: "Expansion d'Échelle",
+      investment: "Croissance multi-régionale",
       status: "future",
       description: "Expansion vers d'autres régions viticoles",
       milestones: [
@@ -114,7 +114,7 @@ const ProjectTimeline = () => {
       <CardHeader className="pb-6">
         <CardTitle className="flex items-center gap-3 text-2xl text-wine-charcoal">
           <Target className="text-wine-burgundy" size={28} />
-          {t("timeline.title")}
+          Chronologie du Projet
         </CardTitle>
         <p className="text-wine-charcoal/70">
           Planning stratégique sur 3 ans avec jalons clés et points de décision
