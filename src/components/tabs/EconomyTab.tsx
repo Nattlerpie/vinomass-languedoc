@@ -1,17 +1,29 @@
-import SAFCalculator from "../SAFCalculator";
-import ProjectTimeline from "../ProjectTimeline";
+import AdvancedROICalculator from "../AdvancedROICalculator";
+import CostBenefitAnalysis from "../CostBenefitAnalysis";
+import SensitivityAnalysis from "../SensitivityAnalysis";
+import EconomicProjections from "../EconomicProjections";
 
 const EconomyTab = () => {
   return (
     <div className="space-y-12 animate-fade-in">
-      {/* ROI Calculator */}
+      {/* Advanced ROI Calculator */}
       <div className="animate-fade-in">
-        <SAFCalculator />
+        <AdvancedROICalculator />
       </div>
       
-      {/* Project Timeline */}
+      {/* Cost-Benefit Analysis */}
       <div className="animate-fade-in">
-        <ProjectTimeline />
+        <CostBenefitAnalysis />
+      </div>
+      
+      {/* Sensitivity Analysis */}
+      <div className="animate-fade-in">
+        <SensitivityAnalysis />
+      </div>
+      
+      {/* Economic Projections */}
+      <div className="animate-fade-in">
+        <EconomicProjections />
       </div>
 
       {/* Economic Context */}
