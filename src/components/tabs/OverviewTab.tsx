@@ -6,7 +6,7 @@ const OverviewTab = () => {
   const stats = [
     {
       title: "Superficie viticole",
-      value: "220 000",
+      value: "245 000",
       unit: "hectares",
       variant: "burgundy" as const
     },
@@ -17,15 +17,15 @@ const OverviewTab = () => {
       variant: "gold" as const
     },
     {
-      title: "Installations de valorisation",
-      value: "73",
-      unit: "unités",
+      title: "Potentiel SAF (70% efficacité)",
+      value: "52.0",
+      unit: "M litres/an",
       variant: "green" as const
     },
     {
-      title: "Sous-produits liquides",
-      value: "480 000",
-      unit: "hectolitres",
+      title: "Réduction CO₂",
+      value: "238 400",
+      unit: "tonnes/an",
       variant: "charcoal" as const
     }
   ];

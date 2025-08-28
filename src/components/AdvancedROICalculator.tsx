@@ -24,25 +24,25 @@ const AdvancedROICalculator = () => {
       name: "Conservateur",
       biomassInput: 200000,
       processEfficiency: 65,
-      safPrice: 2500,
-      operatingCosts: 1800,
+      safPrice: 1220, // €1.22/L real price
+      operatingCosts: 800,
       capitalInvestment: 120000000
+    },
+    realistic: {
+      name: "Réaliste",
+      biomassInput: 266000, // Real Languedoc-Roussillon data
+      processEfficiency: 70, // Real processing efficiency
+      safPrice: 1220, // €1.22/L real price
+      operatingCosts: 850,
+      capitalInvestment: 180000000 // Adjusted for real scale
     },
     optimistic: {
       name: "Optimiste",
       biomassInput: 300000,
       processEfficiency: 75,
-      safPrice: 3200,
-      operatingCosts: 1600,
-      capitalInvestment: 150000000
-    },
-    realistic: {
-      name: "Réaliste",
-      biomassInput: 250000,
-      processEfficiency: 70,
-      safPrice: 2800,
-      operatingCosts: 1700,
-      capitalInvestment: 135000000
+      safPrice: 1500, // Premium scenario
+      operatingCosts: 750,
+      capitalInvestment: 200000000
     }
   });
 

@@ -13,10 +13,10 @@ import {
 const biomassData = [
   {
     type: 'Marc de raisin',
-    tonnage: 266000,
+    tonnage: 266000, // Real data: 266,000 tonnes/year
     percentage: 65,
     season: 'Septembre-Novembre',
-    valorization: 'Distillation, Compostage, Méthanisation',
+    valorization: 'SAF (280L/tonne), Distillation, Compostage',
     color: 'hsl(var(--wine-burgundy))',
     communes: ['Béziers', 'Narbonne', 'Montpellier', 'Carcassonne']
   },
