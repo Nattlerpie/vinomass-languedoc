@@ -2,6 +2,8 @@ import AdvancedROICalculator from "../AdvancedROICalculator";
 import CostBenefitAnalysis from "../CostBenefitAnalysis";
 import SensitivityAnalysis from "../SensitivityAnalysis";
 import EconomicProjections from "../EconomicProjections";
+import ScenarioComparison from "../ScenarioComparison";
+import ExportCapabilities from "../ExportCapabilities";
 
 const EconomyTab = () => {
   return (
@@ -47,6 +49,53 @@ const EconomyTab = () => {
         
         <div className="w-full">
           <EconomicProjections />
+        </div>
+      </section>
+
+      {/* Divider */}
+      <div className="border-t border-wine-cream/30 mb-16"></div>
+
+      {/* Scenario Comparison Section */}
+      <section className="mb-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
+            Comparaison de Scénarios
+          </h2>
+          <p className="text-lg text-wine-charcoal/70">
+            Analyse comparative et projections temporelles
+          </p>
+        </div>
+        
+        <div className="w-full">
+          <ScenarioComparison />
+        </div>
+      </section>
+
+      {/* Divider */}
+      <div className="border-t border-wine-cream/30 mb-16"></div>
+
+      {/* Export Section */}
+      <section className="mb-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
+            Export et Partage
+          </h2>
+          <p className="text-lg text-wine-charcoal/70">
+            Rapports professionnels et données téléchargeables
+          </p>
+        </div>
+        
+        <div className="w-full">
+          <ExportCapabilities 
+            data={{
+              biomassTotal: 266000,
+              safProduction: 74.5,
+              revenue: 90.9,
+              conversionRate: 280,
+              safPrice: 1.22
+            }}
+            type="economy"
+          />
         </div>
       </section>
 
