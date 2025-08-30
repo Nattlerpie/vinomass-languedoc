@@ -3,6 +3,8 @@ import CostBenefitAnalysis from "../CostBenefitAnalysis";
 import SensitivityAnalysis from "../SensitivityAnalysis";
 import EconomicProjections from "../EconomicProjections";
 import ScenarioComparison from "../ScenarioComparison";
+import RiskAssessment from "../RiskAssessment";
+import BreakevenAnalysis from "../BreakevenAnalysis";
 import ExportCapabilities from "../ExportCapabilities";
 
 const EconomyTab = () => {
@@ -31,10 +33,10 @@ const EconomyTab = () => {
       <section className="mb-16">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-            Outils d'Analyse
+            Outils d'Analyse Financière
           </h2>
           <p className="text-lg text-wine-charcoal/70">
-            Analyses coûts-bénéfices et sensibilité aux paramètres
+            Analyses coûts-bénéfices, sensibilité et évaluation des risques
           </p>
         </div>
         
@@ -47,27 +49,37 @@ const EconomyTab = () => {
           </div>
         </div>
         
-        <div className="w-full">
+        <div className="w-full mb-12">
           <EconomicProjections />
+        </div>
+        
+        <div className="w-full">
+          <RiskAssessment />
         </div>
       </section>
 
       {/* Divider */}
       <div className="border-t border-wine-cream/30 mb-16"></div>
 
-      {/* Scenario Comparison Section */}
+      {/* Advanced Modeling Section */}
       <section className="mb-16">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-            Comparaison de Scénarios
+            Modélisation Avancée
           </h2>
           <p className="text-lg text-wine-charcoal/70">
-            Analyse comparative et projections temporelles
+            Comparaison de scénarios et analyse point mort
           </p>
         </div>
         
-        <div className="w-full">
-          <ScenarioComparison />
+        <div className="grid grid-cols-1 xl:grid-cols-1 gap-8 lg:gap-12">
+          <div className="w-full mb-12">
+            <ScenarioComparison />
+          </div>
+          
+          <div className="w-full">
+            <BreakevenAnalysis />
+          </div>
         </div>
       </section>
 
