@@ -1,42 +1,26 @@
 import { useState } from 'react';
-import DashboardHeader from "./DashboardHeader";
-import Navigation, { TabType } from "./Navigation";
-import Breadcrumbs from "./Breadcrumbs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import OverviewTab from "./tabs/OverviewTab";
 import ResourcesTab from "./tabs/ResourcesTab";
 import EconomyTab from "./tabs/EconomyTab";
 import PartnershipsTab from "./tabs/PartnershipsTab";
 import DataTab from "./tabs/DataTab";
+import ExecutiveDashboard from "./ExecutiveDashboard";
+import ContactIntegration from "./ContactIntegration";
+import ProfessionalFooter from "./ProfessionalFooter";
+import ErrorHandling from "./ErrorHandling";
+import DashboardHeader from "./DashboardHeader";
 import GuidedTour from "./GuidedTour";
 import { Button } from "@/components/ui/button";
 import { HelpCircle } from 'lucide-react';
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState<TabType>('overview');
+  const [activeTab, setActiveTab] = useState("executive");
   const [showTour, setShowTour] = useState(false);
-
-  const renderTabContent = () => {
-    switch (activeTab) {
-      case 'overview':
-        return <OverviewTab />;
-      case 'resources':
-        return <ResourcesTab />;
-      case 'economy':
-        return <EconomyTab />;
-      case 'partnerships':
-        return <PartnershipsTab />;
-      case 'data':
-        return <DataTab />;
-      default:
-        return <OverviewTab />;
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
       <DashboardHeader />
-      <Navigation activeTab={activeTab} onTabChange={setActiveTab} />
-      <Breadcrumbs activeTab={activeTab} />
       
       {/* Tour Button */}
       <div className="fixed top-24 right-6 z-40">
@@ -50,11 +34,52 @@ const Dashboard = () => {
         </Button>
       </div>
       
-      <div className="container mx-auto px-8 py-12">
-        <div className="transition-all duration-500 ease-in-out">
-          {renderTabContent()}
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="grid w-full grid-cols-7 bg-white/90 backdrop-blur-sm border border-wine-cream/50 mx-8 mt-8">
+          <TabsTrigger value="executive" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Exécutif</TabsTrigger>
+          <TabsTrigger value="overview" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Vue d'ensemble</TabsTrigger>
+          <TabsTrigger value="resources" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Ressources</TabsTrigger>
+          <TabsTrigger value="economy" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Économie</TabsTrigger>
+          <TabsTrigger value="partnerships" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Partenariats</TabsTrigger>
+          <TabsTrigger value="data" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Données</TabsTrigger>
+          <TabsTrigger value="contact" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Contact</TabsTrigger>
+        </TabsList>
+
+        <div className="container mx-auto px-8 py-4">
+          <TabsContent value="executive">
+            <ExecutiveDashboard />
+          </TabsContent>
+
+          <TabsContent value="overview">
+            <OverviewTab />
+          </TabsContent>
+
+          <TabsContent value="resources">
+            <ResourcesTab />
+          </TabsContent>
+
+          <TabsContent value="economy">
+            <EconomyTab />
+          </TabsContent>
+
+          <TabsContent value="partnerships">
+            <PartnershipsTab />
+          </TabsContent>
+
+          <TabsContent value="data">
+            <DataTab />
+          </TabsContent>
+
+          <TabsContent value="contact">
+            <div className="space-y-8">
+              <ContactIntegration />
+              <ErrorHandling />
+            </div>
+          </TabsContent>
         </div>
-      </div>
+      </Tabs>
+
+      <ProfessionalFooter />
 
       {/* Guided Tour */}
       <GuidedTour 
