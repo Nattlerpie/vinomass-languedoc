@@ -1,38 +1,55 @@
 import TechnicalMethodology from "../TechnicalMethodology";
-import SAFCalculator from "../SAFCalculator";
 import RegulatoryCompliance from "../RegulatoryCompliance";
 import AcademicReferences from "../AcademicReferences";
 
 const DataTab = () => {
   return (
     <div className="min-h-screen w-full">
-      {/* Hero Section - SAF Calculator */}
+      {/* Hero Section - Methodology Focus */}
       <section className="mb-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl lg:text-5xl font-bold text-wine-charcoal mb-4">
             Données et Méthodologie
           </h1>
           <p className="text-xl text-wine-charcoal/70 max-w-3xl mx-auto">
-            Sources, calculs et validation scientifique
+            Sources certifiées et validation scientifique des calculs
           </p>
         </div>
         
-        <div className="mb-8">
-          <SAFCalculator />
+        {/* Key Data Summary */}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-8 max-w-5xl mx-auto mb-12">
+          <h2 className="text-2xl font-bold text-blue-800 mb-6 text-center">Données Clés Validées</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-blue-700 mb-2">266,000t</div>
+              <div className="text-sm text-blue-600">Marc de raisin/an</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-blue-700 mb-2">280L</div>
+              <div className="text-sm text-blue-600">SAF/tonne marc</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-blue-700 mb-2">70%</div>
+              <div className="text-sm text-blue-600">Efficacité ATJ</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-blue-700 mb-2">€1.22</div>
+              <div className="text-sm text-blue-600">Prix SAF/litre</div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Divider */}
       <div className="border-t border-wine-cream/30 mb-16"></div>
 
-      {/* Tools Section */}
+      {/* Methodology & Compliance */}
       <section className="mb-16">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-            Outils et Conformité
+            Méthodologie et Conformité
           </h2>
           <p className="text-lg text-wine-charcoal/70">
-            Méthodologie technique et cadre réglementaire
+            Approche technique et cadre réglementaire
           </p>
         </div>
         
