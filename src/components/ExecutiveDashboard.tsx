@@ -4,6 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Globe, Languages, Printer, Share2, Eye, Users, TrendingUp, BarChart3, Download } from 'lucide-react';
+import StatCard from "./StatCard";
+import TopCommunes from "./TopCommunes";
+import ValoorizationChart from "./ValoorizationChart";
 
 interface DashboardMetrics {
   totalRevenue: number;
@@ -209,7 +212,7 @@ const ExecutiveDashboard = () => {
         </div>
       </div>
 
-      {/* Executive Summary */}
+          {/* Hero Landing Section */}
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
@@ -229,39 +232,139 @@ const ExecutiveDashboard = () => {
             </div>
           </div>
 
-          {/* Key Metrics Grid */}
+          {/* Hero Metrics - Real Data from Overview */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 print-avoid-break">
+            <div className="animate-fade-in">
+              <StatCard
+                title={language === 'fr' ? "Superficie viticole" : "Vineyard area"}
+                value="245 000"
+                unit="hectares"
+                variant="burgundy"
+              />
+            </div>
+            <div className="animate-fade-in" style={{ animationDelay: '100ms' }}>
+              <StatCard
+                title={language === 'fr' ? "Production annuelle de marc" : "Annual pomace production"}
+                value="266 000"
+                unit="tonnes"
+                variant="gold"
+              />
+            </div>
+            <div className="animate-fade-in" style={{ animationDelay: '200ms' }}>
+              <StatCard
+                title={language === 'fr' ? "Potentiel SAF (70% efficacité)" : "SAF potential (70% efficiency)"}
+                value="74.5"
+                unit="M litres/an"
+                variant="green"
+              />
+            </div>
+            <div className="animate-fade-in" style={{ animationDelay: '300ms' }}>
+              <StatCard
+                title={language === 'fr' ? "Réduction CO₂" : "CO₂ reduction"}
+                value="238 400"
+                unit="tonnes/an"
+                variant="charcoal"
+              />
+            </div>
+          </div>
+
+          {/* Executive KPIs Row */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 print-avoid-break">
-            <MetricCard
-              icon={TrendingUp}
-              value={realMetrics.totalRevenue}
-              label={t.revenueLabel}
-              unit="M€"
-              color="wine-burgundy"
-            />
-            <MetricCard
-              icon={BarChart3}
-              value={realMetrics.safProduction}
-              label={t.safLabel}
-              unit="ML"
-              color="wine-green"
-            />
-            <MetricCard
-              icon={Globe}
-              value={realMetrics.co2Savings}
-              label={t.co2Label}
-              unit="kt"
-              color="wine-gold"
-            />
-            <MetricCard
-              icon={Users}
-              value={realMetrics.employmentImpact}
-              label={t.employmentLabel}
-              unit=""
-              color="wine-charcoal"
-            />
+            <div className={`text-center p-6 bg-gradient-to-br from-wine-burgundy/10 to-wine-burgundy/5 rounded-xl border border-wine-burgundy/20 print:border print:border-gray-300`}>
+              <TrendingUp className="text-wine-burgundy mx-auto mb-3" size={32} />
+              <div className="text-3xl font-bold text-wine-burgundy mb-2">
+                €{realMetrics.totalRevenue}M
+              </div>
+              <div className="text-sm text-wine-charcoal/70 font-medium">{t.revenueLabel}</div>
+            </div>
+            <div className={`text-center p-6 bg-gradient-to-br from-wine-green/10 to-wine-green/5 rounded-xl border border-wine-green/20 print:border print:border-gray-300`}>
+              <Users className="text-wine-green mx-auto mb-3" size={32} />
+              <div className="text-3xl font-bold text-wine-green mb-2">
+                {realMetrics.employmentImpact}
+              </div>
+              <div className="text-sm text-wine-charcoal/70 font-medium">{t.employmentLabel}</div>
+            </div>
+            <div className={`text-center p-6 bg-gradient-to-br from-wine-gold/10 to-wine-gold/5 rounded-xl border border-wine-gold/20 print:border print:border-gray-300`}>
+              <BarChart3 className="text-wine-gold mx-auto mb-3" size={32} />
+              <div className="text-3xl font-bold text-wine-gold mb-2">
+                {realMetrics.roiPercentage}%
+              </div>
+              <div className="text-sm text-wine-charcoal/70 font-medium">{t.roiLabel}</div>
+            </div>
+            <div className={`text-center p-6 bg-gradient-to-br from-wine-charcoal/10 to-wine-charcoal/5 rounded-xl border border-wine-charcoal/20 print:border print:border-gray-300`}>
+              <Globe className="text-wine-charcoal mx-auto mb-3" size={32} />
+              <div className="text-3xl font-bold text-wine-charcoal mb-2">
+                {realMetrics.paybackPeriod}
+              </div>
+              <div className="text-sm text-wine-charcoal/70 font-medium">{language === 'fr' ? 'Ans payback' : 'Years payback'}</div>
+            </div>
+          </div>
+
+          {/* Regional Context from Overview */}
+          <div className="border-t border-wine-cream/30 mb-16"></div>
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30 mb-16">
+            <div className="text-center mb-12">
+              <h2 className={`text-3xl font-bold mb-4 ${presentationMode ? 'text-white' : 'text-wine-charcoal'}`}>
+                {language === 'fr' ? 'Contexte Régional' : 'Regional Context'}
+              </h2>
+              <p className={`text-lg ${presentationMode ? 'text-white/70' : 'text-wine-charcoal/70'}`}>
+                {language === 'fr' ? 'Leadership national et potentiel économique' : 'National leadership and economic potential'}
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
+                <div className="text-4xl font-bold text-wine-burgundy mb-3">1er</div>
+                <div className="text-lg font-semibold text-wine-charcoal mb-2">
+                  {language === 'fr' ? 'Région viticole française' : 'French wine region'}
+                </div>
+                <div className="text-sm text-wine-charcoal/60">
+                  {language === 'fr' ? 'En volume de production' : 'By production volume'}
+                </div>
+              </div>
+              <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
+                <div className="text-4xl font-bold text-wine-gold mb-3">38%</div>
+                <div className="text-lg font-semibold text-wine-charcoal mb-2">
+                  {language === 'fr' ? 'De la production nationale' : 'Of national production'}
+                </div>
+                <div className="text-sm text-wine-charcoal/60">
+                  {language === 'fr' ? '12 millions d\'hectolitres' : '12 million hectoliters'}
+                </div>
+              </div>
+              <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
+                <div className="text-4xl font-bold text-wine-green mb-3">€3.2B</div>
+                <div className="text-lg font-semibold text-wine-charcoal mb-2">
+                  {language === 'fr' ? 'Chiffre d\'affaires annuel' : 'Annual revenue'}
+                </div>
+                <div className="text-sm text-wine-charcoal/60">
+                  {language === 'fr' ? 'Secteur vitivinicole régional' : 'Regional wine sector'}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Regional Analysis from Overview */}
+          <div className="border-t border-wine-cream/30 mb-16"></div>
+          <div className="text-center mb-12">
+            <h2 className={`text-3xl font-bold mb-4 ${presentationMode ? 'text-white' : 'text-wine-charcoal'}`}>
+              {language === 'fr' ? 'Analyse Régionale' : 'Regional Analysis'}
+            </h2>
+            <p className={`text-lg ${presentationMode ? 'text-white/70' : 'text-wine-charcoal/70'}`}>
+              {language === 'fr' ? 'Distribution territoriale et opportunités de valorisation' : 'Territorial distribution and valorization opportunities'}
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12 mb-16">
+            <div className="space-y-4">
+              <TopCommunes />
+            </div>
+            <div className="space-y-4">
+              <ValoorizationChart />
+            </div>
           </div>
 
           {/* Financial Highlights */}
+          <div className="border-t border-wine-cream/30 mb-16"></div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
             <Card className={`print-avoid-break ${presentationMode ? 'bg-white/10 border-white/20' : 'bg-white/95 border-wine-cream/30'}`}>
               <CardHeader>

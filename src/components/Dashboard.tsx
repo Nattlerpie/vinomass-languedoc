@@ -35,9 +35,8 @@ const Dashboard = () => {
       </div>
       
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-7 bg-white/90 backdrop-blur-sm border border-wine-cream/50 mx-8 mt-8">
-          <TabsTrigger value="executive" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Exécutif</TabsTrigger>
-          <TabsTrigger value="overview" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Vue d'ensemble</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-6 bg-white/90 backdrop-blur-sm border border-wine-cream/50 mx-8 mt-8">
+          <TabsTrigger value="executive" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Vue d'ensemble</TabsTrigger>
           <TabsTrigger value="resources" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Ressources</TabsTrigger>
           <TabsTrigger value="economy" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Économie</TabsTrigger>
           <TabsTrigger value="partnerships" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Partenariats</TabsTrigger>
@@ -48,10 +47,6 @@ const Dashboard = () => {
         <div className="container mx-auto px-8 py-4">
           <TabsContent value="executive">
             <ExecutiveDashboard />
-          </TabsContent>
-
-          <TabsContent value="overview">
-            <OverviewTab />
           </TabsContent>
 
           <TabsContent value="resources">
