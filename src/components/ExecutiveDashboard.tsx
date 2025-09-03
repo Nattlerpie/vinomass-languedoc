@@ -7,6 +7,7 @@ import { Globe, Languages, Printer, Share2, Eye, Users, TrendingUp, BarChart3, D
 import StatCard from "./StatCard";
 import TopCommunes from "./TopCommunes";
 import ValoorizationChart from "./ValoorizationChart";
+import { useRegion } from '@/contexts/RegionContext';
 
 interface DashboardMetrics {
   totalRevenue: number;
@@ -44,22 +45,23 @@ const ExecutiveDashboard = () => {
   const [language, setLanguage] = useState<'fr' | 'en'>('fr');
   const [accessLevel, setAccessLevel] = useState<'public' | 'partner' | 'executive'>('public');
   const [presentationMode, setPresentationMode] = useState<boolean>(false);
+  const { currentData } = useRegion();
 
-  // REAL DATA PRESERVATION: Languedoc-Roussillon metrics
+  // REAL DATA PRESERVATION: Current region metrics using context
   const realMetrics: DashboardMetrics = {
-    totalRevenue: 90.9, // €M from 266,000t × 280L × €1.22
-    safProduction: 74.5, // ML from 266,000t × 280L × 70%
-    co2Savings: 238.4, // kt CO2 from real calculations
-    employmentImpact: 600, // Total direct + indirect jobs
+    totalRevenue: currentData.revenue, // From context data
+    safProduction: currentData.safPotential / 1000000, // Convert to ML
+    co2Savings: currentData.co2Reduction / 1000, // Convert to kt
+    employmentImpact: currentData.jobs,
     roiPercentage: 23.8, // Real ROI calculation
     paybackPeriod: 2.8, // Years based on real cash flows
-    regionCoverage: 245, // Thousand hectares vineyard surface
-    partnershipsCount: 42 // Communes and partners
+    regionCoverage: currentData.vineyardSurface / 1000, // Convert to thousands
+    partnershipsCount: currentData.topCommunes?.length || 0
   };
 
   const translations: Record<'fr' | 'en', LanguageStrings> = {
     fr: {
-      title: "SAF Languedoc-Roussillon",
+      title: `SAF ${currentData.name}`,
       subtitle: "Valorisation du marc de raisin en carburant aviation durable",
       revenueLabel: "Revenus annuels",
       safLabel: "Production SAF",
@@ -79,7 +81,7 @@ const ExecutiveDashboard = () => {
       contacts: "Contacts"
     },
     en: {
-      title: "SAF Languedoc-Roussillon",
+      title: `SAF ${currentData.name}`,
       subtitle: "Wine pomace valorization into sustainable aviation fuel",
       revenueLabel: "Annual revenue",
       safLabel: "SAF production", 
@@ -224,7 +226,7 @@ const ExecutiveDashboard = () => {
             </p>
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-4xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm text-blue-700">
-                <div><strong>Volume:</strong> 266,000 tonnes/an</div>
+                <div><strong>Volume:</strong> {currentData.annualPomace.toLocaleString()} tonnes/an</div>
                 <div><strong>Conversion:</strong> 280L SAF/tonne</div>
                 <div><strong>Efficacité:</strong> 70% ATJ</div>
                 <div><strong>Prix:</strong> €1.22/L SAF</div>
@@ -237,15 +239,15 @@ const ExecutiveDashboard = () => {
             <div className="animate-fade-in">
               <StatCard
                 title={language === 'fr' ? "Superficie viticole" : "Vineyard area"}
-                value="245 000"
-                unit="hectares"
+                value={(currentData.vineyardSurface / 1000).toFixed(0)}
+                unit="k hectares"
                 variant="burgundy"
               />
             </div>
             <div className="animate-fade-in" style={{ animationDelay: '100ms' }}>
               <StatCard
                 title={language === 'fr' ? "Production annuelle de marc" : "Annual pomace production"}
-                value="266 000"
+                value={currentData.annualPomace.toLocaleString()}
                 unit="tonnes"
                 variant="gold"
               />
@@ -253,7 +255,7 @@ const ExecutiveDashboard = () => {
             <div className="animate-fade-in" style={{ animationDelay: '200ms' }}>
               <StatCard
                 title={language === 'fr' ? "Potentiel SAF (70% efficacité)" : "SAF potential (70% efficiency)"}
-                value="74.5"
+                value={(currentData.safPotential / 1000000).toFixed(1)}
                 unit="M litres/an"
                 variant="green"
               />
@@ -261,7 +263,7 @@ const ExecutiveDashboard = () => {
             <div className="animate-fade-in" style={{ animationDelay: '300ms' }}>
               <StatCard
                 title={language === 'fr' ? "Réduction CO₂" : "CO₂ reduction"}
-                value="238 400"
+                value={currentData.co2Reduction.toLocaleString()}
                 unit="tonnes/an"
                 variant="charcoal"
               />

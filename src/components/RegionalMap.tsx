@@ -1,11 +1,8 @@
-const departments = [
-  { name: 'Hérault', percentage: 39, color: 'wine-burgundy' },
-  { name: 'Aude', percentage: 29, color: 'wine-gold' },
-  { name: 'Gard', percentage: 26, color: 'wine-green' },
-  { name: 'Pyrénées-Orientales', percentage: 6, color: 'wine-charcoal' }
-];
+import { useRegion } from '@/contexts/RegionContext';
 
 const RegionalMap = () => {
+  const { currentData } = useRegion();
+  const departments = currentData.departments || [];
   return (
     <div className="bg-white/90 backdrop-blur-sm rounded-xl p-8 shadow-elegant border border-wine-cream/30 hover:shadow-wine transition-all duration-500">
       <h3 className="text-2xl font-bold text-wine-charcoal mb-8 text-center text-shadow">

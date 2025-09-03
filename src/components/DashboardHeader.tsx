@@ -13,19 +13,18 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useRegion } from "@/contexts/RegionContext";
 
-const regions = [
-  { name: "Languedoc-Roussillon", active: true, production: "12M hl", safPotential: "€84M", tonnage: 266000, revenue: 90.9 },
-  { name: "Bordeaux+Sud-Ouest", active: false, production: "8M hl", safPotential: "€56M", tonnage: 180000, revenue: 61.5 },
-  { name: "Sud-Est/Provence+Rhône", active: false, production: "6M hl", safPotential: "€42M", tonnage: 135000, revenue: 46.2 },
-  { name: "Loire Valley", active: false, production: "4M hl", safPotential: "€28M", tonnage: 85000, revenue: 29.1 },
-  { name: "Champagne", active: false, production: "3.5M hl", safPotential: "€24.5M", tonnage: 72000, revenue: 24.5 },
-  { name: "Burgundy-Beaujolais", active: false, production: "2M hl", safPotential: "€14M", tonnage: 45000, revenue: 15.4 }
+const upcomingRegions = [
+  { name: "Bordeaux+Sud-Ouest", production: "8M hl", safPotential: "€56M" },
+  { name: "Sud-Est/Provence+Rhône", production: "6M hl", safPotential: "€42M" },
+  { name: "Loire Valley", production: "4M hl", safPotential: "€28M" },
+  { name: "Burgundy-Beaujolais", production: "2M hl", safPotential: "€14M" }
 ];
 
 const DashboardHeader = () => {
   const { language, setLanguage, t } = useLanguage();
-  const activeRegion = regions.find(r => r.active)?.name || "Languedoc-Roussillon";
+  const { currentData, allRegions, activeRegion, setActiveRegion } = useRegion();
   
   const getLanguageLabel = (lang: string) => {
     switch(lang) {
@@ -95,30 +94,31 @@ const DashboardHeader = () => {
                 className="bg-white/10 border-white/20 text-wine-cream hover:bg-white/20 backdrop-blur-sm transition-all duration-300 hover:scale-105"
               >
                 <MapPin size={16} className="mr-2" />
-                {activeRegion}
+                {currentData.name}
                 <ChevronDown size={16} className="ml-2" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-white/95 backdrop-blur-md border-wine-cream/20 shadow-elegant z-50 w-96">
-              {regions.map((region) => (
+              {/* Active Regions */}
+              {allRegions.map((region) => (
                 <DropdownMenuItem 
-                  key={region.name}
+                  key={region.id}
                   className={`transition-all duration-200 hover:bg-wine-burgundy/10 hover:text-wine-burgundy cursor-pointer p-4 ${
-                    region.active ? 'bg-wine-burgundy/5 text-wine-burgundy font-medium' : 'text-wine-charcoal'
+                    region.id === activeRegion ? 'bg-wine-burgundy/5 text-wine-burgundy font-medium' : 'text-wine-charcoal'
                   }`}
+                  onClick={() => setActiveRegion(region.id)}
                 >
                   <div className="flex flex-col w-full">
                     <div className="flex items-center mb-2">
                       <MapPin size={14} className="mr-2 opacity-60" />
                       <span className="font-medium">{region.name}</span>
-                      {!region.active && <span className="ml-auto text-xs text-muted-foreground">{t('region.coming.soon')}</span>}
                     </div>
                     <div className="grid grid-cols-2 gap-2 text-xs text-wine-charcoal/70 ml-5">
                       <div className="flex items-center">
                         <Tooltip>
                           <TooltipTrigger asChild>
                             <div className="flex items-center cursor-help">
-                              <span>{region.production} production</span>
+                              <span>{region.annualPomace.toLocaleString()}t production</span>
                               <HelpCircle size={10} className="ml-1 opacity-50" />
                             </div>
                           </TooltipTrigger>
@@ -131,7 +131,7 @@ const DashboardHeader = () => {
                         <Tooltip>
                           <TooltipTrigger asChild>
                             <div className="flex items-center cursor-help">
-                              <span className="font-semibold text-wine-gold">{region.safPotential} SAF</span>
+                              <span className="font-semibold text-wine-gold">€{region.revenue}M SAF</span>
                               <HelpCircle size={10} className="ml-1 opacity-50" />
                             </div>
                           </TooltipTrigger>
@@ -139,6 +139,30 @@ const DashboardHeader = () => {
                             <p className="text-xs">{t('tooltip.source')}</p>
                           </TooltipContent>
                         </Tooltip>
+                      </div>
+                    </div>
+                  </div>
+                </DropdownMenuItem>
+              ))}
+              
+              {/* Coming Soon Regions */}
+              {upcomingRegions.map((region) => (
+                <DropdownMenuItem 
+                  key={region.name}
+                  className="transition-all duration-200 text-wine-charcoal/50 cursor-not-allowed p-4"
+                >
+                  <div className="flex flex-col w-full">
+                    <div className="flex items-center mb-2">
+                      <MapPin size={14} className="mr-2 opacity-60" />
+                      <span className="font-medium">{region.name}</span>
+                      <span className="ml-auto text-xs text-muted-foreground">{t('region.coming.soon')}</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-xs text-wine-charcoal/50 ml-5">
+                      <div className="flex items-center">
+                        <span>{region.production} production</span>
+                      </div>
+                      <div className="flex items-center">
+                        <span className="font-semibold text-wine-gold/50">{region.safPotential} SAF</span>
                       </div>
                     </div>
                   </div>
@@ -153,7 +177,7 @@ const DashboardHeader = () => {
         </h1>
         <div className="w-32 h-1 bg-gradient-gold mx-auto mb-6 rounded-full animate-scale-in" />
         <p className="text-2xl md:text-3xl text-wine-cream/95 font-light tracking-wide mb-3 animate-fade-in">
-          {activeRegion}
+          {currentData.name}
         </p>
         <p className="text-base text-wine-cream/80 max-w-3xl mx-auto leading-relaxed animate-fade-in">
           {t('region.subtitle')}

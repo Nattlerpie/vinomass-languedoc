@@ -1,7 +1,7 @@
 import InfrastructureOverview from "../InfrastructureOverview";
 import SAFOpportunities from "../SAFOpportunities";
 import BiomassBreakdownChart from "../BiomassBreakdownChart";
-import InteractiveMap from "../InteractiveMap";
+import StaticRegionalMap from "../StaticRegionalMap";
 import SeasonalTimeline from "../SeasonalTimeline";
 import EnhancedValoorizationMethods from "../EnhancedValoorizationMethods";
 
@@ -20,7 +20,7 @@ const ResourcesTab = () => {
         </div>
         
         <div className="rounded-2xl overflow-hidden shadow-elegant border border-wine-cream/30">
-          <InteractiveMap />
+          <StaticRegionalMap />
         </div>
       </section>
 
