@@ -11,6 +11,8 @@ import './index.css'
 
 const queryClient = new QueryClient();
 
+console.log('main.tsx: Creating BrowserRouter');
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
