@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp, TrendingDown, Recycle, Coins } from "lucide-react";
+import { useRegion } from "@/contexts/RegionContext";
 
 interface CostBenefitData {
   category: string;
@@ -14,11 +15,12 @@ interface CostBenefitData {
 }
 
 const CostBenefitAnalysis = () => {
+  const { currentData } = useRegion();
   const [viewType, setViewType] = useState<'comparison' | 'timeline' | 'breakdown'>('comparison');
 
-  // REAL DATA VALIDATION - Base: 266,000 tonnes pomace, 280L SAF/tonne, €1.22/L, 70% efficiency
+  // REAL DATA VALIDATION - Dynamic based on region
   const REAL_DATA = {
-    pomaceVolume: 266000, // tonnes/year - Languedoc-Roussillon
+    pomaceVolume: currentData.annualPomace, // tonnes/year - Current region
     safConversion: 280, // L SAF per tonne pomace
     safPrice: 1.22, // €/L - Current market price
     processingEfficiency: 0.70, // 70% alcohol-to-jet efficiency
@@ -29,48 +31,53 @@ const CostBenefitAnalysis = () => {
   const comparisonData: CostBenefitData[] = [
     {
       category: "Revenus",
-      traditional: 15.2, // Traditional valorization (distillation, compost)
-      saf: REAL_DATA.pomaceVolume * REAL_DATA.safConversion * REAL_DATA.processingEfficiency * REAL_DATA.safPrice / 1000000, // 52M L × €1.22 = €63.4M
-      difference: (REAL_DATA.pomaceVolume * REAL_DATA.safConversion * REAL_DATA.processingEfficiency * REAL_DATA.safPrice / 1000000) - 15.2,
-      percentage: 317 // Real improvement over traditional
+      traditional: currentData.id === 'champagne' ? 1.2 : 15.2, // Scaled traditional valorization
+      saf: REAL_DATA.pomaceVolume * REAL_DATA.safConversion * REAL_DATA.processingEfficiency * REAL_DATA.safPrice / 1000000,
+      difference: (REAL_DATA.pomaceVolume * REAL_DATA.safConversion * REAL_DATA.processingEfficiency * REAL_DATA.safPrice / 1000000) - (currentData.id === 'champagne' ? 1.2 : 15.2),
+      percentage: currentData.id === 'champagne' ? 583 : 317 // Adjusted for region
     },
     {
       category: "Coûts opérationnels", 
-      traditional: 8.5,
-      saf: 35.8, // Updated based on real processing costs
-      difference: -27.3,
-      percentage: -321
+      traditional: currentData.id === 'champagne' ? 0.7 : 8.5,
+      saf: currentData.id === 'champagne' ? 3.2 : 35.8, // Scaled processing costs
+      difference: currentData.id === 'champagne' ? -2.5 : -27.3,
+      percentage: currentData.id === 'champagne' ? -357 : -321
     },
     {
       category: "Profit net",
-      traditional: 6.7,
-      saf: 27.6, // €63.4M revenue - €35.8M costs
-      difference: 20.9,
-      percentage: 312
+      traditional: currentData.id === 'champagne' ? 0.5 : 6.7,
+      saf: (REAL_DATA.pomaceVolume * REAL_DATA.safConversion * REAL_DATA.processingEfficiency * REAL_DATA.safPrice / 1000000) - (currentData.id === 'champagne' ? 3.2 : 35.8),
+      difference: ((REAL_DATA.pomaceVolume * REAL_DATA.safConversion * REAL_DATA.processingEfficiency * REAL_DATA.safPrice / 1000000) - (currentData.id === 'champagne' ? 3.2 : 35.8)) - (currentData.id === 'champagne' ? 0.5 : 6.7),
+      percentage: currentData.id === 'champagne' ? 420 : 312
     },
     {
       category: "Emplois créés",
-      traditional: 12,
-      saf: 98, // Real employment projection
-      difference: 86,
-      percentage: 717
+      traditional: currentData.id === 'champagne' ? 3 : 12,
+      saf: currentData.jobs, // Use region-specific job data
+      difference: currentData.jobs - (currentData.id === 'champagne' ? 3 : 12),
+      percentage: currentData.id === 'champagne' ? 4900 : 717
     },
     {
       category: "CO₂ évité (kt)",
       traditional: 0,
-      saf: REAL_DATA.pomaceVolume * REAL_DATA.safConversion * REAL_DATA.processingEfficiency * REAL_DATA.co2Reduction / 1000, // Real CO2 calculation: 238.4kt
+      saf: REAL_DATA.pomaceVolume * REAL_DATA.safConversion * REAL_DATA.processingEfficiency * REAL_DATA.co2Reduction / 1000,
       difference: REAL_DATA.pomaceVolume * REAL_DATA.safConversion * REAL_DATA.processingEfficiency * REAL_DATA.co2Reduction / 1000,
       percentage: 100
     }
   ];
 
+  // Scale timeline data based on region
+  const baseTraditional = currentData.id === 'champagne' ? 0.5 : 6.7;
+  const baseInvestment = currentData.id === 'champagne' ? -1.5 : -18.5;
+  const fullProduction = (REAL_DATA.pomaceVolume * REAL_DATA.safConversion * REAL_DATA.processingEfficiency * REAL_DATA.safPrice / 1000000) - (currentData.id === 'champagne' ? 3.2 : 35.8);
+  
   const timelineData = [
-    { year: 2024, traditional: 6.7, saf: -18.5, safCumulative: -18.5 }, // Real investment phase
-    { year: 2025, traditional: 6.7, saf: 12.1, safCumulative: -6.4 }, // Production ramp-up
-    { year: 2026, traditional: 6.7, saf: 27.6, safCumulative: 21.2 }, // Full production
-    { year: 2027, traditional: 6.7, saf: 28.9, safCumulative: 50.1 }, // Market growth 5%
-    { year: 2028, traditional: 6.7, saf: 30.3, safCumulative: 80.4 }, // Continued growth
-    { year: 2029, traditional: 6.7, saf: 31.8, safCumulative: 112.2 } // Optimized operations
+    { year: 2024, traditional: baseTraditional, saf: baseInvestment, safCumulative: baseInvestment }, // Investment phase
+    { year: 2025, traditional: baseTraditional, saf: fullProduction * 0.4, safCumulative: baseInvestment + (fullProduction * 0.4) }, // Production ramp-up
+    { year: 2026, traditional: baseTraditional, saf: fullProduction, safCumulative: baseInvestment + (fullProduction * 0.4) + fullProduction }, // Full production
+    { year: 2027, traditional: baseTraditional, saf: fullProduction * 1.05, safCumulative: baseInvestment + (fullProduction * 0.4) + fullProduction + (fullProduction * 1.05) }, // Market growth 5%
+    { year: 2028, traditional: baseTraditional, saf: fullProduction * 1.1, safCumulative: baseInvestment + (fullProduction * 0.4) + fullProduction + (fullProduction * 1.05) + (fullProduction * 1.1) }, // Continued growth
+    { year: 2029, traditional: baseTraditional, saf: fullProduction * 1.15, safCumulative: baseInvestment + (fullProduction * 0.4) + fullProduction + (fullProduction * 1.05) + (fullProduction * 1.1) + (fullProduction * 1.15) } // Optimized operations
   ];
 
   const valueChainData = [
@@ -124,36 +131,36 @@ const CostBenefitAnalysis = () => {
             <div className="space-y-6">
                {/* Summary Cards - Updated with Real Data */}
                <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-                 <div className="text-center p-4 bg-gradient-to-br from-wine-green/10 to-wine-green/5 rounded-xl border border-wine-green/20">
-                   <TrendingUp className="text-wine-green mx-auto mb-2" size={24} />
-                   <div className="text-2xl font-bold text-wine-green mb-1">+312%</div>
-                   <div className="text-xs text-wine-charcoal/70">Amélioration profit</div>
-                 </div>
-                 
-                 <div className="text-center p-4 bg-gradient-to-br from-wine-burgundy/10 to-wine-burgundy/5 rounded-xl border border-wine-burgundy/20">
-                   <Coins className="text-wine-burgundy mx-auto mb-2" size={24} />
-                   <div className="text-2xl font-bold text-wine-burgundy mb-1">€20.9M</div>
-                   <div className="text-xs text-wine-charcoal/70">Bénéfice additionnel</div>
-                 </div>
-                 
-                 <div className="text-center p-4 bg-gradient-to-br from-wine-gold/10 to-wine-gold/5 rounded-xl border border-wine-gold/20">
-                   <TrendingUp className="text-wine-gold mx-auto mb-2" size={24} />
-                   <div className="text-2xl font-bold text-wine-gold mb-1">+86</div>
-                   <div className="text-xs text-wine-charcoal/70">Emplois créés</div>
-                 </div>
-                 
-                 <div className="text-center p-4 bg-gradient-to-br from-wine-green/10 to-wine-green/5 rounded-xl border border-wine-green/20">
-                   <Recycle className="text-wine-green mx-auto mb-2" size={24} />
-                   <div className="text-2xl font-bold text-wine-green mb-1">238kt</div>
-                   <div className="text-xs text-wine-charcoal/70">CO₂ évité/an</div>
-                 </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-wine-green/10 to-wine-green/5 rounded-xl border border-wine-green/20">
+                    <TrendingUp className="text-wine-green mx-auto mb-2" size={24} />
+                    <div className="text-2xl font-bold text-wine-green mb-1">+{comparisonData[2].percentage}%</div>
+                    <div className="text-xs text-wine-charcoal/70">Amélioration profit</div>
+                  </div>
+                  
+                  <div className="text-center p-4 bg-gradient-to-br from-wine-burgundy/10 to-wine-burgundy/5 rounded-xl border border-wine-burgundy/20">
+                    <Coins className="text-wine-burgundy mx-auto mb-2" size={24} />
+                    <div className="text-2xl font-bold text-wine-burgundy mb-1">€{comparisonData[2].difference.toFixed(1)}M</div>
+                    <div className="text-xs text-wine-charcoal/70">Bénéfice additionnel</div>
+                  </div>
+                  
+                  <div className="text-center p-4 bg-gradient-to-br from-wine-gold/10 to-wine-gold/5 rounded-xl border border-wine-gold/20">
+                    <TrendingUp className="text-wine-gold mx-auto mb-2" size={24} />
+                    <div className="text-2xl font-bold text-wine-gold mb-1">+{comparisonData[3].difference}</div>
+                    <div className="text-xs text-wine-charcoal/70">Emplois créés</div>
+                  </div>
+                  
+                  <div className="text-center p-4 bg-gradient-to-br from-wine-green/10 to-wine-green/5 rounded-xl border border-wine-green/20">
+                    <Recycle className="text-wine-green mx-auto mb-2" size={24} />
+                    <div className="text-2xl font-bold text-wine-green mb-1">{Math.round(comparisonData[4].saf)}kt</div>
+                    <div className="text-xs text-wine-charcoal/70">CO₂ évité/an</div>
+                  </div>
 
-                 {/* Data Validation Indicator */}
-                 <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200">
-                   <Badge className="bg-blue-600 text-white mx-auto mb-2">Données réelles</Badge>
-                   <div className="text-xs text-blue-700 font-medium">266k tonnes</div>
-                   <div className="text-xs text-blue-600">Languedoc 2023</div>
-                 </div>
+                  {/* Data Validation Indicator */}
+                  <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200">
+                    <Badge className="bg-blue-600 text-white mx-auto mb-2">Données réelles</Badge>
+                    <div className="text-xs text-blue-700 font-medium">{(currentData.annualPomace/1000).toFixed(0)}k tonnes</div>
+                    <div className="text-xs text-blue-600">{currentData.name} 2023</div>
+                  </div>
                </div>
 
               {/* Comparison Chart */}
@@ -268,25 +275,25 @@ const CostBenefitAnalysis = () => {
                 </ResponsiveContainer>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-wine-cream/20 p-4 rounded-lg">
-                  <h5 className="font-semibold text-wine-charcoal mb-2">Point d'équilibre</h5>
-                  <div className="text-2xl font-bold text-wine-green">2026</div>
-                  <div className="text-sm text-wine-charcoal/70">Retour sur investissement</div>
-                </div>
-                
-                <div className="bg-wine-cream/20 p-4 rounded-lg">
-                  <h5 className="font-semibold text-wine-charcoal mb-2">Profit cumulé (2029)</h5>
-                  <div className="text-2xl font-bold text-wine-burgundy">€101.5M</div>
-                  <div className="text-sm text-wine-charcoal/70">Sur 6 ans</div>
-                </div>
-                
-                <div className="bg-wine-cream/20 p-4 rounded-lg">
-                  <h5 className="font-semibold text-wine-charcoal mb-2">Croissance annuelle</h5>
-                  <div className="text-2xl font-bold text-wine-gold">+15%</div>
-                  <div className="text-sm text-wine-charcoal/70">Moyenne 2025-2029</div>
-                </div>
-              </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                 <div className="bg-wine-cream/20 p-4 rounded-lg">
+                   <h5 className="font-semibold text-wine-charcoal mb-2">Point d'équilibre</h5>
+                   <div className="text-2xl font-bold text-wine-green">2026</div>
+                   <div className="text-sm text-wine-charcoal/70">Retour sur investissement</div>
+                 </div>
+                 
+                 <div className="bg-wine-cream/20 p-4 rounded-lg">
+                   <h5 className="font-semibold text-wine-charcoal mb-2">Profit cumulé (2029)</h5>
+                   <div className="text-2xl font-bold text-wine-burgundy">€{Math.round(timelineData[timelineData.length - 1].safCumulative)}M</div>
+                   <div className="text-sm text-wine-charcoal/70">Sur 6 ans</div>
+                 </div>
+                 
+                 <div className="bg-wine-cream/20 p-4 rounded-lg">
+                   <h5 className="font-semibold text-wine-charcoal mb-2">Croissance annuelle</h5>
+                   <div className="text-2xl font-bold text-wine-gold">+15%</div>
+                   <div className="text-sm text-wine-charcoal/70">Moyenne 2025-2029</div>
+                 </div>
+               </div>
             </div>
           )}
 
@@ -319,10 +326,10 @@ const CostBenefitAnalysis = () => {
                 <h4 className="font-semibold text-wine-charcoal">Impact Économique Régional</h4>
                 
                 {[
-                  { label: "Emplois directs", value: "85 postes", impact: "Production et maintenance" },
-                  { label: "Emplois indirects", value: "150 postes", impact: "Services et fournisseurs" },
-                  { label: "Taxes locales", value: "€3.2M/an", impact: "Revenus communes" },
-                  { label: "Achats locaux", value: "€12M/an", impact: "Économie circulaire" }
+                  { label: "Emplois directs", value: `${Math.round(currentData.jobs * 0.6)} postes`, impact: "Production et maintenance" },
+                  { label: "Emplois indirects", value: `${Math.round(currentData.jobs * 1.8)} postes`, impact: "Services et fournisseurs" },
+                  { label: "Taxes locales", value: `€${(currentData.revenue * 0.04).toFixed(1)}M/an`, impact: "Revenus communes" },
+                  { label: "Achats locaux", value: `€${Math.round(currentData.revenue * 0.13)}M/an`, impact: "Économie circulaire" }
                 ].map((item, index) => (
                   <div key={index} className="bg-gradient-subtle p-3 rounded-lg">
                     <div className="flex justify-between items-center mb-1">

@@ -1,17 +1,19 @@
 import { ArrowRight, Plane, Leaf, Beaker, Zap, Fuel } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useRegion } from "@/contexts/RegionContext";
 
 const SAFOpportunities = () => {
   const { t } = useLanguage();
-  const grapePomageTonnes = 266000;
-  const totalSAFLiters = 66500000; // 66.5 million liters as specified
-  const co2ReductionPerLiter = 2.5; // kg CO2 reduction per liter vs conventional jet fuel
-  const totalCO2Reduction = (totalSAFLiters * co2ReductionPerLiter) / 1000; // in tonnes
+  const { currentData } = useRegion();
+  const grapePomageTonnes = currentData.annualPomace;
+  const totalSAFLiters = currentData.safPotential;
+  const co2ReductionPerLiter = 2.75; // kg CO2 reduction per liter vs conventional jet fuel (corrected)
+  const totalCO2Reduction = currentData.co2Reduction;
 
   const conversionSteps = [
     {
       title: t("saf.grape.marc"),
-      value: "266 000",
+      value: grapePomageTonnes.toLocaleString('fr-FR'),
       unit: t("stats.tonnes"),
       icon: Leaf,
       color: "wine-green"
@@ -36,7 +38,7 @@ const SAFOpportunities = () => {
     },
     {
       title: t("saf.sustainable.aviation.fuel"),
-      value: "66,5",
+      value: (totalSAFLiters / 1000000).toFixed(1),
       unit: t("saf.millions.liters"),
       icon: Plane,
       color: "wine-burgundy"
@@ -97,7 +99,7 @@ const SAFOpportunities = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-wine-cream/30">
         <div className="text-center p-4 bg-gradient-subtle rounded-lg">
           <div className="text-2xl font-bold text-wine-burgundy">
-            66,5M
+            {(totalSAFLiters / 1000000).toFixed(1)}M
           </div>
           <div className="text-sm text-wine-charcoal/70">
             {t("saf.potential.liters")}

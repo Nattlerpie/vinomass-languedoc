@@ -412,15 +412,15 @@ const ExecutiveDashboard = () => {
                 <div className="space-y-3 text-sm">
                   <div className={`flex items-center gap-2 ${presentationMode ? 'text-white/90' : 'text-wine-charcoal/80'}`}>
                     <div className="w-2 h-2 bg-wine-green rounded-full"></div>
-                    {language === 'fr' ? 'Production locale de 74.5ML SAF/an' : 'Local production of 74.5ML SAF/year'}
+                    {language === 'fr' ? `Production locale de ${(realMetrics.safProduction / 1000000).toFixed(1)}ML SAF/an` : `Local production of ${(realMetrics.safProduction / 1000000).toFixed(1)}ML SAF/year`}
                   </div>
                   <div className={`flex items-center gap-2 ${presentationMode ? 'text-white/90' : 'text-wine-charcoal/80'}`}>
                     <div className="w-2 h-2 bg-wine-burgundy rounded-full"></div>
-                    {language === 'fr' ? 'Réduction de 238.4kt CO₂/an' : '238.4kt CO₂ reduction per year'}
+                    {language === 'fr' ? `Réduction de ${(realMetrics.co2Savings / 1000).toFixed(1)}kt CO₂/an` : `${(realMetrics.co2Savings / 1000).toFixed(1)}kt CO₂ reduction per year`}
                   </div>
                   <div className={`flex items-center gap-2 ${presentationMode ? 'text-white/90' : 'text-wine-charcoal/80'}`}>
                     <div className="w-2 h-2 bg-wine-gold rounded-full"></div>
-                    {language === 'fr' ? '600 emplois directs et indirects' : '600 direct and indirect jobs'}
+                    {language === 'fr' ? `${realMetrics.employmentImpact} emplois directs et indirects` : `${realMetrics.employmentImpact} direct and indirect jobs`}
                   </div>
                   <div className={`flex items-center gap-2 ${presentationMode ? 'text-white/90' : 'text-wine-charcoal/80'}`}>
                     <div className="w-2 h-2 bg-wine-charcoal rounded-full"></div>

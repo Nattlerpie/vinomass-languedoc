@@ -1,8 +1,10 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useRegion } from "@/contexts/RegionContext";
 import { ExternalLink, FileText, Users, Award, Globe } from 'lucide-react';
 
 const ProfessionalFooter = () => {
+  const { currentData } = useRegion();
   const currentYear = new Date().getFullYear();
 
   const methodologyLinks = [
@@ -64,13 +66,13 @@ const ProfessionalFooter = () => {
             </p>
             <div className="space-y-2">
               <Badge className="bg-wine-burgundy/20 text-wine-burgundy border-wine-burgundy/30">
-                266,000 tonnes/an
+                {currentData.annualPomace.toLocaleString()} tonnes/an
               </Badge>
               <Badge className="bg-wine-green/20 text-wine-green border-wine-green/30">
-                €90.9M revenus
+                €{currentData.revenue}M revenus
               </Badge>
               <Badge className="bg-wine-gold/20 text-wine-gold border-wine-gold/30">
-                238.4kt CO₂ évités
+                {(currentData.co2Reduction / 1000).toFixed(1)}kt CO₂ évités
               </Badge>
             </div>
           </div>

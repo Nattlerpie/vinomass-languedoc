@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRegion } from "@/contexts/RegionContext";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area, BarChart, Bar } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -21,18 +22,24 @@ const EconomicProjections = () => {
   const [timeframe, setTimeframe] = useState<5 | 10>(5);
   const [scenario, setScenario] = useState<'conservative' | 'realistic' | 'optimistic'>('realistic');
 
-  // REAL DATA BASE: 266,000 tonnes pomace × 280L SAF/tonne × 70% efficiency × €1.22/L = €63.4M potential
-  const REAL_BASE_REVENUE = 266000 * 280 * 0.70 * 1.22 / 1000000; // €63.4M
-  const REAL_CO2_SAVINGS = 266000 * 280 * 0.70 * 2.75 / 1000; // 238.4kt CO2
+  const { currentData } = useRegion();
+  // REAL DATA BASE: Dynamic based on region
+  const REAL_BASE_REVENUE = currentData.revenue; // Revenue from region data
+  const REAL_CO2_SAVINGS = currentData.co2Reduction; // CO2 savings from region data
 
+  // Scale base costs and employment by region
+  const baseCosts = currentData.id === 'champagne' ? 1.4 : 18.5; // Investment costs scaled
+  const baseEmployment = Math.round(currentData.jobs * 0.35); // Initial employment during setup
+  const fullEmployment = currentData.jobs; // Full employment when operational
+  
   const projectionData: ProjectionData[] = [
-    { year: 2024, revenue: 0, costs: 18.5, profit: -18.5, cumulativeProfit: -18.5, employment: 35, taxRevenue: 1.2, carbonSavings: 0, multiplierEffect: 1.4 },
-    { year: 2025, revenue: 38.1, costs: 25.9, profit: 12.2, cumulativeProfit: -6.3, employment: 68, taxRevenue: 2.8, carbonSavings: 143.0, multiplierEffect: 2.1 },
-    { year: 2026, revenue: REAL_BASE_REVENUE, costs: 35.8, profit: 27.6, cumulativeProfit: 21.3, employment: 98, taxRevenue: 4.5, carbonSavings: REAL_CO2_SAVINGS, multiplierEffect: 3.2 },
-    { year: 2027, revenue: REAL_BASE_REVENUE * 1.05, costs: 36.7, profit: 29.9, cumulativeProfit: 51.2, employment: 103, taxRevenue: 4.8, carbonSavings: REAL_CO2_SAVINGS * 1.05, multiplierEffect: 3.6 },
-    { year: 2028, revenue: REAL_BASE_REVENUE * 1.10, costs: 37.6, profit: 32.1, cumulativeProfit: 83.3, employment: 108, taxRevenue: 5.2, carbonSavings: REAL_CO2_SAVINGS * 1.10, multiplierEffect: 4.0 },
-    { year: 2029, revenue: REAL_BASE_REVENUE * 1.16, costs: 38.5, profit: 35.0, cumulativeProfit: 118.3, employment: 115, taxRevenue: 5.6, carbonSavings: REAL_CO2_SAVINGS * 1.16, multiplierEffect: 4.4 },
-    { year: 2030, revenue: REAL_BASE_REVENUE * 1.22, costs: 39.5, profit: 38.0, cumulativeProfit: 156.3, employment: 122, taxRevenue: 6.1, carbonSavings: REAL_CO2_SAVINGS * 1.22, multiplierEffect: 4.9 },
+    { year: 2024, revenue: 0, costs: baseCosts, profit: -baseCosts, cumulativeProfit: -baseCosts, employment: baseEmployment, taxRevenue: baseCosts * 0.065, carbonSavings: 0, multiplierEffect: 1.4 },
+    { year: 2025, revenue: REAL_BASE_REVENUE * 0.6, costs: REAL_BASE_REVENUE * 0.41, profit: REAL_BASE_REVENUE * 0.19, cumulativeProfit: -baseCosts + (REAL_BASE_REVENUE * 0.19), employment: Math.round(fullEmployment * 0.7), taxRevenue: REAL_BASE_REVENUE * 0.044, carbonSavings: REAL_CO2_SAVINGS * 0.6, multiplierEffect: 2.1 },
+    { year: 2026, revenue: REAL_BASE_REVENUE, costs: REAL_BASE_REVENUE * 0.565, profit: REAL_BASE_REVENUE * 0.435, cumulativeProfit: -baseCosts + (REAL_BASE_REVENUE * 0.19) + (REAL_BASE_REVENUE * 0.435), employment: fullEmployment, taxRevenue: REAL_BASE_REVENUE * 0.071, carbonSavings: REAL_CO2_SAVINGS, multiplierEffect: 3.2 },
+    { year: 2027, revenue: REAL_BASE_REVENUE * 1.05, costs: REAL_BASE_REVENUE * 0.58, profit: REAL_BASE_REVENUE * 0.47, cumulativeProfit: -baseCosts + (REAL_BASE_REVENUE * 0.19) + (REAL_BASE_REVENUE * 0.435) + (REAL_BASE_REVENUE * 0.47), employment: Math.round(fullEmployment * 1.05), taxRevenue: REAL_BASE_REVENUE * 0.075, carbonSavings: REAL_CO2_SAVINGS * 1.05, multiplierEffect: 3.6 },
+    { year: 2028, revenue: REAL_BASE_REVENUE * 1.10, costs: REAL_BASE_REVENUE * 0.59, profit: REAL_BASE_REVENUE * 0.51, cumulativeProfit: -baseCosts + (REAL_BASE_REVENUE * 0.19) + (REAL_BASE_REVENUE * 0.435) + (REAL_BASE_REVENUE * 0.47) + (REAL_BASE_REVENUE * 0.51), employment: Math.round(fullEmployment * 1.1), taxRevenue: REAL_BASE_REVENUE * 0.079, carbonSavings: REAL_CO2_SAVINGS * 1.10, multiplierEffect: 4.0 },
+    { year: 2029, revenue: REAL_BASE_REVENUE * 1.16, costs: REAL_BASE_REVENUE * 0.61, profit: REAL_BASE_REVENUE * 0.55, cumulativeProfit: -baseCosts + (REAL_BASE_REVENUE * 0.19) + (REAL_BASE_REVENUE * 0.435) + (REAL_BASE_REVENUE * 0.47) + (REAL_BASE_REVENUE * 0.51) + (REAL_BASE_REVENUE * 0.55), employment: Math.round(fullEmployment * 1.16), taxRevenue: REAL_BASE_REVENUE * 0.084, carbonSavings: REAL_CO2_SAVINGS * 1.16, multiplierEffect: 4.4 },
+    { year: 2030, revenue: REAL_BASE_REVENUE * 1.22, costs: REAL_BASE_REVENUE * 0.624, profit: REAL_BASE_REVENUE * 0.596, cumulativeProfit: -baseCosts + (REAL_BASE_REVENUE * 0.19) + (REAL_BASE_REVENUE * 0.435) + (REAL_BASE_REVENUE * 0.47) + (REAL_BASE_REVENUE * 0.51) + (REAL_BASE_REVENUE * 0.55) + (REAL_BASE_REVENUE * 0.596), employment: Math.round(fullEmployment * 1.22), taxRevenue: REAL_BASE_REVENUE * 0.089, carbonSavings: REAL_CO2_SAVINGS * 1.22, multiplierEffect: 4.9 },
     { year: 2031, revenue: REAL_BASE_REVENUE * 1.28, costs: 40.5, profit: 40.6, cumulativeProfit: 196.9, employment: 128, taxRevenue: 6.5, carbonSavings: REAL_CO2_SAVINGS * 1.28, multiplierEffect: 5.3 },
     { year: 2032, revenue: REAL_BASE_REVENUE * 1.34, costs: 41.5, profit: 43.5, cumulativeProfit: 240.4, employment: 136, taxRevenue: 7.0, carbonSavings: REAL_CO2_SAVINGS * 1.34, multiplierEffect: 5.8 },
     { year: 2033, revenue: REAL_BASE_REVENUE * 1.41, costs: 42.6, profit: 46.8, cumulativeProfit: 287.2, employment: 144, taxRevenue: 7.5, carbonSavings: REAL_CO2_SAVINGS * 1.41, multiplierEffect: 6.4 }
