@@ -24,7 +24,7 @@ const EconomyTab = () => {
             Analyse Économique
           </h1>
           <p className="text-xl text-wine-charcoal/70 max-w-3xl mx-auto">
-            Modélisation financière basée sur 266,000 tonnes de marc → €90.9M de revenus
+            Modélisation financière et analyse de rentabilité par région
           </p>
         </div>
         
@@ -174,13 +174,6 @@ const EconomyTab = () => {
           {/* Export Tools */}
           <div>
             <ExportCapabilities 
-              data={{
-                biomassTotal: 266000,
-                safProduction: 74.5,
-                revenue: 90.9,
-                conversionRate: 280,
-                safPrice: 1.22
-              }}
               type="economy"
             />
           </div>

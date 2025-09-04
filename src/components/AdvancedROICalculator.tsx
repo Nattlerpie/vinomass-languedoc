@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useRegion } from "@/contexts/RegionContext";
 
 interface Scenario {
   name: string;
@@ -19,31 +20,34 @@ interface Scenario {
 }
 
 const AdvancedROICalculator = () => {
+  const { currentData } = useRegion();
   const [activeScenario, setActiveScenario] = useState<string>("conservative");
+  
+  // Dynamic scenarios based on current region
   const [scenarios] = useState<Record<string, Scenario>>({
     conservative: {
       name: "Conservateur",
-      biomassInput: 200000,
+      biomassInput: Math.round(currentData.annualPomace * 0.75),
       processEfficiency: 65,
-      safPrice: 1220, // €1.22/L real price
+      safPrice: 1220,
       operatingCosts: 800,
-      capitalInvestment: 120000000
+      capitalInvestment: currentData.id === 'champagne' ? 40000000 : 120000000
     },
     realistic: {
       name: "Réaliste",
-      biomassInput: 266000, // Real Languedoc-Roussillon data
-      processEfficiency: 70, // Real processing efficiency
-      safPrice: 1220, // €1.22/L real price
+      biomassInput: currentData.annualPomace,
+      processEfficiency: 70,
+      safPrice: 1220,
       operatingCosts: 850,
-      capitalInvestment: 180000000 // Adjusted for real scale
+      capitalInvestment: currentData.id === 'champagne' ? 50000000 : 180000000
     },
     optimistic: {
       name: "Optimiste",
-      biomassInput: 300000,
+      biomassInput: Math.round(currentData.annualPomace * 1.1),
       processEfficiency: 75,
-      safPrice: 1500, // Premium scenario
+      safPrice: 1500,
       operatingCosts: 750,
-      capitalInvestment: 200000000
+      capitalInvestment: currentData.id === 'champagne' ? 60000000 : 200000000
     }
   });
 

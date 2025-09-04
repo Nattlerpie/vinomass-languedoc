@@ -5,13 +5,15 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Download, FileText, Database, Printer, Image, Share2 } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import { useRegion } from "@/contexts/RegionContext";
 
 interface ExportCapabilitiesProps {
-  data: any;
+  data?: any;
   type: 'overview' | 'economy' | 'resources' | 'partnerships' | 'data';
 }
 
 const ExportCapabilities = ({ data, type }: ExportCapabilitiesProps) => {
+  const { currentData } = useRegion();
   const [exportFormat, setExportFormat] = useState<string>('pdf');
   const [isExporting, setIsExporting] = useState(false);
   const { toast } = useToast();
@@ -28,16 +30,17 @@ const ExportCapabilities = ({ data, type }: ExportCapabilitiesProps) => {
       title: `Atlas Biomasse - ${getModuleTitle(type)}`,
       generated: new Date().toISOString(),
       module: type,
+      region: currentData.name,
       realData: {
-        biomassTotal: '266 000 tonnes/an',
-        safProduction: '74,5M litres/an',
-        revenue: '€90,9M/an',
+        biomassTotal: `${currentData.annualPomace.toLocaleString()} tonnes/an`,
+        safProduction: `${(currentData.safPotential / 1000000).toFixed(1)}M litres/an`,
+        revenue: `€${currentData.revenue}M/an`,
         conversionRate: '280L SAF/tonne',
         safPrice: '€1,22/litre',
-        vineyardSurface: '245 000 hectares',
-        co2Reduction: '238 400 tonnes/an'
+        vineyardSurface: `${currentData.vineyardSurface.toLocaleString()} hectares`,
+        co2Reduction: `${currentData.co2Reduction.toLocaleString()} tonnes/an`
       },
-      data
+      data: data || {}
     };
 
     return reportData;
@@ -93,7 +96,7 @@ const ExportCapabilities = ({ data, type }: ExportCapabilitiesProps) => {
   const exportPDF = async (data: any) => {
     // Simulate PDF generation
     const pdfContent = `
-      ATLAS BIOMASSE LANGUEDOC-ROUSSILLON
+      ATLAS BIOMASSE ${data.region.toUpperCase()}
       ${data.title}
       
       DONNÉES RÉELLES VALIDÉES:
@@ -146,7 +149,7 @@ const ExportCapabilities = ({ data, type }: ExportCapabilitiesProps) => {
           </head>
           <body>
             <div class="header">
-              <h1>Atlas Biomasse Languedoc-Roussillon</h1>
+              <h1>Atlas Biomasse ${data.region}</h1>
               <h2>${data.title}</h2>
               <p>Rapport généré le: ${new Date(data.generated).toLocaleString('fr-FR')}</p>
             </div>
@@ -180,7 +183,7 @@ const ExportCapabilities = ({ data, type }: ExportCapabilitiesProps) => {
     if (navigator.share) {
       navigator.share({
         title: `Atlas Biomasse - ${getModuleTitle(type)}`,
-        text: `Découvrez le potentiel de 266 000 tonnes de marc de raisin en Languedoc-Roussillon pour la production de SAF`,
+        text: `Découvrez le potentiel de ${currentData.annualPomace.toLocaleString()} tonnes de marc de raisin en ${currentData.name} pour la production de SAF`,
         url: window.location.href
       });
     } else {
@@ -255,12 +258,12 @@ const ExportCapabilities = ({ data, type }: ExportCapabilitiesProps) => {
         <div className="bg-wine-cream/10 rounded-lg p-4">
           <h4 className="font-semibold text-wine-charcoal mb-3">Contenu inclus</h4>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-wine-charcoal/70">
-            <div>• 266 000 tonnes biomasse/an</div>
-            <div>• 74,5M litres SAF/an</div>
-            <div>• €90,9M revenus potentiels</div>
+            <div>• {currentData.annualPomace.toLocaleString()} tonnes biomasse/an</div>
+            <div>• {(currentData.safPotential / 1000000).toFixed(1)}M litres SAF/an</div>
+            <div>• €{currentData.revenue}M revenus potentiels</div>
             <div>• 280L SAF/tonne conversion</div>
-            <div>• 245 000 hectares vignobles</div>
-            <div>• 238 400 tonnes CO2 évitées</div>
+            <div>• {currentData.vineyardSurface.toLocaleString()} hectares vignobles</div>
+            <div>• {currentData.co2Reduction.toLocaleString()} tonnes CO2 évitées</div>
           </div>
         </div>
       </CardContent>

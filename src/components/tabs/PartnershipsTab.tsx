@@ -2,26 +2,44 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, MapPin, Building, TrendingUp } from 'lucide-react';
 import ImplementationTimeline from "../ImplementationTimeline";
 import ContactIntegration from "../ContactIntegration";
+import { useRegion } from "@/contexts/RegionContext";
 
 const PartnershipsTab = () => {
-  // Real partnership data
-  const keyMetrics = {
+  const { currentData } = useRegion();
+  
+  // Regional partnership data based on active region
+  const keyMetrics = currentData.id === 'languedoc' ? {
     totalPartners: 42,
     communes: 28,
     industrials: 8,
     institutions: 6,
-    totalVolume: 266000, // tonnes
-    avgDistance: 85, // km
-    coverage: 85 // % of region
+    totalVolume: 266000,
+    avgDistance: 85,
+    coverage: 85
+  } : {
+    totalPartners: 18,
+    communes: 12,
+    industrials: 4,
+    institutions: 2,
+    totalVolume: 24000,
+    avgDistance: 50,
+    coverage: 75
   };
 
-  const topPartners = [
+  const topPartners = currentData.id === 'languedoc' ? [
     { name: "Montpellier Méditerranée Métropole", type: "Collectivité", volume: 18500, distance: 25 },
     { name: "Béziers Agglomération", type: "Collectivité", volume: 14200, distance: 40 },
     { name: "Narbonne Communauté", type: "Collectivité", volume: 12800, distance: 65 },
     { name: "Syndicat AOC Languedoc", type: "Interprofession", volume: 35000, distance: 0 },
     { name: "Cave Coopérative Régionale", type: "Producteur", volume: 22000, distance: 30 },
     { name: "Groupe Jeanjean", type: "Négoce", volume: 8500, distance: 15 }
+  ] : [
+    { name: "Comité Interprofessionnel du Vin de Champagne", type: "Interprofession", volume: 8500, distance: 0 },
+    { name: "Reims Métropole", type: "Collectivité", volume: 3200, distance: 15 },
+    { name: "Épernay Coteaux et Plaine", type: "Collectivité", volume: 2800, distance: 25 },
+    { name: "Haffner Marolles (partenaire)", type: "Industriel", volume: 4000, distance: 50 },
+    { name: "Coopérative Générale des Vignerons", type: "Producteur", volume: 3500, distance: 20 },
+    { name: "Maisons de Champagne (consortium)", type: "Négoce", volume: 2000, distance: 10 }
   ];
 
   return (
@@ -33,7 +51,7 @@ const PartnershipsTab = () => {
             Partenariats Stratégiques
           </h1>
           <p className="text-xl text-wine-charcoal/70 max-w-3xl mx-auto">
-            42 partenaires confirmed pour 266,000 tonnes de marc collecté
+            {keyMetrics.totalPartners} partenaires confirmés pour {keyMetrics.totalVolume.toLocaleString()} tonnes de marc collecté
           </p>
         </div>
 

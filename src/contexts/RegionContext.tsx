@@ -56,13 +56,10 @@ const regionData: Record<RegionType, RegionData> = {
     safPotential: 6700000,
     revenue: 8.2,
     co2Reduction: 18400,
-    jobs: 85,
+    jobs: 150, // Updated from 85 to reflect regional context
     departments: [
-      { name: 'Marne', percentage: 64, color: 'wine-burgundy' },
-      { name: 'Aube', percentage: 23, color: 'wine-gold' },
-      { name: 'Aisne', percentage: 8, color: 'wine-green' },
-      { name: 'Haute-Marne', percentage: 3, color: 'wine-charcoal' },
-      { name: 'Seine-et-Marne', percentage: 2, color: 'wine-cream' }
+      { name: 'Marne', percentage: 85, color: 'wine-burgundy' }, // Updated from 64% to 85%
+      { name: 'Aube', percentage: 15, color: 'wine-gold' } // Updated from 23% to 15%, removed other departments
     ],
     topCommunes: [
       { name: 'Reims', tonnage: 3200 },

@@ -1,8 +1,11 @@
 import TechnicalMethodology from "../TechnicalMethodology";
 import RegulatoryCompliance from "../RegulatoryCompliance";
 import AcademicReferences from "../AcademicReferences";
+import { useRegion } from "@/contexts/RegionContext";
 
 const DataTab = () => {
+  const { currentData } = useRegion();
+  
   return (
     <div className="min-h-screen w-full">
       {/* Hero Section - Methodology Focus */}
@@ -21,7 +24,7 @@ const DataTab = () => {
           <h2 className="text-2xl font-bold text-blue-800 mb-6 text-center">Données Clés Validées</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-700 mb-2">266,000t</div>
+              <div className="text-3xl font-bold text-blue-700 mb-2">{currentData.annualPomace.toLocaleString()}t</div>
               <div className="text-sm text-blue-600">Marc de raisin/an</div>
             </div>
             <div className="text-center">
@@ -231,7 +234,7 @@ const DataTab = () => {
           <div className="inline-flex items-center space-x-6 bg-wine-cream/20 backdrop-blur-sm rounded-full px-8 py-4 border border-wine-cream/30">
             <div className="w-4 h-4 rounded-full bg-wine-burgundy"></div>
             <span className="text-lg font-semibold text-wine-charcoal">
-              Données actualisées - Région Languedoc-Roussillon 2023
+              Données actualisées - Région {currentData.name} 2023
             </span>
             <div className="w-4 h-4 rounded-full bg-wine-gold"></div>
           </div>
