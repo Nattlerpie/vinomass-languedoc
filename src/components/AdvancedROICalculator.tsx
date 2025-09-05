@@ -170,9 +170,9 @@ const AdvancedROICalculator = () => {
                     <Slider
                       value={[customValues.biomassInput]}
                       onValueChange={([value]) => setCustomValues(prev => ({ ...prev, biomassInput: value }))}
-                      min={100000}
-                      max={500000}
-                      step={10000}
+                      min={currentData.id === 'champagne' ? 10000 : 100000}
+                      max={currentData.id === 'champagne' ? 50000 : 500000}
+                      step={currentData.id === 'champagne' ? 1000 : 10000}
                       className="mt-2"
                     />
                   </div>
@@ -228,9 +228,9 @@ const AdvancedROICalculator = () => {
                     <Slider
                       value={[customValues.capitalInvestment]}
                       onValueChange={([value]) => setCustomValues(prev => ({ ...prev, capitalInvestment: value }))}
-                      min={80000000}
-                      max={200000000}
-                      step={5000000}
+                      min={currentData.id === 'champagne' ? 20000000 : 80000000}
+                      max={currentData.id === 'champagne' ? 80000000 : 300000000}
+                      step={currentData.id === 'champagne' ? 2000000 : 5000000}
                       className="mt-2"
                     />
                   </div>
