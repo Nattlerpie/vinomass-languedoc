@@ -117,8 +117,10 @@ const OverviewTab = () => {
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">De la production nationale</div>
               <div className="text-sm text-wine-charcoal/60">
-                {currentData.id === 'languedoc' ? '12 millions d\'hectolitres' : '3.5 millions d\'hectolitres'}
-                {currentData.id === 'champagne' && ' (premium segment)'}
+                {currentData.id === 'languedoc' 
+                  ? '12 millions d\'hectolitres' 
+                  : '3.5 millions d\'hectolitres (premium segment)'
+                }
               </div>
             </div>
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
