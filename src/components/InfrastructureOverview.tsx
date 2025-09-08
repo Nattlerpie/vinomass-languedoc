@@ -1,15 +1,24 @@
 import { Factory, Zap, Recycle, Flame } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useRegion } from "@/contexts/RegionContext";
 
 const InfrastructureOverview = () => {
   const { t } = useLanguage();
+  const { currentData } = useRegion();
   
-  const facilities = [
-    { name: t('infrastructure.distilleries'), count: 16, icon: Factory, color: 'text-wine-burgundy' },
-    { name: t('infrastructure.methanization'), count: 27, icon: Zap, color: 'text-wine-gold' },
-    { name: t('infrastructure.composting'), count: 26, icon: Recycle, color: 'text-wine-green' },
-    { name: t('infrastructure.biomass'), count: 4, icon: Flame, color: 'text-wine-charcoal' }
-  ];
+  const facilities = currentData.id === 'champagne' 
+    ? [
+        { name: t('infrastructure.distilleries'), count: 2, icon: Factory, color: 'text-wine-burgundy' },
+        { name: t('infrastructure.methanization'), count: 3, icon: Zap, color: 'text-wine-gold' },
+        { name: t('infrastructure.composting'), count: 4, icon: Recycle, color: 'text-wine-green' },
+        { name: t('infrastructure.biomass'), count: 1, icon: Flame, color: 'text-wine-charcoal' }
+      ]
+    : [
+        { name: t('infrastructure.distilleries'), count: 16, icon: Factory, color: 'text-wine-burgundy' },
+        { name: t('infrastructure.methanization'), count: 27, icon: Zap, color: 'text-wine-gold' },
+        { name: t('infrastructure.composting'), count: 26, icon: Recycle, color: 'text-wine-green' },
+        { name: t('infrastructure.biomass'), count: 4, icon: Flame, color: 'text-wine-charcoal' }
+      ];
 
   return (
     <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-elegant">
