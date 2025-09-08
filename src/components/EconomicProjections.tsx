@@ -19,10 +19,10 @@ interface ProjectionData {
 }
 
 const EconomicProjections = () => {
+  const { currentData } = useRegion();
   const [timeframe, setTimeframe] = useState<5 | 10>(5);
   const [scenario, setScenario] = useState<'conservative' | 'realistic' | 'optimistic'>('realistic');
 
-  const { currentData } = useRegion();
   // REAL DATA BASE: Dynamic based on region
   const REAL_BASE_REVENUE = currentData.revenue; // Revenue from region data
   const REAL_CO2_SAVINGS = currentData.co2Reduction; // CO2 savings from region data
@@ -140,7 +140,7 @@ const EconomicProjections = () => {
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-5 gap-3 text-xs text-blue-700">
-              <div><strong>Volume:</strong> 266,000t marc</div>
+              <div><strong>Volume:</strong> {currentData.annualPomace.toLocaleString()}t marc</div>
               <div><strong>SAF:</strong> 280L/tonne</div>
               <div><strong>Prix:</strong> €1.22/L</div>
               <div><strong>CO₂:</strong> 2.75kg/L évité</div>

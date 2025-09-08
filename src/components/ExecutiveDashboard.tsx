@@ -325,16 +325,23 @@ const ExecutiveDashboard = () => {
                 </div>
               </div>
               <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
-                <div className="text-4xl font-bold text-wine-gold mb-3">38%</div>
+                <div className="text-4xl font-bold text-wine-gold mb-3">
+                  {currentData.id === 'languedoc' ? '38%' : '3%'}
+                </div>
                 <div className="text-lg font-semibold text-wine-charcoal mb-2">
                   {language === 'fr' ? 'De la production nationale' : 'Of national production'}
                 </div>
                 <div className="text-sm text-wine-charcoal/60">
-                  {language === 'fr' ? '12 millions d\'hectolitres' : '12 million hectoliters'}
+                  {currentData.id === 'languedoc' 
+                    ? (language === 'fr' ? '12 millions d\'hectolitres' : '12 million hectoliters')
+                    : (language === 'fr' ? '3.5 millions d\'hectolitres (premium segment)' : '3.5 million hectoliters (premium segment)')
+                  }
                 </div>
               </div>
               <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
-                <div className="text-4xl font-bold text-wine-green mb-3">€3.2B</div>
+                <div className="text-4xl font-bold text-wine-green mb-3">
+                  €{currentData.id === 'languedoc' ? '3.2B' : '5.2B'}
+                </div>
                 <div className="text-lg font-semibold text-wine-charcoal mb-2">
                   {language === 'fr' ? 'Chiffre d\'affaires annuel' : 'Annual revenue'}
                 </div>

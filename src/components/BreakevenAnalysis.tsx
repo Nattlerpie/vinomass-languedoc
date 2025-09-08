@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Area, AreaChart } from 'recharts';
 import { Calculator, Target, TrendingUp, DollarSign } from 'lucide-react';
+import { useRegion } from "@/contexts/RegionContext";
 
 interface PartnershipStructure {
   id: string;
@@ -26,6 +27,7 @@ interface BreakevenData {
 }
 
 const BreakevenAnalysis = () => {
+  const { currentData } = useRegion();
   const [selectedStructure, setSelectedStructure] = useState<string>('joint-venture');
   const [timeHorizon, setTimeHorizon] = useState<number>(60); // months
 
@@ -71,16 +73,16 @@ const BreakevenAnalysis = () => {
 
   const currentStructure = partnershipStructures[selectedStructure];
 
-  // Real conversion data: 266,000 tonnes × 280L/tonne × 70% efficiency = 52.1M liters SAF
-  const REAL_SAF_PRODUCTION = 266000 * 280 * 0.70; // 52.1M liters
+  // Real conversion data: currentData.annualPomace × 280L/tonne × 70% efficiency
+  const REAL_SAF_PRODUCTION = currentData.annualPomace * 280 * 0.70;
   const REAL_SAF_PRICE = 1.22; // €/liter
-  const REAL_ANNUAL_REVENUE = REAL_SAF_PRODUCTION * REAL_SAF_PRICE / 1000000; // €63.4M
+  const REAL_ANNUAL_REVENUE = REAL_SAF_PRODUCTION * REAL_SAF_PRICE / 1000000; // Real revenue from region data
   
   // Calculate breakeven scenarios
   const breakevenScenarios: BreakevenData[] = [
     {
       scenario: 'Pessimiste',
-      biomassVolume: 200000, // 75% of real capacity
+      biomassVolume: Math.round(currentData.annualPomace * 0.75), // 75% of real capacity
       safPrice: 1.10,
       breakevenPoint: 0,
       monthlyProfit: 0,
@@ -88,7 +90,7 @@ const BreakevenAnalysis = () => {
     },
     {
       scenario: 'Conservateur', 
-      biomassVolume: 230000, // 86% of real capacity
+      biomassVolume: Math.round(currentData.annualPomace * 0.86), // 86% of real capacity
       safPrice: 1.15,
       breakevenPoint: 0,
       monthlyProfit: 0,
@@ -96,7 +98,7 @@ const BreakevenAnalysis = () => {
     },
     {
       scenario: 'Réaliste',
-      biomassVolume: 266000, // Real Languedoc data
+      biomassVolume: currentData.annualPomace, // Real regional data
       safPrice: 1.22, // Real current price
       breakevenPoint: 0,
       monthlyProfit: 0,
@@ -104,7 +106,7 @@ const BreakevenAnalysis = () => {
     },
     {
       scenario: 'Optimiste',
-      biomassVolume: 300000, // Expansion scenario
+      biomassVolume: Math.round(currentData.annualPomace * 1.13), // Expansion scenario
       safPrice: 1.35,
       breakevenPoint: 0,
       monthlyProfit: 0,
@@ -191,7 +193,7 @@ const BreakevenAnalysis = () => {
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
             <div className="flex items-center gap-3 mb-2">
               <Badge className="bg-blue-600 text-white">Base Réelle</Badge>
-              <span className="text-sm font-medium text-blue-800">Languedoc-Roussillon: 266,000t → €63.4M/an</span>
+              <span className="text-sm font-medium text-blue-800">{currentData.name}: {currentData.annualPomace.toLocaleString()}t → €{currentData.revenue}M/an</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs text-blue-700">
               <div><strong>SAF:</strong> 52.1M litres/an</div>

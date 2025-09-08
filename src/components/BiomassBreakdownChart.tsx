@@ -9,59 +9,62 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
-const biomassData = [
-  {
-    type: 'Marc de raisin',
-    tonnage: 266000, // Real data: 266,000 tonnes/year
-    percentage: 65,
-    season: 'Septembre-Novembre',
-    valorization: 'SAF (280L/tonne), Distillation, Compostage',
-    color: 'hsl(var(--wine-burgundy))',
-    communes: ['Béziers', 'Narbonne', 'Montpellier', 'Carcassonne']
-  },
-  {
-    type: 'Sous-produits liquides',
-    tonnage: 48000,
-    percentage: 12,
-    season: 'Octobre-Mars',
-    valorization: 'Distillation, Épandage',
-    color: 'hsl(var(--wine-gold))',
-    communes: ['Perpignan', 'Nîmes', 'Sète', 'Agde']
-  },
-  {
-    type: 'Bois de taille',
-    tonnage: 45000,
-    percentage: 11,
-    season: 'Toute année',
-    valorization: 'Biomasse énergétique, Compostage',
-    color: 'hsl(var(--wine-green))',
-    communes: ['Béziers', 'Montpellier', 'Narbonne', 'Lunel']
-  },
-  {
-    type: 'Sarments',
-    tonnage: 32000,
-    percentage: 8,
-    season: 'Janvier-Mars',
-    valorization: 'Biomasse énergétique, Paillage',
-    color: 'hsl(var(--wine-charcoal))',
-    communes: ['Carcassonne', 'Limoux', 'Frontignan', 'Pézenas']
-  },
-  {
-    type: 'Rafles',
-    tonnage: 16000,
-    percentage: 4,
-    season: 'Septembre-Octobre',
-    valorization: 'Compostage, Extraction tanins',
-    color: 'hsl(var(--wine-cream))',
-    communes: ['Saint-Chinian', 'Faugères', 'Corbières', 'Minervois']
-  }
-];
+import { useRegion } from "@/contexts/RegionContext";
 
 const BiomassBreakdownChart = () => {
+  const { currentData } = useRegion();
   const [chartType, setChartType] = useState<'bar' | 'pie'>('bar');
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
   const [selectedSeason, setSelectedSeason] = useState<string>('all');
+
+  // Dynamic data based on region
+  const biomassData = [
+    {
+      type: 'Marc de raisin',
+      tonnage: currentData.annualPomace,
+      percentage: 65,
+      season: 'Septembre-Novembre',
+      valorization: 'SAF (280L/tonne), Distillation, Compostage',
+      color: 'hsl(var(--wine-burgundy))',
+      communes: currentData.topCommunes?.slice(0, 4).map(c => c.name) || ['Commune 1', 'Commune 2', 'Commune 3', 'Commune 4']
+    },
+    {
+      type: 'Sous-produits liquides',
+      tonnage: Math.round(currentData.annualPomace * 0.18),
+      percentage: 18,
+      season: 'Octobre-Mars',
+      valorization: 'Distillation, Épandage',
+      color: 'hsl(var(--wine-gold))',
+      communes: currentData.topCommunes?.slice(1, 5).map(c => c.name) || ['Commune 2', 'Commune 3', 'Commune 4', 'Commune 5']
+    },
+    {
+      type: 'Bois de taille',
+      tonnage: Math.round(currentData.annualPomace * 0.17),
+      percentage: 17,
+      season: 'Toute année',
+      valorization: 'Biomasse énergétique, Compostage',
+      color: 'hsl(var(--wine-green))',
+      communes: currentData.topCommunes?.slice(0, 4).map(c => c.name) || ['Commune 1', 'Commune 2', 'Commune 3', 'Commune 4']
+    },
+    {
+      type: 'Sarments',
+      tonnage: Math.round(currentData.annualPomace * 0.12),
+      percentage: 12,
+      season: 'Janvier-Mars',
+      valorization: 'Biomasse énergétique, Paillage',
+      color: 'hsl(var(--wine-charcoal))',
+      communes: currentData.topCommunes?.slice(2, 6).map(c => c.name) || ['Commune 3', 'Commune 4', 'Commune 5', 'Commune 6']
+    },
+    {
+      type: 'Rafles',
+      tonnage: Math.round(currentData.annualPomace * 0.06),
+      percentage: 6,
+      season: 'Septembre-Octobre',
+      valorization: 'Compostage, Extraction tanins',
+      color: 'hsl(var(--wine-cream))',
+      communes: currentData.topCommunes?.slice(1, 5).map(c => c.name) || ['Commune 2', 'Commune 3', 'Commune 4', 'Commune 5']
+    }
+  ];
 
   const filteredData = biomassData.filter(item => {
     if (selectedFilter !== 'all' && !item.type.toLowerCase().includes(selectedFilter.toLowerCase())) {

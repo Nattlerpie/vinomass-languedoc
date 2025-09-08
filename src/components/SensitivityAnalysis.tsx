@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from "recharts";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import React, { useState, useEffect } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, AreaChart, Area } from 'recharts';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Settings, TrendingUp, AlertTriangle } from "lucide-react";
+import { TrendingUp, TrendingDown, BarChart3, Settings, AlertTriangle } from "lucide-react";
+import { useRegion } from "@/contexts/RegionContext";
 
 interface Variable {
   name: string;
@@ -23,10 +25,12 @@ interface SensitivityData {
 }
 
 const SensitivityAnalysis = () => {
-  // REAL DATA CONSTANTS for Languedoc-Roussillon
+  const { currentData } = useRegion();
+  
+  // REAL DATA CONSTANTS - Dynamic based on region
   const [variables, setVariables] = useState<Variable[]>([
     { name: 'safPrice', label: 'Prix SAF', value: 1220, min: 1000, max: 1800, unit: '€/m³', impact: 0 }, // Real market price €1.22/L
-    { name: 'biomassInput', label: 'Biomasse disponible', value: 266000, min: 200000, max: 350000, unit: 'tonnes', impact: 0 }, // Real Languedoc data
+    { name: 'biomassInput', label: 'Biomasse disponible', value: currentData.annualPomace, min: Math.round(currentData.annualPomace * 0.75), max: Math.round(currentData.annualPomace * 1.31), unit: 'tonnes', impact: 0 }, // Real region data
     { name: 'efficiency', label: 'Efficacité ATJ', value: 70, min: 60, max: 80, unit: '%', impact: 0 }, // Real processing efficiency
     { name: 'operatingCosts', label: 'Coûts opérationnels', value: 850, min: 700, max: 1200, unit: '€/m³', impact: 0 }, // Updated real costs
     { name: 'capitalInvestment', label: 'Investissement capital', value: 180, min: 120, max: 250, unit: 'M€', impact: 0 }, // Real scale investment
@@ -156,7 +160,7 @@ const SensitivityAnalysis = () => {
               <span className="text-sm font-medium text-blue-800">Base: Languedoc-Roussillon 2023</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs text-blue-700">
-              <div><strong>Volume:</strong> 266,000 tonnes</div>
+              <div><strong>Volume:</strong> {currentData.annualPomace.toLocaleString()} tonnes</div>
               <div><strong>Conversion:</strong> 280L SAF/tonne</div>
               <div><strong>Prix:</strong> €1.22/L</div>
               <div><strong>Efficacité:</strong> 70% ATJ</div>

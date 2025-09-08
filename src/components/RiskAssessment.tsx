@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import React, { useState } from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ScatterChart, Scatter, Cell, AreaChart, Area, LineChart, Line } from 'recharts';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertTriangle, TrendingDown, TrendingUp, Shield, Target } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, Area, AreaChart } from 'recharts';
+import { AlertTriangle, TrendingDown, TrendingUp, Shield, Target } from "lucide-react";
+import { useRegion } from "@/contexts/RegionContext";
 
 interface RiskFactor {
   name: string;
@@ -24,6 +25,7 @@ interface VolatilityData {
 }
 
 const RiskAssessment = () => {
+  const { currentData } = useRegion();
   const [selectedTimeframe, setSelectedTimeframe] = useState<'1y' | '3y' | '5y'>('3y');
   
   // REAL DATA: Risk factors based on actual SAF market conditions
@@ -33,7 +35,7 @@ const RiskAssessment = () => {
       category: 'market',
       severity: 'high',
       probability: 75,
-      impact: 25.2, // €25.2M potential impact based on real €90.9M revenue
+      impact: Math.round(currentData.revenue * 0.28), // €25.2M potential impact based on real revenue
       mitigation: 'Contrats long terme avec compagnies aériennes',
       timeline: 'short'
     },
@@ -42,7 +44,7 @@ const RiskAssessment = () => {
       category: 'operational', 
       severity: 'medium',
       probability: 45,
-      impact: 18.7, // Impact on 266,000 tonnes availability
+      impact: Math.round(currentData.annualPomace * 0.07 / 1000), // Impact on regional availability (in k tonnes)
       mitigation: 'Diversification sources, contrats pluriannuels',
       timeline: 'medium'
     },
@@ -146,7 +148,7 @@ const RiskAssessment = () => {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs text-blue-700">
               <div><strong>Référence:</strong> €90.9M revenue potentiel</div>
               <div><strong>Prix SAF:</strong> €1.22/L (volatilité ±25%)</div>
-              <div><strong>Biomasse:</strong> 266,000t disponibles</div>
+              <div><strong>Biomasse:</strong> {currentData.annualPomace.toLocaleString()}t disponibles</div>
               <div><strong>Collecte:</strong> €30-50/tonne</div>
             </div>
           </div>
