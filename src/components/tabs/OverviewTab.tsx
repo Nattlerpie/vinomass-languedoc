@@ -87,6 +87,109 @@ const OverviewTab = () => {
       {/* Divider */}
       <div className="border-t border-wine-cream/30 mb-16"></div>
 
+      {/* Waste Allocation Analysis for Languedoc-Roussillon */}
+      {currentData.id === 'languedoc' && currentData.wasteAllocation && (
+        <section className="mb-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
+              Analyse Réaliste des Flux de Biomasse
+            </h2>
+            <p className="text-lg text-wine-charcoal/70">
+              Allocation stratégique des 266,000 tonnes de biomasse régionale
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            {/* Waste Allocation Breakdown */}
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-elegant border border-wine-cream/30">
+              <h3 className="text-2xl font-bold text-wine-charcoal mb-6">Répartition par Flux</h3>
+              
+              <div className="space-y-6">
+                <div className="flex items-center justify-between p-4 bg-gradient-subtle rounded-xl border border-wine-burgundy/10">
+                  <div>
+                    <div className="font-semibold text-wine-charcoal">Flux Protégés (45%)</div>
+                    <div className="text-sm text-wine-charcoal/60">Compost, biogaz, extraction premium</div>
+                  </div>
+                  <div className="text-xl font-bold text-wine-burgundy">120,000t</div>
+                </div>
+                
+                <div className="flex items-center justify-between p-4 bg-gradient-subtle rounded-xl border border-wine-gold/10">
+                  <div>
+                    <div className="font-semibold text-wine-charcoal">Flux Négociables (25%)</div>
+                    <div className="text-sm text-wine-charcoal/60">Surplus saisonnier, compost excédentaire</div>
+                  </div>
+                  <div className="text-xl font-bold text-wine-gold">66,000t</div>
+                </div>
+                
+                <div className="flex items-center justify-between p-4 bg-gradient-subtle rounded-xl border border-wine-green/10">
+                  <div>
+                    <div className="font-semibold text-wine-charcoal">Disponible SAF (30%)</div>
+                    <div className="text-sm text-wine-charcoal/60">Flux d'élimination, déchets faible valeur</div>
+                  </div>
+                  <div className="text-xl font-bold text-wine-green">80,000t</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Updated Key Metrics */}
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-elegant border border-wine-cream/30">
+              <h3 className="text-2xl font-bold text-wine-charcoal mb-6">Potentiel SAF Réaliste</h3>
+              
+              <div className="space-y-6">
+                <div className="text-center p-4 bg-gradient-subtle rounded-xl border border-wine-green/10">
+                  <div className="text-3xl font-bold text-wine-green mb-2">
+                    {(currentData.wasteAllocation.realisticSafPotential / 1000000).toFixed(1)}M
+                  </div>
+                  <div className="text-sm font-semibold text-wine-charcoal">Litres SAF/an</div>
+                  <div className="text-xs text-wine-charcoal/60">Basé sur 80,000 tonnes</div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center p-3 bg-wine-cream/20 rounded-lg">
+                    <div className="text-lg font-bold text-wine-charcoal">
+                      €{currentData.wasteAllocation.realisticRevenue}M
+                    </div>
+                    <div className="text-xs text-wine-charcoal/60">Revenus annuels</div>
+                  </div>
+                  <div className="text-center p-3 bg-wine-cream/20 rounded-lg">
+                    <div className="text-lg font-bold text-wine-charcoal">
+                      {currentData.wasteAllocation.realisticCo2Reduction.toLocaleString()}t
+                    </div>
+                    <div className="text-xs text-wine-charcoal/60">CO₂ évité/an</div>
+                  </div>
+                </div>
+                
+                <div className="text-center p-3 bg-wine-cream/20 rounded-lg">
+                  <div className="text-lg font-bold text-wine-charcoal">
+                    {currentData.wasteAllocation.realisticJobs}
+                  </div>
+                  <div className="text-xs text-wine-charcoal/60">Emplois directs créés</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-wine-cream/10 border border-wine-gold/20 rounded-xl p-6">
+            <div className="flex items-start space-x-3">
+              <div className="w-6 h-6 bg-wine-gold rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span className="text-white text-sm font-bold">!</span>
+              </div>
+              <div>
+                <div className="font-semibold text-wine-charcoal mb-2">Approche Conservative</div>
+                <div className="text-sm text-wine-charcoal/70">
+                  Cette analyse prend en compte les contraintes réelles d'approvisionnement, incluant les usages existants 
+                  et les obligations contractuelles. Le potentiel SAF est calculé uniquement sur les flux disponibles 
+                  sans concurrence directe avec les filières établies.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Divider */}
+      <div className="border-t border-wine-cream/30 mb-16"></div>
+
       {/* Regional Context Section */}
       <section className="mb-8">
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">

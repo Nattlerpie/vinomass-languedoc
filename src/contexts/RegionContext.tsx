@@ -11,6 +11,16 @@ export interface RegionData {
   revenue: number;
   co2Reduction: number;
   jobs: number;
+  wasteAllocation?: {
+    total: number;
+    protected: number;
+    negotiable: number;
+    available: number;
+    realisticSafPotential: number;
+    realisticRevenue: number;
+    realisticCo2Reduction: number;
+    realisticJobs: number;
+  };
   departments?: DepartmentData[];
   topCommunes?: CommuneData[];
 }
@@ -36,6 +46,16 @@ const regionData: Record<RegionType, RegionData> = {
     revenue: 90.9,
     co2Reduction: 238400,
     jobs: 600,
+    wasteAllocation: {
+      total: 266000,
+      protected: 120000, // 45%
+      negotiable: 66000, // 25%
+      available: 80000, // 30%
+      realisticSafPotential: 22400000, // 22.4M liters
+      realisticRevenue: 27.3,
+      realisticCo2Reduction: 61600,
+      realisticJobs: 180
+    },
     departments: [
       { name: 'Hérault', percentage: 39, color: 'wine-burgundy' },
       { name: 'Aude', percentage: 29, color: 'wine-gold' },
