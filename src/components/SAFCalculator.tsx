@@ -5,10 +5,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useRegion } from "@/contexts/RegionContext";
 
 const SAFCalculator = () => {
   const { t } = useLanguage();
-  const [grapePomace, setGrapePomace] = useState<number>(266000);
+  const { currentData } = useRegion();
+  const [grapePomace, setGrapePomace] = useState<number>(currentData.annualPomace);
   const [collectionCost, setCollectionCost] = useState<number>(40);
   const [processingEfficiency, setProcessingEfficiency] = useState<number>(70);
   

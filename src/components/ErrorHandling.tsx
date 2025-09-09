@@ -3,6 +3,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, CheckCircle, RefreshCw, Wifi, WifiOff } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import { useRegion } from "@/contexts/RegionContext";
 
 interface ValidationError {
   component: string;
@@ -20,6 +21,7 @@ interface PerformanceMetrics {
 
 const ErrorHandling = () => {
   const { toast } = useToast();
+  const { currentData } = useRegion();
   const [errors, setErrors] = useState<ValidationError[]>([]);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [performance, setPerformance] = useState<PerformanceMetrics | null>(null);
@@ -30,7 +32,7 @@ const ErrorHandling = () => {
     const validationErrors: ValidationError[] = [];
 
     // Validate core SAF data
-    const biomassVolume = 266000; // tonnes
+    const biomassVolume = currentData.annualPomace; // tonnes
     const conversionRate = 280; // L/tonne
     const efficiency = 0.70; // 70%
     const safPrice = 1.22; // €/L
@@ -73,7 +75,7 @@ const ErrorHandling = () => {
 
     // Validate financial calculations
     const annualRevenue = biomassVolume * conversionRate * efficiency * safPrice / 1000000;
-    const expectedRevenue = 90.9; // €M
+    const expectedRevenue = currentData.revenue; // €M
 
     if (Math.abs(annualRevenue - expectedRevenue) > 5) {
       validationErrors.push({
@@ -258,7 +260,7 @@ const ErrorHandling = () => {
               Validation des données réussie
             </div>
             <div className="text-sm text-green-700 mt-1">
-              Toutes les données SAF Languedoc-Roussillon sont cohérentes et validées.
+              Toutes les données SAF {currentData.name} sont cohérentes et validées.
               Dernière vérification: {new Date().toLocaleTimeString('fr-FR')}
             </div>
           </AlertDescription>

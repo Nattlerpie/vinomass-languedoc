@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 import { TrendingUp, BarChart3, Calculator, Target } from 'lucide-react';
+import { useRegion } from "@/contexts/RegionContext";
 
 interface Scenario {
   id: string;
@@ -18,45 +19,46 @@ interface Scenario {
   color: string;
 }
 
-const predefinedScenarios: Scenario[] = [
-  {
-    id: 'conservative',
-    name: 'Conservateur',
-    description: 'Hypothèses prudentes avec données validées',
-    biomassInput: 200000, // 75% du potentiel
-    processEfficiency: 65,
-    safPrice: 1.10,
-    operatingCosts: 45,
-    capitalInvestment: 150,
-    color: '#8B2635'
-  },
-  {
-    id: 'realistic',
-    name: 'Réaliste',
-    description: 'Scénario basé sur les données réelles actuelles',
-    biomassInput: 266000, // Données réelles
-    processEfficiency: 70,
-    safPrice: 1.22,
-    operatingCosts: 42,
-    capitalInvestment: 150,
-    color: '#D4AF37'
-  },
-  {
-    id: 'optimistic',
-    name: 'Optimiste',
-    description: 'Potentiel maximal avec optimisations',
-    biomassInput: 300000, // Expansion possible
-    processEfficiency: 75,
-    safPrice: 1.35,
-    operatingCosts: 38,
-    capitalInvestment: 150,
-    color: '#228B22'
-  }
-];
-
 const ScenarioComparison = () => {
+  const { currentData } = useRegion();
   const [selectedScenarios, setSelectedScenarios] = useState<string[]>(['conservative', 'realistic']);
   const [comparisonType, setComparisonType] = useState<'revenue' | 'roi' | 'payback'>('revenue');
+
+  const predefinedScenarios: Scenario[] = [
+    {
+      id: 'conservative',
+      name: 'Conservateur',
+      description: 'Hypothèses prudentes avec données validées',
+      biomassInput: Math.round(currentData.annualPomace * 0.75), // 75% du potentiel
+      processEfficiency: 65,
+      safPrice: 1.10,
+      operatingCosts: currentData.id === 'champagne' ? 8 : 45,
+      capitalInvestment: currentData.id === 'champagne' ? 25 : 150,
+      color: '#8B2635'
+    },
+    {
+      id: 'realistic',
+      name: 'Réaliste',
+      description: 'Scénario basé sur les données réelles actuelles',
+      biomassInput: currentData.annualPomace, // Données réelles
+      processEfficiency: 70,
+      safPrice: 1.22,
+      operatingCosts: currentData.id === 'champagne' ? 7 : 42,
+      capitalInvestment: currentData.id === 'champagne' ? 25 : 150,
+      color: '#D4AF37'
+    },
+    {
+      id: 'optimistic',
+      name: 'Optimiste',
+      description: 'Potentiel maximal avec optimisations',
+      biomassInput: Math.round(currentData.annualPomace * 1.25), // Expansion possible
+      processEfficiency: 75,
+      safPrice: 1.35,
+      operatingCosts: currentData.id === 'champagne' ? 6 : 38,
+      capitalInvestment: currentData.id === 'champagne' ? 25 : 150,
+      color: '#228B22'
+    }
+  ];
 
   const calculateMetrics = (scenario: Scenario) => {
     const safProduction = (scenario.biomassInput * 280) / 1000; // ML/year
@@ -146,7 +148,7 @@ const ScenarioComparison = () => {
               <div>
                 <h3 className="text-lg font-bold text-wine-charcoal">Comparaison de Scénarios</h3>
                 <Badge variant="secondary" className="bg-wine-gold/10 text-wine-gold border-wine-gold/20">
-                  Données Réelles: 266 000t → 74,5ML SAF → €90,9M
+                  Données Réelles: {currentData.annualPomace.toLocaleString()}t → {(currentData.safPotential / 1000000).toFixed(1)}ML SAF → €{currentData.revenue}M
                 </Badge>
               </div>
             </div>

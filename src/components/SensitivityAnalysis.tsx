@@ -94,11 +94,11 @@ const SensitivityAnalysis = () => {
 
   const generateScenarioData = (baseline: number) => {
     const scenarios = [
-      { name: 'Pessimiste', safPrice: 1000, efficiency: 60, biomass: 200000, costs: 1100, roi: 0 },
-      { name: 'Conservateur', safPrice: 1100, efficiency: 65, biomass: 230000, costs: 950, roi: 0 },
-      { name: 'Réaliste', safPrice: 1220, efficiency: 70, biomass: 266000, costs: 850, roi: baseline }, // Real data baseline
-      { name: 'Optimiste', safPrice: 1400, efficiency: 75, biomass: 300000, costs: 750, roi: 0 },
-      { name: 'Très optimiste', safPrice: 1600, efficiency: 78, biomass: 350000, costs: 700, roi: 0 }
+      { name: 'Pessimiste', safPrice: 1000, efficiency: 60, biomass: Math.round(currentData.annualPomace * 0.75), costs: 1100, roi: 0 },
+      { name: 'Conservateur', safPrice: 1100, efficiency: 65, biomass: Math.round(currentData.annualPomace * 0.86), costs: 950, roi: 0 },
+      { name: 'Réaliste', safPrice: 1220, efficiency: 70, biomass: currentData.annualPomace, costs: 850, roi: baseline }, // Real data baseline
+      { name: 'Optimiste', safPrice: 1400, efficiency: 75, biomass: Math.round(currentData.annualPomace * 1.13), costs: 750, roi: 0 },
+      { name: 'Très optimiste', safPrice: 1600, efficiency: 78, biomass: Math.round(currentData.annualPomace * 1.32), costs: 700, roi: 0 }
     ];
 
     const updatedScenarios = scenarios.map(scenario => {
