@@ -11,12 +11,9 @@ import ScenarioComparison from "../ScenarioComparison";
 import RiskAssessment from "../RiskAssessment";
 import BreakevenAnalysis from "../BreakevenAnalysis";
 import ExportCapabilities from "../ExportCapabilities";
-
 const EconomyTab = () => {
   const [advancedOpen, setAdvancedOpen] = useState(false);
-
-  return (
-    <div className="min-h-screen w-full">
+  return <div className="min-h-screen w-full">
       {/* Navigation Header */}
       <section className="mb-12">
         <div className="text-center mb-8">
@@ -31,19 +28,25 @@ const EconomyTab = () => {
         {/* Quick Navigation */}
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-elegant border border-wine-cream/30 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Button variant="outline" className="justify-start h-auto p-4" onClick={() => document.getElementById('roi-section')?.scrollIntoView({ behavior: 'smooth' })}>
+            <Button variant="outline" className="justify-start h-auto p-4" onClick={() => document.getElementById('roi-section')?.scrollIntoView({
+            behavior: 'smooth'
+          })}>
               <div className="text-left">
                 <div className="font-semibold">ROI Calculator</div>
                 <div className="text-sm text-wine-charcoal/70">Calculs de rentabilité</div>
               </div>
             </Button>
-            <Button variant="outline" className="justify-start h-auto p-4" onClick={() => document.getElementById('cost-benefit-section')?.scrollIntoView({ behavior: 'smooth' })}>
+            <Button variant="outline" className="justify-start h-auto p-4" onClick={() => document.getElementById('cost-benefit-section')?.scrollIntoView({
+            behavior: 'smooth'
+          })}>
               <div className="text-left">
                 <div className="font-semibold">Cost-Benefit</div>
                 <div className="text-sm text-wine-charcoal/70">Analyse coûts-bénéfices</div>
               </div>
             </Button>
-            <Button variant="outline" className="justify-start h-auto p-4" onClick={() => document.getElementById('projections-section')?.scrollIntoView({ behavior: 'smooth' })}>
+            <Button variant="outline" className="justify-start h-auto p-4" onClick={() => document.getElementById('projections-section')?.scrollIntoView({
+            behavior: 'smooth'
+          })}>
               <div className="text-left">
                 <div className="font-semibold">Projections</div>
                 <div className="text-sm text-wine-charcoal/70">Prévisions 5 ans</div>
@@ -101,21 +104,7 @@ const EconomyTab = () => {
       {/* Advanced Modules - Collapsible */}
       <section className="mb-16">
         <Collapsible open={advancedOpen} onOpenChange={setAdvancedOpen}>
-          <div className="text-center mb-8">
-            <CollapsibleTrigger asChild>
-              <Button variant="outline" size="lg" className="group">
-                <span className="text-lg font-semibold">Modules Avancés</span>
-                {advancedOpen ? (
-                  <ChevronUp className="ml-2 h-5 w-5 transition-transform" />
-                ) : (
-                  <ChevronDown className="ml-2 h-5 w-5 transition-transform" />
-                )}
-              </Button>
-            </CollapsibleTrigger>
-            <p className="text-wine-charcoal/70 mt-2">
-              Analyses de sensibilité, scénarios et évaluation des risques
-            </p>
-          </div>
+          
 
           <CollapsibleContent className="space-y-16">
             {/* Sensitivity & Risk Analysis */}
@@ -173,9 +162,7 @@ const EconomyTab = () => {
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-12">
           {/* Export Tools */}
           <div>
-            <ExportCapabilities 
-              type="economy"
-            />
+            <ExportCapabilities type="economy" />
           </div>
 
           {/* Market Context */}
@@ -199,34 +186,8 @@ const EconomyTab = () => {
         </div>
 
         {/* Financing Summary */}
-        <div className="bg-wine-cream/10 rounded-xl p-8">
-          <h3 className="text-2xl font-bold text-wine-charcoal mb-8 text-center">Financement - Vue d'ensemble</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-burgundy/10">
-              <div className="text-3xl font-bold text-wine-burgundy mb-3">€50M</div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">Fonds propres</div>
-              <div className="text-sm text-wine-charcoal/60">30-40% total</div>
-            </div>
-            <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-gold/10">
-              <div className="text-3xl font-bold text-wine-gold mb-3">€75M</div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">Dette bancaire</div>
-              <div className="text-sm text-wine-charcoal/60">Taux 4-6%</div>
-            </div>
-            <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-green/10">
-              <div className="text-3xl font-bold text-wine-green mb-3">€25M</div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">Subventions</div>
-              <div className="text-sm text-wine-charcoal/60">EU + France 2030</div>
-            </div>
-            <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-charcoal/10">
-              <div className="text-3xl font-bold text-wine-charcoal mb-3">€150M</div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">Total investissement</div>
-              <div className="text-sm text-wine-charcoal/60">Capacité 100kt SAF/an</div>
-            </div>
-          </div>
-        </div>
+        
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default EconomyTab;
