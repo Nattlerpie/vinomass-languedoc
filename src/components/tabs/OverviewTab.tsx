@@ -84,6 +84,143 @@ const OverviewTab = () => {
         </div>
       </section>
 
+      {/* Waste Allocation Breakdown for Languedoc-Roussillon */}
+      {currentData.id === 'languedoc' && (
+        <>
+          {/* Divider */}
+          <div className="border-t border-wine-cream/30 mb-16"></div>
+          
+          <section className="mb-16">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
+                Allocation des Déchets Viticoles
+              </h2>
+              <p className="text-lg text-wine-charcoal/70">
+                Hiérarchie de valorisation respectueuse des besoins existants
+              </p>
+            </div>
+
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-wine-charcoal mb-2">
+                  Total Biomasse Régionale: 266,000 tonnes
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+                {/* Flux Protégés */}
+                <div className="bg-gradient-subtle rounded-xl p-6 border border-wine-burgundy/20">
+                  <div className="text-center mb-4">
+                    <h4 className="text-xl font-bold text-wine-burgundy mb-2">
+                      Flux Protégés (45%)
+                    </h4>
+                    <div className="text-2xl font-bold text-wine-charcoal">120,000 tonnes</div>
+                  </div>
+                  
+                  <div className="space-y-3 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-wine-charcoal/70">Compost pour vignobles:</span>
+                      <span className="font-semibold text-wine-charcoal">67,000t</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-wine-charcoal/70">Biogaz énergétique:</span>
+                      <span className="font-semibold text-wine-charcoal">40,000t</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-wine-charcoal/70">Extraction premium:</span>
+                      <span className="font-semibold text-wine-charcoal">13,000t</span>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-4 p-3 bg-red-50 rounded-lg border border-red-200">
+                    <div className="flex items-center space-x-2">
+                      <span className="text-red-600 font-bold">❌</span>
+                      <span className="text-sm font-semibold text-red-700">Non disponible pour SAF</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Flux Négociables */}
+                <div className="bg-gradient-subtle rounded-xl p-6 border border-wine-gold/20">
+                  <div className="text-center mb-4">
+                    <h4 className="text-xl font-bold text-wine-gold mb-2">
+                      Flux Négociables (25%)
+                    </h4>
+                    <div className="text-2xl font-bold text-wine-charcoal">66,000 tonnes</div>
+                  </div>
+                  
+                  <div className="space-y-3 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-wine-charcoal/70">Surplus saisonniers:</span>
+                      <span className="font-semibold text-wine-charcoal">40,000t</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-wine-charcoal/70">Excédent compost:</span>
+                      <span className="font-semibold text-wine-charcoal">26,000t</span>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-4 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                    <div className="flex items-center space-x-2">
+                      <span className="text-yellow-600 font-bold">⚠️</span>
+                      <span className="text-sm font-semibold text-yellow-700">Partenariats requis</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Flux Disponibles */}
+                <div className="bg-gradient-subtle rounded-xl p-6 border border-wine-green/20">
+                  <div className="text-center mb-4">
+                    <h4 className="text-xl font-bold text-wine-green mb-2">
+                      Flux Disponibles (30%)
+                    </h4>
+                    <div className="text-2xl font-bold text-wine-charcoal">80,000 tonnes</div>
+                  </div>
+                  
+                  <div className="space-y-3 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-wine-charcoal/70">Coûts d'élimination actuels:</span>
+                      <span className="font-semibold text-wine-charcoal">50,000t</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-wine-charcoal/70">Boues de traitement:</span>
+                      <span className="font-semibold text-wine-charcoal">30,000t</span>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                    <div className="flex items-center space-x-2">
+                      <span className="text-green-600 font-bold">✅</span>
+                      <span className="text-sm font-semibold text-green-700">Disponible pour SAF</span>
+                    </div>
+                    <div className="text-xs text-green-600 mt-1">
+                      → 22.4M litres → €27.3M
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-wine-cream/10 border border-wine-gold/20 rounded-xl p-6">
+                <div className="flex items-start space-x-3">
+                  <div className="w-6 h-6 bg-wine-gold rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-white text-sm font-bold">!</span>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-wine-charcoal mb-2">Points Clés</div>
+                    <div className="text-sm text-wine-charcoal/70 space-y-1">
+                      <div>• Potentiel SAF réaliste: 22.4M litres/an (vs 74.5M théorique)</div>
+                      <div>• Revenus estimés: €27.3M/an (vs €90.9M théorique)</div>
+                      <div>• Réduction CO₂: 61,600 tonnes/an (vs 238,400 théorique)</div>
+                      <div>• Emplois créés: 180 postes directs (vs 600 théorique)</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
+
       {/* Divider */}
       <div className="border-t border-wine-cream/30 mb-16"></div>
 
