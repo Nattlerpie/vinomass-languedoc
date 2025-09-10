@@ -176,12 +176,52 @@ const ErrorHandling = () => {
 
       {/* Data Validation Errors */}
       {errors.length > 0 && <div className="space-y-3">
-          
-          {errors.map((error, index) => {})}
+          <h3 className="text-lg font-semibold text-wine-charcoal mb-4">
+            Problèmes Détectés
+          </h3>
+          {errors.map((error, index) => (
+            <Alert key={index} className={getSeverityColor(error.severity)}>
+              {getSeverityIcon(error.severity)}
+              <AlertDescription>
+                <div className="font-medium text-wine-charcoal">
+                  {error.component} - {error.field}
+                </div>
+                <div className="text-sm text-wine-charcoal/70 mt-1">
+                  {error.message}
+                </div>
+              </AlertDescription>
+            </Alert>
+          ))}
         </div>}
 
       {/* Performance Metrics */}
-      {performance}
+      {performance && (
+        <Alert className="border-blue-200 bg-blue-50">
+          <AlertDescription>
+            <div className="font-medium text-blue-800 mb-2">
+              Métriques de Performance
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+              <div>
+                <span className="text-blue-700">Temps chargement:</span>
+                <div className="font-medium">{Math.round(performance.loadTime)}ms</div>
+              </div>
+              <div>
+                <span className="text-blue-700">Temps rendu:</span>
+                <div className="font-medium">{Math.round(performance.renderTime)}ms</div>
+              </div>
+              <div>
+                <span className="text-blue-700">Mémoire:</span>
+                <div className="font-medium">{Math.round(performance.memoryUsage / 1024 / 1024)}MB</div>
+              </div>
+              <div>
+                <span className="text-blue-700">Latence réseau:</span>
+                <div className="font-medium">{Math.round(performance.networkLatency)}ms</div>
+              </div>
+            </div>
+          </AlertDescription>
+        </Alert>
+      )}
 
       {/* Success State */}
       {errors.length === 0 && <Alert className="border-green-200 bg-green-50">

@@ -197,6 +197,145 @@ const ImplementationTimeline = () => {
     }
   };
   const selectedPhaseData = phases.find(p => p.id === selectedPhase)!;
-  return;
+  
+  return (
+    <div className="space-y-8">
+      <div className="text-center mb-12">
+        <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
+          Timeline d'Implémentation
+        </h2>
+        <p className="text-lg text-wine-charcoal/70">
+          Phases de développement du projet SAF régional
+        </p>
+      </div>
+
+      {/* Timeline Overview */}
+      <div className="grid gap-4">
+        {phases.map((phase) => (
+          <Card 
+            key={phase.id}
+            className={`cursor-pointer transition-all hover:shadow-lg ${
+              selectedPhase === phase.id ? 'ring-2 ring-wine-burgundy/50' : ''
+            }`}
+            onClick={() => setSelectedPhase(phase.id)}
+          >
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-3">
+                  {getStatusIcon(phase.status)}
+                  <div>
+                    <h3 className="font-semibold text-wine-charcoal">{phase.title}</h3>
+                    <p className="text-sm text-wine-charcoal/70">{phase.duration}</p>
+                  </div>
+                </div>
+                <Badge className={getStatusColor(phase.status)}>
+                  {phase.status === 'completed' && 'Terminé'}
+                  {phase.status === 'in-progress' && 'En cours'}
+                  {phase.status === 'pending' && 'À venir'}
+                  {phase.status === 'blocked' && 'Bloqué'}
+                </Badge>
+              </div>
+              
+              <p className="text-wine-charcoal/70 mb-4">{phase.description}</p>
+              
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span>Progression</span>
+                  <span>{phase.progress}%</span>
+                </div>
+                <Progress value={phase.progress} className="h-2" />
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      {/* Detailed Phase View */}
+      {selectedPhaseData && (
+        <Card className="bg-white/95">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-3">
+              {getStatusIcon(selectedPhaseData.status)}
+              <span>{selectedPhaseData.title}</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* Milestones */}
+            <div>
+              <h4 className="font-semibold text-wine-charcoal mb-3 flex items-center">
+                <FileText className="w-4 h-4 mr-2" />
+                Jalons
+              </h4>
+              <div className="space-y-2">
+                {selectedPhaseData.milestones.map((milestone, idx) => (
+                  <div key={idx} className="flex items-center space-x-3 p-3 rounded-lg bg-wine-cream/30">
+                    {milestone.completed ? (
+                      <CheckCircle className="w-4 h-4 text-wine-green" />
+                    ) : (
+                      <Circle className="w-4 h-4 text-wine-charcoal/50" />
+                    )}
+                    <span className={milestone.completed ? 'text-wine-charcoal' : 'text-wine-charcoal/70'}>
+                      {milestone.name}
+                    </span>
+                    {milestone.date && (
+                      <span className="text-sm text-wine-charcoal/50 ml-auto">
+                        {milestone.date}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Stakeholders */}
+            <div>
+              <h4 className="font-semibold text-wine-charcoal mb-3 flex items-center">
+                <Users className="w-4 h-4 mr-2" />
+                Parties Prenantes
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {selectedPhaseData.stakeholders.map((stakeholder, idx) => (
+                  <Badge key={idx} variant="outline" className="border-wine-burgundy/30">
+                    {stakeholder}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+
+            {/* Dependencies */}
+            {selectedPhaseData.dependencies.length > 0 && (
+              <div>
+                <h4 className="font-semibold text-wine-charcoal mb-3 flex items-center">
+                  <Wrench className="w-4 h-4 mr-2" />
+                  Dépendances
+                </h4>
+                <div className="space-y-1">
+                  {selectedPhaseData.dependencies.map((dep, idx) => (
+                    <div key={idx} className="text-wine-charcoal/70 text-sm">
+                      • {dep}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Risks */}
+            <div>
+              <h4 className="font-semibold text-wine-charcoal mb-3">
+                Risques Identifiés
+              </h4>
+              <div className="space-y-1">
+                {selectedPhaseData.risks.map((risk, idx) => (
+                  <div key={idx} className="text-orange-700 text-sm bg-orange-50 p-2 rounded">
+                    ⚠️ {risk}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
 };
 export default ImplementationTimeline;
