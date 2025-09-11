@@ -49,10 +49,10 @@ const ExecutiveDashboard = () => {
 
   // REAL DATA PRESERVATION: Current region metrics using context
   const realMetrics: DashboardMetrics = {
-    totalRevenue: currentData.revenue, // From context data
-    safProduction: currentData.safPotential / 1000000, // Convert to ML
-    co2Savings: currentData.co2Reduction / 1000, // Convert to kt
-    employmentImpact: currentData.jobs,
+    totalRevenue: currentData.wasteAllocation?.realisticRevenue || currentData.revenue, // Use realistic revenue if available
+    safProduction: currentData.wasteAllocation?.realisticSafPotential || currentData.safPotential, // Use realistic SAF potential
+    co2Savings: currentData.wasteAllocation?.realisticCo2Reduction || currentData.co2Reduction, // Use realistic CO2 reduction  
+    employmentImpact: currentData.wasteAllocation?.realisticJobs || currentData.jobs, // Use realistic job numbers
     roiPercentage: 23.8, // Real ROI calculation
     paybackPeriod: 2.8, // Years based on real cash flows
     regionCoverage: currentData.vineyardSurface / 1000, // Convert to thousands
