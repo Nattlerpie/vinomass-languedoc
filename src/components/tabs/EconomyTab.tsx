@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import AdvancedROICalculator from "../AdvancedROICalculator";
 import CostBenefitAnalysis from "../CostBenefitAnalysis";
@@ -27,37 +28,13 @@ const EconomyTab = () => {
             Modélisation financière et analyse de rentabilité par région
           </p>
         </div>
-        
-        {/* Quick Navigation */}
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-elegant border border-wine-cream/30 mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Button variant="outline" className="justify-start h-auto p-4" onClick={() => document.getElementById('roi-section')?.scrollIntoView({ behavior: 'smooth' })}>
-              <div className="text-left">
-                <div className="font-semibold">ROI Calculator</div>
-                <div className="text-sm text-wine-charcoal/70">Calculs de rentabilité</div>
-              </div>
-            </Button>
-            <Button variant="outline" className="justify-start h-auto p-4" onClick={() => document.getElementById('cost-benefit-section')?.scrollIntoView({ behavior: 'smooth' })}>
-              <div className="text-left">
-                <div className="font-semibold">Cost-Benefit</div>
-                <div className="text-sm text-wine-charcoal/70">Analyse coûts-bénéfices</div>
-              </div>
-            </Button>
-            <Button variant="outline" className="justify-start h-auto p-4" onClick={() => document.getElementById('projections-section')?.scrollIntoView({ behavior: 'smooth' })}>
-              <div className="text-left">
-                <div className="font-semibold">Projections</div>
-                <div className="text-sm text-wine-charcoal/70">Prévisions 5 ans</div>
-              </div>
-            </Button>
-          </div>
-        </div>
       </section>
 
       {/* Waste Allocation Breakdown */}
       <section className="mb-16">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-            Allocation Réaliste des Flux de Biomasse
+            Allocation Réaliste des Flux - Languedoc-Roussillon
           </h2>
           <p className="text-lg text-wine-charcoal/70">
             Hiérarchisation respectueuse des besoins existants
@@ -125,47 +102,75 @@ const EconomyTab = () => {
 
       <div className="border-t border-wine-cream/30 mb-16"></div>
 
-      {/* Core Module 1: ROI Calculator */}
-      <section id="roi-section" className="mb-16">
+      {/* Main Economic Analysis - Tabbed Interface */}
+      <section className="mb-16">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-            Calculateur ROI
+            Modules d'Analyse Économique
           </h2>
           <p className="text-lg text-wine-charcoal/70">
-            Retour sur investissement et analyse de rentabilité
+            Outils de modélisation financière et évaluation de rentabilité
           </p>
         </div>
-        <AdvancedROICalculator />
-      </section>
 
-      <div className="border-t border-wine-cream/30 mb-16"></div>
+        <Tabs defaultValue="roi" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 bg-white/90 backdrop-blur-sm p-1 rounded-xl shadow-elegant border border-wine-cream/30">
+            <TabsTrigger 
+              value="roi" 
+              className="text-wine-charcoal data-[state=active]:bg-wine-burgundy data-[state=active]:text-white data-[state=active]:shadow-md font-medium"
+            >
+              ROI Calculator
+            </TabsTrigger>
+            <TabsTrigger 
+              value="cost-benefit" 
+              className="text-wine-charcoal data-[state=active]:bg-wine-burgundy data-[state=active]:text-white data-[state=active]:shadow-md font-medium"
+            >
+              Cost-Benefit
+            </TabsTrigger>
+            <TabsTrigger 
+              value="projections" 
+              className="text-wine-charcoal data-[state=active]:bg-wine-burgundy data-[state=active]:text-white data-[state=active]:shadow-md font-medium"
+            >
+              Projections
+            </TabsTrigger>
+          </TabsList>
 
-      {/* Core Module 2: Cost-Benefit Analysis */}
-      <section id="cost-benefit-section" className="mb-16">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-            Analyse Coûts-Bénéfices
-          </h2>
-          <p className="text-lg text-wine-charcoal/70">
-            Évaluation détaillée des investissements et retours
-          </p>
-        </div>
-        <CostBenefitAnalysis />
-      </section>
+          <TabsContent value="roi" className="mt-8">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-wine-charcoal mb-4">
+                Calculateur ROI
+              </h3>
+              <p className="text-lg text-wine-charcoal/70">
+                Retour sur investissement basé sur 80,000 tonnes disponibles
+              </p>
+            </div>
+            <AdvancedROICalculator />
+          </TabsContent>
 
-      <div className="border-t border-wine-cream/30 mb-16"></div>
+          <TabsContent value="cost-benefit" className="mt-8">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-wine-charcoal mb-4">
+                Analyse Coûts-Bénéfices
+              </h3>
+              <p className="text-lg text-wine-charcoal/70">
+                Évaluation détaillée des investissements et retours
+              </p>
+            </div>
+            <CostBenefitAnalysis />
+          </TabsContent>
 
-      {/* Core Module 3: Economic Projections */}
-      <section id="projections-section" className="mb-16">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-            Projections Économiques
-          </h2>
-          <p className="text-lg text-wine-charcoal/70">
-            Prévisions financières sur 5 ans
-          </p>
-        </div>
-        <EconomicProjections />
+          <TabsContent value="projections" className="mt-8">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-wine-charcoal mb-4">
+                Projections Économiques
+              </h3>
+              <p className="text-lg text-wine-charcoal/70">
+                Prévisions financières sur 5 ans
+              </p>
+            </div>
+            <EconomicProjections />
+          </TabsContent>
+        </Tabs>
       </section>
 
       <div className="border-t border-wine-cream/30 mb-16"></div>
