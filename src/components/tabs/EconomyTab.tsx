@@ -1,21 +1,12 @@
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ChevronDown, ChevronUp } from 'lucide-react';
 import AdvancedROICalculator from "../AdvancedROICalculator";
 import CostBenefitAnalysis from "../CostBenefitAnalysis";
 import EconomicProjections from "../EconomicProjections";
-import SensitivityAnalysis from "../SensitivityAnalysis";
-import ScenarioComparison from "../ScenarioComparison";
-import RiskAssessment from "../RiskAssessment";
-import BreakevenAnalysis from "../BreakevenAnalysis";
-import ExportCapabilities from "../ExportCapabilities";
 
 const EconomyTab = () => {
-  const [advancedOpen, setAdvancedOpen] = useState(false);
-
   return (
     <div className="min-h-screen w-full">
       {/* Navigation Header */}
@@ -169,138 +160,35 @@ const EconomyTab = () => {
               </p>
             </div>
             <EconomicProjections />
+            
+            {/* Financing Overview */}
+            <div className="mt-16 bg-wine-cream/10 rounded-xl p-8">
+              <h4 className="text-2xl font-bold text-wine-charcoal mb-8 text-center">Financement - Vue d'ensemble</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-burgundy/10">
+                  <div className="text-3xl font-bold text-wine-burgundy mb-3">€50M</div>
+                  <div className="text-lg font-semibold text-wine-charcoal mb-2">Fonds propres</div>
+                  <div className="text-sm text-wine-charcoal/60">30-40% total</div>
+                </div>
+                <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-gold/10">
+                  <div className="text-3xl font-bold text-wine-gold mb-3">€75M</div>
+                  <div className="text-lg font-semibold text-wine-charcoal mb-2">Dette bancaire</div>
+                  <div className="text-sm text-wine-charcoal/60">Taux 4-6%</div>
+                </div>
+                <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-green/10">
+                  <div className="text-3xl font-bold text-wine-green mb-3">€25M</div>
+                  <div className="text-lg font-semibold text-wine-charcoal mb-2">Subventions</div>
+                  <div className="text-sm text-wine-charcoal/60">EU + France 2030</div>
+                </div>
+                <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-charcoal/10">
+                  <div className="text-3xl font-bold text-wine-charcoal mb-3">€150M</div>
+                  <div className="text-lg font-semibold text-wine-charcoal mb-2">Total investissement</div>
+                  <div className="text-sm text-wine-charcoal/60">Capacité 100kt SAF/an</div>
+                </div>
+              </div>
+            </div>
           </TabsContent>
         </Tabs>
-      </section>
-
-      <div className="border-t border-wine-cream/30 mb-16"></div>
-
-      {/* Advanced Modules - Collapsible */}
-      <section className="mb-16">
-        <Collapsible open={advancedOpen} onOpenChange={setAdvancedOpen}>
-          <div className="text-center mb-8">
-            <CollapsibleTrigger asChild>
-              <Button variant="outline" size="lg" className="group">
-                <span className="text-lg font-semibold">Modules Avancés</span>
-                {advancedOpen ? (
-                  <ChevronUp className="ml-2 h-5 w-5 transition-transform" />
-                ) : (
-                  <ChevronDown className="ml-2 h-5 w-5 transition-transform" />
-                )}
-              </Button>
-            </CollapsibleTrigger>
-            <p className="text-wine-charcoal/70 mt-2">
-              Analyses de sensibilité, scénarios et évaluation des risques
-            </p>
-          </div>
-
-          <CollapsibleContent className="space-y-16">
-            {/* Sensitivity & Risk Analysis */}
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-              <Card className="bg-white/95 border-wine-cream/30">
-                <CardHeader>
-                  <CardTitle className="text-wine-charcoal">Analyse de Sensibilité</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <SensitivityAnalysis />
-                </CardContent>
-              </Card>
-              <Card className="bg-white/95 border-wine-cream/30">
-                <CardHeader>
-                  <CardTitle className="text-wine-charcoal">Évaluation des Risques</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <RiskAssessment />
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Scenario Comparison */}
-            <div>
-              <h3 className="text-2xl font-bold text-wine-charcoal mb-6 text-center">
-                Comparaison de Scénarios
-              </h3>
-              <ScenarioComparison />
-            </div>
-
-            {/* Breakeven Analysis */}
-            <div>
-              <h3 className="text-2xl font-bold text-wine-charcoal mb-6 text-center">
-                Analyse Point Mort
-              </h3>
-              <BreakevenAnalysis />
-            </div>
-          </CollapsibleContent>
-        </Collapsible>
-      </section>
-
-      <div className="border-t border-wine-cream/30 mb-16"></div>
-
-      {/* Export & Market Context */}
-      <section className="mb-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-            Export et Contexte Marché
-          </h2>
-          <p className="text-lg text-wine-charcoal/70">
-            Rapports professionnels et données de marché SAF
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-12">
-          {/* Export Tools */}
-          <div>
-            <ExportCapabilities 
-              type="economy"
-            />
-          </div>
-
-          {/* Market Context */}
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-elegant border border-wine-cream/30">
-            <h3 className="text-2xl font-bold text-wine-charcoal mb-6 text-center">Contexte Marché SAF</h3>
-            <div className="space-y-6">
-              <div className="p-4 bg-gradient-subtle rounded-xl border border-wine-burgundy/10">
-                <div className="text-lg font-bold text-wine-charcoal mb-2">Mandat UE RefuelEU</div>
-                <div className="text-wine-charcoal/70">2% SAF en 2025 → 70% en 2050</div>
-              </div>
-              <div className="p-4 bg-gradient-subtle rounded-xl border border-wine-gold/10">
-                <div className="text-lg font-bold text-wine-charcoal mb-2">Prix SAF vs Kérosène</div>
-                <div className="text-wine-charcoal/70">€1.22/L vs €0.65/L (prime durable)</div>
-              </div>
-              <div className="p-4 bg-gradient-subtle rounded-xl border border-wine-green/10">
-                <div className="text-lg font-bold text-wine-charcoal mb-2">Demande EU 2030</div>
-                <div className="text-wine-charcoal/70">8.5 millions tonnes SAF requis</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Financing Summary */}
-        <div className="bg-wine-cream/10 rounded-xl p-8">
-          <h3 className="text-2xl font-bold text-wine-charcoal mb-8 text-center">Financement - Vue d'ensemble</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-burgundy/10">
-              <div className="text-3xl font-bold text-wine-burgundy mb-3">€50M</div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">Fonds propres</div>
-              <div className="text-sm text-wine-charcoal/60">30-40% total</div>
-            </div>
-            <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-gold/10">
-              <div className="text-3xl font-bold text-wine-gold mb-3">€75M</div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">Dette bancaire</div>
-              <div className="text-sm text-wine-charcoal/60">Taux 4-6%</div>
-            </div>
-            <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-green/10">
-              <div className="text-3xl font-bold text-wine-green mb-3">€25M</div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">Subventions</div>
-              <div className="text-sm text-wine-charcoal/60">EU + France 2030</div>
-            </div>
-            <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-charcoal/10">
-              <div className="text-3xl font-bold text-wine-charcoal mb-3">€150M</div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">Total investissement</div>
-              <div className="text-sm text-wine-charcoal/60">Capacité 100kt SAF/an</div>
-            </div>
-          </div>
-        </div>
       </section>
     </div>
   );
