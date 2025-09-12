@@ -23,11 +23,11 @@ const AdvancedROICalculator = () => {
   const { currentData } = useRegion();
   const [activeScenario, setActiveScenario] = useState<string>("conservative");
   
-  // Dynamic scenarios based on current region
+  // Dynamic scenarios based on realistic waste allocation (80,000 tonnes available)
   const [scenarios] = useState<Record<string, Scenario>>({
     conservative: {
       name: "Conservateur",
-      biomassInput: Math.round(currentData.annualPomace * 0.75),
+      biomassInput: currentData.id === 'champagne' ? Math.round(currentData.annualPomace * 0.75) : 60000,
       processEfficiency: 65,
       safPrice: 1220,
       operatingCosts: 800,
@@ -35,7 +35,7 @@ const AdvancedROICalculator = () => {
     },
     realistic: {
       name: "Réaliste",
-      biomassInput: currentData.annualPomace,
+      biomassInput: currentData.id === 'champagne' ? currentData.annualPomace : 80000,
       processEfficiency: 70,
       safPrice: 1220,
       operatingCosts: 850,
@@ -43,7 +43,7 @@ const AdvancedROICalculator = () => {
     },
     optimistic: {
       name: "Optimiste",
-      biomassInput: Math.round(currentData.annualPomace * 1.1),
+      biomassInput: currentData.id === 'champagne' ? Math.round(currentData.annualPomace * 1.1) : 88000,
       processEfficiency: 75,
       safPrice: 1500,
       operatingCosts: 750,

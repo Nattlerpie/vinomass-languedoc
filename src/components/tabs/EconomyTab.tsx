@@ -53,6 +53,78 @@ const EconomyTab = () => {
         </div>
       </section>
 
+      {/* Waste Allocation Breakdown */}
+      <section className="mb-16">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
+            Allocation Réaliste des Flux de Biomasse
+          </h2>
+          <p className="text-lg text-wine-charcoal/70">
+            Hiérarchisation respectueuse des besoins existants
+          </p>
+        </div>
+        
+        <Card className="bg-white/95 backdrop-blur-sm border-wine-burgundy/20 shadow-elegant">
+          <CardHeader>
+            <CardTitle className="text-2xl text-wine-charcoal text-center">
+              Total Biomasse Régionale: 266,000 tonnes
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Flux Protégés */}
+              <div className="p-6 bg-gradient-to-br from-red-50 to-red-100 rounded-xl border border-red-200">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-wine-charcoal">Flux Protégés</h3>
+                  <span className="text-sm text-red-600 font-medium">❌ Non disponible</span>
+                </div>
+                <div className="text-3xl font-bold text-red-600 mb-2">45%</div>
+                <div className="text-xl font-semibold text-wine-charcoal mb-3">120,000 tonnes</div>
+                <div className="space-y-2 text-sm text-wine-charcoal/70">
+                  <div>• Compost pour vignobles: 67,000t</div>
+                  <div>• Biogaz énergétique: 40,000t</div>
+                  <div>• Extraction premium: 13,000t</div>
+                </div>
+              </div>
+
+              {/* Flux Négociables */}
+              <div className="p-6 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl border border-yellow-200">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-wine-charcoal">Flux Négociables</h3>
+                  <span className="text-sm text-yellow-600 font-medium">⚠️ Partenariats requis</span>
+                </div>
+                <div className="text-3xl font-bold text-yellow-600 mb-2">25%</div>
+                <div className="text-xl font-semibold text-wine-charcoal mb-3">66,000 tonnes</div>
+                <div className="space-y-2 text-sm text-wine-charcoal/70">
+                  <div>• Surplus saisonniers: 40,000t</div>
+                  <div>• Excédent compost: 26,000t</div>
+                </div>
+              </div>
+
+              {/* Flux Disponibles */}
+              <div className="p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-wine-charcoal">Flux Disponibles</h3>
+                  <span className="text-sm text-green-600 font-medium">✅ Disponible pour SAF</span>
+                </div>
+                <div className="text-3xl font-bold text-green-600 mb-2">30%</div>
+                <div className="text-xl font-semibold text-wine-charcoal mb-3">80,000 tonnes</div>
+                <div className="space-y-2 text-sm text-wine-charcoal/70">
+                  <div>• Coûts d'élimination actuels: 50,000t</div>
+                  <div>• Boues de traitement: 30,000t</div>
+                </div>
+                <div className="mt-4 p-3 bg-white/70 rounded-lg border border-green-300">
+                  <div className="text-sm font-medium text-wine-charcoal">Potentiel SAF:</div>
+                  <div className="text-lg font-bold text-green-600">22.4M litres → €27.3M</div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      <div className="border-t border-wine-cream/30 mb-16"></div>
+
       {/* Core Module 1: ROI Calculator */}
       <section id="roi-section" className="mb-16">
         <div className="text-center mb-8">
