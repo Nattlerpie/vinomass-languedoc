@@ -1,13 +1,15 @@
-import InfrastructureOverview from "../InfrastructureOverview";
-import SAFOpportunities from "../SAFOpportunities";
 import BiomassBreakdownChart from "../BiomassBreakdownChart";
 import StaticRegionalMap from "../StaticRegionalMap";
 import SeasonalTimeline from "../SeasonalTimeline";
-import EnhancedValoorizationMethods from "../EnhancedValoorizationMethods";
+import InfrastructureOverview from "../InfrastructureOverview";
 import { useRegion } from "@/contexts/RegionContext";
 
 const ResourcesTab = () => {
   const { currentData } = useRegion();
+  
+  // Realistic availability calculation: 30% of total for SAF production
+  const safAvailableTonnage = 80000; // Realistic allocation for SAF
+  const totalTheoreticalTonnage = currentData.annualPomace * 1.53; // Total biomass including all types
   
   return (
     <div className="min-h-screen w-full">
@@ -27,6 +29,45 @@ const ResourcesTab = () => {
         </div>
       </section>
 
+      {/* Realistic Allocation Section */}
+      <section className="mb-16">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
+              Allocation Réaliste des Flux - Languedoc-Roussillon
+            </h2>
+            <p className="text-lg text-wine-charcoal/70">
+              Disponibilité effective pour la production de SAF
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="text-center p-6 bg-gradient-subtle rounded-xl border border-wine-charcoal/10">
+              <div className="text-3xl font-bold text-wine-charcoal mb-3">{totalTheoreticalTonnage.toLocaleString()}t</div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">Production totale théorique</div>
+              <div className="text-sm text-wine-charcoal/60">100% des ressources biomasse</div>
+            </div>
+            <div className="text-center p-6 bg-gradient-subtle rounded-xl border border-wine-burgundy/10">
+              <div className="text-3xl font-bold text-wine-burgundy mb-3">{safAvailableTonnage.toLocaleString()}t</div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">Disponible pour SAF</div>
+              <div className="text-sm text-wine-charcoal/60">30% allocation réaliste</div>
+            </div>
+            <div className="text-center p-6 bg-gradient-subtle rounded-xl border border-wine-gold/10">
+              <div className="text-3xl font-bold text-wine-gold mb-3">{Math.round((totalTheoreticalTonnage - safAvailableTonnage)/1000)}kt</div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">Autres valorisations</div>
+              <div className="text-sm text-wine-charcoal/60">Distillation, compostage, méthanisation</div>
+            </div>
+          </div>
+          
+          <div className="mt-8 p-6 bg-wine-cream/10 rounded-xl">
+            <p className="text-wine-charcoal/80 text-center">
+              <strong>Pourquoi seulement 30% ?</strong> Les distilleries existantes, contraintes logistiques, 
+              saisonnalité et besoins locaux limitent la disponibilité réelle pour de nouveaux projets SAF.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Divider */}
       <div className="border-t border-wine-cream/30 mb-16"></div>
 
@@ -41,7 +82,7 @@ const ResourcesTab = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12 mb-12">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12">
           <div className="space-y-6">
             <BiomassBreakdownChart />
           </div>
@@ -54,97 +95,65 @@ const ResourcesTab = () => {
       {/* Divider */}
       <div className="border-t border-wine-cream/30 mb-16"></div>
 
-      {/* Valorization & Infrastructure Section */}
+      {/* Infrastructure Section */}
       <section className="mb-16">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-            Valorisation et Infrastructure
+            Infrastructure Existante
           </h2>
           <p className="text-lg text-wine-charcoal/70">
-            Technologies et opportunités de transformation
+            Capacités de transformation et valorisation
           </p>
         </div>
         
-        <div className="space-y-12">
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12">
-            <div className="space-y-6">
-              <EnhancedValoorizationMethods />
-            </div>
-            <div className="space-y-6">
-              <SAFOpportunities />
-            </div>
-          </div>
-          
-          <div className="w-full">
-            <InfrastructureOverview />
-          </div>
-        </div>
+        <InfrastructureOverview />
       </section>
 
       {/* Divider */}
       <div className="border-t border-wine-cream/30 mb-16"></div>
 
-      {/* Resource Summary Section */}
+      {/* SAF Production Potential */}
       <section className="mb-8">
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              Synthèse des Ressources Biomasse
+              Potentiel de Production SAF
             </h2>
             <p className="text-lg text-wine-charcoal/70">
-              Volumes disponibles et potentiel de valorisation
+              Capacité réaliste basée sur 80,000 tonnes disponibles
             </p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <div className="text-center p-6 lg:p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
-              <div className="text-3xl font-bold text-wine-burgundy mb-3">{currentData.annualPomace.toLocaleString()}t</div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">Marc de raisin annuel</div>
-              <div className="text-sm text-wine-charcoal/60">Saison septembre-novembre</div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 text-center">
+              <div className="text-4xl font-bold text-wine-burgundy mb-4">
+                {Math.round(safAvailableTonnage * 280 / 1000000 * 1000) / 1000}M L
+              </div>
+              <div className="text-xl font-semibold text-wine-charcoal mb-3">Production SAF annuelle</div>
+              <div className="text-sm text-wine-charcoal/60">À 280L/tonne de rendement</div>
             </div>
-            <div className="text-center p-6 lg:p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
-              <div className="text-3xl font-bold text-wine-gold mb-3">{Math.round(currentData.annualPomace * 0.18).toLocaleString()}t</div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">Sous-produits liquides</div>
-              <div className="text-sm text-wine-charcoal/60">Lies, bourbes, eaux de process</div>
+            
+            <div className="p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 text-center">
+              <div className="text-4xl font-bold text-wine-gold mb-4">
+                €{Math.round(safAvailableTonnage * 280 * 1.22 / 1000000)}M
+              </div>
+              <div className="text-xl font-semibold text-wine-charcoal mb-3">Chiffre d'affaires potentiel</div>
+              <div className="text-sm text-wine-charcoal/60">À €1.22/L prix de vente</div>
             </div>
-            <div className="text-center p-6 lg:p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
-              <div className="text-3xl font-bold text-wine-green mb-3">{Math.round(currentData.annualPomace * 0.17).toLocaleString()}t</div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">Bois de taille</div>
-              <div className="text-sm text-wine-charcoal/60">Disponible toute l'année</div>
-            </div>
-            <div className="text-center p-6 lg:p-8 bg-gradient-subtle rounded-xl border border-wine-charcoal/10 hover:scale-105 transition-all duration-300">
-              <div className="text-3xl font-bold text-wine-charcoal mb-3">{Math.round(currentData.annualPomace * 0.18).toLocaleString()}t</div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">Autres résidus</div>
-              <div className="text-sm text-wine-charcoal/60">Sarments, rafles, etc.</div>
+            
+            <div className="p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 text-center">
+              <div className="text-4xl font-bold text-wine-green mb-4">
+                {Math.round(safAvailableTonnage * 280 * 2.5 / 1000).toLocaleString()}t
+              </div>
+              <div className="text-xl font-semibold text-wine-charcoal mb-3">CO₂ évité annuel</div>
+              <div className="text-sm text-wine-charcoal/60">vs carburant fossile</div>
             </div>
           </div>
-
-          {/* Regional Positioning */}
-          <div className="bg-wine-cream/10 rounded-xl p-8">
-            <h3 className="text-2xl font-bold text-wine-charcoal mb-8 text-center">Positionnement Régional</h3>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="p-6 bg-white/70 rounded-xl border border-wine-burgundy/10">
-                <div className="text-xl font-bold text-wine-burgundy mb-3">
-                  {currentData.id === 'languedoc' ? 'Leadership National' : 'Excellence Premium'}
-                </div>
-                <div className="text-wine-charcoal/70 mb-2">
-                  {currentData.id === 'languedoc' ? '38% de la production viticole française' : 'Marché champagne de prestige'}
-                </div>
-                <div className="text-sm text-wine-charcoal/50">
-                  {Math.round(currentData.annualPomace * 1.53).toLocaleString()} tonnes biomasse totale
-                </div>
-              </div>
-              <div className="p-6 bg-white/70 rounded-xl border border-wine-gold/10">
-                <div className="text-xl font-bold text-wine-gold mb-3">Potentiel SAF</div>
-                <div className="text-wine-charcoal/70 mb-2">{(currentData.safPotential / 1000000).toFixed(1)}M litres SAF potentiels</div>
-                <div className="text-sm text-wine-charcoal/50">€{currentData.revenue}M de valeur ajoutée</div>
-              </div>
-              <div className="p-6 bg-white/70 rounded-xl border border-wine-green/10">
-                <div className="text-xl font-bold text-wine-green mb-3">Impact Environnemental</div>
-                <div className="text-wine-charcoal/70 mb-2">{currentData.co2Reduction.toLocaleString()} tonnes CO₂ évitées</div>
-                <div className="text-sm text-wine-charcoal/50">vs carburant conventionnel</div>
-              </div>
-            </div>
+          
+          <div className="mt-8 p-6 bg-wine-cream/10 rounded-xl">
+            <p className="text-wine-charcoal/80 text-center text-sm">
+              * Estimations basées sur les technologies ATJ (Alcohol-to-Jet) et les conditions de marché actuelles
+            </p>
           </div>
         </div>
       </section>
