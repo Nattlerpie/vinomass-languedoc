@@ -358,29 +358,7 @@ const ExecutiveDashboard = () => {
               </CardContent>
             </Card>
 
-            <Card className={`print-avoid-break ${presentationMode ? 'bg-white/10 border-white/20' : 'bg-white/95 border-wine-cream/30'}`}>
-              <CardHeader>
-                <CardTitle className={presentationMode ? 'text-white' : 'text-wine-charcoal'}>
-                  {t.implementation}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3 text-sm">
-                  <div className={`${presentationMode ? 'text-white/90' : 'text-wine-charcoal/80'}`}>
-                    <strong>Phase 1:</strong> {language === 'fr' ? 'Études techniques (6 mois)' : 'Technical studies (6 months)'}
-                  </div>
-                  <div className={`${presentationMode ? 'text-white/90' : 'text-wine-charcoal/80'}`}>
-                    <strong>Phase 2:</strong> {language === 'fr' ? 'Construction (18 mois)' : 'Construction (18 months)'}
-                  </div>
-                  <div className={`${presentationMode ? 'text-white/90' : 'text-wine-charcoal/80'}`}>
-                    <strong>Phase 3:</strong> {language === 'fr' ? 'Production (2025)' : 'Production (2025)'}
-                  </div>
-                  <div className={`${presentationMode ? 'text-white/90' : 'text-wine-charcoal/80'}`}>
-                    <strong>Financement:</strong> €180M {language === 'fr' ? 'total' : 'total'}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            
           </div>
 
           {/* Access Level Specific Content */}
