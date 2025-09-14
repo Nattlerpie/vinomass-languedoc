@@ -3,10 +3,11 @@ import { Users, MapPin, Building, TrendingUp } from 'lucide-react';
 import ImplementationTimeline from "../ImplementationTimeline";
 import ContactIntegration from "../ContactIntegration";
 import { useRegion } from "@/contexts/RegionContext";
-
 const PartnershipsTab = () => {
-  const { currentData } = useRegion();
-  
+  const {
+    currentData
+  } = useRegion();
+
   // Regional partnership data based on active region
   const keyMetrics = currentData.id === 'languedoc' ? {
     totalPartners: 42,
@@ -25,25 +26,68 @@ const PartnershipsTab = () => {
     avgDistance: 50,
     coverage: 75
   };
-
-  const topPartners = currentData.id === 'languedoc' ? [
-    { name: "Montpellier Méditerranée Métropole", type: "Collectivité", volume: 18500, distance: 25 },
-    { name: "Béziers Agglomération", type: "Collectivité", volume: 14200, distance: 40 },
-    { name: "Narbonne Communauté", type: "Collectivité", volume: 12800, distance: 65 },
-    { name: "Syndicat AOC Languedoc", type: "Interprofession", volume: 35000, distance: 0 },
-    { name: "Cave Coopérative Régionale", type: "Producteur", volume: 22000, distance: 30 },
-    { name: "Groupe Jeanjean", type: "Négoce", volume: 8500, distance: 15 }
-  ] : [
-    { name: "Comité Interprofessionnel du Vin de Champagne", type: "Interprofession", volume: 8500, distance: 0 },
-    { name: "Reims Métropole", type: "Collectivité", volume: 3200, distance: 15 },
-    { name: "Épernay Coteaux et Plaine", type: "Collectivité", volume: 2800, distance: 25 },
-    { name: "Haffner Marolles (partenaire)", type: "Industriel", volume: 4000, distance: 50 },
-    { name: "Coopérative Générale des Vignerons", type: "Producteur", volume: 3500, distance: 20 },
-    { name: "Maisons de Champagne (consortium)", type: "Négoce", volume: 2000, distance: 10 }
-  ];
-
-  return (
-    <div className="min-h-screen w-full">
+  const topPartners = currentData.id === 'languedoc' ? [{
+    name: "Montpellier Méditerranée Métropole",
+    type: "Collectivité",
+    volume: 18500,
+    distance: 25
+  }, {
+    name: "Béziers Agglomération",
+    type: "Collectivité",
+    volume: 14200,
+    distance: 40
+  }, {
+    name: "Narbonne Communauté",
+    type: "Collectivité",
+    volume: 12800,
+    distance: 65
+  }, {
+    name: "Syndicat AOC Languedoc",
+    type: "Interprofession",
+    volume: 35000,
+    distance: 0
+  }, {
+    name: "Cave Coopérative Régionale",
+    type: "Producteur",
+    volume: 22000,
+    distance: 30
+  }, {
+    name: "Groupe Jeanjean",
+    type: "Négoce",
+    volume: 8500,
+    distance: 15
+  }] : [{
+    name: "Comité Interprofessionnel du Vin de Champagne",
+    type: "Interprofession",
+    volume: 8500,
+    distance: 0
+  }, {
+    name: "Reims Métropole",
+    type: "Collectivité",
+    volume: 3200,
+    distance: 15
+  }, {
+    name: "Épernay Coteaux et Plaine",
+    type: "Collectivité",
+    volume: 2800,
+    distance: 25
+  }, {
+    name: "Haffner Marolles (partenaire)",
+    type: "Industriel",
+    volume: 4000,
+    distance: 50
+  }, {
+    name: "Coopérative Générale des Vignerons",
+    type: "Producteur",
+    volume: 3500,
+    distance: 20
+  }, {
+    name: "Maisons de Champagne (consortium)",
+    type: "Négoce",
+    volume: 2000,
+    distance: 10
+  }];
+  return <div className="min-h-screen w-full">
       {/* Hero Section */}
       <section className="mb-16">
         <div className="text-center mb-12">
@@ -137,8 +181,7 @@ const PartnershipsTab = () => {
                 </tr>
               </thead>
               <tbody>
-                {topPartners.map((partner, index) => (
-                  <tr key={index} className="border-b border-wine-cream/20 hover:bg-wine-cream/10 transition-colors">
+                {topPartners.map((partner, index) => <tr key={index} className="border-b border-wine-cream/20 hover:bg-wine-cream/10 transition-colors">
                     <td className="p-4 font-medium text-wine-charcoal">{partner.name}</td>
                     <td className="p-4 text-wine-charcoal/70">{partner.type}</td>
                     <td className="p-4 text-right font-semibold text-wine-burgundy">
@@ -148,8 +191,7 @@ const PartnershipsTab = () => {
                     <td className="p-4 text-right font-semibold text-wine-green">
                       {(partner.volume * 0.28 * 0.7 / 1000).toFixed(1)}
                     </td>
-                  </tr>
-                ))}
+                  </tr>)}
               </tbody>
             </table>
           </div>
@@ -195,19 +237,7 @@ const PartnershipsTab = () => {
       <div className="border-t border-wine-cream/30 mb-16"></div>
 
       {/* Contact Section */}
-      <section className="mb-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-            Rejoindre le Réseau
-          </h2>
-          <p className="text-lg text-wine-charcoal/70">
-            Devenir partenaire et construire l'avenir SAF ensemble
-          </p>
-        </div>
-        <ContactIntegration />
-      </section>
-    </div>
-  );
+      
+    </div>;
 };
-
 export default PartnershipsTab;
