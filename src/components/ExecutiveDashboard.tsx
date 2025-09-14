@@ -8,7 +8,6 @@ import StatCard from "./StatCard";
 import TopCommunes from "./TopCommunes";
 import ValoorizationChart from "./ValoorizationChart";
 import { useRegion } from '@/contexts/RegionContext';
-
 interface DashboardMetrics {
   totalRevenue: number;
   safProduction: number;
@@ -19,7 +18,6 @@ interface DashboardMetrics {
   regionCoverage: number;
   partnershipsCount: number;
 }
-
 interface LanguageStrings {
   title: string;
   subtitle: string;
@@ -40,25 +38,32 @@ interface LanguageStrings {
   implementation: string;
   contacts: string;
 }
-
 const ExecutiveDashboard = () => {
   const [language, setLanguage] = useState<'fr' | 'en'>('fr');
   const [accessLevel, setAccessLevel] = useState<'public' | 'partner' | 'executive'>('public');
   const [presentationMode, setPresentationMode] = useState<boolean>(false);
-  const { currentData } = useRegion();
+  const {
+    currentData
+  } = useRegion();
 
   // REAL DATA PRESERVATION: Current region metrics using context
   const realMetrics: DashboardMetrics = {
-    totalRevenue: currentData.wasteAllocation?.realisticRevenue || currentData.revenue, // Use realistic revenue if available
-    safProduction: currentData.wasteAllocation?.realisticSafPotential || currentData.safPotential, // Use realistic SAF potential
-    co2Savings: currentData.wasteAllocation?.realisticCo2Reduction || currentData.co2Reduction, // Use realistic CO2 reduction  
-    employmentImpact: currentData.wasteAllocation?.realisticJobs || currentData.jobs, // Use realistic job numbers
-    roiPercentage: 23.8, // Real ROI calculation
-    paybackPeriod: 2.8, // Years based on real cash flows
-    regionCoverage: currentData.vineyardSurface / 1000, // Convert to thousands
+    totalRevenue: currentData.wasteAllocation?.realisticRevenue || currentData.revenue,
+    // Use realistic revenue if available
+    safProduction: currentData.wasteAllocation?.realisticSafPotential || currentData.safPotential,
+    // Use realistic SAF potential
+    co2Savings: currentData.wasteAllocation?.realisticCo2Reduction || currentData.co2Reduction,
+    // Use realistic CO2 reduction  
+    employmentImpact: currentData.wasteAllocation?.realisticJobs || currentData.jobs,
+    // Use realistic job numbers
+    roiPercentage: 23.8,
+    // Real ROI calculation
+    paybackPeriod: 2.8,
+    // Years based on real cash flows
+    regionCoverage: currentData.vineyardSurface / 1000,
+    // Convert to thousands
     partnershipsCount: currentData.topCommunes?.length || 0
   };
-
   const translations: Record<'fr' | 'en', LanguageStrings> = {
     fr: {
       title: `SAF ${currentData.name}`,
@@ -84,7 +89,7 @@ const ExecutiveDashboard = () => {
       title: `SAF ${currentData.name}`,
       subtitle: "Wine pomace valorization into sustainable aviation fuel",
       revenueLabel: "Annual revenue",
-      safLabel: "SAF production", 
+      safLabel: "SAF production",
       co2Label: "CO₂ reduction",
       employmentLabel: "Jobs created",
       roiLabel: "Return on investment",
@@ -101,16 +106,13 @@ const ExecutiveDashboard = () => {
       contacts: "Contacts"
     }
   };
-
   const t = translations[language];
-
   const handleShare = async () => {
     const shareData = {
       title: t.title,
       text: t.subtitle,
       url: `${window.location.origin}?access=${accessLevel}&lang=${language}`
     };
-
     if (navigator.share) {
       await navigator.share(shareData);
     } else {
@@ -118,27 +120,28 @@ const ExecutiveDashboard = () => {
       // Toast notification would go here
     }
   };
-
   const handlePrint = () => {
     window.print();
   };
-
-  const MetricCard = ({ icon: Icon, value, label, unit, color }: {
+  const MetricCard = ({
+    icon: Icon,
+    value,
+    label,
+    unit,
+    color
+  }: {
     icon: any;
     value: number;
     label: string;
     unit: string;
     color: string;
-  }) => (
-    <div className={`text-center p-6 bg-gradient-to-br from-${color}/10 to-${color}/5 rounded-xl border border-${color}/20 print:border print:border-gray-300`}>
+  }) => <div className={`text-center p-6 bg-gradient-to-br from-${color}/10 to-${color}/5 rounded-xl border border-${color}/20 print:border print:border-gray-300`}>
       <Icon className={`text-${color} mx-auto mb-3`} size={32} />
       <div className={`text-3xl font-bold text-${color} mb-2`}>
         {value.toLocaleString()}{unit}
       </div>
       <div className="text-sm text-wine-charcoal/70 font-medium">{label}</div>
-    </div>
-  );
-
+    </div>;
   useEffect(() => {
     // Add print styles when component mounts
     const printStyles = `
@@ -152,18 +155,14 @@ const ExecutiveDashboard = () => {
         .backdrop-blur-sm { backdrop-filter: none !important; }
       }
     `;
-    
     const styleSheet = document.createElement('style');
     styleSheet.textContent = printStyles;
     document.head.appendChild(styleSheet);
-
     return () => {
       document.head.removeChild(styleSheet);
     };
   }, []);
-
-  return (
-    <div className={`min-h-screen w-full ${presentationMode ? 'bg-gradient-primary text-white' : ''}`}>
+  return <div className={`min-h-screen w-full ${presentationMode ? 'bg-gradient-primary text-white' : ''}`}>
       {/* Header Controls */}
       <div className="no-print bg-white/95 backdrop-blur-sm border-b border-wine-cream/30 p-4 sticky top-0 z-50">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
@@ -237,36 +236,22 @@ const ExecutiveDashboard = () => {
           {/* Hero Metrics - Real Data from Overview */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 print-avoid-break">
             <div className="animate-fade-in">
-              <StatCard
-                title={language === 'fr' ? "Superficie viticole" : "Vineyard area"}
-                value={(currentData.vineyardSurface / 1000).toFixed(0)}
-                unit="k hectares"
-                variant="burgundy"
-              />
+              <StatCard title={language === 'fr' ? "Superficie viticole" : "Vineyard area"} value={(currentData.vineyardSurface / 1000).toFixed(0)} unit="k hectares" variant="burgundy" />
             </div>
-            <div className="animate-fade-in" style={{ animationDelay: '100ms' }}>
-              <StatCard
-                title={language === 'fr' ? "Production annuelle de marc" : "Annual pomace production"}
-                value={currentData.annualPomace.toLocaleString()}
-                unit="tonnes"
-                variant="gold"
-              />
+            <div className="animate-fade-in" style={{
+            animationDelay: '100ms'
+          }}>
+              <StatCard title={language === 'fr' ? "Production annuelle de marc" : "Annual pomace production"} value={currentData.annualPomace.toLocaleString()} unit="tonnes" variant="gold" />
             </div>
-            <div className="animate-fade-in" style={{ animationDelay: '200ms' }}>
-              <StatCard
-                title={language === 'fr' ? "Potentiel SAF (70% efficacité)" : "SAF potential (70% efficiency)"}
-                value={(currentData.safPotential / 1000000).toFixed(1)}
-                unit="M litres/an"
-                variant="green"
-              />
+            <div className="animate-fade-in" style={{
+            animationDelay: '200ms'
+          }}>
+              <StatCard title={language === 'fr' ? "Potentiel SAF (70% efficacité)" : "SAF potential (70% efficiency)"} value={(currentData.safPotential / 1000000).toFixed(1)} unit="M litres/an" variant="green" />
             </div>
-            <div className="animate-fade-in" style={{ animationDelay: '300ms' }}>
-              <StatCard
-                title={language === 'fr' ? "Réduction CO₂" : "CO₂ reduction"}
-                value={currentData.co2Reduction.toLocaleString()}
-                unit="tonnes/an"
-                variant="charcoal"
-              />
+            <div className="animate-fade-in" style={{
+            animationDelay: '300ms'
+          }}>
+              <StatCard title={language === 'fr' ? "Réduction CO₂" : "CO₂ reduction"} value={currentData.co2Reduction.toLocaleString()} unit="tonnes/an" variant="charcoal" />
             </div>
           </div>
 
@@ -332,10 +317,7 @@ const ExecutiveDashboard = () => {
                   {language === 'fr' ? 'De la production nationale' : 'Of national production'}
                 </div>
                 <div className="text-sm text-wine-charcoal/60">
-                  {currentData.id === 'languedoc' 
-                    ? (language === 'fr' ? '12 millions d\'hectolitres' : '12 million hectoliters')
-                    : (language === 'fr' ? '3.5 millions d\'hectolitres (premium segment)' : '3.5 million hectoliters (premium segment)')
-                  }
+                  {currentData.id === 'languedoc' ? language === 'fr' ? '12 millions d\'hectolitres' : '12 million hectoliters' : language === 'fr' ? '3.5 millions d\'hectolitres (premium segment)' : '3.5 million hectoliters (premium segment)'}
                 </div>
               </div>
               <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
@@ -375,39 +357,7 @@ const ExecutiveDashboard = () => {
           {/* Financial Highlights */}
           <div className="border-t border-wine-cream/30 mb-16"></div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-            <Card className={`print-avoid-break ${presentationMode ? 'bg-white/10 border-white/20' : 'bg-white/95 border-wine-cream/30'}`}>
-              <CardHeader>
-                <CardTitle className={presentationMode ? 'text-white' : 'text-wine-charcoal'}>
-                  {t.businessCase}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className={presentationMode ? 'text-white/80' : 'text-wine-charcoal/70'}>
-                    {t.roiLabel}:
-                  </span>
-                  <span className={`font-bold ${presentationMode ? 'text-white' : 'text-wine-green'}`}>
-                    {realMetrics.roiPercentage}%
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className={presentationMode ? 'text-white/80' : 'text-wine-charcoal/70'}>
-                    {t.paybackLabel}:
-                  </span>
-                  <span className={`font-bold ${presentationMode ? 'text-white' : 'text-wine-burgundy'}`}>
-                    {realMetrics.paybackPeriod} ans
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className={presentationMode ? 'text-white/80' : 'text-wine-charcoal/70'}>
-                    {t.regionLabel}:
-                  </span>
-                  <span className={`font-bold ${presentationMode ? 'text-white' : 'text-wine-gold'}`}>
-                    {realMetrics.regionCoverage}k ha
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
+            
 
             <Card className={`print-avoid-break ${presentationMode ? 'bg-white/10 border-white/20' : 'bg-white/95 border-wine-cream/30'}`}>
               <CardHeader>
@@ -463,14 +413,10 @@ const ExecutiveDashboard = () => {
           </div>
 
           {/* Access Level Specific Content */}
-          {accessLevel !== 'public' && (
-            <div className="print-break">
+          {accessLevel !== 'public' && <div className="print-break">
               <Card className={`${presentationMode ? 'bg-white/10 border-white/20' : 'bg-wine-cream/20 border-wine-burgundy/30'} p-8`}>
                 <h3 className={`text-2xl font-bold mb-6 ${presentationMode ? 'text-white' : 'text-wine-charcoal'}`}>
-                  {accessLevel === 'partner' ? 
-                    (language === 'fr' ? 'Informations Partenaires' : 'Partner Information') :
-                    (language === 'fr' ? 'Données Confidentielles' : 'Confidential Data')
-                  }
+                  {accessLevel === 'partner' ? language === 'fr' ? 'Informations Partenaires' : 'Partner Information' : language === 'fr' ? 'Données Confidentielles' : 'Confidential Data'}
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
@@ -510,12 +456,9 @@ const ExecutiveDashboard = () => {
                   </div>
                 </div>
               </Card>
-            </div>
-          )}
+            </div>}
         </div>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default ExecutiveDashboard;
