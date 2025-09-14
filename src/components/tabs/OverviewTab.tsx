@@ -208,11 +208,11 @@ const OverviewTab = () => {
                   <div>
                     <div className="font-semibold text-wine-charcoal mb-2">Points Clés</div>
                      <div className="text-sm text-wine-charcoal/70 space-y-1">
-                       <div>• Potentiel SAF réaliste: 22.4M litres/an (vs 74.5M théorique)</div>
-                       <div>• Revenus estimés: €27.3M/an (vs €90.9M théorique)</div>
-                       <div>• Réduction CO₂: 61,600 tonnes/an (vs 238,400 théorique)</div>
-                       <div>• Emplois créés: 180 postes directs (vs 600 théorique)</div>
-                     </div>
+                        <div>• Potentiel SAF réaliste: 22.4M litres/an (vs 74.5M théorique)</div>
+                        <div>• Revenus estimés: €27.3M/an (vs €90.9M théorique)</div>
+                        <div>• Réduction CO₂: 61,600 tonnes/an (vs 238,400 théorique)</div>
+                        <div>• Emplois créés: 180 postes directs (vs 600 théorique)</div>
+                      </div>
                   </div>
                 </div>
               </div>
