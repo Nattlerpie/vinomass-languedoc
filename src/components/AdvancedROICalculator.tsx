@@ -29,25 +29,25 @@ const AdvancedROICalculator = () => {
       name: "Conservateur",
       biomassInput: currentData.id === 'champagne' ? Math.round(currentData.annualPomace * 0.75) : 60000,
       processEfficiency: 65,
-      safPrice: 1220,
-      operatingCosts: 800,
-      capitalInvestment: currentData.id === 'champagne' ? 40000000 : 120000000
+      safPrice: 1.10,
+      operatingCosts: 0.95,
+      capitalInvestment: currentData.id === 'champagne' ? 40000000 : 85000000
     },
     realistic: {
       name: "Réaliste",
       biomassInput: currentData.id === 'champagne' ? currentData.annualPomace : 80000,
       processEfficiency: 70,
-      safPrice: 1220,
-      operatingCosts: 850,
-      capitalInvestment: currentData.id === 'champagne' ? 50000000 : 180000000
+      safPrice: 1.22,
+      operatingCosts: 0.85,
+      capitalInvestment: currentData.id === 'champagne' ? 50000000 : 120000000
     },
     optimistic: {
       name: "Optimiste",
-      biomassInput: currentData.id === 'champagne' ? Math.round(currentData.annualPomace * 1.1) : 88000,
+      biomassInput: currentData.id === 'champagne' ? Math.round(currentData.annualPomace * 1.1) : 100000,
       processEfficiency: 75,
-      safPrice: 1500,
-      operatingCosts: 750,
-      capitalInvestment: currentData.id === 'champagne' ? 60000000 : 200000000
+      safPrice: 1.35,
+      operatingCosts: 0.75,
+      capitalInvestment: currentData.id === 'champagne' ? 60000000 : 150000000
     }
   });
 
@@ -170,9 +170,9 @@ const AdvancedROICalculator = () => {
                     <Slider
                       value={[customValues.biomassInput]}
                       onValueChange={([value]) => setCustomValues(prev => ({ ...prev, biomassInput: value }))}
-                      min={currentData.id === 'champagne' ? 10000 : 100000}
-                      max={currentData.id === 'champagne' ? 50000 : 500000}
-                      step={currentData.id === 'champagne' ? 1000 : 10000}
+                      min={currentData.id === 'champagne' ? 10000 : 40000}
+                      max={currentData.id === 'champagne' ? 50000 : 120000}
+                      step={currentData.id === 'champagne' ? 1000 : 5000}
                       className="mt-2"
                     />
                   </div>
@@ -193,14 +193,14 @@ const AdvancedROICalculator = () => {
 
                   <div>
                     <Label className="text-sm font-medium text-wine-charcoal">
-                      Prix SAF (€/m³): {customValues.safPrice.toLocaleString()}
+                      Prix SAF (€/L): {customValues.safPrice.toFixed(2)}
                     </Label>
                     <Slider
                       value={[customValues.safPrice]}
                       onValueChange={([value]) => setCustomValues(prev => ({ ...prev, safPrice: value }))}
-                      min={2000}
-                      max={4000}
-                      step={50}
+                      min={0.8}
+                      max={2.0}
+                      step={0.05}
                       className="mt-2"
                     />
                   </div>
@@ -209,14 +209,14 @@ const AdvancedROICalculator = () => {
                 <div className="space-y-4">
                   <div>
                     <Label className="text-sm font-medium text-wine-charcoal">
-                      Coûts opérationnels (€/m³): {customValues.operatingCosts.toLocaleString()}
+                      Coûts opérationnels (€/L): {customValues.operatingCosts.toFixed(2)}
                     </Label>
                     <Slider
                       value={[customValues.operatingCosts]}
                       onValueChange={([value]) => setCustomValues(prev => ({ ...prev, operatingCosts: value }))}
-                      min={1200}
-                      max={2500}
-                      step={50}
+                      min={0.6}
+                      max={1.2}
+                      step={0.05}
                       className="mt-2"
                     />
                   </div>
@@ -228,8 +228,8 @@ const AdvancedROICalculator = () => {
                     <Slider
                       value={[customValues.capitalInvestment]}
                       onValueChange={([value]) => setCustomValues(prev => ({ ...prev, capitalInvestment: value }))}
-                      min={currentData.id === 'champagne' ? 20000000 : 80000000}
-                      max={currentData.id === 'champagne' ? 80000000 : 300000000}
+                      min={currentData.id === 'champagne' ? 20000000 : 70000000}
+                      max={currentData.id === 'champagne' ? 80000000 : 200000000}
                       step={currentData.id === 'champagne' ? 2000000 : 5000000}
                       className="mt-2"
                     />
