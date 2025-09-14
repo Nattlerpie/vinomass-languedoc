@@ -17,11 +17,12 @@ const BiomassBreakdownChart = () => {
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
   const [selectedSeason, setSelectedSeason] = useState<string>('all');
 
-  // Dynamic data based on region
+  // Dynamic data based on region - total 266,000 tonnes
+  const totalBiomass = 266000;
   const biomassData = [
     {
       type: 'Marc de raisin',
-      tonnage: currentData.annualPomace,
+      tonnage: Math.round(totalBiomass * 0.65), // 173,000 tonnes
       percentage: 65,
       season: 'Septembre-Novembre',
       valorization: 'SAF (280L/tonne), Distillation, Compostage',
@@ -30,7 +31,7 @@ const BiomassBreakdownChart = () => {
     },
     {
       type: 'Sous-produits liquides',
-      tonnage: Math.round(currentData.annualPomace * 0.18),
+      tonnage: Math.round(totalBiomass * 0.18), // 48,000 tonnes
       percentage: 18,
       season: 'Octobre-Mars',
       valorization: 'Distillation, Épandage',
@@ -39,8 +40,8 @@ const BiomassBreakdownChart = () => {
     },
     {
       type: 'Bois de taille',
-      tonnage: Math.round(currentData.annualPomace * 0.17),
-      percentage: 17,
+      tonnage: Math.round(totalBiomass * 0.10), // 27,000 tonnes
+      percentage: 10,
       season: 'Toute année',
       valorization: 'Biomasse énergétique, Compostage',
       color: 'hsl(var(--wine-green))',
@@ -48,8 +49,8 @@ const BiomassBreakdownChart = () => {
     },
     {
       type: 'Sarments',
-      tonnage: Math.round(currentData.annualPomace * 0.12),
-      percentage: 12,
+      tonnage: Math.round(totalBiomass * 0.05), // 13,000 tonnes
+      percentage: 5,
       season: 'Janvier-Mars',
       valorization: 'Biomasse énergétique, Paillage',
       color: 'hsl(var(--wine-charcoal))',
@@ -57,8 +58,8 @@ const BiomassBreakdownChart = () => {
     },
     {
       type: 'Rafles',
-      tonnage: Math.round(currentData.annualPomace * 0.06),
-      percentage: 6,
+      tonnage: Math.round(totalBiomass * 0.02), // 5,000 tonnes
+      percentage: 2,
       season: 'Septembre-Octobre',
       valorization: 'Compostage, Extraction tanins',
       color: 'hsl(var(--wine-cream))',

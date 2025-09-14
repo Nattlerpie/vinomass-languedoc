@@ -9,7 +9,7 @@ const ResourcesTab = () => {
   
   // Realistic availability calculation: 30% of total for SAF production
   const safAvailableTonnage = 80000; // Realistic allocation for SAF
-  const totalTheoreticalTonnage = currentData.annualPomace * 1.53; // Total biomass including all types
+  const totalTheoreticalTonnage = 266000; // Total biomass including all types
   
   return (
     <div className="min-h-screen w-full">
