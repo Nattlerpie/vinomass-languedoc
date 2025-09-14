@@ -256,36 +256,7 @@ const ExecutiveDashboard = () => {
           </div>
 
           {/* Executive KPIs Row */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 print-avoid-break">
-            <div className={`text-center p-6 bg-gradient-to-br from-wine-burgundy/10 to-wine-burgundy/5 rounded-xl border border-wine-burgundy/20 print:border print:border-gray-300`}>
-              <TrendingUp className="text-wine-burgundy mx-auto mb-3" size={32} />
-              <div className="text-3xl font-bold text-wine-burgundy mb-2">
-                €{realMetrics.totalRevenue}M
-              </div>
-              <div className="text-sm text-wine-charcoal/70 font-medium">{t.revenueLabel}</div>
-            </div>
-            <div className={`text-center p-6 bg-gradient-to-br from-wine-green/10 to-wine-green/5 rounded-xl border border-wine-green/20 print:border print:border-gray-300`}>
-              <Users className="text-wine-green mx-auto mb-3" size={32} />
-              <div className="text-3xl font-bold text-wine-green mb-2">
-                {realMetrics.employmentImpact}
-              </div>
-              <div className="text-sm text-wine-charcoal/70 font-medium">{t.employmentLabel}</div>
-            </div>
-            <div className={`text-center p-6 bg-gradient-to-br from-wine-gold/10 to-wine-gold/5 rounded-xl border border-wine-gold/20 print:border print:border-gray-300`}>
-              <BarChart3 className="text-wine-gold mx-auto mb-3" size={32} />
-              <div className="text-3xl font-bold text-wine-gold mb-2">
-                {realMetrics.roiPercentage}%
-              </div>
-              <div className="text-sm text-wine-charcoal/70 font-medium">{t.roiLabel}</div>
-            </div>
-            <div className={`text-center p-6 bg-gradient-to-br from-wine-charcoal/10 to-wine-charcoal/5 rounded-xl border border-wine-charcoal/20 print:border print:border-gray-300`}>
-              <Globe className="text-wine-charcoal mx-auto mb-3" size={32} />
-              <div className="text-3xl font-bold text-wine-charcoal mb-2">
-                {realMetrics.paybackPeriod}
-              </div>
-              <div className="text-sm text-wine-charcoal/70 font-medium">{language === 'fr' ? 'Ans payback' : 'Years payback'}</div>
-            </div>
-          </div>
+          
 
           {/* Regional Context from Overview */}
           <div className="border-t border-wine-cream/30 mb-16"></div>
