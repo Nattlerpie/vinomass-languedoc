@@ -57,7 +57,7 @@ const OverviewTab = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-burgundy mb-3">
                 {currentData.id === 'languedoc' ? '245,000' : '34,000'}
