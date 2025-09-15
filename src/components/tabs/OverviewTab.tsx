@@ -87,7 +87,7 @@ const OverviewTab = () => {
             
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-burgundy mb-3">
-                {currentData.id === 'languedoc' ? '22.4M' : '2.0M'}
+                {currentData.id === 'languedoc' ? '15.68M' : '1.37M'}
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">Potentiel SAF (70% efficacité)</div>
               <div className="text-sm text-wine-charcoal/60">litres/an</div>
