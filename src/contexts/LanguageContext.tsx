@@ -1,5 +1,3 @@
-// COMPLETE TRANSLATION KEYS - Add these to your LanguageContext translations
-
 const translations = {
   fr: {
     // ... your existing translations ...
