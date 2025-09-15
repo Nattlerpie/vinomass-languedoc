@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-export type Language = 'fr' | 'en' | 'es';
+export type Language = 'fr' | 'en';
 
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: string) => string;
+  t: (key: string, params?: Record<string, string>) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -90,7 +90,9 @@ const translations = {
     'fournisseurs.biomasse': 'fournisseurs biomasse',
     'fonds.verts': 'fonds verts',
     'energies.renouvelables': 'énergies renouvelables',
-    'neutralite.carbone': 'neutralité carbone'
+    'neutralite.carbone': 'neutralité carbone',
+    
+    // Resources Tab
     'resources.title': 'Ressources Biomasse',
     'resources.subtitle': 'Cartographie et analyse des ressources régionales disponibles',
     'resources.allocationTitle': 'Allocation Réaliste des Flux',
@@ -197,7 +199,9 @@ const translations = {
     'fournisseurs.biomasse': 'biomass suppliers',
     'fonds.verts': 'green funds',
     'energies.renouvelables': 'renewable energy',
-    'neutralite.carbone': 'carbon neutrality'
+    'neutralite.carbone': 'carbon neutrality',
+    
+    // Resources Tab
     'resources.title': 'Biomass Resources',
     'resources.subtitle': 'Mapping and analysis of available regional resources',
     'resources.allocationTitle': 'Realistic Flow Allocation',
@@ -223,37 +227,6 @@ const translations = {
     'resources.annualCo2Avoided': 'Annual CO₂ avoided',
     'resources.vsFossilFuel': 'vs fossil fuel',
     'resources.disclaimer': '* Estimates based on ATJ (Alcohol-to-Jet) technologies and current market conditions'
-  },
-  
-  es: {
-    // Navigation & Header
-    'header.title': 'SAF {region}',
-    'header.subtitle': 'Valorización del orujo de uva en combustible sostenible de aviación',
-    'nav.vue.ensemble': 'Resumen',
-    'nav.economie': 'Economía',
-    'nav.ressources': 'Recursos',
-    'nav.partenaires': 'Socios',
-    
-    // Points Clés (Vue d'ensemble)
-    'points.cles': 'Puntos Clave',
-    'points.cles.subtitle': 'Indicadores económicos y técnicos esenciales',
-    'superficie.viticole': 'Superficie vitícola',
-    'production.marc': 'Producción anual de orujo',
-    'allocation.flux': 'Asignación Realista de Flujos',
-    'potentiel.saf': 'Potencial SAF (70% eficiencia)',
-    'revenue.potential': 'Potencial de Ingresos',
-    'reduction.co2': 'Reducción CO₂',
-    'hectares': 'hectáreas',
-    'tonnes': 'toneladas',
-    'litres.an': 'litros/año',
-    'tonnes.an': 'toneladas/año',
-    'base.regionale': 'Base regional',
-    'matiere.premiere': 'Materia prima total',
-    'disponible.saf': 'disponible para SAF',
-    'vs.fossile': 'vs combustible fósil',
-    'prix.marche': 'Precio de mercado ATJ',
-    
-    // Add more Spanish translations...
   }
 };
 
