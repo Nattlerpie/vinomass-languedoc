@@ -36,11 +36,8 @@ const ResourcesTab = () => {
         </div>
         
         <div className="rounded-2xl overflow-hidden shadow-elegant border border-wine-cream/30">
-          {/* ✅ FIX: Pass region data to map component */}
-          <StaticRegionalMap 
-            region={currentData.id}
-            communes={currentData.topCommunes}
-          />
+          {/* ✅ TEMPORARY: Remove props until components are updated */}
+          <StaticRegionalMap />
         </div>
       </section>
 
@@ -126,19 +123,12 @@ const ResourcesTab = () => {
         
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12">
           <div className="space-y-6">
-            {/* ✅ FIX: Pass waste allocation data to chart */}
-            <BiomassBreakdownChart 
-              wasteAllocation={currentData.wasteAllocation}
-              totalBiomass={totalTheoreticalTonnage}
-              region={currentData.name}
-            />
+            {/* ✅ TEMPORARY: Remove props until components are updated */}
+            <BiomassBreakdownChart />
           </div>
           <div className="space-y-6">
-            {/* ✅ FIX: Pass seasonal data to timeline */}
-            <SeasonalTimeline 
-              region={currentData.id}
-              totalProduction={totalTheoreticalTonnage}
-            />
+            {/* ✅ TEMPORARY: Remove props until components are updated */}
+            <SeasonalTimeline />
           </div>
         </div>
       </section>
@@ -158,11 +148,8 @@ const ResourcesTab = () => {
           </p>
         </div>
         
-        {/* ✅ FIX: Pass infrastructure data from RegionContext */}
-        <InfrastructureOverview 
-          infrastructure={currentData.infrastructure}
-          region={currentData.name}
-        />
+        {/* ✅ TEMPORARY: Remove props until components are updated */}
+        <InfrastructureOverview />
       </section>
 
       {/* Divider */}
