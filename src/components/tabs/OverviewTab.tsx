@@ -1,9 +1,11 @@
 import TopCommunes from "../TopCommunes";
 import ValoorizationChart from "../ValoorizationChart";
 import { useRegion } from "@/contexts/RegionContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const OverviewTab = () => {
   const { currentData } = useRegion();
+  const { t } = useLanguage();
   
   return (
     <div className="min-h-screen w-full">
@@ -11,10 +13,10 @@ const OverviewTab = () => {
       <section className="mb-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl lg:text-5xl font-bold text-wine-charcoal mb-4">
-            SAF {currentData.name}
+            {t('header.title').replace('{region}', currentData.name)}
           </h1>
           <p className="text-xl text-wine-charcoal/70 max-w-3xl mx-auto">
-            Valorisation du marc de raisin en carburant aviation durable
+            {t('header.subtitle')}
           </p>
         </div>
 
@@ -22,73 +24,73 @@ const OverviewTab = () => {
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30 mb-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              Points Clés
+              {t('points.cles')}
             </h2>
             <p className="text-lg text-wine-charcoal/70">
-              Indicateurs économiques et techniques essentiels
+              {t('points.cles.subtitle')}
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-burgundy mb-3">
-                {currentData.id === 'languedoc' ? '245,000' : '34,000'}
+                {currentData.vineyardSurface.toLocaleString()}
               </div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">Superficie viticole</div>
-              <div className="text-sm text-wine-charcoal/60">hectares</div>
-              <div className="text-xs text-wine-charcoal/50 mt-1">Base régionale</div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('superficie.viticole')}</div>
+              <div className="text-sm text-wine-charcoal/60">{t('hectares')}</div>
+              <div className="text-xs text-wine-charcoal/50 mt-1">{t('base.regionale')}</div>
             </div>
             
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-gold mb-3">
-                {currentData.id === 'languedoc' ? '266,000' : '24,000'}
+                {currentData.annualPomace.toLocaleString()}
               </div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">Production annuelle de marc</div>
-              <div className="text-sm text-wine-charcoal/60">tonnes</div>
-              <div className="text-xs text-wine-charcoal/50 mt-1">Matière première totale</div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('production.marc')}</div>
+              <div className="text-sm text-wine-charcoal/60">{t('tonnes')}</div>
+              <div className="text-xs text-wine-charcoal/50 mt-1">{t('matiere.premiere')}</div>
             </div>
             
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-green mb-3">
-                {currentData.id === 'languedoc' ? '80,000' : '7,000'}
+                {currentData.wasteAllocation?.available.toLocaleString() || '80,000'}
               </div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">Allocation Réaliste des Flux</div>
-              <div className="text-sm text-wine-charcoal/60">tonnes</div>
-              <div className="text-xs text-wine-charcoal/50 mt-1">30% disponible pour SAF</div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('allocation.flux')}</div>
+              <div className="text-sm text-wine-charcoal/60">{t('tonnes')}</div>
+              <div className="text-xs text-wine-charcoal/50 mt-1">30% {t('disponible.saf')}</div>
             </div>
             
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-burgundy mb-3">
-                {currentData.id === 'languedoc' ? '22.4M' : '2.0M'}
+                {(currentData.safPotential / 1000000).toFixed(1)}M
               </div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">Potentiel SAF (70% efficacité)</div>
-              <div className="text-sm text-wine-charcoal/60">litres/an</div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('potentiel.saf')}</div>
+              <div className="text-sm text-wine-charcoal/60">{t('litres.an')}</div>
               <div className="text-xs text-wine-charcoal/50 mt-1">
-                Basé sur {currentData.id === 'languedoc' ? '80,000t' : '7,000t'} disponibles
+                Basé sur {currentData.wasteAllocation?.available.toLocaleString() || '80,000'}t disponibles
               </div>
             </div>
             
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300 group relative">
               <div className="text-4xl font-bold text-wine-gold mb-3">
-                €{currentData.id === 'languedoc' ? '27.3M' : '2.4M'}
+                €{currentData.revenue}M
               </div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">Revenue Potential</div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('revenue.potential')}</div>
               <div className="text-sm text-wine-charcoal/60">/an</div>
-              <div className="text-xs text-wine-charcoal/50 mt-1">Prix marché ATJ</div>
+              <div className="text-xs text-wine-charcoal/50 mt-1">{t('prix.marche')}</div>
               
               {/* Hover tooltip */}
               <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-wine-charcoal text-white p-3 rounded-lg shadow-lg text-xs whitespace-nowrap z-10">
-                {currentData.id === 'languedoc' ? '22.4M' : '2.0M'} L × €1.22/L (prix marché ATJ - source: Aviation Fuel Analytics)
+                {(currentData.safPotential / 1000000).toFixed(1)}M L × €1.22/L (prix marché ATJ - source: Aviation Fuel Analytics)
               </div>
             </div>
             
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-green mb-3">
-                {currentData.id === 'languedoc' ? '61,600' : '5,500'}
+                {currentData.co2Reduction.toLocaleString()}
               </div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">Réduction CO₂</div>
-              <div className="text-sm text-wine-charcoal/60">tonnes/an</div>
-              <div className="text-xs text-wine-charcoal/50 mt-1">vs carburant fossile</div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('reduction.co2')}</div>
+              <div className="text-sm text-wine-charcoal/60">{t('tonnes.an')}</div>
+              <div className="text-xs text-wine-charcoal/50 mt-1">{t('vs.fossile')}</div>
             </div>
           </div>
         </div>
@@ -97,39 +99,39 @@ const OverviewTab = () => {
       {/* Divider */}
       <div className="border-t border-wine-cream/30 mb-16"></div>
       
-{/* Regional Analysis Section */}
-<section className="mb-16">
-  <div className="text-center mb-12">
-    <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-      Analyse Régionale
-    </h2>
-    <p className="text-lg text-wine-charcoal/70">
-      Distribution territoriale et opportunités de valorisation
-    </p>
-  </div>
-  
-  <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12">
-    <div className="space-y-4">
-      <TopCommunes />
-    </div>
-    <div className="space-y-4">
-      <ValoorizationChart />
-      
-      {/* Biomass Strategy Context */}
-      <div className="bg-wine-cream/10 border border-wine-gold/20 rounded-xl p-4 mt-6">
-        <h4 className="text-sm font-bold text-wine-charcoal mb-2">Stratégie d'Approvisionnement Biomasse</h4>
-        <div className="text-xs text-wine-charcoal/70 space-y-1">
-          <div>• <span className="font-medium">Base conservative:</span> 30% disponible (80,000t) - Flux d'élimination</div>
-          <div>• <span className="font-medium">Potentiel négociable:</span> +25% (66,000t) - Surplus & excédents</div>
-          <div>• <span className="font-medium">Total accessible:</span> Jusqu'à 55% (146,000t) avec partenariats</div>
+      {/* Regional Analysis Section */}
+      <section className="mb-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
+            {t('analyse.regionale')}
+          </h2>
+          <p className="text-lg text-wine-charcoal/70">
+            {t('analyse.regionale.subtitle')}
+          </p>
         </div>
-        <p className="text-xs text-wine-charcoal/60 mt-3 italic">
-          Cette approche respecte les filières établies tout en démontrant un potentiel d'expansion pour répondre à la demande croissante SAF.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
+        
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12">
+          <div className="space-y-4">
+            <TopCommunes />
+          </div>
+          <div className="space-y-4">
+            <ValoorizationChart />
+            
+            {/* Biomass Strategy Context */}
+            <div className="bg-wine-cream/10 border border-wine-gold/20 rounded-xl p-4 mt-6">
+              <h4 className="text-sm font-bold text-wine-charcoal mb-2">{t('strategie.biomasse')}</h4>
+              <div className="text-xs text-wine-charcoal/70 space-y-1">
+                <div>• <span className="font-medium">{t('base.conservative')}:</span> 30% disponible ({currentData.wasteAllocation?.available.toLocaleString() || '80,000'}t) - {t('flux.elimination')}</div>
+                <div>• <span className="font-medium">{t('potentiel.negociable')}:</span> +25% ({currentData.wasteAllocation?.negotiable.toLocaleString() || '66,000'}t) - {t('surplus.excedents')}</div>
+                <div>• <span className="font-medium">{t('total.accessible')}:</span> Jusqu'à 55% ({((currentData.wasteAllocation?.available || 80000) + (currentData.wasteAllocation?.negotiable || 66000)).toLocaleString()}t) {t('avec.partenariats')}</div>
+              </div>
+              <p className="text-xs text-wine-charcoal/60 mt-3 italic">
+                {t('respecte.filieres')}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Divider */}
       <div className="border-t border-wine-cream/30 mb-16"></div>
@@ -139,10 +141,10 @@ const OverviewTab = () => {
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              Contexte Régional
+              {t('contexte.regional')}
             </h2>
             <p className="text-lg text-wine-charcoal/70">
-              Leadership national et potentiel économique
+              {t('contexte.regional.subtitle')}
             </p>
           </div>
           
@@ -152,21 +154,21 @@ const OverviewTab = () => {
                 {currentData.id === 'languedoc' ? '1er' : 'Premium'}
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">
-                {currentData.id === 'languedoc' ? 'Région viticole française' : 'Région Premium Champagne'}
+                {currentData.id === 'languedoc' ? t('region.viticole.francaise') : t('region.premium.champagne')}
               </div>
               <div className="text-sm text-wine-charcoal/60">
-                {currentData.id === 'languedoc' ? 'En volume de production' : 'Marché de prestige'}
+                {currentData.id === 'languedoc' ? t('volume.production') : t('marche.prestige')}
               </div>
             </div>
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-gold mb-3">
                 {currentData.id === 'languedoc' ? '38%' : '3%'}
               </div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">De la production nationale</div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('production.nationale')}</div>
               <div className="text-sm text-wine-charcoal/60">
                 {currentData.id === 'languedoc' 
-                  ? '12 millions d\'hectolitres' 
-                  : '3.5 millions d\'hectolitres (premium segment)'
+                  ? `12 ${t('millions.hectolitres')}` 
+                  : `3.5 ${t('millions.hectolitres')} (${t('segment.premium')})`
                 }
               </div>
             </div>
@@ -174,8 +176,8 @@ const OverviewTab = () => {
               <div className="text-4xl font-bold text-wine-green mb-3">
                 €{currentData.id === 'languedoc' ? '3.2B' : '5.2B'}
               </div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">Chiffre d'affaires annuel</div>
-              <div className="text-sm text-wine-charcoal/60">Secteur vitivinicole régional</div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('ca.annuel')}</div>
+              <div className="text-sm text-wine-charcoal/60">{t('secteur.vitivinicole')}</div>
             </div>
           </div>
         </div>
@@ -189,10 +191,10 @@ const OverviewTab = () => {
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              Actualités Secteur SAF
+              {t('actualites.saf')}
             </h2>
             <p className="text-lg text-wine-charcoal/70">
-              Projets en développement dans la filière française
+              {t('actualites.subtitle')}
             </p>
           </div>
           
@@ -202,10 +204,10 @@ const OverviewTab = () => {
               <h3 className="text-xl font-bold text-wine-burgundy mb-3">HAFFNER ENERGY</h3>
               <h4 className="text-lg font-semibold text-wine-charcoal mb-3">Bioraffinerie Marolles-en-Hurepoix (Essonne)</h4>
               <div className="space-y-2 text-sm text-wine-charcoal/70">
-                <div>• <span className="font-medium">Investissement:</span> €180M</div>
-                <div>• <span className="font-medium">Capacité:</span> 50,000 tonnes SAF/an dès 2025</div>
-                <div>• <span className="font-medium">Technologie:</span> Biomasse-to-liquids (BTL)</div>
-                <div>• <span className="font-medium">Partenariat:</span> Région Île-de-France</div>
+                <div>• <span className="font-medium">{t('investissement')}:</span> €180M</div>
+                <div>• <span className="font-medium">{t('capacite')}:</span> 50,000 {t('tonnes.saf.an')} {t('des.2025')}</div>
+                <div>• <span className="font-medium">{t('technologie')}:</span> Biomasse-to-liquids (BTL)</div>
+                <div>• <span className="font-medium">{t('partenariat')}:</span> Région Île-de-France</div>
               </div>
             </div>
 
@@ -215,7 +217,7 @@ const OverviewTab = () => {
               <h4 className="text-lg font-semibold text-wine-charcoal mb-3">Freedom Pines Fuels - Partenariat Total Energies</h4>
               <div className="space-y-2 text-sm text-wine-charcoal/70">
                 <div>• <span className="font-medium">Premier site commercial ATJ en Europe</span></div>
-                <div>• <span className="font-medium">Capacité:</span> 125,000 tonnes SAF/an</div>
+                <div>• <span className="font-medium">{t('capacite')}:</span> 125,000 {t('tonnes.saf.an')}</div>
                 <div>• <span className="font-medium">Feedstock:</span> Éthanol de déchets agricoles</div>
                 <div>• <span className="font-medium">Certification:</span> ASTM D7566 approuvée</div>
               </div>
@@ -226,10 +228,10 @@ const OverviewTab = () => {
               <h3 className="text-xl font-bold text-wine-green mb-3">AIRBUS</h3>
               <h4 className="text-lg font-semibold text-wine-charcoal mb-3">Programme ZEROe - Carburants Verts</h4>
               <div className="space-y-2 text-sm text-wine-charcoal/70">
-                <div>• <span className="font-medium">Objectif:</span> Avion hydrogène 2035</div>
-                <div>• <span className="font-medium">SAF transition:</span> 10% minimum d'ici 2030</div>
+                <div>• <span className="font-medium">{t('objectif')}:</span> Avion hydrogène 2035</div>
+                <div>• <span className="font-medium">SAF transition:</span> 10% {t('minimum.2030')}</div>
                 <div>• <span className="font-medium">Partenariats:</span> 15 aéroports français équipés</div>
-                <div>• <span className="font-medium">Budget R&D:</span> €15 milliards mobilisés</div>
+                <div>• <span className="font-medium">{t('budget.rd')}:</span> €15 {t('milliards')} {t('mobilises')}</div>
               </div>
             </div>
 
@@ -238,28 +240,28 @@ const OverviewTab = () => {
               <h3 className="text-xl font-bold text-wine-burgundy mb-3">TOTAL ENERGIES</h3>
               <h4 className="text-lg font-semibold text-wine-charcoal mb-3">Stratégie SAF France 2030</h4>
               <div className="space-y-2 text-sm text-wine-charcoal/70">
-                <div>• <span className="font-medium">Investissement:</span> €500M sur 5 ans</div>
-                <div>• <span className="font-medium">Objectif:</span> 1.5M tonnes SAF/an capacité</div>
-                <div>• <span className="font-medium">Bioraffineries:</span> 6 sites modernisés</div>
-                <div>• <span className="font-medium">Partenariats:</span> 25 fournisseurs biomasse</div>
+                <div>• <span className="font-medium">{t('investissement')}:</span> €500M {t('sur.ans', { years: '5' })}</div>
+                <div>• <span className="font-medium">{t('objectif')}:</span> 1.5M {t('tonnes.saf.an')} capacité</div>
+                <div>• <span className="font-medium">Bioraffineries:</span> 6 sites {t('modernises')}</div>
+                <div>• <span className="font-medium">Partenariats:</span> 25 {t('fournisseurs.biomasse')}</div>
               </div>
             </div>
           </div>
 
           {/* Regulatory Context */}
           <div className="bg-wine-cream/10 border border-wine-gold/20 rounded-xl p-6">
-            <h3 className="text-lg font-bold text-wine-charcoal mb-4">Contexte Réglementaire</h3>
+            <h3 className="text-lg font-bold text-wine-charcoal mb-4">{t('contexte.reglementaire')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-wine-charcoal/70">
               <div>• <span className="font-medium">ReFuelEU Aviation:</span> 2% SAF minimum 2025</div>
-              <div>• <span className="font-medium">France 2030:</span> €4 milliards fonds verts</div>
-              <div>• <span className="font-medium">EU REPowerEU:</span> €210 milliards énergies renouvelables</div>
-              <div>• <span className="font-medium">CORSIA ICAO:</span> Objectif neutralité carbone 2050</div>
+              <div>• <span className="font-medium">France 2030:</span> €4 {t('milliards')} {t('fonds.verts')}</div>
+              <div>• <span className="font-medium">EU REPowerEU:</span> €210 {t('milliards')} {t('energies.renouvelables')}</div>
+              <div>• <span className="font-medium">CORSIA ICAO:</span> {t('objectif')} {t('neutralite.carbone')} 2050</div>
             </div>
           </div>
 
           <div className="text-center mt-8">
             <p className="text-sm text-wine-charcoal/60 italic">
-              Notre projet s'inscrit dans cette dynamique nationale → Voir onglet Économie
+              {t('projet.inscrit')}
             </p>
           </div>
         </div>
@@ -269,6 +271,3 @@ const OverviewTab = () => {
 };
 
 export default OverviewTab;
-```
-
-This adds the industry news section that shows your project is part of a larger €1+ billion French SAF ecosystem, demonstrating market validation and strategic timing. Copy-paste this complete code to replace your current file.
