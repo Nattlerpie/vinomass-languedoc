@@ -7,9 +7,19 @@ const OverviewTab = () => {
   const { currentData } = useRegion();
   const { t } = useLanguage();
   
+  // Calculate realistic values based on 30% allocation
+  const availableBiomass = currentData.wasteAllocation?.fluxDisponibles || 80000;
+  const negotiableBiomass = currentData.wasteAllocation?.fluxNegociables || 66000;
+  const protectedBiomass = currentData.wasteAllocation?.fluxProteges || 120000;
+  
+  // Realistic SAF calculations (80,000t × 280L/tonne × 70% efficiency)
+  const realisticSafProduction = (availableBiomass * 280 * 0.70) / 1000000; // in millions of liters
+  const realisticRevenue = realisticSafProduction * 1.22; // €1.22/L market price
+  const realisticCO2Reduction = realisticSafProduction * 1000000 * 2.5 / 1000; // 2.5kg CO2/L, convert to tonnes
+  
   return (
     <div className="min-h-screen w-full">
-      {/* Hero Section - Key Statistics */}
+      {/* Hero Section - Header Only */}
       <section className="mb-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl lg:text-5xl font-bold text-wine-charcoal mb-4">
@@ -20,8 +30,8 @@ const OverviewTab = () => {
           </p>
         </div>
 
-        {/* Points Clés Hero Section */}
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30 mb-16">
+        {/* NEW: Points Clés Hero Section (Replacing old repetitive sections) */}
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
               {t('points.cles')}
@@ -31,62 +41,70 @@ const OverviewTab = () => {
             </p>
           </div>
           
+          {/* 6-button grid layout (2 rows of 3) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            {/* 1. Superficie viticole */}
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-burgundy mb-3">
-                {currentData.vineyardSurface.toLocaleString()}
+                {(currentData.vineyardSurface / 1000).toFixed(0)}k
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('superficie.viticole')}</div>
               <div className="text-sm text-wine-charcoal/60">{t('hectares')}</div>
               <div className="text-xs text-wine-charcoal/50 mt-1">{t('base.regionale')}</div>
             </div>
             
+            {/* 2. Production annuelle de marc */}
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-gold mb-3">
-                {currentData.annualPomace.toLocaleString()}
+                {(currentData.totalBiomass / 1000).toFixed(0)}k
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('production.marc')}</div>
               <div className="text-sm text-wine-charcoal/60">{t('tonnes')}</div>
               <div className="text-xs text-wine-charcoal/50 mt-1">{t('matiere.premiere')}</div>
             </div>
             
+            {/* 3. Allocation Réaliste des Flux */}
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-green mb-3">
-                {currentData.wasteAllocation?.available.toLocaleString() || '80,000'}
+                {(availableBiomass / 1000).toFixed(0)}k
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('allocation.flux')}</div>
               <div className="text-sm text-wine-charcoal/60">{t('tonnes')}</div>
               <div className="text-xs text-wine-charcoal/50 mt-1">30% {t('disponible.saf')}</div>
             </div>
             
+            {/* 4. Potentiel SAF (70% efficacité) */}
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-burgundy mb-3">
-                {(currentData.safPotential / 1000000).toFixed(1)}M
+                {realisticSafProduction.toFixed(1)}M
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('potentiel.saf')}</div>
               <div className="text-sm text-wine-charcoal/60">{t('litres.an')}</div>
               <div className="text-xs text-wine-charcoal/50 mt-1">
-                Basé sur {currentData.wasteAllocation?.available.toLocaleString() || '80,000'}t disponibles
+                Basé sur {(availableBiomass / 1000).toFixed(0)}kt disponibles
               </div>
             </div>
             
+            {/* 5. Revenue Potential with Hover */}
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300 group relative">
               <div className="text-4xl font-bold text-wine-gold mb-3">
-                €{currentData.revenue}M
+                €{realisticRevenue.toFixed(1)}M
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('revenue.potential')}</div>
               <div className="text-sm text-wine-charcoal/60">/an</div>
               <div className="text-xs text-wine-charcoal/50 mt-1">{t('prix.marche')}</div>
               
-              {/* Hover tooltip */}
+              {/* Hover tooltip showing pricing methodology */}
               <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-wine-charcoal text-white p-3 rounded-lg shadow-lg text-xs whitespace-nowrap z-10">
-                {(currentData.safPotential / 1000000).toFixed(1)}M L × €1.22/L (prix marché ATJ - source: Aviation Fuel Analytics)
+                {realisticSafProduction.toFixed(1)}M L × €1.22/L (prix marché ATJ - source: Aviation Fuel Analytics)
               </div>
             </div>
             
+            {/* 6. Réduction CO₂ */}
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-green mb-3">
-                {currentData.co2Reduction.toLocaleString()}
+                {(realisticCO2Reduction / 1000).toFixed(1)}kt
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('reduction.co2')}</div>
               <div className="text-sm text-wine-charcoal/60">{t('tonnes.an')}</div>
@@ -117,15 +135,24 @@ const OverviewTab = () => {
           <div className="space-y-4">
             <ValoorizationChart />
             
-            {/* Biomass Strategy Context */}
-            <div className="bg-wine-cream/10 border border-wine-gold/20 rounded-xl p-4 mt-6">
-              <h4 className="text-sm font-bold text-wine-charcoal mb-2">{t('strategie.biomasse')}</h4>
-              <div className="text-xs text-wine-charcoal/70 space-y-1">
-                <div>• <span className="font-medium">{t('base.conservative')}:</span> 30% disponible ({currentData.wasteAllocation?.available.toLocaleString() || '80,000'}t) - {t('flux.elimination')}</div>
-                <div>• <span className="font-medium">{t('potentiel.negociable')}:</span> +25% ({currentData.wasteAllocation?.negotiable.toLocaleString() || '66,000'}t) - {t('surplus.excedents')}</div>
-                <div>• <span className="font-medium">{t('total.accessible')}:</span> Jusqu'à 55% ({((currentData.wasteAllocation?.available || 80000) + (currentData.wasteAllocation?.negotiable || 66000)).toLocaleString()}t) {t('avec.partenariats')}</div>
+            {/* NEW: Biomass Strategy Context (as requested) */}
+            <div className="bg-wine-cream/10 border border-wine-gold/20 rounded-xl p-6 mt-6">
+              <h4 className="text-lg font-bold text-wine-charcoal mb-4">{t('strategie.biomasse')}</h4>
+              <div className="space-y-3 text-sm text-wine-charcoal/70">
+                <div className="flex items-start space-x-2">
+                  <span className="font-medium text-wine-charcoal">• {t('base.conservative')}:</span>
+                  <span>30% disponible ({(availableBiomass / 1000).toFixed(0)}kt) - {t('flux.elimination')}</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <span className="font-medium text-wine-charcoal">• {t('potentiel.negociable')}:</span>
+                  <span>+25% ({(negotiableBiomass / 1000).toFixed(0)}kt) - {t('surplus.excedents')}</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <span className="font-medium text-wine-charcoal">• {t('total.accessible')}:</span>
+                  <span>Jusqu'à 55% ({((availableBiomass + negotiableBiomass) / 1000).toFixed(0)}kt) {t('avec.partenariats')}</span>
+                </div>
               </div>
-              <p className="text-xs text-wine-charcoal/60 mt-3 italic">
+              <p className="text-sm text-wine-charcoal/60 mt-4 italic border-t border-wine-gold/20 pt-3">
                 {t('respecte.filieres')}
               </p>
             </div>
@@ -160,6 +187,7 @@ const OverviewTab = () => {
                 {currentData.id === 'languedoc' ? t('volume.production') : t('marche.prestige')}
               </div>
             </div>
+            
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-gold mb-3">
                 {currentData.id === 'languedoc' ? '38%' : '3%'}
@@ -167,14 +195,15 @@ const OverviewTab = () => {
               <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('production.nationale')}</div>
               <div className="text-sm text-wine-charcoal/60">
                 {currentData.id === 'languedoc' 
-                  ? `12 ${t('millions.hectolitres')}` 
-                  : `3.5 ${t('millions.hectolitres')} (${t('segment.premium')})`
+                  ? `12 ${t('millions')} ${t('hectolitres')}` 
+                  : `3.5 ${t('millions')} ${t('hectolitres')} (${t('segment.premium')})`
                 }
               </div>
             </div>
+            
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-green mb-3">
-                €{currentData.id === 'languedoc' ? '3.2B' : '5.2B'}
+                €{currentData.id === 'languedoc' ? '3.2' : '5.2'}B
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('ca.annuel')}</div>
               <div className="text-sm text-wine-charcoal/60">{t('secteur.vitivinicole')}</div>
