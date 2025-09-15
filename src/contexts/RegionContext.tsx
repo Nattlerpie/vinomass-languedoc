@@ -42,16 +42,16 @@ const regionData: Record<RegionType, RegionData> = {
     name: 'Languedoc-Roussillon',
     vineyardSurface: 245000,
     annualPomace: 266000,
-    safPotential: 22400000, // Updated to realistic 22.4M liters
-    revenue: 27.0, // Updated to realistic €27M 
-    co2Reduction: 200000, // Updated to reflect 80,000t available
-    jobs: 180, // Updated to realistic figure for 80,000t
+    safPotential: 22400000, // 22.4M liters (realistic)
+    revenue: 27.3, // €27.3M (realistic)
+    co2Reduction: 61600, // 61,600 tonnes (realistic)
+    jobs: 180,
     wasteAllocation: {
       total: 266000,
       protected: 120000, // 45%
       negotiable: 66000, // 25%
       available: 80000, // 30%
-      realisticSafPotential: 22400000, // 22.4M liters
+      realisticSafPotential: 22400000,
       realisticRevenue: 27.3,
       realisticCo2Reduction: 61600,
       realisticJobs: 180
@@ -63,12 +63,12 @@ const regionData: Record<RegionType, RegionData> = {
       { name: 'Pyrénées-Orientales', percentage: 6, color: 'wine-charcoal' }
     ],
     topCommunes: [
-      { name: 'Vieussan', tonnage: 13300 }, // 5% of 266,000t
-      { name: 'Saint-Thibéry', tonnage: 7980 }, // 3% of 266,000t
-      { name: 'Trausse', tonnage: 6650 }, // 2.5% of 266,000t
-      { name: 'Béziers', tonnage: 5320 }, // 2% of 266,000t
-      { name: 'Montpellier', tonnage: 3990 }, // 1.5% of 266,000t
-      { name: 'Narbonne', tonnage: 3990 } // 1.5% of 266,000t
+      { name: 'Vieussan', tonnage: 13300 },
+      { name: 'Saint-Thibéry', tonnage: 7980 },
+      { name: 'Trausse', tonnage: 6650 },
+      { name: 'Béziers', tonnage: 5320 },
+      { name: 'Montpellier', tonnage: 3990 },
+      { name: 'Narbonne', tonnage: 3990 }
     ]
   },
   champagne: {
@@ -76,13 +76,23 @@ const regionData: Record<RegionType, RegionData> = {
     name: 'Champagne',
     vineyardSurface: 34000,
     annualPomace: 24000,
-    safPotential: 6700000,
-    revenue: 8.2,
-    co2Reduction: 18400,
-    jobs: 150, // Updated from 85 to reflect regional context
+    safPotential: 2000000, // 2.0M liters (realistic)
+    revenue: 2.4, // €2.4M (realistic)
+    co2Reduction: 5500, // 5,500 tonnes (realistic)
+    jobs: 45, // Scaled appropriately
+    wasteAllocation: {
+      total: 24000,
+      protected: 11000, // 45%
+      negotiable: 6000, // 25%
+      available: 7000, // 30%
+      realisticSafPotential: 2000000,
+      realisticRevenue: 2.4,
+      realisticCo2Reduction: 5500,
+      realisticJobs: 45
+    },
     departments: [
-      { name: 'Marne', percentage: 85, color: 'wine-burgundy' }, // Updated from 64% to 85%
-      { name: 'Aube', percentage: 15, color: 'wine-gold' } // Updated from 23% to 15%, removed other departments
+      { name: 'Marne', percentage: 85, color: 'wine-burgundy' },
+      { name: 'Aube', percentage: 15, color: 'wine-gold' }
     ],
     topCommunes: [
       { name: 'Reims', tonnage: 3200 },
