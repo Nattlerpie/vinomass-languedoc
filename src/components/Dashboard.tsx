@@ -22,18 +22,7 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gradient-subtle">
       <DashboardHeader />
       
-      {/* Tour Button */}
-      <div className="fixed top-24 right-6 z-40">
-        <Button
-          onClick={() => setShowTour(true)}
-          className="bg-wine-burgundy hover:bg-wine-burgundy/90 text-white shadow-elegant"
-          size="sm"
-        >
-          <HelpCircle className="w-4 h-4 mr-2" />
-          Visite Guidée
-        </Button>
-      </div>
-      
+    
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-6 bg-white/90 backdrop-blur-sm border border-wine-cream/50 mx-8 mt-8">
           <TabsTrigger value="executive" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Vue d'ensemble</TabsTrigger>
@@ -46,7 +35,7 @@ const Dashboard = () => {
 
         <div className="container mx-auto px-8 py-4">
           <TabsContent value="executive">
-            <ExecutiveDashboard />
+            <OverviewTab />
           </TabsContent>
 
           <TabsContent value="resources">
