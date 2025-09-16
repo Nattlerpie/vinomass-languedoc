@@ -1,4 +1,5 @@
 import React from "react";
+import { useRegion } from "../context/RegionContext";
 
 interface StaticRegionalMapProps {
   region: string;
@@ -9,10 +10,12 @@ export default function StaticRegionalMap({ region, language }: StaticRegionalMa
   console.log("StaticRegionalMap rendering...");
   console.log("Region:", region, "Language:", language);
 
+  const { currentData } = useRegion();
+
   // Pick the correct map image based on region
   let mapSrc = "";
   if (region === "languedoc") {
-    mapSrc = "/maps/occitanie.png"; // make sure file path matches your /public/maps folder
+    mapSrc = "/maps/occitanie.png"; // make sure file path matches /public/maps
   } else if (region === "champagne") {
     mapSrc = "/maps/champagne.png";
   }
@@ -32,7 +35,7 @@ export default function StaticRegionalMap({ region, language }: StaticRegionalMa
 
       {/* Render map if available */}
       {mapSrc ? (
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center mb-4">
           <img
             src={mapSrc}
             alt={language === "fr" ? "Carte régionale" : "Regional map"}
@@ -40,12 +43,35 @@ export default function StaticRegionalMap({ region, language }: StaticRegionalMa
           />
         </div>
       ) : (
-        <div className="text-gray-500 italic">
+        <div className="text-gray-500 italic mb-4">
           {language === "fr"
             ? "Aucune carte disponible pour cette région."
             : "No map available for this region."}
         </div>
       )}
+
+      {/* Communes principales */}
+      <div>
+        <h3 className="text-md font-semibold mb-2">
+          {language === "fr" ? "Communes principales" : "Main communes"}
+        </h3>
+        {currentData?.topCommunes && currentData.topCommunes.length > 0 ? (
+          <ul className="list-disc pl-5 space-y-1">
+            {currentData.topCommunes.map((commune, idx) => (
+              <li key={idx}>
+                {commune.name} — {commune.tonnage.toLocaleString("fr-FR")}{" "}
+                {language === "fr" ? "tonnes" : "tons"}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-gray-500 italic">
+            {language === "fr"
+              ? "Aucune donnée communale disponible."
+              : "No commune data available."}
+          </p>
+        )}
+      </div>
     </div>
   );
 }
