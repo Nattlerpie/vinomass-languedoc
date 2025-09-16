@@ -57,7 +57,7 @@ const OverviewTab = () => {
             {/* 2. Production annuelle de marc */}
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-gold mb-3">
-                {(currentData.totalBiomass / 1000).toFixed(0)}k
+                {(currentData.annualPomace / 1000).toFixed(0)}k
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('production.marc')}</div>
               <div className="text-sm text-wine-charcoal/60">{t('tonnes')}</div>
