@@ -1,53 +1,84 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useRegion } from "@/contexts/RegionContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { ExternalLink, FileText, Users, Award, Globe } from 'lucide-react';
 
 const ProfessionalFooter = () => {
   const { currentData } = useRegion();
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
+  // ✅ FIX: Use correct property names and translations
   const methodologyLinks = [
     {
-      title: "Méthodologie ATJ",
-      description: "Processus Alcohol-to-Jet certifié ASTM D7566",
+      title: t('methodology.atj.title'),
+      description: t('methodology.atj.description'),
       url: "https://www.astm.org/Standards/D7566.htm",
       icon: FileText
     },
     {
-      title: "Données Agreste",
-      description: "Statistiques agricoles officielles France",
+      title: t('methodology.agreste.title'),
+      description: t('methodology.agreste.description'),
       url: "https://agreste.agriculture.gouv.fr/",
       icon: Award
     },
     {
-      title: "Institut IFV",
-      description: "Institut Français de la Vigne et du Vin",
+      title: t('methodology.ifv.title'),
+      description: t('methodology.ifv.description'),
       url: "https://www.ifvoccitanie.fr/",
       icon: Users
     },
     {
-      title: "Standards CORSIA",
-      description: "ICAO Carbon Offsetting Scheme",
+      title: t('methodology.corsia.title'),
+      description: t('methodology.corsia.description'),
       url: "https://www.icao.int/environmental-protection/CORSIA/",
       icon: Globe
     }
   ];
 
   const credentials = [
-    "Données certifiées par Bureau Veritas",
-    "Conformité ASTM D7566 & EN 15940",
-    "Validation CORSIA pour crédits carbone",
-    "Audit indépendant trimestriel",
-    "Méthodologie peer-reviewed"
+    t('credentials.bureau.veritas'),
+    t('credentials.astm.compliance'),
+    t('credentials.corsia.validation'),
+    t('credentials.quarterly.audit'),
+    t('credentials.peer.reviewed')
   ];
 
-  const partners = [
-    "Région Occitanie",
-    "Institut Français de la Vigne (IFV)",
-    "SAFER Languedoc",
-    "Chambre d'Agriculture Hérault",
-    "Syndicat des Vignerons"
+  // ✅ FIX: Dynamic partners based on region
+  const partners = currentData.id === 'languedoc' ? [
+    t('partners.region.occitanie'),
+    t('partners.ifv'),
+    t('partners.safer.languedoc'),
+    t('partners.chamber.herault'),
+    t('partners.vignerons.union')
+  ] : [
+    t('partners.region.grand.est'),
+    t('partners.ifv'),
+    t('partners.safer.champagne'),
+    t('partners.chamber.champagne'),
+    t('partners.champagne.union')
+  ];
+
+  const dataSources = [
+    t('data.sources.agreste'),
+    t('data.sources.ifv'),
+    t('data.sources.oiv'),
+    t('data.sources.aviation.fuel')
+  ];
+
+  const scientificValidation = [
+    t('validation.peer.review'),
+    t('validation.bureau.veritas'),
+    t('validation.iso.compliance'),
+    t('validation.carbon.audit')
+  ];
+
+  const internationalStandards = [
+    t('standards.astm.d7566'),
+    t('standards.corsia.icao'),
+    t('standards.red.ii'),
+    t('standards.iscc.eu')
   ];
 
   return (
@@ -58,21 +89,21 @@ const ProfessionalFooter = () => {
           {/* Project Info */}
           <div>
             <h3 className="text-xl font-bold text-wine-cream mb-4">
-              SAF Languedoc-Roussillon
+              {t('header.title').replace('{region}', currentData.name)}
             </h3>
             <p className="text-wine-cream/80 text-sm mb-4">
-              Valorisation du marc de raisin en carburant aviation durable. 
-              Projet pionnier de transformation des déchets viticoles en SAF certifié.
+              {t('footer.project.description')}
             </p>
             <div className="space-y-2">
               <Badge className="bg-wine-burgundy/20 text-wine-burgundy border-wine-burgundy/30">
-                {currentData.annualPomace.toLocaleString()} tonnes/an
+                {/* ✅ FIX: Use correct property name */}
+                {(currentData.totalBiomass || currentData.annualPomace || 0).toLocaleString()} {t('tonnes.an')}
               </Badge>
               <Badge className="bg-wine-green/20 text-wine-green border-wine-green/30">
-                €{currentData.revenue}M revenus
+                €{currentData.revenue}M {t('footer.revenues')}
               </Badge>
               <Badge className="bg-wine-gold/20 text-wine-gold border-wine-gold/30">
-                {(currentData.co2Reduction / 1000).toFixed(1)}kt CO₂ évités
+                {(currentData.co2Reduction / 1000).toFixed(1)}kt {t('footer.co2.avoided')}
               </Badge>
             </div>
           </div>
@@ -80,7 +111,7 @@ const ProfessionalFooter = () => {
           {/* Methodology & Standards */}
           <div>
             <h4 className="text-lg font-semibold text-wine-cream mb-4">
-              Méthodologie & Standards
+              {t('footer.methodology.standards')}
             </h4>
             <div className="space-y-3">
               {methodologyLinks.map((link, index) => (
@@ -105,7 +136,7 @@ const ProfessionalFooter = () => {
           {/* Credentials & Certifications */}
           <div>
             <h4 className="text-lg font-semibold text-wine-cream mb-4">
-              Certifications & Audits
+              {t('footer.certifications.audits')}
             </h4>
             <div className="space-y-2">
               {credentials.map((credential, index) => (
@@ -120,7 +151,7 @@ const ProfessionalFooter = () => {
           {/* Partners & Stakeholders */}
           <div>
             <h4 className="text-lg font-semibold text-wine-cream mb-4">
-              Partenaires Institutionnels
+              {t('footer.institutional.partners')}
             </h4>
             <div className="space-y-2">
               {partners.map((partner, index) => (
@@ -140,13 +171,12 @@ const ProfessionalFooter = () => {
               <CardContent className="p-4">
                 <h5 className="font-semibold text-wine-cream mb-2 flex items-center gap-2">
                   <Award className="w-4 h-4 text-wine-gold" />
-                  Sources de Données Primaires
+                  {t('footer.primary.data.sources')}
                 </h5>
                 <div className="text-xs text-wine-cream/70 space-y-1">
-                  <div>• Agreste - Statistiques agricoles nationales</div>
-                  <div>• IFV - Production et rendements viticoles</div>
-                  <div>• OIV - Standards internationaux</div>
-                  <div>• Aviation Fuel Analytics - Prix SAF</div>
+                  {dataSources.map((source, index) => (
+                    <div key={index}>• {source}</div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -155,13 +185,12 @@ const ProfessionalFooter = () => {
               <CardContent className="p-4">
                 <h5 className="font-semibold text-wine-cream mb-2 flex items-center gap-2">
                   <FileText className="w-4 h-4 text-wine-burgundy" />
-                  Validation Scientifique
+                  {t('footer.scientific.validation')}
                 </h5>
                 <div className="text-xs text-wine-cream/70 space-y-1">
-                  <div>• Peer-review par comité scientifique</div>
-                  <div>• Validation Bureau Veritas</div>
-                  <div>• Conformité ISO 14064 & 14067</div>
-                  <div>• Audit carbone tiers indépendant</div>
+                  {scientificValidation.map((validation, index) => (
+                    <div key={index}>• {validation}</div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -170,13 +199,12 @@ const ProfessionalFooter = () => {
               <CardContent className="p-4">
                 <h5 className="font-semibold text-wine-cream mb-2 flex items-center gap-2">
                   <Globe className="w-4 h-4 text-wine-green" />
-                  Standards Internationaux
+                  {t('footer.international.standards')}
                 </h5>
                 <div className="text-xs text-wine-cream/70 space-y-1">
-                  <div>• ASTM D7566 - Jet fuel specifications</div>
-                  <div>• CORSIA - ICAO carbon offsetting</div>
-                  <div>• RED II - Renewable Energy Directive</div>
-                  <div>• ISCC EU - Sustainability certification</div>
+                  {internationalStandards.map((standard, index) => (
+                    <div key={index}>• {standard}</div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -187,24 +215,24 @@ const ProfessionalFooter = () => {
         <div className="border-t border-wine-cream/20 pt-6 flex flex-col md:flex-row items-center justify-between text-sm text-wine-cream/60">
           <div className="mb-4 md:mb-0">
             <div className="mb-1">
-              © {currentYear} Projet SAF Languedoc-Roussillon. Tous droits réservés.
+              © {currentYear} {t('footer.copyright', { region: currentData.name })}
             </div>
             <div className="text-xs">
-              Données mises à jour: Décembre 2023 | Prochaine révision: Mars 2024
+              {t('footer.data.updated')} | {t('footer.next.revision')}
             </div>
           </div>
           
           <div className="flex items-center gap-4 text-xs">
             <a href="#" className="hover:text-wine-cream transition-colors">
-              Mentions légales
+              {t('footer.legal.notices')}
             </a>
             <span>•</span>
             <a href="#" className="hover:text-wine-cream transition-colors">
-              Protection des données
+              {t('footer.data.protection')}
             </a>
             <span>•</span>
             <a href="#" className="hover:text-wine-cream transition-colors">
-              Conditions d'utilisation
+              {t('footer.terms.of.use')}
             </a>
           </div>
         </div>
@@ -212,9 +240,7 @@ const ProfessionalFooter = () => {
         {/* Disclaimer */}
         <div className="mt-6 p-4 bg-wine-burgundy/20 border border-wine-burgundy/30 rounded-lg text-xs text-wine-cream/70">
           <p>
-            <strong>Avertissement:</strong> Les projections financières et techniques présentées sont basées sur des données 
-            réelles 2023 et des hypothèses validées par des experts indépendants. Les résultats futurs peuvent varier selon 
-            les conditions de marché. Ce document ne constitue pas un conseil en investissement.
+            <strong>{t('footer.disclaimer.title')}</strong> {t('footer.disclaimer.text')}
           </p>
         </div>
       </div>
