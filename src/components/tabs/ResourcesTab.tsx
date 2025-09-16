@@ -7,20 +7,17 @@ import { useRegion } from "@/contexts/RegionContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function ResourcesTab() {
-  const { region } = useRegion();
+  const { activeRegion, currentData } = useRegion(); // ✅ pull the right values
   const { language } = useLanguage();
 
-  // Console debug logging
-  console.log("ResourcesTab rendering...");
-  console.log("Region:", region);
-  console.log("Language:", language);
+  console.log("ResourcesTab rendering with:", activeRegion, currentData);
 
   return (
     <div className="p-4 space-y-6">
       {/* Debug Banner */}
-      <div className="p-2 bg-yellow-200 text-black font-mono text-sm">
+      <div className="p-2 mb-2 bg-yellow-200 text-black font-mono text-sm">
         Debug: <strong>ResourcesTab</strong> mounted. Region ={" "}
-        {region || "undefined"}, Language = {language || "undefined"}
+        {activeRegion || "undefined"}, Language = {language || "undefined"}
       </div>
 
       {/* Heading */}
@@ -34,16 +31,16 @@ export default function ResourcesTab() {
       </p>
 
       {/* Regional Map */}
-      <StaticRegionalMap region={region} language={language} />
+      <StaticRegionalMap region={activeRegion} language={language} />
 
       {/* Biomass Breakdown */}
-      <BiomassBreakdownChart region={region} language={language} />
+      <BiomassBreakdownChart region={activeRegion} language={language} />
 
       {/* Seasonal Availability */}
-      <SeasonalTimeline region={region} language={language} />
+      <SeasonalTimeline region={activeRegion} language={language} />
 
       {/* Infrastructure */}
-      <InfrastructureOverview region={region} language={language} />
+      <InfrastructureOverview region={activeRegion} language={language} />
     </div>
   );
 }
