@@ -10,14 +10,17 @@ export default function ResourcesTab() {
   const { region } = useRegion();
   const { language } = useLanguage();
 
-  // Debug log to console
-  console.log("ResourcesTab rendering:", { region, language });
+  // Console debug logging
+  console.log("ResourcesTab rendering...");
+  console.log("Region:", region);
+  console.log("Language:", language);
 
   return (
     <div className="p-4 space-y-6">
-      {/* Debug banner */}
-      <div className="p-2 bg-yellow-200 text-black">
-        Debug: ResourcesTab mounted. Region = {region || "undefined"}, Language = {language || "undefined"}
+      {/* Debug Banner */}
+      <div className="p-2 bg-yellow-200 text-black font-mono text-sm">
+        Debug: <strong>ResourcesTab</strong> mounted. Region ={" "}
+        {region || "undefined"}, Language = {language || "undefined"}
       </div>
 
       {/* Heading */}
