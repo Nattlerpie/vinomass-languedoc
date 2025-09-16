@@ -81,7 +81,7 @@ const DashboardHeader = () => {
                         <Tooltip>
                           <TooltipTrigger asChild>
                             <div className="flex items-center cursor-help">
-                              <span>{region.annualPomace.toLocaleString()}t production</span>
+                              <span>{region.totalBiomass?.toLocaleString() || region.annualPomace?.toLocaleString() || 'N/A'}t production</span>
                               <HelpCircle size={10} className="ml-1 opacity-50" />
                             </div>
                           </TooltipTrigger>
@@ -131,6 +131,40 @@ const DashboardHeader = () => {
                   </div>
                 </DropdownMenuItem>
               ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* Language Selector */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button 
+                variant="outline" 
+                className="bg-white/10 border-white/20 text-wine-cream hover:bg-white/20 backdrop-blur-sm transition-all duration-300 hover:scale-105"
+              >
+                <Globe size={16} className="mr-2" />
+                {getLanguageLabel(language)}
+                <ChevronDown size={16} className="ml-2" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-white/95 backdrop-blur-md border-wine-cream/20 shadow-elegant z-50">
+              <DropdownMenuItem 
+                className={`transition-all duration-200 hover:bg-wine-burgundy/10 hover:text-wine-burgundy cursor-pointer p-3 ${
+                  language === 'fr' ? 'bg-wine-burgundy/5 text-wine-burgundy font-medium' : 'text-wine-charcoal'
+                }`}
+                onClick={() => setLanguage('fr')}
+              >
+                <Globe size={14} className="mr-2 opacity-60" />
+                Français
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                className={`transition-all duration-200 hover:bg-wine-burgundy/10 hover:text-wine-burgundy cursor-pointer p-3 ${
+                  language === 'en' ? 'bg-wine-burgundy/5 text-wine-burgundy font-medium' : 'text-wine-charcoal'
+                }`}
+                onClick={() => setLanguage('en')}
+              >
+                <Globe size={14} className="mr-2 opacity-60" />
+                English
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
