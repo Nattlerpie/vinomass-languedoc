@@ -1,77 +1,77 @@
+"use client";
+
 import React from "react";
-import { useRegion } from "../context/RegionContext";
+import Image from "next/image";
+
+// Define the type for communes
+type Commune = {
+  name: string;
+  value: string;
+};
+
+// Data for top communes by region
+const communesByRegion: Record<string, Commune[]> = {
+  languedoc: [
+    { name: "Vieussan", value: "13.3k" },
+    { name: "Saint-Thibéry", value: "8k" },
+    { name: "Trausse", value: "6.7k" },
+    { name: "Béziers", value: "5.3k" },
+  ],
+  champagne: [
+    { name: "Reims", value: "3.2kt (13%)" },
+    { name: "Épernay", value: "2.8kt (12%)" },
+    { name: "Ay", value: "2.4kt (10%)" },
+    { name: "Avize", value: "2.1kt (9%)" },
+    { name: "Cramant", value: "1.9kt (8%)" },
+    { name: "Bouzy", value: "1.6kt (7%)" },
+  ],
+};
+
+// Image files for regions
+const mapImages: Record<string, string> = {
+  languedoc: "/Occitanie.png",
+  champagne: "/Champagne.png",
+};
 
 interface StaticRegionalMapProps {
-  region: string;
-  language: string;
+  activeRegion: string;
 }
 
-export default function StaticRegionalMap({ region, language }: StaticRegionalMapProps) {
-  console.log("StaticRegionalMap rendering...");
-  console.log("Region:", region, "Language:", language);
+const StaticRegionalMap: React.FC<StaticRegionalMapProps> = ({ activeRegion }) => {
+  const communes = communesByRegion[activeRegion] || [];
+  const mapSrc = mapImages[activeRegion];
 
-  const { currentData } = useRegion();
-
-  // Pick the correct map image based on region
-  let mapSrc = "";
-  if (region === "languedoc") {
-    mapSrc = "/maps/occitanie.png"; // make sure file path matches /public/maps
-  } else if (region === "champagne") {
-    mapSrc = "/maps/champagne.png";
+  if (!mapSrc) {
+    return (
+      <div className="flex flex-col items-center p-6">
+        <p className="text-gray-500">No map available for this region.</p>
+      </div>
+    );
   }
 
   return (
-    <div className="p-4 border rounded-md bg-gray-50 relative">
-      {/* Debug Banner */}
-      <div className="p-2 mb-2 bg-yellow-200 text-black font-mono text-sm">
-        Debug: <strong>StaticRegionalMap</strong> loaded. Region ={" "}
-        {region || "undefined"}, Language = {language || "undefined"}
+    <div className="flex flex-col items-center p-6">
+      <div className="relative w-full max-w-xl h-96">
+        <Image
+          src={mapSrc}
+          alt={`${activeRegion} map`}
+          fill
+          style={{ objectFit: "contain" }}
+          priority
+        />
       </div>
-
-      {/* Title */}
-      <h2 className="text-lg font-semibold mb-2">
-        {language === "fr" ? "Carte Régionale" : "Regional Map"}
-      </h2>
-
-      {/* Render map if available */}
-      {mapSrc ? (
-        <div className="w-full flex justify-center mb-4">
-          <img
-            src={mapSrc}
-            alt={language === "fr" ? "Carte régionale" : "Regional map"}
-            className="rounded-lg shadow-md max-h-96 object-contain"
-          />
-        </div>
-      ) : (
-        <div className="text-gray-500 italic mb-4">
-          {language === "fr"
-            ? "Aucune carte disponible pour cette région."
-            : "No map available for this region."}
-        </div>
-      )}
-
-      {/* Communes principales */}
-      <div>
-        <h3 className="text-md font-semibold mb-2">
-          {language === "fr" ? "Communes principales" : "Main communes"}
-        </h3>
-        {currentData?.topCommunes && currentData.topCommunes.length > 0 ? (
-          <ul className="list-disc pl-5 space-y-1">
-            {currentData.topCommunes.map((commune, idx) => (
-              <li key={idx}>
-                {commune.name} — {commune.tonnage.toLocaleString("fr-FR")}{" "}
-                {language === "fr" ? "tonnes" : "tons"}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="text-gray-500 italic">
-            {language === "fr"
-              ? "Aucune donnée communale disponible."
-              : "No commune data available."}
-          </p>
-        )}
+      <div className="mt-6 text-center">
+        <h3 className="text-lg font-semibold mb-2">Top Communes</h3>
+        <ul className="space-y-1">
+          {communes.map((commune, index) => (
+            <li key={index} className="text-gray-700">
+              {commune.name}: <span className="font-medium">{commune.value}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
-}
+};
+
+export default StaticRegionalMap;
