@@ -54,8 +54,8 @@ export default function InfrastructureOverview({ region, language }: { region: s
         <li>{currentData.infrastructure?.biomass || 0} {t.biomass}</li>
       </ul>
 
-      {/* Communes Table */}
-      {currentData.communes && currentData.communes.length > 0 && (
+      {/* Top Communes */}
+      {currentData.topCommunes && currentData.topCommunes.length > 0 && (
         <div className="mt-4">
           <h3 className="text-lg font-semibold">{t.communes}</h3>
           <table className="w-full mt-2 border border-gray-300 text-sm">
@@ -66,7 +66,7 @@ export default function InfrastructureOverview({ region, language }: { region: s
               </tr>
             </thead>
             <tbody>
-              {currentData.communes.map((c: { name: string; tonnage: number }, idx: number) => (
+              {currentData.topCommunes.map((c, idx) => (
                 <tr key={idx} className="border-t">
                   <td className="p-2">{c.name}</td>
                   <td className="p-2 text-right">{c.tonnage.toLocaleString("fr-FR")}</td>
