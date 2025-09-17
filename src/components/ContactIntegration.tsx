@@ -1,181 +1,438 @@
-import { useState } from "react";
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Phone, Calendar, CheckCircle, ArrowRight, Download } from "lucide-react";
-interface ContactForm {
-  type: 'general' | 'partnership' | 'investment' | 'technical';
-  name: string;
-  email: string;
-  phone: string;
-  company: string;
-  role: string;
-  interests: string[];
-  message: string;
-  timeline: string;
-  budget: string;
-  preferredContact: 'email' | 'phone' | 'meeting';
-}
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useRegion } from "@/contexts/RegionContext";
+import { 
+  Mail, 
+  Phone, 
+  Calendar, 
+  MapPin, 
+  Building2, 
+  Users, 
+  TrendingUp, 
+  Leaf,
+  CheckCircle,
+  Clock,
+  FileText,
+  Send,
+  Globe,
+  Briefcase
+} from 'lucide-react';
+
 const ContactIntegration = () => {
-  const [activeForm, setActiveForm] = useState<string>('general');
-  const [formData, setFormData] = useState<ContactForm>({
-    type: 'general',
-    name: '',
+  const { t, language } = useLanguage();
+  const { currentData } = useRegion();
+  
+  const [formData, setFormData] = useState({
+    fullName: '',
     email: '',
     phone: '',
     company: '',
     role: '',
-    interests: [],
-    message: '',
-    timeline: '',
-    budget: '',
-    preferredContact: 'email'
+    contactMethod: 'email',
+    interests: [] as string[],
+    message: ''
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const formTypes = [{
-    id: 'general',
-    title: 'Information Générale',
-    description: 'Demandes d\'information sur le projet',
-    icon: '📋',
-    color: 'wine-charcoal'
-  }, {
-    id: 'partnership',
-    title: 'Partenariat Stratégique',
-    description: 'Collaboration et accords commerciaux',
-    icon: '🤝',
-    color: 'wine-burgundy'
-  }, {
-    id: 'investment',
-    title: 'Opportunité d\'Investissement',
-    description: 'Participation financière au projet',
-    icon: '💰',
-    color: 'wine-gold'
-  }, {
-    id: 'technical',
-    title: 'Support Technique',
-    description: 'Questions techniques et faisabilité',
-    icon: '🔧',
-    color: 'wine-green'
-  }];
-  const interestOptions = {
-    general: ['Étude de faisabilité', 'Timeline du projet', 'Impact environnemental', 'Retombées économiques'],
-    partnership: ['Fourniture biomasse', 'Transformation', 'Distribution', 'R&D collaborative'],
-    investment: ['Participation capitalistique', 'Financement dette', 'Subventions', 'Crédit carbone'],
-    technical: ['Technologie ATJ', 'Certification SAF', 'Logistique', 'Conformité réglementaire']
+
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
-  const nextSteps = {
-    general: ['Envoi de la documentation complète du projet', 'Invitation aux prochaines présentations publiques', 'Mise en relation avec l\'équipe technique'],
-    partnership: ['Analyse de compatibilité et potentiel de collaboration', 'Proposition d\'accord de confidentialité (NDA)', 'Organisation d\'une réunion de négociation préliminaire'],
-    investment: ['Transmission du business plan détaillé', 'Due diligence et évaluation des risques', 'Structuration de l\'investissement et négociation des termes'],
-    technical: ['Évaluation technique approfondie avec nos experts', 'Visite des installations pilotes', 'Proposition d\'accord de collaboration technique']
-  };
-  const handleInterestChange = (interest: string, checked: boolean) => {
+
+  const toggleInterest = (interest: string) => {
     setFormData(prev => ({
       ...prev,
-      interests: checked ? [...prev.interests, interest] : prev.interests.filter(i => i !== interest)
+      interests: prev.interests.includes(interest)
+        ? prev.interests.filter(i => i !== interest)
+        : [...prev.interests, interest]
     }));
   };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-
-    // Simulate form submission
-    setTimeout(() => {
-      // Generate PDF or document with form data
-      generateFollowUpDocument();
-    }, 1000);
+    setSubmitted(true);
+    // In real implementation, send data to backend
   };
-  const generateFollowUpDocument = () => {
-    const followUpData = {
-      formType: activeForm,
-      submissionDate: new Date().toLocaleDateString('fr-FR'),
-      contactInfo: {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        company: formData.company,
-        role: formData.role
-      },
-      interests: formData.interests,
-      message: formData.message,
-      nextSteps: nextSteps[activeForm as keyof typeof nextSteps],
-      projectDetails: {
-        capacity: '250,000 tonnes biomasse/an',
-        safProduction: '70M litres/an',
-        investment: '€150M',
-        jobs: '85 emplois directs',
-        co2Reduction: '234kt CO₂/an'
-      }
-    };
-    const blob = new Blob([JSON.stringify(followUpData, null, 2)], {
-      type: 'application/json'
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `atlas-biomasse-suivi-${activeForm}-${new Date().toISOString().split('T')[0]}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-  const resetForm = () => {
-    setFormData({
-      type: 'general',
-      name: '',
-      email: '',
-      phone: '',
-      company: '',
-      role: '',
-      interests: [],
-      message: '',
-      timeline: '',
-      budget: '',
-      preferredContact: 'email'
-    });
-    setIsSubmitted(false);
-  };
-  if (isSubmitted) {
-    return <Card className="bg-white/95 backdrop-blur-sm border-wine-green/20 shadow-elegant">
-        <CardContent className="p-8 text-center">
-          <CheckCircle className="w-16 h-16 text-wine-green mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-wine-charcoal mb-4">
-            Demande Envoyée avec Succès !
-          </h2>
-          <p className="text-wine-charcoal/70 mb-6">
-            Merci pour votre intérêt pour le projet Atlas Biomasse Vitivinicole. 
-            Notre équipe vous contactera dans les 48 heures.
-          </p>
 
-          <div className="bg-gradient-subtle p-6 rounded-xl border border-wine-cream/40 mb-6">
-            <h3 className="font-semibold text-wine-charcoal mb-4">Prochaines Étapes</h3>
-            <div className="space-y-3 text-left">
-              {nextSteps[activeForm as keyof typeof nextSteps].map((step, index) => <div key={index} className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-wine-green text-white rounded-full flex items-center justify-center text-sm font-bold">
-                    {index + 1}
-                  </div>
-                  <span className="text-wine-charcoal/80">{step}</span>
-                </div>)}
-            </div>
-          </div>
+  const businessOpportunities = [
+    {
+      icon: <Building2 className="h-6 w-6" />,
+      title: language === 'fr' ? 'Partenariat Stratégique' : 'Strategic Partnership',
+      description: language === 'fr' 
+        ? 'Collaboration et accords commerciaux' 
+        : 'Business collaboration and commercial agreements',
+      value: 'strategic-partnership'
+    },
+    {
+      icon: <TrendingUp className="h-6 w-6" />,
+      title: language === 'fr' ? 'Opportunité d\'Investissement' : 'Investment Opportunity',
+      description: language === 'fr' 
+        ? 'Participation financière au projet' 
+        : 'Financial participation in the project',
+      value: 'investment'
+    },
+    {
+      icon: <Users className="h-6 w-6" />,
+      title: language === 'fr' ? 'Support Technique' : 'Technical Support',
+      description: language === 'fr' 
+        ? 'Questions techniques et faisabilité' 
+        : 'Technical questions and feasibility',
+      value: 'technical-support'
+    },
+    {
+      icon: <Leaf className="h-6 w-6" />,
+      title: language === 'fr' ? 'Information Générale' : 'General Information',
+      description: language === 'fr' 
+        ? 'Demandes d\'information sur le projet' 
+        : 'Project information requests',
+      value: 'general-info'
+    }
+  ];
 
-          <div className="flex gap-4 justify-center">
-            <Button onClick={resetForm} variant="outline">
-              Nouvelle Demande
+  const interestAreas = [
+    { key: 'feasibility', label: language === 'fr' ? 'Étude de faisabilité' : 'Feasibility study' },
+    { key: 'timeline', label: language === 'fr' ? 'Timeline du projet' : 'Project timeline' },
+    { key: 'environmental', label: language === 'fr' ? 'Impact environnemental' : 'Environmental impact' },
+    { key: 'economic', label: language === 'fr' ? 'Retombées économiques' : 'Economic benefits' }
+  ];
+
+  const nextSteps = [
+    {
+      icon: <Clock className="h-4 w-4" />,
+      timeframe: '48h',
+      description: language === 'fr' ? 'Réponse garantie' : 'Guaranteed response'
+    },
+    {
+      icon: <Calendar className="h-4 w-4" />,
+      timeframe: language === 'fr' ? '1 semaine' : '1 week',
+      description: language === 'fr' ? 'Première réunion' : 'First meeting'
+    },
+    {
+      icon: <FileText className="h-4 w-4" />,
+      timeframe: language === 'fr' ? '1 mois' : '1 month',
+      description: language === 'fr' ? 'Proposition détaillée' : 'Detailed proposal'
+    }
+  ];
+
+  if (submitted) {
+    return (
+      <div className="max-w-2xl mx-auto">
+        <Card className="text-center">
+          <CardContent className="p-12">
+            <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-6" />
+            <h2 className="text-2xl font-bold text-wine-burgundy mb-4">
+              {language === 'fr' ? 'Merci pour votre demande!' : 'Thank you for your inquiry!'}
+            </h2>
+            <p className="text-gray-600 mb-6">
+              {language === 'fr' 
+                ? 'Nous vous contacterons dans les 48 heures pour discuter des opportunités de collaboration.'
+                : 'We will contact you within 48 hours to discuss collaboration opportunities.'
+              }
+            </p>
+            <Button onClick={() => setSubmitted(false)} className="bg-wine-burgundy hover:bg-wine-burgundy/90">
+              {language === 'fr' ? 'Nouvelle demande' : 'New inquiry'}
             </Button>
-            <Button onClick={generateFollowUpDocument} className="gap-2">
-              <Download className="w-4 h-4" />
-              Télécharger le Suivi
-            </Button>
-          </div>
-        </CardContent>
-      </Card>;
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
-  return;
+
+  return (
+    <div className="max-w-6xl mx-auto space-y-12">
+      
+      {/* Hero Section */}
+      <div className="text-center mb-12">
+        <h1 className="text-4xl font-bold text-wine-burgundy mb-4">
+          📋 {language === 'fr' ? 'Contact & Prochaines Étapes' : 'Contact & Next Steps'}
+        </h1>
+        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          {language === 'fr' 
+            ? 'Transformons ensemble les déchets viticoles en opportunité d\'avenir'
+            : 'Transform vineyard waste into future opportunities together'
+          }
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        
+        {/* Business Opportunities */}
+        <div>
+          <h2 className="text-3xl font-bold text-wine-burgundy mb-8">
+            🤝 {language === 'fr' ? 'Opportunités de Collaboration' : 'Business Opportunities'}
+          </h2>
+          
+          <div className="grid gap-6 mb-12">
+            {businessOpportunities.map((opportunity, index) => (
+              <Card key={index} className="hover:shadow-lg transition-shadow cursor-pointer border-l-4 border-wine-burgundy">
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="text-wine-burgundy">
+                      {opportunity.icon}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-lg mb-2">{opportunity.title}</h3>
+                      <p className="text-gray-600">{opportunity.description}</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Regional Context */}
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <MapPin className="h-5 w-5 text-wine-burgundy" />
+                {language === 'fr' ? 'Potentiel Régional' : 'Regional Potential'}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="text-center p-4 bg-wine-cream/20 rounded-lg">
+                  <div className="text-2xl font-bold text-wine-burgundy">
+                    {Math.round(currentData.totalBiomass / 1000)}k
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    {language === 'fr' ? 'tonnes/an' : 'tons/year'}
+                  </div>
+                </div>
+                <div className="text-center p-4 bg-wine-cream/20 rounded-lg">
+                  <div className="text-2xl font-bold text-wine-burgundy">
+                    €{Math.round(currentData.totalRevenue / 1000000)}M
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    {language === 'fr' ? 'potentiel' : 'potential'}
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Direct Contact Info */}
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                {language === 'fr' ? 'Autres moyens de nous contacter' : 'Other ways to contact us'}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center gap-3">
+                <Phone className="h-4 w-4 text-gray-500" />
+                <div>
+                  <div className="font-medium">+33 5 56 12 34 56</div>
+                  <div className="text-sm text-gray-500">
+                    {language === 'fr' ? 'Ligne directe' : 'Direct line'}
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <Mail className="h-4 w-4 text-gray-500" />
+                <div>
+                  <div className="font-medium">contact@atlas-biomasse.fr</div>
+                  <div className="text-sm text-gray-500">
+                    {language === 'fr' ? 'Email général' : 'General email'}
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <Calendar className="h-4 w-4 text-gray-500" />
+                <div>
+                  <Button variant="outline" className="text-sm">
+                    {language === 'fr' ? 'Prendre RDV' : 'Schedule Meeting'}
+                  </Button>
+                  <div className="text-sm text-gray-500 mt-1">
+                    calendly.com/atlas-biomasse
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Contact Form */}
+        <div>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Send className="h-5 w-5 text-wine-burgundy" />
+                {language === 'fr' ? 'Demandes d\'information sur le projet' : 'Project Information Request'}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                
+                {/* Basic Info */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      {language === 'fr' ? 'Nom complet' : 'Full name'} *
+                    </label>
+                    <Input
+                      required
+                      value={formData.fullName}
+                      onChange={(e) => handleInputChange('fullName', e.target.value)}
+                      placeholder={language === 'fr' ? 'Votre nom' : 'Your name'}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      Email *
+                    </label>
+                    <Input
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) => handleInputChange('email', e.target.value)}
+                      placeholder="votre@email.com"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      {language === 'fr' ? 'Téléphone' : 'Phone'}
+                    </label>
+                    <Input
+                      value={formData.phone}
+                      onChange={(e) => handleInputChange('phone', e.target.value)}
+                      placeholder="+33 X XX XX XX XX"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      {language === 'fr' ? 'Entreprise/Organisation' : 'Company/Organization'}
+                    </label>
+                    <Input
+                      value={formData.company}
+                      onChange={(e) => handleInputChange('company', e.target.value)}
+                      placeholder={language === 'fr' ? 'Nom de votre entreprise' : 'Your company name'}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      {language === 'fr' ? 'Fonction/Rôle' : 'Role/Position'}
+                    </label>
+                    <Input
+                      value={formData.role}
+                      onChange={(e) => handleInputChange('role', e.target.value)}
+                      placeholder={language === 'fr' ? 'Votre fonction' : 'Your position'}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      {language === 'fr' ? 'Mode de contact préféré' : 'Preferred contact method'}
+                    </label>
+                    <Select value={formData.contactMethod} onValueChange={(value) => handleInputChange('contactMethod', value)}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="email">Email</SelectItem>
+                        <SelectItem value="phone">{language === 'fr' ? 'Téléphone' : 'Phone'}</SelectItem>
+                        <SelectItem value="meeting">{language === 'fr' ? 'Réunion' : 'Meeting'}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                {/* Interests */}
+                <div>
+                  <label className="block text-sm font-medium mb-3">
+                    {language === 'fr' 
+                      ? 'Centres d\'intérêt (sélectionnez tous ceux qui s\'appliquent)' 
+                      : 'Areas of interest (select all that apply)'
+                    }
+                  </label>
+                  <div className="flex flex-wrap gap-2">
+                    {interestAreas.map((interest) => (
+                      <Badge
+                        key={interest.key}
+                        variant={formData.interests.includes(interest.key) ? "default" : "outline"}
+                        className={`cursor-pointer ${
+                          formData.interests.includes(interest.key)
+                            ? 'bg-wine-burgundy hover:bg-wine-burgundy/90'
+                            : 'hover:bg-wine-cream'
+                        }`}
+                        onClick={() => toggleInterest(interest.key)}
+                      >
+                        {interest.label}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Message */}
+                <div>
+                  <label className="block text-sm font-medium mb-2">
+                    {language === 'fr' ? 'Message détaillé' : 'Detailed message'}
+                  </label>
+                  <Textarea
+                    value={formData.message}
+                    onChange={(e) => handleInputChange('message', e.target.value)}
+                    placeholder={language === 'fr' 
+                      ? 'Décrivez vos besoins, questions ou propositions...'
+                      : 'Describe your needs, questions or proposals...'
+                    }
+                    rows={4}
+                  />
+                </div>
+
+                <Button 
+                  type="submit" 
+                  className="w-full bg-wine-burgundy hover:bg-wine-burgundy/90"
+                  size="lg"
+                >
+                  <Send className="h-4 w-4 mr-2" />
+                  {language === 'fr' ? 'Envoyer la Demande' : 'Send Inquiry'}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+
+          {/* Next Steps */}
+          <Card className="mt-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <CheckCircle className="h-5 w-5 text-wine-burgundy" />
+                {language === 'fr' ? 'Après votre demande' : 'After your inquiry'}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {nextSteps.map((step, index) => (
+                  <div key={index} className="flex items-center gap-4">
+                    <div className="flex-shrink-0 text-wine-burgundy">
+                      {step.icon}
+                    </div>
+                    <div>
+                      <div className="font-semibold text-wine-burgundy">
+                        {step.timeframe}
+                      </div>
+                      <div className="text-gray-600 text-sm">
+                        {step.description}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
 };
+
 export default ContactIntegration;
