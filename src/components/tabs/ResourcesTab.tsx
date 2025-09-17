@@ -7,7 +7,7 @@ import { useRegion } from "@/contexts/RegionContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function ResourcesTab() {
-  const { activeRegion, currentData } = useRegion();
+  const { activeRegion, currentData } = useRegion(); // ✅ pull the right values
   const { language } = useLanguage();
 
   console.log("ResourcesTab rendering with:", activeRegion, currentData);
@@ -31,13 +31,13 @@ export default function ResourcesTab() {
       </p>
 
       {/* Regional Map */}
-      <StaticRegionalMap />
+      <StaticRegionalMap region={activeRegion} language={language} />
 
       {/* Biomass Breakdown */}
-      <BiomassBreakdownChart />
+      <BiomassBreakdownChart region={activeRegion} language={language} />
 
       {/* Seasonal Availability */}
-      <SeasonalTimeline />
+      <SeasonalTimeline region={activeRegion} language={language} />
 
       {/* Infrastructure */}
       <InfrastructureOverview region={activeRegion} language={language} />

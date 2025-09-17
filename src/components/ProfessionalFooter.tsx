@@ -215,7 +215,7 @@ const ProfessionalFooter = () => {
         <div className="border-t border-wine-cream/20 pt-6 flex flex-col md:flex-row items-center justify-between text-sm text-wine-cream/60">
           <div className="mb-4 md:mb-0">
             <div className="mb-1">
-              © {currentYear} {t('footer.copyright')} {currentData.name}
+              © {currentYear} {t('footer.copyright', { region: currentData.name })}
             </div>
             <div className="text-xs">
               {t('footer.data.updated')} | {t('footer.next.revision')}
