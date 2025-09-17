@@ -269,7 +269,7 @@ const OverviewTab = () => {
               <h3 className="text-xl font-bold text-wine-burgundy mb-3">TOTAL ENERGIES</h3>
               <h4 className="text-lg font-semibold text-wine-charcoal mb-3">Stratégie SAF France 2030</h4>
               <div className="space-y-2 text-sm text-wine-charcoal/70">
-                <div>• <span className="font-medium">{t('investissement')}:</span> €500M {t('sur.ans', { years: '5' })}</div>
+                <div>• <span className="font-medium">{t('investissement')}:</span> €500M sur 5 ans</div>
                 <div>• <span className="font-medium">{t('objectif')}:</span> 1.5M {t('tonnes.saf.an')} capacité</div>
                 <div>• <span className="font-medium">Bioraffineries:</span> 6 sites {t('modernises')}</div>
                 <div>• <span className="font-medium">Partenariats:</span> 25 {t('fournisseurs.biomasse')}</div>

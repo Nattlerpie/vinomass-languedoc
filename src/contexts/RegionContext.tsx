@@ -11,6 +11,18 @@ export interface RegionData {
   revenue: number;
   co2Reduction: number;
   jobs: number;
+  totalBiomass?: number;
+  totalRevenue?: number;
+  infrastructure?: {
+    collection: number;
+    processing: number;
+    distribution: number;
+    storage: number;
+    distilleries: number;
+    methanization: number;
+    composting: number;
+    biomass: number;
+  };
   wasteAllocation?: {
     total: number;
     protected: number;
@@ -20,6 +32,9 @@ export interface RegionData {
     realisticRevenue: number;
     realisticCo2Reduction: number;
     realisticJobs: number;
+    fluxDisponibles?: number;
+    fluxNegociables?: number;
+    fluxProteges?: number;
   };
   departments?: DepartmentData[];
   topCommunes?: CommuneData[];
@@ -46,6 +61,18 @@ const regionData: Record<RegionType, RegionData> = {
     revenue: 27.3, // €27.3M (realistic)
     co2Reduction: 61600, // 61,600 tonnes (realistic)
     jobs: 180,
+    totalBiomass: 266000,
+    totalRevenue: 27.3,
+    infrastructure: {
+      collection: 85,
+      processing: 12,
+      distribution: 8,
+      storage: 15,
+      distilleries: 3,
+      methanization: 45,
+      composting: 120,
+      biomass: 25
+    },
     wasteAllocation: {
       total: 266000,
       protected: 120000, // 45%
@@ -54,7 +81,10 @@ const regionData: Record<RegionType, RegionData> = {
       realisticSafPotential: 22400000,
       realisticRevenue: 27.3,
       realisticCo2Reduction: 61600,
-      realisticJobs: 180
+      realisticJobs: 180,
+      fluxDisponibles: 80000,
+      fluxNegociables: 66000,
+      fluxProteges: 120000
     },
     departments: [
       { name: 'Hérault', percentage: 39, color: 'wine-burgundy' },
@@ -80,6 +110,18 @@ const regionData: Record<RegionType, RegionData> = {
     revenue: 2.4, // €2.4M (realistic)
     co2Reduction: 5500, // 5,500 tonnes (realistic)
     jobs: 45, // Scaled appropriately
+    totalBiomass: 24000,
+    totalRevenue: 2.4,
+    infrastructure: {
+      collection: 65,
+      processing: 8,
+      distribution: 5,
+      storage: 10,
+      distilleries: 2,
+      methanization: 15,
+      composting: 35,
+      biomass: 8
+    },
     wasteAllocation: {
       total: 24000,
       protected: 11000, // 45%
@@ -88,7 +130,10 @@ const regionData: Record<RegionType, RegionData> = {
       realisticSafPotential: 2000000,
       realisticRevenue: 2.4,
       realisticCo2Reduction: 5500,
-      realisticJobs: 45
+      realisticJobs: 45,
+      fluxDisponibles: 7000,
+      fluxNegociables: 6000,
+      fluxProteges: 11000
     },
     departments: [
       { name: 'Marne', percentage: 85, color: 'wine-burgundy' },

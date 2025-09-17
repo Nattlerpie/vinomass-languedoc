@@ -1,9 +1,38 @@
-// ADD THESE TRANSLATION KEYS TO YOUR EXISTING LanguageContext.tsx
-// Insert them into the appropriate fr and en objects
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+
+export type Language = 'fr' | 'en';
 
 const translations: Record<Language, Record<string, string>> = {
   fr: {
-    // ... your existing French translations ...
+    // Navigation & General
+    'nav.overview': 'Aperçu',
+    'nav.data': 'Données',
+    'nav.economy': 'Économie',
+    'nav.partnerships': 'Partenariats',
+    'nav.resources': 'Ressources',
+    'nav.contact': 'Contact',
+    'general.loading': 'Chargement...',
+    'general.error': 'Erreur',
+    'footer.copyright': 'SAF - Tous droits réservés',
+    
+    // Overview Tab
+    'overview.title': 'Aperçu du Projet',
+    'overview.subtitle': 'Vue d\'ensemble des opportunités SAF régionales',
+    'overview.keyPoints': 'Points Clés',
+    'overview.keyPointsSubtitle': 'Indicateurs économiques et techniques essentiels',
+    'overview.vineyardSurface': 'Superficie viticole',
+    'overview.vineyardBase': 'Base régionale',
+    'overview.annualPomace': 'Production annuelle de marc',
+    'overview.totalRawMaterial': 'Matière première totale',
+    'overview.realisticAllocation': 'Allocation Réaliste des Flux',
+    'overview.availableForSAF': 'disponible pour SAF',
+    'overview.safPotential': 'Potentiel SAF (70% efficacité)',
+    'overview.basedOnAvailable': 'Basé sur disponible',
+    'overview.revenuePotential': 'Revenue Potential',
+    'overview.co2Reduction': 'Réduction CO₂',
+    'overview.vsFossil': 'vs carburant fossile',
+    'overview.regionalContext': 'Contexte Régional',
+    'overview.leaderPosition': 'Position de leader national dans la production viticole',
     
     // Resources Tab - French
     'resources.title': 'Ressources Biomasse',
@@ -91,7 +120,35 @@ const translations: Record<Language, Record<string, string>> = {
   },
   
   en: {
-    // ... your existing English translations ...
+    // Navigation & General
+    'nav.overview': 'Overview',
+    'nav.data': 'Data',
+    'nav.economy': 'Economy',
+    'nav.partnerships': 'Partnerships',
+    'nav.resources': 'Resources',
+    'nav.contact': 'Contact',
+    'general.loading': 'Loading...',
+    'general.error': 'Error',
+    'footer.copyright': 'SAF - All rights reserved',
+    
+    // Overview Tab
+    'overview.title': 'Project Overview',
+    'overview.subtitle': 'Regional SAF opportunities overview',
+    'overview.keyPoints': 'Key Points',
+    'overview.keyPointsSubtitle': 'Essential economic and technical indicators',
+    'overview.vineyardSurface': 'Vineyard Surface',
+    'overview.vineyardBase': 'Regional base',
+    'overview.annualPomace': 'Annual pomace production',
+    'overview.totalRawMaterial': 'Total raw material',
+    'overview.realisticAllocation': 'Realistic Flow Allocation',
+    'overview.availableForSAF': 'available for SAF',
+    'overview.safPotential': 'SAF Potential (70% efficiency)',
+    'overview.basedOnAvailable': 'Based on available',
+    'overview.revenuePotential': 'Revenue Potential',
+    'overview.co2Reduction': 'CO₂ Reduction',
+    'overview.vsFossil': 'vs fossil fuel',
+    'overview.regionalContext': 'Regional Context',
+    'overview.leaderPosition': 'National leadership position in wine production',
     
     // Resources Tab - English
     'resources.title': 'Biomass Resources',
@@ -177,4 +234,38 @@ const translations: Record<Language, Record<string, string>> = {
     'units.hectares': 'hectares',
     'units.ofTotal': 'of total'
   }
+};
+
+interface LanguageContextType {
+  language: Language;
+  setLanguage: (language: Language) => void;
+  t: (key: string) => string;
+}
+
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [language, setLanguage] = useState<Language>('fr');
+
+  const t = (key: string): string => {
+    return translations[language][key] || key;
+  };
+
+  return (
+    <LanguageContext.Provider value={{
+      language,
+      setLanguage,
+      t
+    }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+export const useLanguage = () => {
+  const context = useContext(LanguageContext);
+  if (context === undefined) {
+    throw new Error('useLanguage must be used within a LanguageProvider');
+  }
+  return context;
 };
