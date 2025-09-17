@@ -1,46 +1,71 @@
 import React from "react";
+import { useRegion } from "@/contexts/RegionContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-interface StaticRegionalMapProps {
-  region: string;
-  language: string;
+interface MapPaths {
+  [key: string]: string;
 }
 
-export default function StaticRegionalMap({ region, language }: StaticRegionalMapProps) {
-  // Capitalize region key to match filenames
-  const regionKey = region ? region.charAt(0).toUpperCase() + region.slice(1) : "Occitanie";
-  const imagePath = `/${regionKey}.png`;
+const mapPaths: MapPaths = {
+  languedoc: "/Occitanie.png",
+  champagne: "/Champagne.png",
+};
 
-  console.log("Debug: StaticRegionalMap loaded. Region =", region, "Language =", language);
+const StaticRegionalMap: React.FC = () => {
+  const { activeRegion, currentData } = useRegion();
+  const { language } = useLanguage();
+
+  const mapSrc = mapPaths[activeRegion] || "";
 
   return (
     <div className="space-y-4">
-      {/* Debug Banner */}
-      <div className="p-2 mb-2 bg-blue-200 text-black font-mono text-sm">
-        Debug: <strong>StaticRegionalMap</strong> loaded. Region ={" "}
-        {region || "undefined"}, Language = {language || "undefined"}
+      {/* Map Image */}
+      <div className="w-full border rounded-lg overflow-hidden shadow-md">
+        {mapSrc ? (
+          <img
+            src={mapSrc}
+            alt={language === "fr" ? `Carte de ${currentData.name}` : `${currentData.name} map`}
+            className="w-full h-auto object-contain"
+          />
+        ) : (
+          <div className="p-8 text-center text-gray-500">
+            {language === "fr" ? "Carte non disponible" : "Map not available"}
+          </div>
+        )}
       </div>
 
-      {/* Heading */}
-      <h2 className="text-xl font-bold">
-        {language === "fr" ? "Carte Régionale" : "Regional Map"}
-      </h2>
-      <p className="text-gray-600">
-        {language === "fr"
-          ? "Répartition Détaillée de la Biomasse"
-          : "Detailed Biomass Distribution"}
-      </p>
-
-      {/* Map */}
-      <div className="flex justify-center">
-        <img
-          src={imagePath}
-          alt={`${regionKey} map`}
-          className="max-w-full h-auto rounded-lg shadow"
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = "/fallback.png";
-          }}
-        />
-      </div>
+      {/* Top Communes */}
+      {currentData.topCommunes && currentData.topCommunes.length > 0 && (
+        <div>
+          <h4 className="font-semibold text-wine-burgundy mb-2">
+            {language === "fr"
+              ? "Principales Communes Productrices"
+              : "Top Producing Communes"}
+          </h4>
+          <div className="space-y-2">
+            {currentData.topCommunes.slice(0, 5).map((commune, index) => (
+              <div key={index} className="flex justify-between items-center text-sm">
+                <span className="font-medium">{commune.name}</span>
+                <div className="flex items-center gap-2 w-36">
+                  <span className="text-gray-600">{commune.tonnage.toLocaleString()} t</span>
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div
+                      className="bg-wine-burgundy h-2 rounded-full"
+                      style={{
+                        width: `${
+                          (commune.tonnage / currentData.topCommunes[0].tonnage) * 100
+                        }%`,
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
-}
+};
+
+export default StaticRegionalMap;
