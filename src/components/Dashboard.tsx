@@ -13,13 +13,10 @@ import DashboardHeader from "./DashboardHeader";
 import GuidedTour from "./GuidedTour";
 import { Button } from "@/components/ui/button";
 import { HelpCircle } from 'lucide-react';
-
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("executive");
   const [showTour, setShowTour] = useState(false);
-
-  return (
-    <div className="min-h-screen bg-gradient-subtle">
+  return <div className="min-h-screen bg-gradient-subtle">
       <DashboardHeader />
       
     
@@ -29,7 +26,7 @@ const Dashboard = () => {
           <TabsTrigger value="resources" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Ressources</TabsTrigger>
           <TabsTrigger value="economy" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Économie</TabsTrigger>
           <TabsTrigger value="partnerships" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Partenariats</TabsTrigger>
-          <TabsTrigger value="data" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Données</TabsTrigger>
+          <TabsTrigger value="data" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Méthodologie</TabsTrigger>
           <TabsTrigger value="contact" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Contact</TabsTrigger>
         </TabsList>
 
@@ -66,14 +63,7 @@ const Dashboard = () => {
       <ProfessionalFooter />
 
       {/* Guided Tour */}
-      <GuidedTour 
-        isOpen={showTour}
-        onClose={() => setShowTour(false)}
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-      />
-    </div>
-  );
+      <GuidedTour isOpen={showTour} onClose={() => setShowTour(false)} activeTab={activeTab} onTabChange={setActiveTab} />
+    </div>;
 };
-
 export default Dashboard;
