@@ -1,0 +1,53 @@
+{
+  "biomassStrategy": "Stratégie d'Approvisionnement Biomasse",
+  "biomassPoints": {
+    "base": "Base conservative: 30% disponible (80kt) - Flux d'élimination",
+    "negotiable": "Potentiel négociable: +25% (66kt) - Surplus & excédents",
+    "total": "Total accessible: Jusqu'à 55% (146kt) avec partenariats"
+  },
+  "biomassNote": "Cette approche respecte les filières établies tout en démontrant un potentiel d'expansion pour répondre à la demande croissante SAF.",
+
+  "wineRevenue": "€3.2B\nChiffre d'affaires annuel\nSecteur vitivinicole régional",
+  "safNews": "Actualités Secteur SAF",
+
+  "haffner": {
+    "title": "HAFFNER ENERGY",
+    "location": "Bioraffinerie Marolles-en-Hurepoix (Essonne)",
+    "investment": "Investissement: €180M",
+    "capacity": "Capacité: 50,000 tonnes SAF/an dès 2025",
+    "tech": "Technologie: Biomasse-to-liquids (BTL)",
+    "partnership": "Partenariat: Région Île-de-France"
+  },
+  "lanzajet": {
+    "title": "LANZAJET",
+    "site": "Freedom Pines Fuels - Partenariat Total Energies",
+    "first": "Premier site commercial ATJ en Europe",
+    "capacity": "Capacité: 125,000 tonnes SAF/an",
+    "feedstock": "Feedstock: Éthanol de déchets agricoles",
+    "certification": "Certification: ASTM D7566 approuvée"
+  },
+  "airbus": {
+    "title": "AIRBUS",
+    "program": "Programme ZEROe - Carburants Verts",
+    "goal": "Objectif: Avion hydrogène 2035",
+    "transition": "SAF transition: 10% minimum d'ici 2030",
+    "partnerships": "Partenariats: 15 aéroports français équipés",
+    "budget": "Budget R&D: €15 milliards mobilisés"
+  },
+  "total": {
+    "title": "TOTAL ENERGIES",
+    "strategy": "Stratégie SAF France 2030",
+    "investment": "Investissement: €500M sur 5 ans",
+    "objective": "Objectif: 1.5M tonnes SAF/an capacité",
+    "refineries": "Bioraffineries: 6 sites modernisés",
+    "partnerships": "Partenariats: 25 fournisseurs biomasse"
+  },
+  "regulation": {
+    "title": "Contexte Réglementaire",
+    "refu": "ReFuelEU Aviation: 2% SAF minimum 2025",
+    "fr2030": "France 2030: €4 milliards fonds verts",
+    "eu": "EU REPowerEU: €210 milliards énergies renouvelables",
+    "corsia": "CORSIA ICAO: Objectif neutralité carbone 2050"
+  },
+  "projectNote": "Notre projet s'inscrit dans cette dynamique nationale → Voir onglet Économie"
+}
