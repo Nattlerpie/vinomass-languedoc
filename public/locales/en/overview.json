@@ -1,0 +1,53 @@
+{
+  "biomassStrategy": "Biomass Supply Strategy",
+  "biomassPoints": {
+    "base": "Conservative base: 30% available (80kt) - Disposal flows",
+    "negotiable": "Negotiable potential: +25% (66kt) - Surplus & excess",
+    "total": "Total accessible: Up to 55% (146kt) with partnerships"
+  },
+  "biomassNote": "This approach respects established sectors while demonstrating expansion potential to meet growing SAF demand.",
+
+  "wineRevenue": "€3.2B\nAnnual revenue\nRegional wine sector",
+  "safNews": "SAF Sector News",
+
+  "haffner": {
+    "title": "HAFFNER ENERGY",
+    "location": "Marolles-en-Hurepoix biorefinery (Essonne)",
+    "investment": "Investment: €180M",
+    "capacity": "Capacity: 50,000 tonnes SAF/year from 2025",
+    "tech": "Technology: Biomass-to-liquids (BTL)",
+    "partnership": "Partnership: Île-de-France Region"
+  },
+  "lanzajet": {
+    "title": "LANZAJET",
+    "site": "Freedom Pines Fuels – Partnership with Total Energies",
+    "first": "First commercial ATJ site in Europe",
+    "capacity": "Capacity: 125,000 tonnes SAF/year",
+    "feedstock": "Feedstock: Agricultural waste ethanol",
+    "certification": "Certification: ASTM D7566 approved"
+  },
+  "airbus": {
+    "title": "AIRBUS",
+    "program": "ZEROe Program – Green Fuels",
+    "goal": "Goal: Hydrogen aircraft 2035",
+    "transition": "SAF transition: Minimum 10% by 2030",
+    "partnerships": "Partnerships: 15 French airports equipped",
+    "budget": "R&D Budget: €15B mobilized"
+  },
+  "total": {
+    "title": "TOTAL ENERGIES",
+    "strategy": "France SAF Strategy 2030",
+    "investment": "Investment: €500M over 5 years",
+    "objective": "Objective: 1.5M tonnes SAF/year capacity",
+    "refineries": "Bioreneweries: 6 sites upgraded",
+    "partnerships": "Partnerships: 25 biomass suppliers"
+  },
+  "regulation": {
+    "title": "Regulatory Context",
+    "refu": "ReFuelEU Aviation: 2% SAF minimum 2025",
+    "fr2030": "France 2030: €4B green funds",
+    "eu": "EU REPowerEU: €210B renewables",
+    "corsia": "CORSIA ICAO: Carbon neutrality by 2050"
+  },
+  "projectNote": "Our project fits within this national dynamic → See Economics tab"
+}
