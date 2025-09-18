@@ -1,358 +1,263 @@
+import React from "react";
 import TopCommunes from "../TopCommunes";
 import ValoorizationChart from "../ValoorizationChart";
 import { useRegion } from "@/contexts/RegionContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const OverviewTab = () => {
+const OverviewTab: React.FC = () => {
   const { currentData } = useRegion();
   const { t } = useLanguage();
 
-  // Calculate realistic values based on 30% allocation
-  const availableBiomass = currentData.wasteAllocation?.fluxDisponibles || 80000;
-  const negotiableBiomass = currentData.wasteAllocation?.fluxNegociables || 66000;
-  const protectedBiomass = currentData.wasteAllocation?.fluxProteges || 120000;
+  // Debug
+  console.log("OverviewTab rendering, currentData:", currentData);
 
-  // Realistic SAF calculations (80,000t × 280L/tonne × 70% efficiency)
-  const realisticSafProduction = (availableBiomass * 280 * 0.7) / 1000000; // in millions of liters
-  const realisticRevenue = realisticSafProduction * 1.22; // €1.22/L market price
-  const realisticCO2Reduction = realisticSafProduction * 1000000 * 2.5 / 1000; // 2.5kg CO2/L, convert to tonnes
+  // Support multiple possible key names (safe fallbacks)
+  const availableBiomass =
+    currentData.wasteAllocation?.available ??
+    currentData.wasteAllocation?.availableForSAF ??
+    currentData.wasteAllocation?.fluxDisponibles ?? // older keys you had
+    80000;
+
+  const negotiableBiomass =
+    currentData.wasteAllocation?.negotiable ??
+    currentData.wasteAllocation?.fluxNegociables ??
+    66000;
+
+  const protectedBiomass =
+    currentData.wasteAllocation?.protected ??
+    currentData.wasteAllocation?.fluxProteges ??
+    120000;
+
+  // total biomass: prefer explicit fields, fall back to annualPomace
+  const totalBiomass =
+    // some components expect totalBiomass
+    (currentData as any).totalBiomass ?? currentData.annualPomace ?? 266000;
+
+  // Realistic SAF calculations (availableBiomass × 280 L/tonne × 70% efficiency)
+  // realisticSafProduction in millions of liters
+  const realisticSafProduction = (availableBiomass * 280 * 0.7) / 1_000_000;
+  const realisticRevenue = realisticSafProduction * 1.22; // €1.22 / L
+  // CO2 reduction estimate (2.5 kg CO2 avoided per liter), convert kg -> tonnes
+  const realisticCO2Reduction = (realisticSafProduction * 1_000_000 * 2.5) / 1000;
+
+  // helpers for formatting
+  const fmtThousands = (n: number) => `${Math.round(n / 1000)}k`;
+  const fmtMillions = (n: number) => `${n.toFixed(1)}M`;
 
   return (
-    <div className="min-h-screen w-full">
-      {/* Hero Section - Header Only */}
-      <section className="mb-16">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl lg:text-5xl font-bold text-wine-charcoal mb-4">
-            {t('header.title').replace('{region}', currentData.name)}
-          </h1>
-          <p className="text-xl text-wine-charcoal/70 max-w-3xl mx-auto">
-            {t('header.subtitle')}
-          </p>
-        </div>
+    <div className="min-h-screen w-full p-4 space-y-8">
+      {/* Debug Banner */}
+      <div className="p-2 mb-2 bg-yellow-200 text-black font-mono text-sm">
+        Debug: <strong>OverviewTab</strong> mounted. Region ={" "}
+        <strong>{currentData?.id ?? "undefined"}</strong>
+      </div>
 
-        {/* Points Clés Hero Section */}
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              {t('points.cles')}
-            </h2>
-            <p className="text-lg text-wine-charcoal/70">
-              {t('points.cles.subtitle')}
-            </p>
-          </div>
-
-          {/* 6-button grid layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* 1. Superficie viticole */}
-            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
-              <div className="text-4xl font-bold text-wine-burgundy mb-3">
-                {(currentData.vineyardSurface / 1000).toFixed(0)}k
-              </div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">
-                {t('superficie.viticole')}
-              </div>
-              <div className="text-sm text-wine-charcoal/60">{t('hectares')}</div>
-              <div className="text-xs text-wine-charcoal/50 mt-1">
-                {t('base.regionale')}
-              </div>
-            </div>
-
-            {/* 2. Production annuelle de marc */}
-            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
-              <div className="text-4xl font-bold text-wine-gold mb-3">
-                {(currentData.totalBiomass / 1000).toFixed(0)}k {(currentData.annualPomace / 1000).toFixed(0)}k
-              </div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">
-                {t('production.marc')}
-              </div>
-              <div className="text-sm text-wine-charcoal/60">{t('tonnes')}</div>
-              <div className="text-xs text-wine-charcoal/50 mt-1">
-                {t('matiere.premiere')}
-              </div>
-            </div>
-
-            {/* 3. Allocation Réaliste des Flux */}
-            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
-              <div className="text-4xl font-bold text-wine-green mb-3">
-                {(availableBiomass / 1000).toFixed(0)}k
-              </div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">
-                {t('allocation.flux')}
-              </div>
-              <div className="text-sm text-wine-charcoal/60">{t('tonnes')}</div>
-              <div className="text-xs text-wine-charcoal/50 mt-1">
-                30% {t('disponible.saf')}
-              </div>
-            </div>
-
-            {/* 4. Potentiel SAF */}
-            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
-              <div className="text-4xl font-bold text-wine-burgundy mb-3">
-                {realisticSafProduction.toFixed(1)}M
-              </div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">
-                {t('potentiel.saf')}
-              </div>
-              <div className="text-sm text-wine-charcoal/60">{t('litres.an')}</div>
-              <div className="text-xs text-wine-charcoal/50 mt-1">
-                Basé sur {(availableBiomass / 1000).toFixed(0)}kt disponibles
-              </div>
-            </div>
-
-            {/* 5. Revenue Potential */}
-            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300 group relative">
-              <div className="text-4xl font-bold text-wine-gold mb-3">
-                €{realisticRevenue.toFixed(1)}M
-              </div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">
-                {t('revenue.potential')}
-              </div>
-              <div className="text-sm text-wine-charcoal/60">/an</div>
-              <div className="text-xs text-wine-charcoal/50 mt-1">{t('prix.marche')}</div>
-
-              {/* Hover tooltip */}
-              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-wine-charcoal text-white p-3 rounded-lg shadow-lg text-xs whitespace-nowrap z-10">
-                {realisticSafProduction.toFixed(1)}M L × €1.22/L (prix marché ATJ - source: Aviation Fuel Analytics)
-              </div>
-            </div>
-
-            {/* 6. Réduction CO₂ */}
-            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
-              <div className="text-4xl font-bold text-wine-green mb-3">
-                {(realisticCO2Reduction / 1000).toFixed(1)}kt
-              </div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('reduction.co2')}</div>
-              <div className="text-sm text-wine-charcoal/60">{t('tonnes.an')}</div>
-              <div className="text-xs text-wine-charcoal/50 mt-1">{t('vs.fossile')}</div>
-            </div>
-          </div>
-        </div>
+      {/* Hero / Header */}
+      <section className="text-center mb-8">
+        <h1 className="text-4xl lg:text-5xl font-bold text-wine-charcoal mb-3">
+          {t("header.title").replace("{region}", currentData.name)}
+        </h1>
+        <p className="text-xl text-wine-charcoal/70 max-w-3xl mx-auto">
+          {t("header.subtitle")}
+        </p>
       </section>
 
-      {/* Divider */}
-      <div className="border-t border-wine-cream/30 mb-16"></div>
-
-      {/* Regional Analysis Section */}
-      <section className="mb-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-wine-charcoal mb-4">{t('analyse.regionale')}</h2>
-          <p className="text-lg text-wine-charcoal/70">{t('analyse.regionale.subtitle')}</p>
-        </div>
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12">
-          <div className="space-y-4">
-            <TopCommunes />
-          </div>
-          <div className="space-y-4">
-            <ValoorizationChart />
-            {/* Biomass Strategy Context */}
-            <div className="bg-wine-cream/10 border border-wine-gold/20 rounded-xl p-6 mt-6">
-              <h4 className="text-lg font-bold text-wine-charcoal mb-4">{t('strategie.biomasse')}</h4>
-              <div className="space-y-3 text-sm text-wine-charcoal/70">
-                <div className="flex items-start space-x-2">
-                  <span className="font-medium text-wine-charcoal">• {t('base.conservative')}:</span>
-                  <span>30% disponible ({(availableBiomass / 1000).toFixed(0)}kt) - {t('flux.elimination')}</span>
-                </div>
-                <div className="flex items-start space-x-2">
-                  <span className="font-medium text-wine-charcoal">• {t('potentiel.negociable')}:</span>
-                  <span>+25% ({(negotiableBiomass / 1000).toFixed(0)}kt) - {t('surplus.excedents')}</span>
-                </div>
-                <div className="flex items-start space-x-2">
-                  <span className="font-medium text-wine-charcoal">• {t('total.accessible')}:</span>
-                  <span>Jusqu'à 55% ({((availableBiomass + negotiableBiomass) / 1000).toFixed(0)}kt) {t('avec.partenariats')}</span>
-                </div>
-              </div>
-              <p className="text-sm text-wine-charcoal/60 mt-4 italic border-t border-wine-gold/20 pt-3">
-                {t('respecte.filieres')}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Other sections (Regional Context, Industry News, etc.) remain unchanged */}
-    </div>
-  );
-};
-
-      {/* Divider */}
-      <div className="border-t border-wine-cream/30 mb-16"></div>
-      
-      {/* Regional Analysis Section */}
-      <section className="mb-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-            {t('analyse.regionale')}
+      {/* Points Clés / Key metrics */}
+      <section className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 lg:p-10 shadow-elegant border border-wine-cream/30">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-wine-charcoal mb-2">
+            {t("points.cles")}
           </h2>
-          <p className="text-lg text-wine-charcoal/70">
-            {t('analyse.regionale.subtitle')}
-          </p>
+          <p className="text-lg text-wine-charcoal/70">{t("points.cles.subtitle")}</p>
         </div>
-        
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12">
-          <div className="space-y-4">
-            <TopCommunes />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Vineyard surface */}
+          <div className="text-center p-6 rounded-xl border border-wine-burgundy/10">
+            <div className="text-4xl font-bold text-wine-burgundy mb-2">
+              {fmtThousands(currentData.vineyardSurface)}
+            </div>
+            <div className="text-lg font-semibold text-wine-charcoal mb-1">
+              {t("superficie.viticole")}
+            </div>
+            <div className="text-sm text-wine-charcoal/60">{t("hectares")}</div>
+            <div className="text-xs text-wine-charcoal/50 mt-2">{t("base.regionale")}</div>
           </div>
-          <div className="space-y-4">
-            <ValoorizationChart />
-            
-            {/* NEW: Biomass Strategy Context (as requested) */}
+
+          {/* Total biomass & annual pomace */}
+          <div className="text-center p-6 rounded-xl border border-wine-gold/10">
+            <div className="text-4xl font-bold text-wine-gold mb-2">
+              {fmtThousands(totalBiomass)}{" "}
+              <span className="mx-2 text-gray-400">/</span>{" "}
+              {fmtThousands(currentData.annualPomace ?? totalBiomass)}
+            </div>
+            <div className="text-lg font-semibold text-wine-charcoal mb-1">
+              {t("production.marc")}
+            </div>
+            <div className="text-sm text-wine-charcoal/60">{t("tonnes")}</div>
+            <div className="text-xs text-wine-charcoal/50 mt-2">{t("matiere.premiere")}</div>
+          </div>
+
+          {/* Available for SAF */}
+          <div className="text-center p-6 rounded-xl border border-wine-green/10">
+            <div className="text-4xl font-bold text-wine-green mb-2">
+              {fmtThousands(availableBiomass)}
+            </div>
+            <div className="text-lg font-semibold text-wine-charcoal mb-1">
+              {t("allocation.flux")}
+            </div>
+            <div className="text-sm text-wine-charcoal/60">{t("tonnes")}</div>
+            <div className="text-xs text-wine-charcoal/50 mt-2">30% {t("disponible.saf")}</div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+          {/* SAF production */}
+          <div className="text-center p-6 rounded-xl border border-wine-burgundy/10">
+            <div className="text-4xl font-bold text-wine-burgundy mb-2">
+              {fmtMillions(realisticSafProduction)}
+            </div>
+            <div className="text-lg font-semibold text-wine-charcoal mb-1">{t("potentiel.saf")}</div>
+            <div className="text-sm text-wine-charcoal/60">{t("litres.an")}</div>
+            <div className="text-xs text-wine-charcoal/50 mt-2">
+              {t("resources.safPotentialSubtitle", { tonnage: `${availableBiomass}` }) || `Basé sur ${fmtThousands(availableBiomass)} disponibles`}
+            </div>
+          </div>
+
+          {/* Revenue */}
+          <div className="text-center p-6 rounded-xl border border-wine-gold/10 relative group">
+            <div className="text-4xl font-bold text-wine-gold mb-2">€{realisticRevenue.toFixed(1)}M</div>
+            <div className="text-lg font-semibold text-wine-charcoal mb-1">{t("revenue.potential")}</div>
+            <div className="text-sm text-wine-charcoal/60">/an</div>
+            <div className="text-xs text-wine-charcoal/50 mt-2">{t("prix.marche")}</div>
+
+            <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-wine-charcoal text-white p-2 rounded text-xs">
+              {fmtMillions(realisticSafProduction)} L × €1.22/L
+            </div>
+          </div>
+
+          {/* CO2 reduction */}
+          <div className="text-center p-6 rounded-xl border border-wine-green/10">
+            <div className="text-4xl font-bold text-wine-green mb-2">{(realisticCO2Reduction / 1000).toFixed(1)}kt</div>
+            <div className="text-lg font-semibold text-wine-charcoal mb-1">{t("reduction.co2")}</div>
+            <div className="text-sm text-wine-charcoal/60">{t("tonnes.an")}</div>
+            <div className="text-xs text-wine-charcoal/50 mt-2">{t("vs.fossile")}</div>
+          </div>
+        </div>
+      </section>
+
+      {/* Divider */}
+      <div className="border-t border-wine-cream/30"></div>
+
+      {/* Regional Analysis */}
+      <section className="mb-12">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-wine-charcoal mb-2">{t("analyse.regionale")}</h2>
+          <p className="text-lg text-wine-charcoal/70">{t("analyse.regionale.subtitle")}</p>
+        </div>
+
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+          <div>
+            <TopCommunes topCommunes={currentData.topCommunes} />
+          </div>
+
+          <div>
+            <ValoorizationChart regionData={currentData} />
+
             <div className="bg-wine-cream/10 border border-wine-gold/20 rounded-xl p-6 mt-6">
-              <h4 className="text-lg font-bold text-wine-charcoal mb-4">{t('strategie.biomasse')}</h4>
+              <h4 className="text-lg font-bold text-wine-charcoal mb-3">{t("strategie.biomasse")}</h4>
               <div className="space-y-3 text-sm text-wine-charcoal/70">
-                <div className="flex items-start space-x-2">
-                  <span className="font-medium text-wine-charcoal">• {t('base.conservative')}:</span>
-                  <span>30% disponible ({(availableBiomass / 1000).toFixed(0)}kt) - {t('flux.elimination')}</span>
+                <div>
+                  <strong>• {t("base.conservative")}:</strong>{" "}
+                  {`30% disponible (${fmtThousands(availableBiomass)}) - ${t("flux.elimination")}`}
                 </div>
-                <div className="flex items-start space-x-2">
-                  <span className="font-medium text-wine-charcoal">• {t('potentiel.negociable')}:</span>
-                  <span>+25% ({(negotiableBiomass / 1000).toFixed(0)}kt) - {t('surplus.excedents')}</span>
+                <div>
+                  <strong>• {t("potentiel.negociable")}:</strong>{" "}
+                  {`+25% (${fmtThousands(negotiableBiomass)}) - ${t("surplus.excedents")}`}
                 </div>
-                <div className="flex items-start space-x-2">
-                  <span className="font-medium text-wine-charcoal">• {t('total.accessible')}:</span>
-                  <span>Jusqu'à 55% ({((availableBiomass + negotiableBiomass) / 1000).toFixed(0)}kt) {t('avec.partenariats')}</span>
+                <div>
+                  <strong>• {t("total.accessible")}:</strong>{" "}
+                  {`Jusqu'à 55% (${fmtThousands(availableBiomass + negotiableBiomass)}) ${t("avec.partenariats")}`}
                 </div>
               </div>
               <p className="text-sm text-wine-charcoal/60 mt-4 italic border-t border-wine-gold/20 pt-3">
-                {t('respecte.filieres')}
+                {t("respecte.filieres")}
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Divider */}
-      <div className="border-t border-wine-cream/30 mb-16"></div>
-
-      {/* Regional Context Section */}
-      <section className="mb-16">
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              {t('contexte.regional')}
-            </h2>
-            <p className="text-lg text-wine-charcoal/70">
-              {t('contexte.regional.subtitle')}
-            </p>
+      {/* Regional Context */}
+      <section className="mb-12">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-elegant border border-wine-cream/30">
+          <div className="text-center mb-6">
+            <h3 className="text-3xl font-bold">{t("contexte.regional")}</h3>
+            <p className="text-lg text-wine-charcoal/70">{t("contexte.regional.subtitle")}</p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
-              <div className="text-4xl font-bold text-wine-burgundy mb-3">
-                {currentData.id === 'languedoc' ? '1er' : 'Premium'}
-              </div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">
-                {currentData.id === 'languedoc' ? t('region.viticole.francaise') : t('region.premium.champagne')}
-              </div>
-              <div className="text-sm text-wine-charcoal/60">
-                {currentData.id === 'languedoc' ? t('volume.production') : t('marche.prestige')}
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="text-center p-6 rounded-xl border border-wine-burgundy/10">
+              <div className="text-3xl font-bold mb-2">{currentData.id === "languedoc" ? "1er" : "Premium"}</div>
+              <div className="font-semibold">{currentData.id === "languedoc" ? t("region.viticole.francaise") : t("region.premium.champagne")}</div>
+              <div className="text-sm mt-1">{currentData.id === "languedoc" ? t("volume.production") : t("marche.prestige")}</div>
+            </div>
+
+            <div className="text-center p-6 rounded-xl border border-wine-gold/10">
+              <div className="text-3xl font-bold mb-2">{currentData.id === "languedoc" ? "38%" : "3%"}</div>
+              <div className="font-semibold">{t("production.nationale")}</div>
+              <div className="text-sm mt-1">
+                {currentData.id === "languedoc"
+                  ? `12 ${t("millions")} ${t("hectolitres")}`
+                  : `3.5 ${t("millions")} ${t("hectolitres")} (${t("segment.premium")})`}
               </div>
             </div>
-            
-            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
-              <div className="text-4xl font-bold text-wine-gold mb-3">
-                {currentData.id === 'languedoc' ? '38%' : '3%'}
-              </div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('production.nationale')}</div>
-              <div className="text-sm text-wine-charcoal/60">
-                {currentData.id === 'languedoc' 
-                  ? `12 ${t('millions')} ${t('hectolitres')}` 
-                  : `3.5 ${t('millions')} ${t('hectolitres')} (${t('segment.premium')})`
-                }
-              </div>
-            </div>
-            
-            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
-              <div className="text-4xl font-bold text-wine-green mb-3">
-                €{currentData.id === 'languedoc' ? '3.2' : '5.2'}B
-              </div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('ca.annuel')}</div>
-              <div className="text-sm text-wine-charcoal/60">{t('secteur.vitivinicole')}</div>
+
+            <div className="text-center p-6 rounded-xl border border-wine-green/10">
+              <div className="text-3xl font-bold mb-2">€{currentData.id === "languedoc" ? "3.2" : "5.2"}B</div>
+              <div className="font-semibold">{t("ca.annuel")}</div>
+              <div className="text-sm mt-1">{t("secteur.vitivinicole")}</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Divider */}
-      <div className="border-t border-wine-cream/30 mb-16"></div>
-
-      {/* Industry News Section */}
-      <section className="mb-8">
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              {t('actualites.saf')}
-            </h2>
-            <p className="text-lg text-wine-charcoal/70">
-              {t('actualites.subtitle')}
-            </p>
+      {/* Industry News & Regulatory */}
+      <section>
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-elegant border border-wine-cream/30">
+          <div className="text-center mb-6">
+            <h3 className="text-3xl font-bold">{t("actualites.saf")}</h3>
+            <p className="text-lg text-wine-charcoal/70">{t("actualites.subtitle")}</p>
           </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-            {/* Haffner Energy */}
-            <div className="bg-gradient-subtle rounded-xl p-6 border border-wine-burgundy/10">
-              <h3 className="text-xl font-bold text-wine-burgundy mb-3">HAFFNER ENERGY</h3>
-              <h4 className="text-lg font-semibold text-wine-charcoal mb-3">Bioraffinerie Marolles-en-Hurepoix (Essonne)</h4>
-              <div className="space-y-2 text-sm text-wine-charcoal/70">
-                <div>• <span className="font-medium">{t('investissement')}:</span> €180M</div>
-                <div>• <span className="font-medium">{t('capacite')}:</span> 50,000 {t('tonnes.saf.an')} {t('des.2025')}</div>
-                <div>• <span className="font-medium">{t('technologie')}:</span> Biomasse-to-liquids (BTL)</div>
-                <div>• <span className="font-medium">{t('partenariat')}:</span> Région Île-de-France</div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <div className="p-4 rounded-xl border border-wine-burgundy/10">
+              <h4 className="font-bold text-wine-burgundy">HAFFNER ENERGY</h4>
+              <div className="text-sm text-wine-charcoal/70 mt-2">
+                • <strong>{t("investissement")}:</strong> €180M<br />
+                • <strong>{t("capacite")}:</strong> 50,000 {t("tonnes.saf.an")} {t("des.2025")}<br />
+                • <strong>{t("technologie")}:</strong> Biomasse-to-liquids (BTL)
               </div>
             </div>
 
-            {/* LANZAJET */}
-            <div className="bg-gradient-subtle rounded-xl p-6 border border-wine-gold/10">
-              <h3 className="text-xl font-bold text-wine-gold mb-3">LANZAJET</h3>
-              <h4 className="text-lg font-semibold text-wine-charcoal mb-3">Freedom Pines Fuels - Partenariat Total Energies</h4>
-              <div className="space-y-2 text-sm text-wine-charcoal/70">
-                <div>• <span className="font-medium">Premier site commercial ATJ en Europe</span></div>
-                <div>• <span className="font-medium">{t('capacite')}:</span> 125,000 {t('tonnes.saf.an')}</div>
-                <div>• <span className="font-medium">Feedstock:</span> Éthanol de déchets agricoles</div>
-                <div>• <span className="font-medium">Certification:</span> ASTM D7566 approuvée</div>
-              </div>
-            </div>
-
-            {/* Airbus */}
-            <div className="bg-gradient-subtle rounded-xl p-6 border border-wine-green/10">
-              <h3 className="text-xl font-bold text-wine-green mb-3">AIRBUS</h3>
-              <h4 className="text-lg font-semibold text-wine-charcoal mb-3">Programme ZEROe - Carburants Verts</h4>
-              <div className="space-y-2 text-sm text-wine-charcoal/70">
-                <div>• <span className="font-medium">{t('objectif')}:</span> Avion hydrogène 2035</div>
-                <div>• <span className="font-medium">SAF transition:</span> 10% {t('minimum.2030')}</div>
-                <div>• <span className="font-medium">Partenariats:</span> 15 aéroports français équipés</div>
-                <div>• <span className="font-medium">{t('budget.rd')}:</span> €15 {t('milliards')} {t('mobilises')}</div>
-              </div>
-            </div>
-
-            {/* Total Energies */}
-            <div className="bg-gradient-subtle rounded-xl p-6 border border-wine-burgundy/10">
-              <h3 className="text-xl font-bold text-wine-burgundy mb-3">TOTAL ENERGIES</h3>
-              <h4 className="text-lg font-semibold text-wine-charcoal mb-3">Stratégie SAF France 2030</h4>
-              <div className="space-y-2 text-sm text-wine-charcoal/70">
-                <div>• <span className="font-medium">{t('investissement')}:</span> €500M {t('sur.ans', { years: '5' })}</div>
-                <div>• <span className="font-medium">{t('objectif')}:</span> 1.5M {t('tonnes.saf.an')} capacité</div>
-                <div>• <span className="font-medium">Bioraffineries:</span> 6 sites {t('modernises')}</div>
-                <div>• <span className="font-medium">Partenariats:</span> 25 {t('fournisseurs.biomasse')}</div>
+            <div className="p-4 rounded-xl border border-wine-gold/10">
+              <h4 className="font-bold text-wine-gold">LANZAJET</h4>
+              <div className="text-sm text-wine-charcoal/70 mt-2">
+                • Premier site commercial ATJ en Europe<br />
+                • <strong>{t("capacite")}:</strong> 125,000 {t("tonnes.saf.an")}
               </div>
             </div>
           </div>
 
-          {/* Regulatory Context */}
-          <div className="bg-wine-cream/10 border border-wine-gold/20 rounded-xl p-6">
-            <h3 className="text-lg font-bold text-wine-charcoal mb-4">{t('contexte.reglementaire')}</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-wine-charcoal/70">
-              <div>• <span className="font-medium">ReFuelEU Aviation:</span> 2% SAF minimum 2025</div>
-              <div>• <span className="font-medium">France 2030:</span> €4 {t('milliards')} {t('fonds.verts')}</div>
-              <div>• <span className="font-medium">EU REPowerEU:</span> €210 {t('milliards')} {t('energies.renouvelables')}</div>
-              <div>• <span className="font-medium">CORSIA ICAO:</span> {t('objectif')} {t('neutralite.carbone')} 2050</div>
+          <div className="bg-wine-cream/10 border border-wine-gold/20 rounded-xl p-4 text-sm">
+            <strong>{t("contexte.reglementaire")}</strong>
+            <div className="mt-2">
+              • ReFuelEU Aviation: 2% SAF minimum 2025<br />
+              • France 2030: €4 {t("milliards")} {t("fonds.verts")}
             </div>
           </div>
 
-          <div className="text-center mt-8">
-            <p className="text-sm text-wine-charcoal/60 italic">
-              {t('projet.inscrit')}
-            </p>
-          </div>
+          <div className="text-center mt-6 text-sm italic">{t("projet.inscrit")}</div>
         </div>
       </section>
     </div>
