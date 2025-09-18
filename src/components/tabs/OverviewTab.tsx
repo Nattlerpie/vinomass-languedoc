@@ -8,9 +8,9 @@ const OverviewTab = () => {
   const { t } = useLanguage();
   
   // Calculate realistic values based on 30% allocation
-  const availableBiomass = currentData.wasteAllocation?.fluxDisponibles || 80000;
-  const negotiableBiomass = currentData.wasteAllocation?.fluxNegociables || 66000;
-  const protectedBiomass = currentData.wasteAllocation?.fluxProteges || 120000;
+  const availableBiomass = currentData.wasteAllocation?.available || 80000;
+  const negotiableBiomass = currentData.wasteAllocation?.negotiable || 66000;
+  const protectedBiomass = currentData.wasteAllocation?.protected || 120000;
   
   // Realistic SAF calculations (80,000t × 280L/tonne × 70% efficiency)
   const realisticSafProduction = (availableBiomass * 280 * 0.70) / 1000000; // in millions of liters

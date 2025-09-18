@@ -198,7 +198,7 @@ const ContactIntegration = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center p-4 bg-wine-cream/20 rounded-lg">
                   <div className="text-2xl font-bold text-wine-burgundy">
-                    {Math.round(currentData.totalBiomass / 1000)}k
+                    {Math.round(currentData.annualPomace / 1000)}k
                   </div>
                   <div className="text-sm text-gray-600">
                     {language === 'fr' ? 'tonnes/an' : 'tons/year'}
@@ -206,7 +206,7 @@ const ContactIntegration = () => {
                 </div>
                 <div className="text-center p-4 bg-wine-cream/20 rounded-lg">
                   <div className="text-2xl font-bold text-wine-burgundy">
-                    €{Math.round(currentData.totalRevenue / 1000000)}M
+                    €{Math.round(currentData.revenue)}M
                   </div>
                   <div className="text-sm text-gray-600">
                     {language === 'fr' ? 'potentiel' : 'potential'}

@@ -170,6 +170,58 @@ const ErrorHandling = () => {
         return <CheckCircle className="h-4 w-4 text-gray-600" />;
     }
   };
-  return;
+  return (
+    <div className="space-y-4">
+      {/* Network Status */}
+      <div className="flex items-center gap-2 p-3 bg-white rounded-lg border">
+        {isOnline ? (
+          <Wifi className="h-4 w-4 text-green-500" />
+        ) : (
+          <WifiOff className="h-4 w-4 text-red-500" />
+        )}
+        <span className="text-sm">
+          {isOnline ? 'En ligne' : 'Hors ligne'}
+        </span>
+      </div>
+
+      {/* Validation Errors */}
+      {errors.length > 0 && (
+        <div className="space-y-2">
+          <h3 className="font-semibold text-red-600">
+            Erreurs de Validation Détectées ({errors.length})
+          </h3>
+          {errors.map((error, index) => (
+            <Alert key={index} className={getSeverityColor(error.severity)}>
+              <div className="flex items-start gap-2">
+                {getSeverityIcon(error.severity)}
+                <div className="flex-1">
+                  <AlertDescription>
+                    <strong>{error.component}:</strong> {error.message}
+                  </AlertDescription>
+                </div>
+              </div>
+            </Alert>
+          ))}
+          <Button onClick={handleRetry} variant="outline" size="sm">
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Revalider ({retryCount})
+          </Button>
+        </div>
+      )}
+
+      {/* Performance Metrics */}
+      {performance && (
+        <div className="p-3 bg-gray-50 rounded-lg">
+          <h4 className="text-sm font-semibold mb-2">Performance</h4>
+          <div className="grid grid-cols-2 gap-2 text-xs">
+            <div>Chargement: {performance.loadTime.toFixed(0)}ms</div>
+            <div>Rendu: {performance.renderTime.toFixed(0)}ms</div>
+            <div>Mémoire: {(performance.memoryUsage / 1024 / 1024).toFixed(1)}MB</div>
+            <div>Latence: {performance.networkLatency.toFixed(0)}ms</div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 export default ErrorHandling;

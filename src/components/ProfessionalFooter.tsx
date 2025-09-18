@@ -97,7 +97,7 @@ const ProfessionalFooter = () => {
             <div className="space-y-2">
               <Badge className="bg-wine-burgundy/20 text-wine-burgundy border-wine-burgundy/30">
                 {/* ✅ FIX: Use correct property name */}
-                {(currentData.totalBiomass || currentData.annualPomace || 0).toLocaleString()} {t('tonnes.an')}
+                {(currentData.annualPomace || 0).toLocaleString()} {t('tonnes.an')}
               </Badge>
               <Badge className="bg-wine-green/20 text-wine-green border-wine-green/30">
                 €{currentData.revenue}M {t('footer.revenues')}

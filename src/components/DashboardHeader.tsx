@@ -81,7 +81,7 @@ const DashboardHeader = () => {
                         <Tooltip>
                           <TooltipTrigger asChild>
                             <div className="flex items-center cursor-help">
-                              <span>{region.totalBiomass?.toLocaleString() || region.annualPomace?.toLocaleString() || 'N/A'}t production</span>
+                              <span>{region.annualPomace?.toLocaleString() || 'N/A'}t production</span>
                               <HelpCircle size={10} className="ml-1 opacity-50" />
                             </div>
                           </TooltipTrigger>
