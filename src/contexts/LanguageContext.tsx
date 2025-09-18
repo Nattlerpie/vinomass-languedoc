@@ -64,7 +64,7 @@ const translations: Record<Language, Record<string, string>> = {
     'valorization.methanization': 'Méthanisation',
     'valorization.direct.spreading': 'Épandage direct',
 
-    // Strategy
+    // Biomass Strategy
     'strategie.biomasse': 'Stratégie de mobilisation de la biomasse',
     'base.conservative': 'Base conservatrice',
     'flux.elimination': 'Flux d\'élimination',
@@ -74,64 +74,132 @@ const translations: Record<Language, Record<string, string>> = {
     'avec.partenariats': 'avec partenariats',
     'respecte.filieres': 'Respect des filières existantes',
 
-    // Context
-    'contexte.regional': 'Contexte Régional',
-    'contexte.regional.subtitle': 'Indicateurs vitivinicoles',
-    'region.viticole.francaise': '1ère région viticole française',
-    'volume.production': 'Volume de production',
-    'production.nationale': 'Production nationale',
-    'ca.annuel': 'CA annuel du secteur vitivinicole',
+    // Economic Analysis / ROI
+    'economics.title': 'Analyse Économique',
+    'economics.subtitle': 'Modélisation financière et analyse de rentabilité par région',
+    'allocation.realiste': 'Allocation Réaliste des Flux',
+    'allocation.realiste.subtitle': 'Hiérarchisation respectueuse des besoins existants',
+    'modules.economiques': 'Modules d\'Analyse Économique',
+    'roi.calculator': 'Calculateur ROI',
+    'roi.calculator.subtitle': 'Retour sur investissement basé sur la biomasse disponible',
+    'roi.advanced': 'Calculateur ROI Avancé',
+    'roi.real.data': 'Données Réelles',
+    'exporter': 'Exporter',
+    'scenario.conservative': 'Conservateur',
+    'scenario.realistic': 'Réaliste',
+    'scenario.optimistic': 'Optimiste',
+    'scenario.parameters': 'Paramètres du Scénario',
+    'biomass.input': 'Biomasse d\'entrée (tonnes/an)',
+    'processing.efficiency': 'Efficacité de traitement (%)',
+    'saf.price': 'Prix SAF (€/L)',
+    'operating.costs': 'Coûts opérationnels (€/L)',
+    'capital.investment': 'Investissement capital (M€)',
+    'annual.saf': 'Litres SAF/an',
+    'roi.5y': 'ROI (5 ans)',
+    'years.to.return': 'Années de retour',
+    'irr': 'TRI',
+    'annual.revenue': 'Revenus bruts',
+    'annual.costs': 'Coûts opérationnels',
+    'gross.profit': 'Profit brut',
+    'financial.indicators': 'Indicateurs Financiers',
+    'npv.10y': 'VAN (10 ans, 8%)',
+    'gross.margin': 'Marge brute',
+    'capital.required': 'Capital requis',
+    'cost.benefit.analysis': 'Analyse Coût-Bénéfice',
+    'comparison': 'Comparaison',
+    'timeline': 'Timeline',
+    'breakdown': 'Répartition',
+    'profit.improvement': 'Amélioration profit',
+    'additional.benefit': 'Bénéfice additionnel',
+    'jobs.created': 'Emplois créés',
+    'co2.avoided': 'CO₂ évité/an',
+    'actual.data': 'Données réelles',
+    'economic.projections': 'Projections Économiques',
+    '5y.projections': '5 ans',
+    '10y.projections': '10 ans',
+    'certified.data': 'Données Certifiées',
 
-    // Actualités
-    'actualites.saf': 'Actualités SAF',
-    'actualites.subtitle': 'Projets industriels et réglementations récentes',
+    // Partnerships
+    'partnerships.title': 'Partenariats Stratégiques',
+    'partnerships.subtitle': '{count} partenaires confirmés pour {volume} tonnes de marc collecté',
+    'partners.total': 'Total confirmés',
+    'partners.communes': 'Communes',
+    'partners.local.authorities': 'Collectivités locales',
+    'partners.industry': 'Industriels',
+    'partners.wineries': 'Caves et négoces',
+    'coverage': 'Couverture',
+    'region.covered': 'Région couverte',
+    'partners.main': 'Partenaires Principaux',
+    'partners.optimized': 'Volume et distance de collecte optimisés',
+    'partners.type': 'Type',
+    'partners.volume': 'Volume (t/an)',
+    'partners.distance': 'Distance (km)',
+    'partners.saf': 'SAF (ML)',
+
+    // Implementation / Timeline
+    'implementation.title': 'Planification Mise en Œuvre',
+    'timeline.title': 'Timeline d\'Implémentation',
+    'feasibility.study': 'Étude de Faisabilité',
+    'partnerships.development': 'Développement Partenariats',
+    'financing.permissions': 'Financement et Autorisations',
+    'infrastructure.construction': 'Construction Infrastructure',
+    'production.start': 'Démarrage Production',
+    'regional.expansion': 'Expansion Régionale',
+    'progress.completed': 'Terminé',
+    'progress.percent': 'Progression',
+    'milestones': 'Jalons',
+    'stakeholders': 'Parties Prenantes',
+    'dependencies': 'Dépendances',
+    'risks': 'Risques Identifiés',
+    'project.summary': 'Résumé Global du Projet',
+    'phases.completed': 'Phases terminées',
+    'phases.ongoing': 'Phases en cours',
+    'progress.total': 'Progression totale',
+    'months.estimated': 'Mois estimés',
+
+    // Data & Methodology
+    'data.title': 'Données et Méthodologie',
+    'data.subtitle': 'Sources certifiées et validation scientifique des calculs',
+    'data.validated': 'Données Clés Validées',
+    'methodology.title': 'Méthodologie et Conformité',
+    'methodology.subtitle': 'Approche technique et cadre réglementaire',
+    'methodology.export': 'Exporter',
+    'methodology.flowchart': 'Diagramme de flux',
+    'methodology.parameters': 'Paramètres clés',
+    'methodology.validation': 'Validation',
+    'data.collection': 'Collecte et Préparation',
+    'steps.detailed': 'Étapes détaillées',
+    'step.fermentation': 'Fermentation Alcoolique',
+    'step.distillation': 'Distillation',
+    'step.atj.conversion': 'Conversion ATJ',
+    'regulatory.compliance': 'Conformité Réglementaire',
+    'regulatory.report': 'Rapport',
+    'regulatory.eu': 'Union Européenne',
+    'regulatory.france': 'France',
+    'regulatory.international': 'International',
+
+    // Compliance Mandates
+    'red2.directive': 'Directive RED II',
+    'refueleu.aviation': 'ReFuelEU Aviation',
+    'taxonomy.ue': 'Taxonomie Verte UE',
+
+    // References & Publications
+    'references.title': 'Références et Méthodologie',
+    'references.academic': 'Références Académiques',
+    'search.placeholder': 'Rechercher par titre, auteur ou mot-clé...',
+    'search.all': 'Toutes',
+    'search.results': 'Recherche',
 
     // Footer
     'footer.project.description': 'Projet SAF {region}',
     'footer.revenues': 'Revenus estimés',
     'footer.co2.avoided': 'CO₂ évité',
     'footer.methodology.standards': 'Méthodologie et normes',
-    'methodology.atj.title': 'Procédé ATJ',
-    'methodology.atj.description': 'Alcohol-to-Jet (ATJ) validé par ASTM',
-    'methodology.agreste.title': 'Agreste',
-    'methodology.agreste.description': 'Base de données agricoles nationale',
-    'methodology.ifv.title': 'IFV',
-    'methodology.ifv.description': 'Institut Français de la Vigne et du Vin',
-    'methodology.corsia.title': 'CORSIA',
-    'methodology.corsia.description': 'Normes internationales de durabilité',
-
     'footer.certifications.audits': 'Certifications et audits',
-    'credentials.bureau.veritas': 'Audit Bureau Veritas',
-    'credentials.astm.compliance': 'Conformité ASTM D7566',
-    'credentials.corsia.validation': 'Validation CORSIA',
-    'credentials.quarterly.audit': 'Audit trimestriel',
-    'credentials.peer.reviewed': 'Évalué par des pairs',
-
     'footer.institutional.partners': 'Partenaires institutionnels',
-    'partners.region.occitanie': 'Région Occitanie',
-    'partners.ifv': 'Institut Français de la Vigne et du Vin',
-    'partners.safer.languedoc': 'SAFER Languedoc',
-    'partners.chamber.herault': 'Chambre d\'agriculture de l\'Hérault',
-    'partners.vignerons.union': 'Union des Vignerons',
-
     'footer.primary.data.sources': 'Sources de données principales',
-    'data.sources.agreste': 'Agreste',
-    'data.sources.ifv': 'IFV',
-    'data.sources.oiv': 'OIV',
-    'data.sources.aviation.fuel': 'Marché carburant aviation',
-
     'footer.scientific.validation': 'Validation scientifique',
-    'validation.peer.review': 'Revue par les pairs',
-    'validation.bureau.veritas': 'Audit Bureau Veritas',
-    'validation.iso.compliance': 'Conformité ISO',
-    'validation.carbon.audit': 'Audit carbone',
-
     'footer.international.standards': 'Normes internationales',
-    'standards.astm.d7566': 'ASTM D7566',
-    'standards.corsia.icao': 'CORSIA ICAO',
-    'standards.red.ii': 'Directive RED II',
-    'standards.iscc.eu': 'ISCC EU',
-
     'footer.copyright': '© 2025',
     'footer.data.updated': 'Mise à jour des données',
     'footer.next.revision': 'Prochaine révision',
@@ -155,7 +223,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Navigation & Header
     'header.title': 'SAF {region}',
-    'header.subtitle': 'Valorization of viticulture biomass into SAF feedstock',
+    'header.subtitle': 'Valorization of vineyard biomass into feedstock',
     'nav.vue.ensemble': 'Overview',
     'nav.economie': 'Economics',
     'nav.ressources': 'Resources',
@@ -165,123 +233,196 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Overview Section
     'points.cles': 'Key Points',
-    'points.cles.subtitle': 'Essential economic and technical indicators',
-    'superficie.viticole': 'Vineyard area',
+    'points.cles.subtitle': 'Key economic and technical indicators',
+    'superficie.viticole': 'Vineyard Area',
     'hectares': 'hectares',
-    'base.regionale': 'Regional base',
-    'production.marc': 'Grape marc production',
-    'tonnes': 'tons',
-    'matiere.premiere': 'Raw material',
-    'allocation.flux': 'Flow allocation',
+    'base.regionale': 'Regional Base',
+    'production.marc': 'Pomace Production',
+    'tonnes': 'tonnes',
+    'matiere.premiere': 'Feedstock',
+    'allocation.flux': 'Flow Allocation',
     'disponible.saf': 'Available for SAF',
-    'potentiel.saf': 'SAF potential',
-    'litres.an': 'liters/year',
-    'resources.safPotentialSubtitle': 'Annual potential from available biomass',
-    'revenue.potential': 'Revenue potential',
-    'prix.marche': 'Market price',
-    'reduction.co2': 'CO₂ reduction',
-    'tonnes.an': 'tons/year',
+    'potentiel.saf': 'SAF Potential',
+    'litres.an': 'litres/year',
+    'resources.safPotentialSubtitle': 'Annual potential based on available biomass',
+    'revenue.potential': 'Revenue Potential',
+    'prix.marche': 'Market Price',
+    'reduction.co2': 'CO₂ Reduction',
+    'tonnes.an': 'tonnes/year',
     'vs.fossile': 'vs fossil fuel',
 
     // Regional Analysis
     'analyse.regionale': 'Regional Analysis',
-    'analyse.regionale.subtitle': 'Departmental breakdown of production',
+    'analyse.regionale.subtitle': 'Departmental Distribution of Production',
 
     // Valorization
-    'valorization.title': 'Current valorization of co-products',
+    'valorization.title': 'Current Coproduct Valorization',
     'valorization.distillation': 'Distillation',
     'valorization.composting': 'Composting',
     'valorization.methanization': 'Methanization',
-    'valorization.direct.spreading': 'Direct spreading',
+    'valorization.direct.spreading': 'Direct Spreading',
 
-    // Strategy
-    'strategie.biomasse': 'Biomass mobilization strategy',
-    'base.conservative': 'Conservative base',
-    'flux.elimination': 'Elimination flows',
-    'potentiel.negociable': 'Negotiable potential',
-    'surplus.excedents': 'Surplus/excess',
-    'total.accessible': 'Total accessible',
-    'avec.partenariats': 'with partnerships',
-    'respecte.filieres': 'Respects existing sectors',
+    // Biomass Strategy
+    'strategie.biomasse': 'Biomass Mobilization Strategy',
+    'base.conservative': 'Conservative Base',
+    'flux.elimination': 'Elimination Flows',
+    'potentiel.negociable': 'Negotiable Potential',
+    'surplus.excedents': 'Surplus / Excess',
+    'total.accessible': 'Total Accessible',
+    'avec.partenariats': 'With Partnerships',
+    'respecte.filieres': 'Respects Existing Value Chains',
 
-    // Context
-    'contexte.regional': 'Regional Context',
-    'contexte.regional.subtitle': 'Viticultural indicators',
-    'region.viticole.francaise': 'Top French wine region',
-    'volume.production': 'Production volume',
-    'production.nationale': 'National production',
-    'ca.annuel': 'Annual revenue of wine sector',
+    // Economic Analysis / ROI
+    'economics.title': 'Economic Analysis',
+    'economics.subtitle': 'Financial modeling and regional profitability analysis',
+    'allocation.realiste': 'Realistic Flow Allocation',
+    'allocation.realiste.subtitle': 'Prioritization respecting existing needs',
+    'modules.economiques': 'Economic Analysis Modules',
+    'roi.calculator': 'ROI Calculator',
+    'roi.calculator.subtitle': 'Return on investment based on available biomass',
+    'roi.advanced': 'Advanced ROI Calculator',
+    'roi.real.data': 'Real Data',
+    'exporter': 'Export',
+    'scenario.conservative': 'Conservative',
+    'scenario.realistic': 'Realistic',
+    'scenario.optimistic': 'Optimistic',
+    'scenario.parameters': 'Scenario Parameters',
+    'biomass.input': 'Input Biomass (t/year)',
+    'processing.efficiency': 'Processing Efficiency (%)',
+    'saf.price': 'SAF Price (€/L)',
+    'operating.costs': 'Operating Costs (€/L)',
+    'capital.investment': 'Capital Investment (M€)',
+    'annual.saf': 'SAF Litres/year',
+    'roi.5y': 'ROI (5 years)',
+    'years.to.return': 'Years to Return',
+    'irr': 'IRR',
+    'annual.revenue': 'Annual Revenue',
+    'annual.costs': 'Annual Operating Costs',
+    'gross.profit': 'Gross Profit',
+    'financial.indicators': 'Financial Indicators',
+    'npv.10y': 'NPV (10 years, 8%)',
+    'gross.margin': 'Gross Margin',
+    'capital.required': 'Capital Required',
+    'cost.benefit.analysis': 'Cost-Benefit Analysis',
+    'comparison': 'Comparison',
+    'timeline': 'Timeline',
+    'breakdown': 'Breakdown',
+    'profit.improvement': 'Profit Improvement',
+    'additional.benefit': 'Additional Benefit',
+    'jobs.created': 'Jobs Created',
+    'co2.avoided': 'CO₂ Avoided/year',
+    'actual.data': 'Real Data',
+    'economic.projections': 'Economic Projections',
+    '5y.projections': '5 Years',
+    '10y.projections': '10 Years',
+    'certified.data': 'Certified Data',
 
-    // Actualités
-    'actualites.saf': 'SAF News',
-    'actualites.subtitle': 'Recent industrial projects & regulations',
+    // Partnerships
+    'partnerships.title': 'Strategic Partnerships',
+    'partnerships.subtitle': '{count} confirmed partners for {volume} tonnes of pomace collected',
+    'partners.total': 'Total Confirmed',
+    'partners.communes': 'Municipalities',
+    'partners.local.authorities': 'Local Authorities',
+    'partners.industry': 'Industrials',
+    'partners.wineries': 'Wineries & Traders',
+    'coverage': 'Coverage',
+    'region.covered': 'Region Covered',
+    'partners.main': 'Main Partners',
+    'partners.optimized': 'Volume and collection distance optimized',
+    'partners.type': 'Type',
+    'partners.volume': 'Volume (t/year)',
+    'partners.distance': 'Distance (km)',
+    'partners.saf': 'SAF (ML)',
+
+    // Implementation / Timeline
+    'implementation.title': 'Implementation Planning',
+    'timeline.title': 'Implementation Timeline',
+    'feasibility.study': 'Feasibility Study',
+    'partnerships.development': 'Partnership Development',
+    'financing.permissions': 'Financing & Permissions',
+    'infrastructure.construction': 'Infrastructure Construction',
+    'production.start': 'Production Start',
+    'regional.expansion': 'Regional Expansion',
+    'progress.completed': 'Completed',
+    'progress.percent': 'Progress',
+    'milestones': 'Milestones',
+    'stakeholders': 'Stakeholders',
+    'dependencies': 'Dependencies',
+    'risks': 'Identified Risks',
+    'project.summary': 'Project Overview',
+    'phases.completed': 'Completed Phases',
+    'phases.ongoing': 'Ongoing Phases',
+    'progress.total': 'Total Progress',
+    'months.estimated': 'Estimated Months',
+
+    // Data & Methodology
+    'data.title': 'Data & Methodology',
+    'data.subtitle': 'Certified sources and scientific validation of calculations',
+    'data.validated': 'Validated Key Data',
+    'methodology.title': 'Methodology & Compliance',
+    'methodology.subtitle': 'Technical approach and regulatory framework',
+    'methodology.export': 'Export',
+    'methodology.flowchart': 'Flowchart',
+    'methodology.parameters': 'Key Parameters',
+    'methodology.validation': 'Validation',
+    'data.collection': 'Collection & Preparation',
+    'steps.detailed': 'Detailed Steps',
+    'step.fermentation': 'Alcoholic Fermentation',
+    'step.distillation': 'Distillation',
+    'step.atj.conversion': 'ATJ Conversion',
+    'regulatory.compliance': 'Regulatory Compliance',
+    'regulatory.report': 'Report',
+    'regulatory.eu': 'European Union',
+    'regulatory.france': 'France',
+    'regulatory.international': 'International',
+
+    // Compliance Mandates
+    'red2.directive': 'RED II Directive',
+    'refueleu.aviation': 'ReFuelEU Aviation',
+    'taxonomy.ue': 'EU Green Taxonomy',
+
+    // References & Publications
+    'references.title': 'References & Methodology',
+    'references.academic': 'Academic References',
+    'search.placeholder': 'Search by title, author or keyword...',
+    'search.all': 'All',
+    'search.results': 'Search Results',
 
     // Footer
-    'footer.project.description': 'SAF {region} project',
-    'footer.revenues': 'Estimated revenues',
-    'footer.co2.avoided': 'CO₂ avoided',
-    'footer.methodology.standards': 'Methodology and standards',
-    'methodology.atj.title': 'ATJ process',
-    'methodology.atj.description': 'Alcohol-to-Jet (ATJ) validated by ASTM',
-    'methodology.agreste.title': 'Agreste',
-    'methodology.agreste.description': 'National agricultural database',
-    'methodology.ifv.title': 'IFV',
-    'methodology.ifv.description': 'French Institute of Vine and Wine',
-    'methodology.corsia.title': 'CORSIA',
-    'methodology.corsia.description': 'International sustainability standards',
-
-    'footer.certifications.audits': 'Certifications and audits',
-    'credentials.bureau.veritas': 'Bureau Veritas audit',
-    'credentials.astm.compliance': 'ASTM D7566 compliance',
-    'credentials.corsia.validation': 'CORSIA validation',
-    'credentials.quarterly.audit': 'Quarterly audit',
-    'credentials.peer.reviewed': 'Peer reviewed',
-
-    'footer.institutional.partners': 'Institutional partners',
-    'partners.region.occitanie': 'Occitanie Region',
-    'partners.ifv': 'French Vine and Wine Institute',
-    'partners.safer.languedoc': 'SAFER Languedoc',
-    'partners.chamber.herault': 'Hérault Chamber of Agriculture',
-    'partners.vignerons.union': 'Winegrowers Union',
-
-    'footer.primary.data.sources': 'Primary data sources',
-    'data.sources.agreste': 'Agreste',
-    'data.sources.ifv': 'IFV',
-    'data.sources.oiv': 'OIV',
-    'data.sources.aviation.fuel': 'Aviation fuel market',
-
-    'footer.scientific.validation': 'Scientific validation',
-    'validation.peer.review': 'Peer review',
-    'validation.bureau.veritas': 'Bureau Veritas audit',
-    'validation.iso.compliance': 'ISO compliance',
-    'validation.carbon.audit': 'Carbon audit',
-
-    'footer.international.standards': 'International standards',
-    'standards.astm.d7566': 'ASTM D7566',
-    'standards.corsia.icao': 'CORSIA ICAO',
-    'standards.red.ii': 'RED II directive',
-    'standards.iscc.eu': 'ISCC EU',
-
+    'footer.project.description': 'SAF Project {region}',
+    'footer.revenues': 'Estimated Revenues',
+    'footer.co2.avoided': 'CO₂ Avoided',
+    'footer.methodology.standards': 'Methodology & Standards',
+    'footer.certifications.audits': 'Certifications & Audits',
+    'footer.institutional.partners': 'Institutional Partners',
+    'footer.primary.data.sources': 'Primary Data Sources',
+    'footer.scientific.validation': 'Scientific Validation',
+    'footer.international.standards': 'International Standards',
     'footer.copyright': '© 2025',
-    'footer.data.updated': 'Data updated',
-    'footer.next.revision': 'Next revision',
-    'footer.legal.notices': 'Legal notices',
-    'footer.data.protection': 'Data protection',
-    'footer.terms.of.use': 'Terms of use',
+    'footer.data.updated': 'Data Updated',
+    'footer.next.revision': 'Next Revision',
+    'footer.legal.notices': 'Legal Notices',
+    'footer.data.protection': 'Data Protection',
+    'footer.terms.of.use': 'Terms of Use',
     'footer.disclaimer.title': 'Disclaimer',
-    'footer.disclaimer.text': 'Data provided is indicative and subject to change.'
+    'footer.disclaimer.text': 'Data is indicative and may evolve over time.'
   }
 };
 
-export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<Language>('fr');
 
-  const t = (key: string, params?: Record<string, string | number>): string => {
-    let translation = translations[language][key] || key;
+  const t = (key: string, params?: Record<string, string | number>) => {
+    const translation = translations[language][key];
+    if (!translation) {
+      console.warn(`Missing translation for key: ${key}`);
+      return key;
+    }
     if (params) {
-      Object.keys(params).forEach(param => {
-        translation = translation.replace(new RegExp(`{${param}}`, 'g'), String(params[param]));
-      });
+      return Object.keys(params).reduce(
+        (str, param) => str.replace(`{${param}}`, String(params[param])),
+        translation
+      );
     }
     return translation;
   };
@@ -293,10 +434,8 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   );
 };
 
-export const useLanguage = (): LanguageContextType => {
+export const useLanguage = () => {
   const context = useContext(LanguageContext);
-  if (!context) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
-  }
+  if (!context) throw new Error('useLanguage must be used within a LanguageProvider');
   return context;
 };
