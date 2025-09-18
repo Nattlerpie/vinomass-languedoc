@@ -1,53 +1,104 @@
 {
-  "biomassStrategy": "Biomass Supply Strategy",
-  "biomassPoints": {
-    "base": "Conservative base: 30% available (80kt) - Disposal flows",
-    "negotiable": "Negotiable potential: +25% (66kt) - Surplus & excess",
-    "total": "Total accessible: Up to 55% (146kt) with partnerships"
+  "nav": {
+    "vue_ensemble": "Overview",
+    "ressources": "Resources",
+    "economie": "Economics",
+    "partenaires": "Partners",
+    "donnees": "Data",
+    "contact": "Contact"
   },
-  "biomassNote": "This approach respects established sectors while demonstrating expansion potential to meet growing SAF demand.",
-
-  "wineRevenue": "€3.2B\nAnnual revenue\nRegional wine sector",
-  "safNews": "SAF Sector News",
-
-  "haffner": {
-    "title": "HAFFNER ENERGY",
-    "location": "Marolles-en-Hurepoix biorefinery (Essonne)",
-    "investment": "Investment: €180M",
-    "capacity": "Capacity: 50,000 tonnes SAF/year from 2025",
-    "tech": "Technology: Biomass-to-liquids (BTL)",
-    "partnership": "Partnership: Île-de-France Region"
+  "header": {
+    "title": "SAF {region}",
+    "subtitle": "Valorization of viticulture biomass into SAF feedstock"
   },
-  "lanzajet": {
-    "title": "LANZAJET",
-    "site": "Freedom Pines Fuels – Partnership with Total Energies",
-    "first": "First commercial ATJ site in Europe",
-    "capacity": "Capacity: 125,000 tonnes SAF/year",
-    "feedstock": "Feedstock: Agricultural waste ethanol",
-    "certification": "Certification: ASTM D7566 approved"
+  "points_cles": {
+    "title": "Key Points",
+    "subtitle": "Essential economic and technical indicators"
   },
-  "airbus": {
-    "title": "AIRBUS",
-    "program": "ZEROe Program – Green Fuels",
-    "goal": "Goal: Hydrogen aircraft 2035",
-    "transition": "SAF transition: Minimum 10% by 2030",
-    "partnerships": "Partnerships: 15 French airports equipped",
-    "budget": "R&D Budget: €15B mobilized"
+  "production": {
+    "vineyard_surface": "Vineyard area",
+    "hectares": "hectares",
+    "regional_base": "Regional base",
+    "pomace_production": "Grape marc production",
+    "tons": "tons",
+    "raw_material": "Raw material",
+    "flow_allocation": "Flow allocation",
+    "available_for_saf": "Available for SAF",
+    "saf_potential": "SAF potential",
+    "annual_biomass": "Annual potential from available biomass",
+    "revenue_potential": "Revenue potential",
+    "market_price": "Market price",
+    "co2_reduction": "CO₂ reduction",
+    "vs_fossil": "vs fossil fuel"
   },
-  "total": {
-    "title": "TOTAL ENERGIES",
-    "strategy": "France SAF Strategy 2030",
-    "investment": "Investment: €500M over 5 years",
-    "objective": "Objective: 1.5M tonnes SAF/year capacity",
-    "refineries": "Bioreneweries: 6 sites upgraded",
-    "partnerships": "Partnerships: 25 biomass suppliers"
+  "regional_analysis": {
+    "title": "Regional Analysis",
+    "department_breakdown": "Departmental breakdown of production",
+    "valorization_methods": {
+      "title": "Current valorization of co-products",
+      "distillation": "Distillation: 45%",
+      "composting": "Composting: 25%",
+      "methanization": "Methanization: 20%",
+      "direct_spreading": "Direct spreading: 10%"
+    },
+    "biomass_strategy": {
+      "title": "Biomass Mobilization Strategy",
+      "conservative_base": "Conservative base: 30% available (80kt) - Elimination flows",
+      "negotiable_potential": "Negotiable potential: +25% (66kt) - Surplus & excess",
+      "total_accessible": "Total accessible: Up to 55% (146kt) with partnerships",
+      "note": "This approach respects existing sectors while showing expansion potential to meet growing SAF demand"
+    }
   },
-  "regulation": {
+  "regional_context": {
+    "ranking": "Top French wine region",
+    "production_volume": "Production volume",
+    "national_share": "National production",
+    "hectolitres": "12 million hectoliters",
+    "annual_revenue": "Annual revenue",
+    "sector": "Regional wine sector"
+  },
+  "saf_news": {
+    "title": "SAF News",
+    "projects": "Ongoing projects in the French sector",
+    "haffner": {
+      "name": "HAFFNER ENERGY",
+      "location": "Marolles-en-Hurepoix Biorefinery (Essonne)",
+      "investment": "Investment: €180M",
+      "capacity": "Capacity: 50,000 tons SAF/year from 2025",
+      "technology": "Technology: Biomass-to-liquids (BTL)",
+      "partnership": "Partnership: Île-de-France Region"
+    },
+    "lanzajet": {
+      "name": "LANZAJET",
+      "location": "Freedom Pines Fuels - Total Energies partnership",
+      "commercial": "First commercial ATJ site in Europe",
+      "capacity": "Capacity: 125,000 tons SAF/year",
+      "feedstock": "Feedstock: Ethanol from agricultural waste",
+      "certification": "Certification: ASTM D7566 approved"
+    },
+    "airbus": {
+      "name": "AIRBUS",
+      "program": "ZEROe Program - Green Fuels",
+      "hydrogen_plane": "Objective: Hydrogen plane 2035",
+      "saf_transition": "SAF transition: minimum 10% by 2030",
+      "partnerships": "Partnerships: 15 equipped French airports",
+      "budget": "R&D budget: €15 billion mobilized"
+    },
+    "total": {
+      "name": "TOTAL ENERGIES",
+      "strategy": "SAF France 2030 Strategy",
+      "investment": "Investment: €500M over 5 years",
+      "objective": "Objective: 1.5M tons SAF/year capacity",
+      "bioraffineries": "Biorefineries: 6 modernized sites",
+      "partnerships": "Partnerships: 25 biomass suppliers"
+    }
+  },
+  "regulatory": {
     "title": "Regulatory Context",
-    "refu": "ReFuelEU Aviation: 2% SAF minimum 2025",
-    "fr2030": "France 2030: €4B green funds",
-    "eu": "EU REPowerEU: €210B renewables",
-    "corsia": "CORSIA ICAO: Carbon neutrality by 2050"
-  },
-  "projectNote": "Our project fits within this national dynamic → See Economics tab"
+    "refueleu": "ReFuelEU Aviation: minimum 2% SAF by 2025",
+    "france2030": "France 2030: €4 billion green funds",
+    "repowereu": "EU REPowerEU: €210 billion renewable energy",
+    "corsia": "CORSIA ICAO: Carbon neutrality target 2050",
+    "note": "Our project is part of this national framework → See Economics tab"
+  }
 }
