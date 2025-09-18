@@ -34,13 +34,13 @@ export default function ResourcesTab() {
       <StaticRegionalMap region={activeRegion} language={language} />
 
       {/* Biomass Breakdown */}
-      <BiomassBreakdownChart />
+      <BiomassBreakdownChart region={activeRegion} language={language} />
 
       {/* Seasonal Availability */}
-      <SeasonalTimeline />
+      <SeasonalTimeline region={activeRegion} language={language} />
 
       {/* Infrastructure */}
-      <InfrastructureOverview />
+      <InfrastructureOverview region={activeRegion} language={language} />
     </div>
   );
 }
