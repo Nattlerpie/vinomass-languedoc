@@ -190,24 +190,64 @@ const translations: Record<Language, Record<string, string>> = {
     'search.all': 'Toutes',
     'search.results': 'Recherche',
 
-    // Footer
-    'footer.project.description': 'Projet SAF {region}',
-    'footer.revenues': 'Revenus estimés',
-    'footer.co2.avoided': 'CO₂ évité',
-    'footer.methodology.standards': 'Méthodologie et normes',
-    'footer.certifications.audits': 'Certifications et audits',
-    'footer.institutional.partners': 'Partenaires institutionnels',
-    'footer.primary.data.sources': 'Sources de données principales',
-    'footer.scientific.validation': 'Validation scientifique',
-    'footer.international.standards': 'Normes internationales',
-    'footer.copyright': '© 2025',
-    'footer.data.updated': 'Mise à jour des données',
-    'footer.next.revision': 'Prochaine révision',
-    'footer.legal.notices': 'Mentions légales',
-    'footer.data.protection': 'Protection des données',
-    'footer.terms.of.use': 'Conditions d\'utilisation',
-    'footer.disclaimer.title': 'Clause de non-responsabilité',
-    'footer.disclaimer.text': 'Les données sont fournies à titre indicatif et peuvent évoluer.'
+    // Footer sections
+    'footer.methodologyTitle': 'Méthodologie et normes',
+    'footer.methodologyDescription': 'Approche technique validée par des organismes certifiés',
+    'footer.methodATJ': 'Processus ATJ (Alcohol-to-Jet) certifié ASTM D7566-20',
+    'footer.methodAgreste': 'Données Agreste France (Ministère Agriculture)',
+    'footer.methodIFV': 'Institut Français de la Vigne et du Vin',
+    'footer.methodCORSIA': 'Standards CORSIA pour l\'aviation durable',
+    'footer.certificationsTitle': 'Certifications et audits',
+    'footer.certBureauVeritas': 'Bureau Veritas - Audit de conformité',
+    'footer.certASTM': 'ASTM D7566-20 - Standard carburant aviation',
+    'footer.certCORSIA': 'CORSIA - Aviation civile internationale',
+    'footer.certQuarterly': 'Audits trimestriels indépendants',
+    'footer.certPeerReviewed': 'Publications académiques peer-reviewed',
+    'footer.institutionalPartners': 'Partenaires institutionnels',
+    'footer.dataSources': 'Sources de données principales',
+    'footer.dataAgreste': 'Agreste - Statistiques agricoles France',
+    'footer.dataIFV': 'Institut Français de la Vigne et du Vin',
+    'footer.dataOIV': 'Organisation Internationale de la Vigne',
+    'footer.dataFuelMarket': 'Marchés carburants aviation Europe',
+    'footer.scientificValidation': 'Validation scientifique',
+    'footer.validationPeer': 'Comité de lecture scientifique international',
+    'footer.validationBureau': 'Bureau Veritas - Certification ISO 14067',
+    'footer.validationISO': 'Normes ISO 14040/14044 - ACV',
+    'footer.validationCarbon': 'Certification empreinte carbone',
+    'footer.internationalStandards': 'Normes internationales',
+    'footer.standardASTM': 'ASTM D7566-20 - Carburant aviation durable',
+    'footer.standardCORSIA': 'CORSIA - Réduction émissions aviation',
+    'footer.standardRED': 'Directive RED II - Énergies renouvelables',
+    'footer.standardISCC': 'ISCC EU - Certification durabilité',
+    'footer.copyright': 'Atlas Biomasse Vitivinicole - Tous droits réservés',
+    'footer.dataUpdate': 'Données mises à jour : Janvier 2025',
+    'footer.legalNotices': 'Mentions légales et protection des données',
+
+    // Partners
+    'partners.region': 'Région {region}',
+    'partners.ifv': 'Institut Français de la Vigne et du Vin',
+    'partners.safer': 'SAFER - Sociétés d\'aménagement foncier',
+    'partners.chamber': 'Chambres d\'agriculture régionales',
+    'partners.union': 'Syndicats viticoles départementaux',
+
+    // Tooltip
+    'tooltip.source': 'Source: Données Agreste 2023',
+    'region.coming.soon': 'Bientôt disponible',
+
+    // Additional translations for tabs and components
+    'keyMetrics': 'Indicateurs Clés',
+    'regionalAnalysis': 'Analyse Régionale',
+    'biomassStrategy': 'Stratégie Biomasse',
+    'context': 'Contexte',
+    'industryNews': 'Actualités du Secteur',
+    'regulations': 'Réglementations',
+
+    // Infrastructure translations
+    'infrastructure.title': 'Infrastructure Régionale',
+    'infrastructure.distilleries': 'Distilleries',
+    'infrastructure.methanization': 'Méthanisation',
+    'infrastructure.composting': 'Compostage',
+    'infrastructure.biomass': 'Biomasse énergie'
   },
   en: {
     // Main Atlas Headers
@@ -388,24 +428,64 @@ const translations: Record<Language, Record<string, string>> = {
     'search.all': 'All',
     'search.results': 'Search Results',
 
-    // Footer
-    'footer.project.description': 'SAF Project {region}',
-    'footer.revenues': 'Estimated Revenues',
-    'footer.co2.avoided': 'CO₂ Avoided',
-    'footer.methodology.standards': 'Methodology & Standards',
-    'footer.certifications.audits': 'Certifications & Audits',
-    'footer.institutional.partners': 'Institutional Partners',
-    'footer.primary.data.sources': 'Primary Data Sources',
-    'footer.scientific.validation': 'Scientific Validation',
-    'footer.international.standards': 'International Standards',
-    'footer.copyright': '© 2025',
-    'footer.data.updated': 'Data Updated',
-    'footer.next.revision': 'Next Revision',
-    'footer.legal.notices': 'Legal Notices',
-    'footer.data.protection': 'Data Protection',
-    'footer.terms.of.use': 'Terms of Use',
-    'footer.disclaimer.title': 'Disclaimer',
-    'footer.disclaimer.text': 'Data is indicative and may evolve over time.'
+    // Footer sections
+    'footer.methodologyTitle': 'Methodology and standards',
+    'footer.methodologyDescription': 'Technical approach validated by certified organizations',
+    'footer.methodATJ': 'ATJ (Alcohol-to-Jet) process certified ASTM D7566-20',
+    'footer.methodAgreste': 'Agreste France Data (Ministry of Agriculture)',
+    'footer.methodIFV': 'French Institute of Vine and Wine',
+    'footer.methodCORSIA': 'CORSIA standards for sustainable aviation',
+    'footer.certificationsTitle': 'Certifications and audits',
+    'footer.certBureauVeritas': 'Bureau Veritas - Compliance audit',
+    'footer.certASTM': 'ASTM D7566-20 - Aviation fuel standard',
+    'footer.certCORSIA': 'CORSIA - International civil aviation',
+    'footer.certQuarterly': 'Independent quarterly audits',
+    'footer.certPeerReviewed': 'Peer-reviewed academic publications',
+    'footer.institutionalPartners': 'Institutional partners',
+    'footer.dataSources': 'Primary data sources',
+    'footer.dataAgreste': 'Agreste - French agricultural statistics',
+    'footer.dataIFV': 'French Institute of Vine and Wine',
+    'footer.dataOIV': 'International Organisation of Vine and Wine',
+    'footer.dataFuelMarket': 'European aviation fuel markets',
+    'footer.scientificValidation': 'Scientific validation',
+    'footer.validationPeer': 'International scientific review committee',
+    'footer.validationBureau': 'Bureau Veritas - ISO 14067 certification',
+    'footer.validationISO': 'ISO 14040/14044 standards - LCA',
+    'footer.validationCarbon': 'Carbon footprint certification',
+    'footer.internationalStandards': 'International standards',
+    'footer.standardASTM': 'ASTM D7566-20 - Sustainable aviation fuel',
+    'footer.standardCORSIA': 'CORSIA - Aviation emissions reduction',
+    'footer.standardRED': 'RED II Directive - Renewable energies',
+    'footer.standardISCC': 'ISCC EU - Sustainability certification',
+    'footer.copyright': 'Viticultural Biomass Atlas - All rights reserved',
+    'footer.dataUpdate': 'Data updated: January 2025',
+    'footer.legalNotices': 'Legal notices and data protection',
+
+    // Partners
+    'partners.region': '{region} Region',
+    'partners.ifv': 'French Institute of Vine and Wine',
+    'partners.safer': 'SAFER - Land development companies',
+    'partners.chamber': 'Regional chambers of agriculture',
+    'partners.union': 'Departmental wine unions',
+
+    // Tooltip
+    'tooltip.source': 'Source: Agreste Data 2023',
+    'region.coming.soon': 'Coming soon',
+
+    // Additional translations for tabs and components
+    'keyMetrics': 'Key Metrics',
+    'regionalAnalysis': 'Regional Analysis',
+    'biomassStrategy': 'Biomass Strategy',
+    'context': 'Context',
+    'industryNews': 'Industry News',
+    'regulations': 'Regulations',
+
+    // Infrastructure translations
+    'infrastructure.title': 'Regional Infrastructure',
+    'infrastructure.distilleries': 'Distilleries',
+    'infrastructure.methanization': 'Methanization',
+    'infrastructure.composting': 'Composting',
+    'infrastructure.biomass': 'Biomass energy'
   }
 };
 
