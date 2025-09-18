@@ -7,7 +7,7 @@ import PartnershipsTab from "./tabs/PartnershipsTab";
 import DataTab from "./tabs/DataTab";
 import ExecutiveDashboard from "./ExecutiveDashboard";
 import ContactIntegration from "./ContactIntegration";
-import { ProfessionalFooter } from "./ProfessionalFooter";
+import ProfessionalFooter from "./ProfessionalFooter";
 import ErrorHandling from "./ErrorHandling";
 import DashboardHeader from "./DashboardHeader";
 import GuidedTour from "./GuidedTour";

@@ -2,7 +2,7 @@ import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useRegion } from '../contexts/RegionContext';
 
-export const ProfessionalFooter: React.FC = () => {
+const ProfessionalFooter: React.FC = () => {
   const { t, language } = useLanguage();
   const { currentData, activeRegion } = useRegion();
 
@@ -84,3 +84,5 @@ export const ProfessionalFooter: React.FC = () => {
     </footer>
   );
 };
+
+export default ProfessionalFooter;
