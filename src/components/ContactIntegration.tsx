@@ -19,9 +19,7 @@ import {
   CheckCircle,
   Clock,
   FileText,
-  Send,
-  Globe,
-  Briefcase
+  Send
 } from 'lucide-react';
 
 const ContactIntegration = () => {
@@ -57,66 +55,63 @@ const ContactIntegration = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
-    // In real implementation, send data to backend
   };
+
+  // Safe data access with fallbacks
+  const totalBiomass = currentData?.totalBiomass || 266000;
+  const totalRevenue = currentData?.totalRevenue || 90900000;
+  const biomassDisplay = Math.round(totalBiomass / 1000);
+  const revenueDisplay = Math.round(totalRevenue / 1000000);
 
   const businessOpportunities = [
     {
       icon: <Building2 className="h-6 w-6" />,
-      title: language === 'fr' ? 'Partenariat Stratégique' : 'Strategic Partnership',
-      description: language === 'fr' 
-        ? 'Collaboration et accords commerciaux' 
-        : 'Business collaboration and commercial agreements',
+      title: t('contact.strategicPartnership'),
+      description: t('contact.strategicDesc'),
       value: 'strategic-partnership'
     },
     {
       icon: <TrendingUp className="h-6 w-6" />,
-      title: language === 'fr' ? 'Opportunité d\'Investissement' : 'Investment Opportunity',
-      description: language === 'fr' 
-        ? 'Participation financière au projet' 
-        : 'Financial participation in the project',
+      title: t('contact.investmentOpportunity'),
+      description: t('contact.investmentDesc'),
       value: 'investment'
     },
     {
       icon: <Users className="h-6 w-6" />,
-      title: language === 'fr' ? 'Support Technique' : 'Technical Support',
-      description: language === 'fr' 
-        ? 'Questions techniques et faisabilité' 
-        : 'Technical questions and feasibility',
+      title: t('contact.technicalSupport'),
+      description: t('contact.technicalDesc'),
       value: 'technical-support'
     },
     {
       icon: <Leaf className="h-6 w-6" />,
-      title: language === 'fr' ? 'Information Générale' : 'General Information',
-      description: language === 'fr' 
-        ? 'Demandes d\'information sur le projet' 
-        : 'Project information requests',
+      title: t('contact.generalInfo'),
+      description: t('contact.generalDesc'),
       value: 'general-info'
     }
   ];
 
   const interestAreas = [
-    { key: 'feasibility', label: language === 'fr' ? 'Étude de faisabilité' : 'Feasibility study' },
-    { key: 'timeline', label: language === 'fr' ? 'Timeline du projet' : 'Project timeline' },
-    { key: 'environmental', label: language === 'fr' ? 'Impact environnemental' : 'Environmental impact' },
-    { key: 'economic', label: language === 'fr' ? 'Retombées économiques' : 'Economic benefits' }
+    { key: 'feasibility', label: t('contact.feasibilityStudy') },
+    { key: 'timeline', label: t('contact.projectTimeline') },
+    { key: 'environmental', label: t('contact.environmentalImpact') },
+    { key: 'economic', label: t('contact.economicBenefits') }
   ];
 
   const nextSteps = [
     {
       icon: <Clock className="h-4 w-4" />,
-      timeframe: '48h',
-      description: language === 'fr' ? 'Réponse garantie' : 'Guaranteed response'
+      timeframe: t('time.hours48'),
+      description: t('contact.guaranteedResponse')
     },
     {
       icon: <Calendar className="h-4 w-4" />,
-      timeframe: language === 'fr' ? '1 semaine' : '1 week',
-      description: language === 'fr' ? 'Première réunion' : 'First meeting'
+      timeframe: t('time.week'),
+      description: t('contact.firstMeeting')
     },
     {
       icon: <FileText className="h-4 w-4" />,
-      timeframe: language === 'fr' ? '1 mois' : '1 month',
-      description: language === 'fr' ? 'Proposition détaillée' : 'Detailed proposal'
+      timeframe: t('time.month'),
+      description: t('contact.detailedProposal')
     }
   ];
 
@@ -127,16 +122,13 @@ const ContactIntegration = () => {
           <CardContent className="p-12">
             <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-6" />
             <h2 className="text-2xl font-bold text-wine-burgundy mb-4">
-              {language === 'fr' ? 'Merci pour votre demande!' : 'Thank you for your inquiry!'}
+              {t('contact.thankYou')}
             </h2>
             <p className="text-gray-600 mb-6">
-              {language === 'fr' 
-                ? 'Nous vous contacterons dans les 48 heures pour discuter des opportunités de collaboration.'
-                : 'We will contact you within 48 hours to discuss collaboration opportunities.'
-              }
+              {t('contact.thankYouMessage')}
             </p>
             <Button onClick={() => setSubmitted(false)} className="bg-wine-burgundy hover:bg-wine-burgundy/90">
-              {language === 'fr' ? 'Nouvelle demande' : 'New inquiry'}
+              {t('contact.newInquiry')}
             </Button>
           </CardContent>
         </Card>
@@ -150,13 +142,10 @@ const ContactIntegration = () => {
       {/* Hero Section */}
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-wine-burgundy mb-4">
-          📋 {language === 'fr' ? 'Contact & Prochaines Étapes' : 'Contact & Next Steps'}
+          {t('contact.title')}
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          {language === 'fr' 
-            ? 'Transformons ensemble les déchets viticoles en opportunité d\'avenir'
-            : 'Transform vineyard waste into future opportunities together'
-          }
+          {t('contact.subtitle')}
         </p>
       </div>
 
@@ -165,7 +154,7 @@ const ContactIntegration = () => {
         {/* Business Opportunities */}
         <div>
           <h2 className="text-3xl font-bold text-wine-burgundy mb-8">
-            🤝 {language === 'fr' ? 'Opportunités de Collaboration' : 'Business Opportunities'}
+            {t('contact.businessOpportunities')}
           </h2>
           
           <div className="grid gap-6 mb-12">
@@ -186,41 +175,13 @@ const ContactIntegration = () => {
             ))}
           </div>
 
-          {/* Regional Context */}
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <MapPin className="h-5 w-5 text-wine-burgundy" />
-                {language === 'fr' ? 'Potentiel Régional' : 'Regional Potential'}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-4 bg-wine-cream/20 rounded-lg">
-                  <div className="text-2xl font-bold text-wine-burgundy">
-                    {Math.round(currentData.totalBiomass / 1000)}k
-                  </div>
-                  <div className="text-sm text-gray-600">
-                    {language === 'fr' ? 'tonnes/an' : 'tons/year'}
-                  </div>
-                </div>
-                <div className="text-center p-4 bg-wine-cream/20 rounded-lg">
-                  <div className="text-2xl font-bold text-wine-burgundy">
-                    €{Math.round(currentData.totalRevenue / 1000000)}M
-                  </div>
-                  <div className="text-sm text-gray-600">
-                    {language === 'fr' ? 'potentiel' : 'potential'}
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+
 
           {/* Direct Contact Info */}
           <Card>
             <CardHeader>
               <CardTitle>
-                {language === 'fr' ? 'Autres moyens de nous contacter' : 'Other ways to contact us'}
+                {t('contact.otherContactMethods')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -229,7 +190,7 @@ const ContactIntegration = () => {
                 <div>
                   <div className="font-medium">+33 5 56 12 34 56</div>
                   <div className="text-sm text-gray-500">
-                    {language === 'fr' ? 'Ligne directe' : 'Direct line'}
+                    {t('contact.directLine')}
                   </div>
                 </div>
               </div>
@@ -238,7 +199,7 @@ const ContactIntegration = () => {
                 <div>
                   <div className="font-medium">contact@atlas-biomasse.fr</div>
                   <div className="text-sm text-gray-500">
-                    {language === 'fr' ? 'Email général' : 'General email'}
+                    {t('contact.generalEmail')}
                   </div>
                 </div>
               </div>
@@ -246,7 +207,7 @@ const ContactIntegration = () => {
                 <Calendar className="h-4 w-4 text-gray-500" />
                 <div>
                   <Button variant="outline" className="text-sm">
-                    {language === 'fr' ? 'Prendre RDV' : 'Schedule Meeting'}
+                    {t('contact.scheduleMeeting')}
                   </Button>
                   <div className="text-sm text-gray-500 mt-1">
                     calendly.com/atlas-biomasse
@@ -263,7 +224,7 @@ const ContactIntegration = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Send className="h-5 w-5 text-wine-burgundy" />
-                {language === 'fr' ? 'Demandes d\'information sur le projet' : 'Project Information Request'}
+                {t('contact.projectInfoRequest')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -273,13 +234,13 @@ const ContactIntegration = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-2">
-                      {language === 'fr' ? 'Nom complet' : 'Full name'} *
+                      {t('contact.fullName')} *
                     </label>
                     <Input
                       required
                       value={formData.fullName}
                       onChange={(e) => handleInputChange('fullName', e.target.value)}
-                      placeholder={language === 'fr' ? 'Votre nom' : 'Your name'}
+                      placeholder={t('contact.yourName')}
                     />
                   </div>
                   <div>
@@ -299,7 +260,7 @@ const ContactIntegration = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-2">
-                      {language === 'fr' ? 'Téléphone' : 'Phone'}
+                      {t('contact.phone')}
                     </label>
                     <Input
                       value={formData.phone}
@@ -309,12 +270,12 @@ const ContactIntegration = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-2">
-                      {language === 'fr' ? 'Entreprise/Organisation' : 'Company/Organization'}
+                      {t('contact.company')}
                     </label>
                     <Input
                       value={formData.company}
                       onChange={(e) => handleInputChange('company', e.target.value)}
-                      placeholder={language === 'fr' ? 'Nom de votre entreprise' : 'Your company name'}
+                      placeholder={t('contact.companyPlaceholder')}
                     />
                   </div>
                 </div>
@@ -322,17 +283,17 @@ const ContactIntegration = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-2">
-                      {language === 'fr' ? 'Fonction/Rôle' : 'Role/Position'}
+                      {t('contact.role')}
                     </label>
                     <Input
                       value={formData.role}
                       onChange={(e) => handleInputChange('role', e.target.value)}
-                      placeholder={language === 'fr' ? 'Votre fonction' : 'Your position'}
+                      placeholder={t('contact.yourPosition')}
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-2">
-                      {language === 'fr' ? 'Mode de contact préféré' : 'Preferred contact method'}
+                      {t('contact.preferredContact')}
                     </label>
                     <Select value={formData.contactMethod} onValueChange={(value) => handleInputChange('contactMethod', value)}>
                       <SelectTrigger>
@@ -340,8 +301,8 @@ const ContactIntegration = () => {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="email">Email</SelectItem>
-                        <SelectItem value="phone">{language === 'fr' ? 'Téléphone' : 'Phone'}</SelectItem>
-                        <SelectItem value="meeting">{language === 'fr' ? 'Réunion' : 'Meeting'}</SelectItem>
+                        <SelectItem value="phone">{t('contact.telephone')}</SelectItem>
+                        <SelectItem value="meeting">{t('contact.meeting')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -350,10 +311,7 @@ const ContactIntegration = () => {
                 {/* Interests */}
                 <div>
                   <label className="block text-sm font-medium mb-3">
-                    {language === 'fr' 
-                      ? 'Centres d\'intérêt (sélectionnez tous ceux qui s\'appliquent)' 
-                      : 'Areas of interest (select all that apply)'
-                    }
+                    {t('contact.interests')}
                   </label>
                   <div className="flex flex-wrap gap-2">
                     {interestAreas.map((interest) => (
@@ -376,15 +334,12 @@ const ContactIntegration = () => {
                 {/* Message */}
                 <div>
                   <label className="block text-sm font-medium mb-2">
-                    {language === 'fr' ? 'Message détaillé' : 'Detailed message'}
+                    {t('contact.detailedMessage')}
                   </label>
                   <Textarea
                     value={formData.message}
                     onChange={(e) => handleInputChange('message', e.target.value)}
-                    placeholder={language === 'fr' 
-                      ? 'Décrivez vos besoins, questions ou propositions...'
-                      : 'Describe your needs, questions or proposals...'
-                    }
+                    placeholder={t('contact.messagePlaceholder')}
                     rows={4}
                   />
                 </div>
@@ -395,7 +350,7 @@ const ContactIntegration = () => {
                   size="lg"
                 >
                   <Send className="h-4 w-4 mr-2" />
-                  {language === 'fr' ? 'Envoyer la Demande' : 'Send Inquiry'}
+                  {t('contact.sendInquiry')}
                 </Button>
               </form>
             </CardContent>
@@ -406,7 +361,7 @@ const ContactIntegration = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <CheckCircle className="h-5 w-5 text-wine-burgundy" />
-                {language === 'fr' ? 'Après votre demande' : 'After your inquiry'}
+                {t('contact.afterInquiry')}
               </CardTitle>
             </CardHeader>
             <CardContent>
