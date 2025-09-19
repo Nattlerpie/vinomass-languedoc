@@ -148,9 +148,73 @@ export default function ResourcesTab() {
       {/* Divider */}
       <div className="border-t border-wine-cream/30 mb-16"></div>
 
-      {/* Regional Map */}
+      {/* Regional Map Section - WITH COMMUNES BREAKDOWN */}
       <section className="mb-16">
-        <StaticRegionalMap region={activeRegion} language={language} />
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
+              {t('repartition.production.commune')} - {currentData.displayName}
+            </h2>
+            <p className="text-lg text-wine-charcoal/70 mb-8">
+              {currentData.annualPomace?.toLocaleString()} {t('tonnes')} - {t('production.dechets.vitivinicoles')}
+            </p>
+          </div>
+
+          {/* Map Placeholder */}
+          <div className="mb-8 p-8 bg-wine-cream/10 border border-wine-gold/20 rounded-xl text-center">
+            <div className="text-wine-charcoal/50 mb-4">
+              📍 {t('repartition.production.commune')}
+            </div>
+            <p className="text-sm text-wine-charcoal/60 italic">
+              {/* TODO: Static regional map will be added here when ready */}
+              Carte régionale interactive à venir - Regional interactive map coming soon
+            </p>
+          </div>
+
+          {/* Communes Breakdown */}
+          <div>
+            <h3 className="text-2xl font-bold text-wine-charcoal mb-6 text-center">
+              {t('communes.principales')}
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {currentData.topCommunes?.map((commune, index) => (
+                <div
+                  key={commune.name}
+                  className="p-6 bg-gradient-subtle rounded-xl border border-wine-cream/40 hover:border-wine-burgundy/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg group"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg transition-transform duration-300 group-hover:scale-110 ${
+                      index === 0 ? 'bg-wine-burgundy shadow-wine' : 
+                      index === 1 ? 'bg-wine-gold shadow-elegant' : 
+                      index === 2 ? 'bg-wine-green shadow-elegant' :
+                      index === 3 ? 'bg-wine-charcoal shadow-elegant' :
+                      index === 4 ? 'bg-wine-burgundy/70 shadow-elegant' :
+                      'bg-wine-gold/70 shadow-elegant'
+                    }`}>
+                      {index + 1}
+                    </div>
+                  </div>
+                  
+                  <h4 className="font-bold text-wine-charcoal text-lg mb-2">
+                    {commune.name}
+                  </h4>
+                  
+                  <div className="text-right mb-3">
+                    <span className="text-2xl font-bold text-wine-charcoal group-hover:text-wine-burgundy transition-colors duration-300">
+                      {(commune.tonnage / 1000).toFixed(1)}k
+                    </span>
+                    <span className="text-sm text-wine-charcoal/70 ml-2">{t('tonnes')}</span>
+                  </div>
+                  
+                  <div className="text-sm text-wine-charcoal/60">
+                    {commune.percentage?.toFixed(0)}% {t('production.regionale.percent')}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Divider */}
