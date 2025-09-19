@@ -81,14 +81,14 @@ const OverviewTab = () => {
               <div className="text-xs text-wine-charcoal/50 mt-1">{t('base.regionale')}</div>
             </div>
             
-            {/* 2. Production annuelle de marc */}
+            {/* 2. Production annuelle de déchets vitivinicoles */}
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-gold mb-3">
                 {(currentData.annualPomace / 1000).toFixed(0)}k
               </div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('production.marc')}</div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('production.dechets.vitivinicoles')}</div>
               <div className="text-sm text-wine-charcoal/60">{t('tonnes')}</div>
-              <div className="text-xs text-wine-charcoal/50 mt-1">{t('matiere.premiere')}</div>
+              <div className="text-xs text-wine-charcoal/50 mt-1">{t('matiere.premiere.totale')}</div>
             </div>
             
             {/* 3. Allocation Réaliste des Flux */}
