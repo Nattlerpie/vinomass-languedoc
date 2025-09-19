@@ -84,6 +84,8 @@ const translations = {
     'flux.elimination': 'Flux d\'élimination',
     'surplus.excedents': 'Surplus & excédents',
     'avec.partenariats': 'avec partenariats',
+    'disponible': 'disponible',
+    'jusqua': 'Jusqu\'à',
     'respecte.filieres': 'Cette approche respecte les filières établies tout en démontrant un potentiel d\'expansion pour répondre à la demande croissante SAF.',
     
     // Valorization Methods
@@ -426,6 +428,8 @@ const translations = {
     'flux.elimination': 'Disposal streams',
     'surplus.excedents': 'Surplus & excess',
     'avec.partenariats': 'with partnerships',
+    'disponible': 'available',
+    'jusqua': 'Up to',
     'respecte.filieres': 'This approach respects established supply chains while demonstrating expansion potential to meet growing SAF demand.',
     
     // Valorization Methods
