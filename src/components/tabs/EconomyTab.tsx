@@ -5,90 +5,106 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AdvancedROICalculator from "../AdvancedROICalculator";
 import CostBenefitAnalysis from "../CostBenefitAnalysis";
 import EconomicProjections from "../EconomicProjections";
+import { useRegion } from "@/contexts/RegionContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const EconomyTab = () => {
+  const { currentData, debugMode, validateData } = useRegion();
+  const { t, debugMode: langDebugMode } = useLanguage();
+  
+  // Debug validation
+  const debugErrors = debugMode || langDebugMode ? validateData() : [];
+  
+  // Calculate scaled investment based on regional capacity
+  const availableBiomass = currentData.wasteAllocation?.available || 80000;
+  const scaledInvestment = Math.round((availableBiomass / 80000) * 150); // €150M for 80kt capacity
+  const scaledEquity = Math.round(scaledInvestment * 0.35); // 35% equity
+  const scaledDebt = Math.round(scaledInvestment * 0.5); // 50% debt
+  const scaledSubsidies = Math.round(scaledInvestment * 0.15); // 15% subsidies
+
   return (
     <div className="min-h-screen w-full">
+      {/* DEBUG BANNER */}
+      {(debugMode || langDebugMode) && (
+        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+          <strong className="font-bold">💰 EconomyTab Debug</strong>
+          <div className="text-sm mt-2">
+            <div>Region: {currentData.displayName} ({currentData.id})</div>
+            <div>Available Biomass: {availableBiomass.toLocaleString()}t</div>
+            <div>Scaled Investment: €{scaledInvestment}M</div>
+            <div>SAF Revenue: €{currentData.wasteAllocation?.realisticRevenue}M/year</div>
+            {debugErrors.length > 0 && (
+              <div className="mt-2">
+                <strong>Data Issues:</strong>
+                <ul className="list-disc pl-5">
+                  {debugErrors.map((error, index) => (
+                    <li key={index}>{error}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Navigation Header */}
       <section className="mb-12">
         <div className="text-center mb-8">
           <h1 className="text-4xl lg:text-5xl font-bold text-wine-charcoal mb-4">
-            Analyse Économique
+            {t('economy.title', { region: currentData.displayName })}
           </h1>
           <p className="text-xl text-wine-charcoal/70 max-w-3xl mx-auto">
-            Modélisation financière et analyse de rentabilité par région
+            {t('economy.subtitle')}
           </p>
         </div>
       </section>
 
-      {/* Waste Allocation Breakdown */}
+      {/* Regional Economic Context */}
       <section className="mb-16">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-            Allocation Réaliste des Flux - Languedoc-Roussillon
-          </h2>
-          <p className="text-lg text-wine-charcoal/70">
-            Hiérarchisation respectueuse des besoins existants
-          </p>
-        </div>
-        
-        <Card className="bg-white/95 backdrop-blur-sm border-wine-burgundy/20 shadow-elegant">
-          <CardHeader>
-            <CardTitle className="text-2xl text-wine-charcoal text-center">
-              Total Biomasse Régionale: 266,000 tonnes
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Flux Protégés */}
-              <div className="p-6 bg-gradient-to-br from-red-50 to-red-100 rounded-xl border border-red-200">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-wine-charcoal">Flux Protégés</h3>
-                  <span className="text-sm text-red-600 font-medium">❌ Non disponible</span>
-                </div>
-                <div className="text-3xl font-bold text-red-600 mb-2">45%</div>
-                <div className="text-xl font-semibold text-wine-charcoal mb-3">120,000 tonnes</div>
-                <div className="space-y-2 text-sm text-wine-charcoal/70">
-                  <div>• Compost pour vignobles: 67,000t</div>
-                  <div>• Biogaz énergétique: 40,000t</div>
-                  <div>• Extraction premium: 13,000t</div>
-                </div>
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
+              {t('economy.regional.context')} - {currentData.displayName}
+            </h2>
+            <p className="text-lg text-wine-charcoal/70">
+              {t('economy.investment.opportunity')}
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
+              <div className="text-4xl font-bold text-wine-burgundy mb-3">
+                {(availableBiomass / 1000).toFixed(0)}kt
               </div>
-
-              {/* Flux Négociables */}
-              <div className="p-6 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl border border-yellow-200">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-wine-charcoal">Flux Négociables</h3>
-                  <span className="text-sm text-yellow-600 font-medium">⚠️ Partenariats requis</span>
-                </div>
-                <div className="text-3xl font-bold text-yellow-600 mb-2">25%</div>
-                <div className="text-xl font-semibold text-wine-charcoal mb-3">66,000 tonnes</div>
-                <div className="space-y-2 text-sm text-wine-charcoal/70">
-                  <div>• Surplus saisonniers: 40,000t</div>
-                  <div>• Excédent compost: 26,000t</div>
-                </div>
-              </div>
-
-              {/* Flux Disponibles */}
-              <div className="p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-wine-charcoal">Flux Disponibles</h3>
-                  <span className="text-sm text-green-600 font-medium">✅ Disponible pour SAF</span>
-                </div>
-                <div className="text-3xl font-bold text-green-600 mb-2">30%</div>
-                <div className="text-xl font-semibold text-wine-charcoal mb-3">80,000 tonnes</div>
-                <div className="space-y-2 text-sm text-wine-charcoal/70">
-                  <div>• Coûts d'élimination actuels: 50,000t</div>
-                  <div>• Boues de traitement: 30,000t</div>
-                </div>
-                <div className="mt-4 p-3 bg-white/70 rounded-lg border border-green-300">
-                  <div className="text-sm font-medium text-wine-charcoal">Potentiel SAF:</div>
-                  <div className="text-lg font-bold text-green-600">22.4M litres → €27.3M</div>
-                </div>
-              </div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.available.feedstock')}</div>
+              <div className="text-sm text-wine-charcoal/60">{t('economy.biomass.secured')}</div>
             </div>
-          </CardContent>
-        </Card>
+            
+            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
+              <div className="text-4xl font-bold text-wine-gold mb-3">
+                {(currentData.wasteAllocation?.realisticSafPotential / 1000000).toFixed(1)}M
+              </div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.saf.production')}</div>
+              <div className="text-sm text-wine-charcoal/60">{t('litres.an')}</div>
+            </div>
+            
+            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
+              <div className="text-4xl font-bold text-wine-green mb-3">
+                €{currentData.wasteAllocation?.realisticRevenue}M
+              </div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.annual.revenue')}</div>
+              <div className="text-sm text-wine-charcoal/60">{t('economy.market.price')}</div>
+            </div>
+            
+            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-charcoal/10 hover:scale-105 transition-all duration-300">
+              <div className="text-4xl font-bold text-wine-charcoal mb-3">
+                {currentData.wasteAllocation?.realisticJobs}
+              </div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.jobs.created')}</div>
+              <div className="text-sm text-wine-charcoal/60">{t('economy.direct.employment')}</div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <div className="border-t border-wine-cream/30 mb-16"></div>
@@ -97,10 +113,10 @@ const EconomyTab = () => {
       <section className="mb-16">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-            Modules d'Analyse Économique
+            {t('economy.analysis.modules')}
           </h2>
           <p className="text-lg text-wine-charcoal/70">
-            Outils de modélisation financière et évaluation de rentabilité
+            {t('economy.financial.modeling')}
           </p>
         </div>
 
@@ -110,29 +126,29 @@ const EconomyTab = () => {
               value="roi" 
               className="text-wine-charcoal data-[state=active]:bg-wine-burgundy data-[state=active]:text-white data-[state=active]:shadow-md font-medium"
             >
-              ROI Calculator
+              {t('economy.roi.calculator')}
             </TabsTrigger>
             <TabsTrigger 
               value="cost-benefit" 
               className="text-wine-charcoal data-[state=active]:bg-wine-burgundy data-[state=active]:text-white data-[state=active]:shadow-md font-medium"
             >
-              Cost-Benefit
+              {t('economy.cost.benefit')}
             </TabsTrigger>
             <TabsTrigger 
               value="projections" 
               className="text-wine-charcoal data-[state=active]:bg-wine-burgundy data-[state=active]:text-white data-[state=active]:shadow-md font-medium"
             >
-              Projections
+              {t('economy.projections')}
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="roi" className="mt-8">
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold text-wine-charcoal mb-4">
-                Calculateur ROI
+                {t('economy.roi.title')}
               </h3>
               <p className="text-lg text-wine-charcoal/70">
-                Retour sur investissement basé sur 80,000 tonnes disponibles
+                {t('economy.roi.description', { tonnage: (availableBiomass / 1000).toFixed(0) })}
               </p>
             </div>
             <AdvancedROICalculator />
@@ -141,10 +157,10 @@ const EconomyTab = () => {
           <TabsContent value="cost-benefit" className="mt-8">
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold text-wine-charcoal mb-4">
-                Analyse Coûts-Bénéfices
+                {t('economy.cost.benefit.title')}
               </h3>
               <p className="text-lg text-wine-charcoal/70">
-                Évaluation détaillée des investissements et retours
+                {t('economy.cost.benefit.description')}
               </p>
             </div>
             <CostBenefitAnalysis />
@@ -153,42 +169,106 @@ const EconomyTab = () => {
           <TabsContent value="projections" className="mt-8">
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold text-wine-charcoal mb-4">
-                Projections Économiques
+                {t('economy.projections.title')}
               </h3>
               <p className="text-lg text-wine-charcoal/70">
-                Prévisions financières sur 5 ans
+                {t('economy.projections.description')}
               </p>
             </div>
             <EconomicProjections />
             
-            {/* Financing Overview */}
+            {/* Dynamic Financing Overview */}
             <div className="mt-16 bg-wine-cream/10 rounded-xl p-8">
-              <h4 className="text-2xl font-bold text-wine-charcoal mb-8 text-center">Financement - Vue d'ensemble</h4>
+              <h4 className="text-2xl font-bold text-wine-charcoal mb-8 text-center">
+                {t('economy.financing.overview')} - {currentData.displayName}
+              </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-burgundy/10">
-                  <div className="text-3xl font-bold text-wine-burgundy mb-3">€50M</div>
-                  <div className="text-lg font-semibold text-wine-charcoal mb-2">Fonds propres</div>
-                  <div className="text-sm text-wine-charcoal/60">30-40% total</div>
+                  <div className="text-3xl font-bold text-wine-burgundy mb-3">€{scaledEquity}M</div>
+                  <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.equity.funding')}</div>
+                  <div className="text-sm text-wine-charcoal/60">{t('economy.equity.percentage')}</div>
                 </div>
                 <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-gold/10">
-                  <div className="text-3xl font-bold text-wine-gold mb-3">€75M</div>
-                  <div className="text-lg font-semibold text-wine-charcoal mb-2">Dette bancaire</div>
-                  <div className="text-sm text-wine-charcoal/60">Taux 4-6%</div>
+                  <div className="text-3xl font-bold text-wine-gold mb-3">€{scaledDebt}M</div>
+                  <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.bank.debt')}</div>
+                  <div className="text-sm text-wine-charcoal/60">{t('economy.interest.rate')}</div>
                 </div>
                 <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-green/10">
-                  <div className="text-3xl font-bold text-wine-green mb-3">€25M</div>
-                  <div className="text-lg font-semibold text-wine-charcoal mb-2">Subventions</div>
-                  <div className="text-sm text-wine-charcoal/60">EU + France 2030</div>
+                  <div className="text-3xl font-bold text-wine-green mb-3">€{scaledSubsidies}M</div>
+                  <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.subsidies')}</div>
+                  <div className="text-sm text-wine-charcoal/60">{t('economy.eu.france.funding')}</div>
                 </div>
                 <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-charcoal/10">
-                  <div className="text-3xl font-bold text-wine-charcoal mb-3">€150M</div>
-                  <div className="text-lg font-semibold text-wine-charcoal mb-2">Total investissement</div>
-                  <div className="text-sm text-wine-charcoal/60">Capacité 100kt SAF/an</div>
+                  <div className="text-3xl font-bold text-wine-charcoal mb-3">€{scaledInvestment}M</div>
+                  <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.total.investment')}</div>
+                  <div className="text-sm text-wine-charcoal/60">{t('economy.capacity.description', { capacity: (availableBiomass / 1000).toFixed(0) })}</div>
                 </div>
+              </div>
+              
+              {/* Investment Scaling Note */}
+              <div className="mt-8 text-center p-4 bg-wine-charcoal/5 rounded-lg">
+                <p className="text-sm text-wine-charcoal/70 italic">
+                  {t('economy.scaling.note', { 
+                    region: currentData.displayName,
+                    capacity: (availableBiomass / 1000).toFixed(0)
+                  })}
+                </p>
               </div>
             </div>
           </TabsContent>
         </Tabs>
+      </section>
+
+      {/* Market Context & Competitive Advantage */}
+      <section className="mb-16">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
+              {t('economy.market.advantage')}
+            </h2>
+            <p className="text-lg text-wine-charcoal/70">
+              {t('economy.competitive.positioning')}
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-6 bg-gradient-subtle rounded-xl border border-wine-burgundy/10">
+              <h4 className="text-xl font-bold text-wine-charcoal mb-4">
+                {t('economy.feedstock.security')}
+              </h4>
+              <div className="space-y-2 text-sm text-wine-charcoal/70">
+                <div>• {t('economy.local.supply.chain')}</div>
+                <div>• {t('economy.waste.stream.cost')}</div>
+                <div>• {t('economy.year.round.availability')}</div>
+                <div>• {t('economy.established.logistics')}</div>
+              </div>
+            </div>
+            
+            <div className="p-6 bg-gradient-subtle rounded-xl border border-wine-gold/10">
+              <h4 className="text-xl font-bold text-wine-charcoal mb-4">
+                {t('economy.regulatory.advantage')}
+              </h4>
+              <div className="space-y-2 text-sm text-wine-charcoal/70">
+                <div>• {t('economy.eu.saf.mandates')}</div>
+                <div>• {t('economy.carbon.credit.revenue')}</div>
+                <div>• {t('economy.france.2030.support')}</div>
+                <div>• {t('economy.waste.directive.compliance')}</div>
+              </div>
+            </div>
+            
+            <div className="p-6 bg-gradient-subtle rounded-xl border border-wine-green/10">
+              <h4 className="text-xl font-bold text-wine-charcoal mb-4">
+                {t('economy.geographic.benefits')}
+              </h4>
+              <div className="space-y-2 text-sm text-wine-charcoal/70">
+                <div>• {t('economy.proximity.airports')}</div>
+                <div>• {t('economy.distribution.network')}</div>
+                <div>• {t('economy.skilled.workforce')}</div>
+                <div>• {t('economy.industrial.infrastructure')}</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   );
