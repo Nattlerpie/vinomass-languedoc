@@ -57,108 +57,88 @@ const BiomassBreakdownChart = () => {
       </div>
 
       {/* Interactive Chart Area */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="grid grid-cols-1 gap-8">
         
-        {/* Left: Biomass Types List */}
-        <div className="space-y-4">
-          <h3 className="text-xl font-bold text-wine-charcoal mb-6">
-            Types et Volumes
+        {/* Bar Chart Visualization */}
+        <div className="space-y-6">
+          <h3 className="text-xl font-bold text-wine-charcoal mb-6 text-center">
+            Types de Biomasse - Comparaison Visuelle
           </h3>
           
-          {biomassData.map((item, index) => (
-            <div
-              key={item.name}
-              className={`p-6 rounded-xl border-2 border-${item.color}/20 bg-gradient-to-r from-${item.color}/5 to-${item.color}/10 hover:scale-[1.02] transition-all duration-300 hover:shadow-lg group`}
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <div className={`w-12 h-12 rounded-full bg-${item.color} group-hover:scale-110 transition-transform duration-300 shadow-lg`} />
-                  <div>
-                    <h4 className="font-bold text-wine-charcoal text-lg">
+          {/* Horizontal Bar Chart */}
+          <div className="space-y-4">
+            {biomassData.map((item, index) => (
+              <div
+                key={item.name}
+                className="group hover:scale-[1.01] transition-all duration-300"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center space-x-3">
+                    <div className={`w-4 h-4 rounded-full bg-${item.color}`} />
+                    <span className="font-medium text-wine-charcoal">
                       {item.name}
-                    </h4>
-                    <div className="text-sm text-wine-charcoal/60">
-                      {item.percentage}% du total
-                    </div>
+                    </span>
+                  </div>
+                  <div className="text-right">
+                    <span className="font-bold text-wine-charcoal">
+                      {(item.value / 1000).toFixed(1)}k {t('tonnes')}
+                    </span>
+                    <span className="text-sm text-wine-charcoal/60 ml-2">
+                      ({item.percentage}%)
+                    </span>
                   </div>
                 </div>
                 
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-wine-charcoal group-hover:text-wine-burgundy transition-colors duration-300">
-                    {(item.value / 1000).toFixed(0)}k
-                  </div>
-                  <div className="text-sm text-wine-charcoal/70">
-                    {t('tonnes')}
+                {/* Bar */}
+                <div className="w-full bg-wine-cream/30 rounded-full h-8 relative overflow-hidden">
+                  <div 
+                    className={`bg-${item.color} h-8 rounded-full transition-all duration-1000 ease-out group-hover:bg-${item.color}/80 relative`}
+                    style={{ 
+                      width: `${Math.max(item.percentage, 3)}%`,
+                      animationDelay: `${index * 100}ms`
+                    }}
+                  >
+                    {/* Value Label inside bar */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-white font-bold text-sm">
+                        {item.percentage}%
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
-              
-              {/* Progress Bar */}
-              <div className="mt-4 w-full bg-wine-cream/30 rounded-full h-2">
-                <div 
-                  className={`bg-${item.color} h-2 rounded-full transition-all duration-500 group-hover:bg-${item.color}/80`}
-                  style={{ width: `${item.percentage}%` }}
-                />
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
-        {/* Right: Summary Statistics */}
-        <div className="space-y-6">
-          <h3 className="text-xl font-bold text-wine-charcoal mb-6">
-            Vue d'ensemble
-          </h3>
+        {/* Summary Statistics */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="text-center p-6 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
+            <div className="text-3xl font-bold text-wine-burgundy mb-2">
+              {(totalBiomass / 1000).toFixed(0)}k
+            </div>
+            <div className="text-sm text-wine-charcoal/70">{t('tonnage.total')}</div>
+          </div>
           
-          {/* Total Stats Grid */}
-          <div className="grid grid-cols-2 gap-6">
-            <div className="text-center p-6 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
-              <div className="text-3xl font-bold text-wine-burgundy mb-2">
-                {(totalBiomass / 1000).toFixed(0)}k
-              </div>
-              <div className="text-sm text-wine-charcoal/70">{t('tonnage.total')}</div>
+          <div className="text-center p-6 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
+            <div className="text-3xl font-bold text-wine-gold mb-2">
+              {biomassData.length}
             </div>
-            
-            <div className="text-center p-6 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
-              <div className="text-3xl font-bold text-wine-gold mb-2">
-                {biomassData.length}
-              </div>
-              <div className="text-sm text-wine-charcoal/70">{t('types.biomasse')}</div>
-            </div>
-            
-            <div className="text-center p-6 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
-              <div className="text-3xl font-bold text-wine-green mb-2">
-                100%
-              </div>
-              <div className="text-sm text-wine-charcoal/70">{t('part.total')}</div>
-            </div>
-            
-            <div className="text-center p-6 bg-gradient-subtle rounded-xl border border-wine-charcoal/10 hover:scale-105 transition-all duration-300">
-              <div className="text-3xl font-bold text-wine-charcoal mb-2">
-                {communesCount}
-              </div>
-              <div className="text-sm text-wine-charcoal/70">{t('communes.impliquees')}</div>
-            </div>
+            <div className="text-sm text-wine-charcoal/70">{t('types.biomasse')}</div>
           </div>
-
-          {/* Regional Context */}
-          <div className="p-6 bg-wine-cream/10 border border-wine-gold/20 rounded-xl">
-            <h4 className="font-bold text-wine-charcoal mb-3">
-              Contexte Régional
-            </h4>
-            <div className="text-sm text-wine-charcoal/70 space-y-2">
-              <div>• <span className="font-medium">Région:</span> {currentData.displayName}</div>
-              <div>• <span className="font-medium">Surface viticole:</span> {(currentData.vineyardSurface / 1000).toFixed(0)}k {t('hectares')}</div>
-              <div>• <span className="font-medium">Production:</span> {currentData.nationalProductionShare}% nationale</div>
-              <div>• <span className="font-medium">Disponible SAF:</span> {(currentData.wasteAllocation.available / 1000).toFixed(0)}kt (30%)</div>
+          
+          <div className="text-center p-6 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
+            <div className="text-3xl font-bold text-wine-green mb-2">
+              100%
             </div>
+            <div className="text-sm text-wine-charcoal/70">{t('part.total')}</div>
           </div>
-
-          {/* Export/Methodology Note */}
-          <div className="text-center p-4 bg-wine-charcoal/5 rounded-lg">
-            <p className="text-xs text-wine-charcoal/60 italic">
-              * {t('resources.disclaimer')}
-            </p>
+          
+          <div className="text-center p-6 bg-gradient-subtle rounded-xl border border-wine-charcoal/10 hover:scale-105 transition-all duration-300">
+            <div className="text-3xl font-bold text-wine-charcoal mb-2">
+              {communesCount}
+            </div>
+            <div className="text-sm text-wine-charcoal/70">{t('communes.impliquees')}</div>
           </div>
         </div>
       </div>
