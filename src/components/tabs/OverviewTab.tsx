@@ -4,33 +4,60 @@ import { useRegion } from "@/contexts/RegionContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const OverviewTab = () => {
-  const { currentData } = useRegion();
-  const { t } = useLanguage();
+  const { currentData, debugMode, validateData } = useRegion();
+  const { t, debugMode: langDebugMode } = useLanguage();
   
-  // Calculate realistic values based on 30% allocation
-  const availableBiomass = currentData.wasteAllocation?.available || 80000;
-  const negotiableBiomass = currentData.wasteAllocation?.negotiable || 66000;
-  const protectedBiomass = currentData.wasteAllocation?.protected || 120000;
+  // Use data directly from the consolidated RegionContext (no more fallbacks needed)
+  const availableBiomass = currentData.wasteAllocation.available;
+  const negotiableBiomass = currentData.wasteAllocation.negotiable;
+  const protectedBiomass = currentData.wasteAllocation.protected;
   
-  // Realistic SAF calculations (80,000t × 280L/tonne × 70% efficiency)
-  const realisticSafProduction = (availableBiomass * 280 * 0.70) / 1000000; // in millions of liters
-  const realisticRevenue = realisticSafProduction * 1.22; // €1.22/L market price
-  const realisticCO2Reduction = realisticSafProduction * 1000000 * 2.5 / 1000; // 2.5kg CO2/L, convert to tonnes
+  // Use pre-calculated values from RegionContext for consistency
+  const realisticSafProduction = currentData.wasteAllocation.realisticSafPotential / 1000000; // convert to millions
+  const realisticRevenue = currentData.wasteAllocation.realisticRevenue;
+  const realisticCO2Reduction = currentData.wasteAllocation.realisticCo2Reduction;
+  
+  // Debug validation
+  const debugErrors = debugMode || langDebugMode ? validateData() : [];
   
   return (
     <div className="min-h-screen w-full">
+      {/* DEBUG BANNER */}
+      {(debugMode || langDebugMode) && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          <strong className="font-bold">{t('debug.title')}</strong>
+          <div className="text-sm mt-2">
+            <div>Current Region: {currentData.displayName} ({currentData.id})</div>
+            <div>Available Biomass: {availableBiomass.toLocaleString()}t</div>
+            <div>SAF Production: {(realisticSafProduction * 1000000).toLocaleString()}L</div>
+            <div>Revenue: €{realisticRevenue}M</div>
+            <div>CO₂ Reduction: {realisticCO2Reduction.toLocaleString()}t</div>
+            {debugErrors.length > 0 && (
+              <div className="mt-2">
+                <strong>Data Issues:</strong>
+                <ul className="list-disc pl-5">
+                  {debugErrors.map((error, index) => (
+                    <li key={index}>{error}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Hero Section - Header Only */}
       <section className="mb-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl lg:text-5xl font-bold text-wine-charcoal mb-4">
-            {t('header.title').replace('{region}', currentData.name)}
+            {t('header.title', { region: currentData.displayName })}
           </h1>
           <p className="text-xl text-wine-charcoal/70 max-w-3xl mx-auto">
             {t('header.subtitle')}
           </p>
         </div>
 
-        {/* NEW: Points Clés Hero Section (Replacing old repetitive sections) */}
+        {/* Points Clés Hero Section */}
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
@@ -135,7 +162,7 @@ const OverviewTab = () => {
           <div className="space-y-4">
             <ValoorizationChart />
             
-            {/* NEW: Biomass Strategy Context (as requested) */}
+            {/* Biomass Strategy Context */}
             <div className="bg-wine-cream/10 border border-wine-gold/20 rounded-xl p-6 mt-6">
               <h4 className="text-lg font-bold text-wine-charcoal mb-4">{t('strategie.biomasse')}</h4>
               <div className="space-y-3 text-sm text-wine-charcoal/70">
@@ -178,32 +205,30 @@ const OverviewTab = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-burgundy mb-3">
-                {currentData.id === 'languedoc' ? '1er' : 'Premium'}
+                {currentData.ranking}
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">
-                {currentData.id === 'languedoc' ? t('region.viticole.francaise') : t('region.premium.champagne')}
+                {t(currentData.id === 'languedoc' ? 'region.viticole.francaise' : 'region.premium.champagne')}
               </div>
               <div className="text-sm text-wine-charcoal/60">
-                {currentData.id === 'languedoc' ? t('volume.production') : t('marche.prestige')}
+                {t(currentData.id === 'languedoc' ? 'volume.production' : 'marche.prestige')}
               </div>
             </div>
             
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-gold mb-3">
-                {currentData.id === 'languedoc' ? '38%' : '3%'}
+                {currentData.nationalProductionShare}%
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('production.nationale')}</div>
               <div className="text-sm text-wine-charcoal/60">
-                {currentData.id === 'languedoc' 
-                  ? `12 ${t('millions')} ${t('hectolitres')}` 
-                  : `3.5 ${t('millions')} ${t('hectolitres')} (${t('segment.premium')})`
-                }
+                {currentData.hectolitres} {t('millions')} {t('hectolitres')}
+                {currentData.id === 'champagne' && ` (${t('segment.premium')})`}
               </div>
             </div>
             
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-green mb-3">
-                €{currentData.id === 'languedoc' ? '3.2' : '5.2'}B
+                €{currentData.wineIndustryRevenue}B
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('ca.annuel')}</div>
               <div className="text-sm text-wine-charcoal/60">{t('secteur.vitivinicole')}</div>
