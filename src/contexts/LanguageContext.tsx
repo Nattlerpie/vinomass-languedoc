@@ -49,10 +49,11 @@ const translations = {
     'atj.efficiency': 'ATJ',
     'euro.per.liter': '€/L SAF',
     
-    // Points Clés (Vue d'ensemble)
+    // Points Clés (Vue d'ensemble) - UPDATED TERMINOLOGY
     'points.cles': 'Points Clés',
     'points.cles.subtitle': 'Indicateurs économiques et techniques essentiels',
     'superficie.viticole': 'Superficie viticole',
+    'production.dechets.vitivinicoles': 'Production annuelle de déchets vitivinicoles',
     'production.marc': 'Production annuelle de marc',
     'allocation.flux': 'Allocation Réaliste des Flux',
     'potentiel.saf': 'Potentiel SAF (70% efficacité)',
@@ -61,6 +62,7 @@ const translations = {
     'hectares': 'hectares',
     'tonnes': 'tonnes',
     'base.regionale': 'Base régionale',
+    'matiere.premiere.totale': 'Matière première totale (tous déchets)',
     'matiere.premiere': 'Matière première totale',
     'disponible.saf': 'disponible pour SAF',
     'vs.fossile': 'vs carburant fossile',
@@ -194,6 +196,7 @@ const translations = {
     'resources.revenuesPotential': 'Potentiel Revenus',
     'resources.allocationTitle': 'Allocation Réaliste des Flux',
     'resources.allocationSubtitle': 'Disponibilité effective pour la production de SAF',
+    'resources.total.biomass.regional': 'Total Biomasse Vitivinicole Régionale',
     'resources.totalProduction': 'Production totale théorique',
     'resources.totalPercentage': '100% des ressources biomasse',
     'resources.realisticAllocation': 'allocation réaliste',
@@ -393,10 +396,11 @@ const translations = {
     'atj.efficiency': 'ATJ',
     'euro.per.liter': '€/L SAF',
     
-    // Points Clés (Vue d'ensemble)
+    // Points Clés (Vue d'ensemble) - UPDATED TERMINOLOGY
     'points.cles': 'Key Points',
     'points.cles.subtitle': 'Essential economic and technical indicators',
     'superficie.viticole': 'Vineyard surface',
+    'production.dechets.vitivinicoles': 'Annual viticulture waste production',
     'production.marc': 'Annual pomace production',
     'allocation.flux': 'Realistic Flow Allocation',
     'potentiel.saf': 'SAF Potential (70% efficiency)',
@@ -405,6 +409,7 @@ const translations = {
     'hectares': 'hectares',
     'tonnes': 'tonnes',
     'base.regionale': 'Regional base',
+    'matiere.premiere.totale': 'Total raw material (all waste)',
     'matiere.premiere': 'Total raw material',
     'disponible.saf': 'available for SAF',
     'vs.fossile': 'vs fossil fuel',
@@ -538,6 +543,7 @@ const translations = {
     'resources.revenuesPotential': 'Revenue Potential',
     'resources.allocationTitle': 'Realistic Flow Allocation',
     'resources.allocationSubtitle': 'Effective availability for SAF production',
+    'resources.total.biomass.regional': 'Total Regional Viticulture Biomass',
     'resources.totalProduction': 'Total theoretical production',
     'resources.totalPercentage': '100% of biomass resources',
     'resources.realisticAllocation': 'realistic allocation',
