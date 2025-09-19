@@ -1,298 +1,168 @@
-import { useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { Filter, Download, BarChart3, PieChart as PieChartIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { useRegion } from "@/contexts/RegionContext";
+import React from 'react';
+import { useRegion } from '@/contexts/RegionContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const BiomassBreakdownChart = () => {
-  const { currentData } = useRegion();
-  const [chartType, setChartType] = useState<'bar' | 'pie'>('bar');
-  const [selectedFilter, setSelectedFilter] = useState<string>('all');
-  const [selectedSeason, setSelectedSeason] = useState<string>('all');
+  const { currentData, debugMode } = useRegion();
+  const { t, debugMode: langDebugMode } = useLanguage();
 
-  // Dynamic data based on region - total 266,000 tonnes
-  const totalBiomass = 266000;
-  const biomassData = [
-    {
-      type: 'Marc de raisin',
-      tonnage: Math.round(totalBiomass * 0.65), // 173,000 tonnes
-      percentage: 65,
-      season: 'Septembre-Novembre',
-      valorization: 'SAF (280L/tonne), Distillation, Compostage',
-      color: 'hsl(var(--wine-burgundy))',
-      communes: currentData.topCommunes?.slice(0, 4).map(c => c.name) || ['Commune 1', 'Commune 2', 'Commune 3', 'Commune 4']
-    },
-    {
-      type: 'Sous-produits liquides',
-      tonnage: Math.round(totalBiomass * 0.18), // 48,000 tonnes
-      percentage: 18,
-      season: 'Octobre-Mars',
-      valorization: 'Distillation, Épandage',
-      color: 'hsl(var(--wine-gold))',
-      communes: currentData.topCommunes?.slice(1, 5).map(c => c.name) || ['Commune 2', 'Commune 3', 'Commune 4', 'Commune 5']
-    },
-    {
-      type: 'Bois de taille',
-      tonnage: Math.round(totalBiomass * 0.10), // 27,000 tonnes
-      percentage: 10,
-      season: 'Toute année',
-      valorization: 'Biomasse énergétique, Compostage',
-      color: 'hsl(var(--wine-green))',
-      communes: currentData.topCommunes?.slice(0, 4).map(c => c.name) || ['Commune 1', 'Commune 2', 'Commune 3', 'Commune 4']
-    },
-    {
-      type: 'Sarments',
-      tonnage: Math.round(totalBiomass * 0.05), // 13,000 tonnes
-      percentage: 5,
-      season: 'Janvier-Mars',
-      valorization: 'Biomasse énergétique, Paillage',
-      color: 'hsl(var(--wine-charcoal))',
-      communes: currentData.topCommunes?.slice(2, 6).map(c => c.name) || ['Commune 3', 'Commune 4', 'Commune 5', 'Commune 6']
-    },
-    {
-      type: 'Rafles',
-      tonnage: Math.round(totalBiomass * 0.02), // 5,000 tonnes
-      percentage: 2,
-      season: 'Septembre-Octobre',
-      valorization: 'Compostage, Extraction tanins',
-      color: 'hsl(var(--wine-cream))',
-      communes: currentData.topCommunes?.slice(1, 5).map(c => c.name) || ['Commune 2', 'Commune 3', 'Commune 4', 'Commune 5']
+  // Regional biomass breakdown data
+  const getBiomassBreakdown = () => {
+    if (currentData.id === 'languedoc') {
+      return [
+        { name: t('marc.raisin'), value: 173000, color: 'wine-burgundy', percentage: 65 },
+        { name: t('sous.produits.liquides'), value: 45000, color: 'wine-gold', percentage: 17 },
+        { name: t('bois.taille'), value: 28000, color: 'wine-green', percentage: 11 },
+        { name: t('sarments'), value: 15000, color: 'wine-charcoal', percentage: 6 },
+        { name: t('rafles'), value: 5000, color: 'wine-burgundy/70', percentage: 2 }
+      ];
+    } else {
+      // Champagne proportional breakdown
+      return [
+        { name: t('marc.raisin'), value: 15600, color: 'wine-burgundy', percentage: 65 },
+        { name: t('sous.produits.liquides'), value: 4080, color: 'wine-gold', percentage: 17 },
+        { name: t('bois.taille'), value: 2640, color: 'wine-green', percentage: 11 },
+        { name: t('sarments'), value: 1440, color: 'wine-charcoal', percentage: 6 },
+        { name: t('rafles'), value: 240, color: 'wine-burgundy/70', percentage: 1 }
+      ];
     }
-  ];
-
-  const filteredData = biomassData.filter(item => {
-    if (selectedFilter !== 'all' && !item.type.toLowerCase().includes(selectedFilter.toLowerCase())) {
-      return false;
-    }
-    if (selectedSeason !== 'all' && !item.season.toLowerCase().includes(selectedSeason.toLowerCase())) {
-      return false;
-    }
-    return true;
-  });
-
-  const exportData = () => {
-    const csvContent = [
-      ['Type', 'Tonnage', 'Pourcentage', 'Saison', 'Valorisation', 'Communes principales'],
-      ...filteredData.map(item => [
-        item.type,
-        item.tonnage.toString(),
-        item.percentage.toString() + '%',
-        item.season,
-        item.valorization,
-        item.communes.join('; ')
-      ])
-    ];
-    
-    const csvString = csvContent.map(row => row.join(',')).join('\n');
-    const blob = new Blob([csvString], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'biomasse_breakdown.csv';
-    a.click();
-    window.URL.revokeObjectURL(url);
   };
 
-  const CustomTooltip = ({ active, payload, label }: any) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload;
-      return (
-        <div className="bg-white/95 backdrop-blur-sm p-4 rounded-lg shadow-elegant border border-wine-cream/30">
-          <p className="font-semibold text-wine-charcoal mb-2">{label}</p>
-          <p className="text-wine-burgundy">
-            <span className="font-medium">Tonnage:</span> {payload[0].value.toLocaleString('fr-FR')} tonnes
-          </p>
-          <p className="text-wine-gold">
-            <span className="font-medium">Pourcentage:</span> {data.percentage}%
-          </p>
-          <p className="text-wine-green">
-            <span className="font-medium">Saison:</span> {data.season}
-          </p>
-          <p className="text-wine-charcoal text-sm mt-2">
-            <span className="font-medium">Valorisation:</span> {data.valorization}
-          </p>
-        </div>
-      );
-    }
-    return null;
-  };
+  const biomassData = getBiomassBreakdown();
+  const totalBiomass = currentData.annualPomace;
+  const communesCount = currentData.topCommunes?.length || 6;
 
   return (
-    <Card className="bg-white/90 backdrop-blur-sm border-wine-cream/30 shadow-elegant">
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle className="flex items-center gap-3 text-xl text-wine-charcoal">
-            <BarChart3 className="text-wine-burgundy" size={24} />
-            Répartition Détaillée de la Biomasse
-          </CardTitle>
-          <div className="flex items-center gap-2">
-            {/* Chart Type Toggle */}
-            <div className="flex rounded-lg bg-wine-cream/20 p-1">
-              <Button
-                size="sm"
-                variant={chartType === 'bar' ? 'default' : 'ghost'}
-                onClick={() => setChartType('bar')}
-                className="h-8 px-3"
-              >
-                <BarChart3 size={16} />
-              </Button>
-              <Button
-                size="sm"
-                variant={chartType === 'pie' ? 'default' : 'ghost'}
-                onClick={() => setChartType('pie')}
-                className="h-8 px-3"
-              >
-                <PieChartIcon size={16} />
-              </Button>
-            </div>
-
-            {/* Filters */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="h-8">
-                  <Filter size={16} className="mr-2" />
-                  Type
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => setSelectedFilter('all')}>
-                  Tous les types
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setSelectedFilter('marc')}>
-                  Marc de raisin
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setSelectedFilter('liquides')}>
-                  Sous-produits liquides
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setSelectedFilter('bois')}>
-                  Bois de taille
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setSelectedFilter('sarments')}>
-                  Sarments
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="h-8">
-                  <Filter size={16} className="mr-2" />
-                  Saison
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => setSelectedSeason('all')}>
-                  Toutes saisons
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setSelectedSeason('septembre')}>
-                  Septembre-Novembre
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setSelectedSeason('octobre')}>
-                  Octobre-Mars
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setSelectedSeason('janvier')}>
-                  Janvier-Mars
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setSelectedSeason('toute')}>
-                  Toute année
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            {/* Export Button */}
-            <Button variant="outline" size="sm" onClick={exportData} className="h-8">
-              <Download size={16} className="mr-2" />
-              Export
-            </Button>
+    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
+      {/* DEBUG BANNER */}
+      {(debugMode || langDebugMode) && (
+        <div className="bg-blue-100 border border-blue-400 text-blue-700 px-3 py-2 rounded mb-4">
+          <strong className="font-bold">📊 BiomassBreakdown Debug</strong>
+          <div className="text-sm mt-1">
+            <div>Region: {currentData.displayName} ({currentData.id})</div>
+            <div>Total Biomass: {totalBiomass?.toLocaleString()}t</div>
+            <div>Breakdown: {biomassData.map(b => `${b.name} ${b.value.toLocaleString()}t`).join(', ')}</div>
+            <div>Sum Check: {biomassData.reduce((sum, b) => sum + b.value, 0).toLocaleString()}t</div>
           </div>
         </div>
-      </CardHeader>
-      
-      <CardContent>
-        <div className="h-96 mb-6">
-          <ResponsiveContainer width="100%" height="100%">
-            {chartType === 'bar' ? (
-              <BarChart data={filteredData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--wine-cream))" />
-                <XAxis 
-                  dataKey="type" 
-                  stroke="hsl(var(--wine-charcoal))"
-                  fontSize={12}
-                  angle={-45}
-                  textAnchor="end"
-                  height={80}
+      )}
+
+      <div className="text-center mb-12">
+        <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
+          {t('repartition.detaillee.biomasse')}
+        </h2>
+        <p className="text-lg text-wine-charcoal/70">
+          {t('analyse.regionale.subtitle')}
+        </p>
+      </div>
+
+      {/* Interactive Chart Area */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        
+        {/* Left: Biomass Types List */}
+        <div className="space-y-4">
+          <h3 className="text-xl font-bold text-wine-charcoal mb-6">
+            Types et Volumes
+          </h3>
+          
+          {biomassData.map((item, index) => (
+            <div
+              key={item.name}
+              className={`p-6 rounded-xl border-2 border-${item.color}/20 bg-gradient-to-r from-${item.color}/5 to-${item.color}/10 hover:scale-[1.02] transition-all duration-300 hover:shadow-lg group`}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className={`w-12 h-12 rounded-full bg-${item.color} group-hover:scale-110 transition-transform duration-300 shadow-lg`} />
+                  <div>
+                    <h4 className="font-bold text-wine-charcoal text-lg">
+                      {item.name}
+                    </h4>
+                    <div className="text-sm text-wine-charcoal/60">
+                      {item.percentage}% du total
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="text-right">
+                  <div className="text-2xl font-bold text-wine-charcoal group-hover:text-wine-burgundy transition-colors duration-300">
+                    {(item.value / 1000).toFixed(0)}k
+                  </div>
+                  <div className="text-sm text-wine-charcoal/70">
+                    {t('tonnes')}
+                  </div>
+                </div>
+              </div>
+              
+              {/* Progress Bar */}
+              <div className="mt-4 w-full bg-wine-cream/30 rounded-full h-2">
+                <div 
+                  className={`bg-${item.color} h-2 rounded-full transition-all duration-500 group-hover:bg-${item.color}/80`}
+                  style={{ width: `${item.percentage}%` }}
                 />
-                <YAxis stroke="hsl(var(--wine-charcoal))" fontSize={12} />
-                <Tooltip content={<CustomTooltip />} />
-                <Legend />
-                <Bar 
-                  dataKey="tonnage" 
-                  name="Tonnage (tonnes)"
-                  radius={[4, 4, 0, 0]}
-                >
-                  {filteredData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Bar>
-              </BarChart>
-            ) : (
-              <PieChart>
-                <Pie
-                  data={filteredData}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={({ type, percentage }) => `${type}: ${percentage}%`}
-                  outerRadius={120}
-                  fill="#8884d8"
-                  dataKey="tonnage"
-                >
-                  {filteredData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip content={<CustomTooltip />} />
-              </PieChart>
-            )}
-          </ResponsiveContainer>
+              </div>
+            </div>
+          ))}
         </div>
 
-        {/* Summary Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-6 border-t border-wine-cream/30">
-          <div className="text-center p-4 bg-gradient-subtle rounded-lg">
-            <div className="text-2xl font-bold text-wine-burgundy">
-              {filteredData.reduce((acc, item) => acc + item.tonnage, 0).toLocaleString('fr-FR')}
+        {/* Right: Summary Statistics */}
+        <div className="space-y-6">
+          <h3 className="text-xl font-bold text-wine-charcoal mb-6">
+            Vue d'ensemble
+          </h3>
+          
+          {/* Total Stats Grid */}
+          <div className="grid grid-cols-2 gap-6">
+            <div className="text-center p-6 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
+              <div className="text-3xl font-bold text-wine-burgundy mb-2">
+                {(totalBiomass / 1000).toFixed(0)}k
+              </div>
+              <div className="text-sm text-wine-charcoal/70">{t('tonnage.total')}</div>
             </div>
-            <div className="text-sm text-wine-charcoal/70">Tonnage total</div>
+            
+            <div className="text-center p-6 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
+              <div className="text-3xl font-bold text-wine-gold mb-2">
+                {biomassData.length}
+              </div>
+              <div className="text-sm text-wine-charcoal/70">{t('types.biomasse')}</div>
+            </div>
+            
+            <div className="text-center p-6 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
+              <div className="text-3xl font-bold text-wine-green mb-2">
+                100%
+              </div>
+              <div className="text-sm text-wine-charcoal/70">{t('part.total')}</div>
+            </div>
+            
+            <div className="text-center p-6 bg-gradient-subtle rounded-xl border border-wine-charcoal/10 hover:scale-105 transition-all duration-300">
+              <div className="text-3xl font-bold text-wine-charcoal mb-2">
+                {communesCount}
+              </div>
+              <div className="text-sm text-wine-charcoal/70">{t('communes.impliquees')}</div>
+            </div>
           </div>
-          <div className="text-center p-4 bg-gradient-subtle rounded-lg">
-            <div className="text-2xl font-bold text-wine-gold">
-              {filteredData.length}
+
+          {/* Regional Context */}
+          <div className="p-6 bg-wine-cream/10 border border-wine-gold/20 rounded-xl">
+            <h4 className="font-bold text-wine-charcoal mb-3">
+              Contexte Régional
+            </h4>
+            <div className="text-sm text-wine-charcoal/70 space-y-2">
+              <div>• <span className="font-medium">Région:</span> {currentData.displayName}</div>
+              <div>• <span className="font-medium">Surface viticole:</span> {(currentData.vineyardSurface / 1000).toFixed(0)}k {t('hectares')}</div>
+              <div>• <span className="font-medium">Production:</span> {currentData.nationalProductionShare}% nationale</div>
+              <div>• <span className="font-medium">Disponible SAF:</span> {(currentData.wasteAllocation.available / 1000).toFixed(0)}kt (30%)</div>
             </div>
-            <div className="text-sm text-wine-charcoal/70">Types de biomasse</div>
           </div>
-          <div className="text-center p-4 bg-gradient-subtle rounded-lg">
-            <div className="text-2xl font-bold text-wine-green">
-              {Math.round(filteredData.reduce((acc, item) => acc + item.percentage, 0))}%
-            </div>
-            <div className="text-sm text-wine-charcoal/70">Part du total</div>
-          </div>
-          <div className="text-center p-4 bg-gradient-subtle rounded-lg">
-            <div className="text-2xl font-bold text-wine-charcoal">
-              {new Set(filteredData.flatMap(item => item.communes)).size}
-            </div>
-            <div className="text-sm text-wine-charcoal/70">Communes impliquées</div>
+
+          {/* Export/Methodology Note */}
+          <div className="text-center p-4 bg-wine-charcoal/5 rounded-lg">
+            <p className="text-xs text-wine-charcoal/60 italic">
+              * {t('resources.disclaimer')}
+            </p>
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 
