@@ -29,12 +29,13 @@ const translations = {
     
     // Navigation & Header
     'header.title': 'SAF {region}',
-    'header.subtitle': 'Valorisation du marc de raisin en carburant aviation durable',
+    'header.subtitle': 'Valorisation des déchets vitivinicoles en carburant aviation durable',
     'nav.vue.ensemble': 'Vue d\'ensemble',
     'nav.economie': 'Économie',
     'nav.ressources': 'Ressources',
     'nav.partenaires': 'Partenaires',
     'nav.donnees': 'Données',
+    'nav.methodologie': 'Méthodologie',
     'nav.contact': 'Contact',
     
     // Technical Specifications
@@ -121,7 +122,7 @@ const translations = {
     'phase.production': 'Phase 3: Production (2025)',
     'financement.total': 'Financement: €180M total',
     
-    // Industry News
+    // Industry News - EXPANDED TRANSLATIONS
     'actualites.saf': 'Actualités Secteur SAF',
     'actualites.subtitle': 'Projets en développement dans la filière française',
     'investissement': 'Investissement',
@@ -132,6 +133,33 @@ const translations = {
     'budget.rd': 'Budget R&D',
     'contexte.reglementaire': 'Contexte Réglementaire',
     'projet.inscrit': 'Notre projet s\'inscrit dans cette dynamique nationale → Voir onglet Économie',
+    
+    // Industry Players - NEW
+    'industry.haffner.title': 'HAFFNER ENERGY',
+    'industry.haffner.subtitle': 'Bioraffinerie Marolles-en-Hurepoix (Essonne)',
+    'industry.lanzajet.title': 'LANZAJET',
+    'industry.lanzajet.subtitle': 'Freedom Pines Fuels - Partenariat Total Energies',
+    'industry.lanzajet.first.commercial': 'Premier site commercial ATJ en Europe',
+    'industry.airbus.title': 'AIRBUS',
+    'industry.airbus.subtitle': 'Programme ZEROe - Carburants Verts',
+    'industry.airbus.hydrogen.objective': 'Avion hydrogène 2035',
+    'industry.airbus.saf.transition': 'SAF transition',
+    'industry.airbus.partnerships': 'Partenariats',
+    'industry.airbus.airports': '15 aéroports français équipés',
+    'industry.total.title': 'TOTAL ENERGIES',
+    'industry.total.subtitle': 'Stratégie SAF France 2030',
+    'industry.total.biorefineries': 'Bioraffineries',
+    'industry.total.sites.modernized': '6 sites modernisés',
+    'industry.total.partnerships': 'Partenariats',
+    'industry.total.biomass.suppliers': '25 fournisseurs biomasse',
+    
+    // Technical Terms - NEW
+    'feedstock': 'Feedstock',
+    'certification': 'Certification',
+    'approved': 'approuvée',
+    'capacity': 'capacité',
+    'waste.agricultural.ethanol': 'Éthanol de déchets agricoles',
+    'biomass.to.liquids': 'Biomasse-to-liquids (BTL)',
     
     // Units and Common Terms
     'millions': 'millions',
@@ -343,12 +371,13 @@ const translations = {
     
     // Navigation & Header
     'header.title': 'SAF {region}',
-    'header.subtitle': 'Valorization of grape pomace into sustainable aviation fuel',
+    'header.subtitle': 'Valorization of viticulture waste into sustainable aviation fuel',
     'nav.vue.ensemble': 'Overview',
     'nav.economie': 'Economics',
     'nav.ressources': 'Resources',
     'nav.partenaires': 'Partners',
     'nav.donnees': 'Data',
+    'nav.methodologie': 'Methodology',
     'nav.contact': 'Contact',
     
     // Technical Specifications
@@ -435,7 +464,7 @@ const translations = {
     'phase.production': 'Phase 3: Production (2025)',
     'financement.total': 'Financing: €180M total',
     
-    // Industry News
+    // Industry News - EXPANDED TRANSLATIONS
     'actualites.saf': 'SAF Industry News',
     'actualites.subtitle': 'Projects in development in the French supply chain',
     'investissement': 'Investment',
@@ -446,6 +475,33 @@ const translations = {
     'budget.rd': 'R&D Budget',
     'contexte.reglementaire': 'Regulatory Context',
     'projet.inscrit': 'Our project fits into this national dynamic → See Economics tab',
+    
+    // Industry Players - NEW
+    'industry.haffner.title': 'HAFFNER ENERGY',
+    'industry.haffner.subtitle': 'Biorefinery Marolles-en-Hurepoix (Essonne)',
+    'industry.lanzajet.title': 'LANZAJET',
+    'industry.lanzajet.subtitle': 'Freedom Pines Fuels - Total Energies Partnership',
+    'industry.lanzajet.first.commercial': 'First commercial ATJ site in Europe',
+    'industry.airbus.title': 'AIRBUS',
+    'industry.airbus.subtitle': 'ZEROe Programme - Green Fuels',
+    'industry.airbus.hydrogen.objective': 'Hydrogen aircraft 2035',
+    'industry.airbus.saf.transition': 'SAF transition',
+    'industry.airbus.partnerships': 'Partnerships',
+    'industry.airbus.airports': '15 French airports equipped',
+    'industry.total.title': 'TOTAL ENERGIES',
+    'industry.total.subtitle': 'SAF France 2030 Strategy',
+    'industry.total.biorefineries': 'Biorefineries',
+    'industry.total.sites.modernized': '6 modernized sites',
+    'industry.total.partnerships': 'Partnerships',
+    'industry.total.biomass.suppliers': '25 biomass suppliers',
+    
+    // Technical Terms - NEW
+    'feedstock': 'Feedstock',
+    'certification': 'Certification',
+    'approved': 'approved',
+    'capacity': 'capacity',
+    'waste.agricultural.ethanol': 'Agricultural waste ethanol',
+    'biomass.to.liquids': 'Biomass-to-liquids (BTL)',
     
     // Units and Common Terms
     'millions': 'million',
