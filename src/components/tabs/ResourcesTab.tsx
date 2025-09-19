@@ -77,8 +77,8 @@ export default function ResourcesTab() {
             {/* Flux Protégés */}
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-red-200 hover:scale-105 transition-all duration-300">
               <div className="text-4xl mb-4">❌</div>
-              <h4 className="text-xl font-bold text-wine-charcoal mb-3">Flux Protégés</h4>
-              <div className="text-sm text-wine-charcoal/60 mb-4">Non disponible</div>
+              <h4 className="text-xl font-bold text-wine-charcoal mb-3">{t('flux.proteges')}</h4>
+              <div className="text-sm text-wine-charcoal/60 mb-4">{t('non.disponible')}</div>
               
               <div className="text-4xl font-bold text-red-600 mb-2">
                 {currentData.wasteAllocation?.percentageProtected}%
@@ -88,17 +88,17 @@ export default function ResourcesTab() {
               </div>
               
               <div className="text-left text-sm text-wine-charcoal/70 space-y-1">
-                <div>• Compost pour vignobles: {Math.round(currentData.wasteAllocation?.protected * 0.56).toLocaleString()}t</div>
-                <div>• Biogaz énergétique: {Math.round(currentData.wasteAllocation?.protected * 0.33).toLocaleString()}t</div>
-                <div>• Extraction premium: {Math.round(currentData.wasteAllocation?.protected * 0.11).toLocaleString()}t</div>
+                <div>• {t('compost.vignobles')}: {Math.round(currentData.wasteAllocation?.protected * 0.56).toLocaleString()}t</div>
+                <div>• {t('biogaz.energetique')}: {Math.round(currentData.wasteAllocation?.protected * 0.33).toLocaleString()}t</div>
+                <div>• {t('extraction.premium')}: {Math.round(currentData.wasteAllocation?.protected * 0.11).toLocaleString()}t</div>
               </div>
             </div>
 
             {/* Flux Négociables */}
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-yellow-200 hover:scale-105 transition-all duration-300">
               <div className="text-4xl mb-4">⚠️</div>
-              <h4 className="text-xl font-bold text-wine-charcoal mb-3">Flux Négociables</h4>
-              <div className="text-sm text-wine-charcoal/60 mb-4">{t('partenariat')}s requis</div>
+              <h4 className="text-xl font-bold text-wine-charcoal mb-3">{t('flux.negociables')}</h4>
+              <div className="text-sm text-wine-charcoal/60 mb-4">{t('partenariats.requis')}</div>
               
               <div className="text-4xl font-bold text-yellow-600 mb-2">
                 {currentData.wasteAllocation?.percentageNegotiable}%
@@ -109,14 +109,14 @@ export default function ResourcesTab() {
               
               <div className="text-left text-sm text-wine-charcoal/70 space-y-1">
                 <div>• {t('surplus.excedents')}: {Math.round(currentData.wasteAllocation?.negotiable * 0.61).toLocaleString()}t</div>
-                <div>• Excédent compost: {Math.round(currentData.wasteAllocation?.negotiable * 0.39).toLocaleString()}t</div>
+                <div>• {t('excedent.compost')}: {Math.round(currentData.wasteAllocation?.negotiable * 0.39).toLocaleString()}t</div>
               </div>
             </div>
 
             {/* Flux Disponibles */}
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-green-200 hover:scale-105 transition-all duration-300">
               <div className="text-4xl mb-4">✅</div>
-              <h4 className="text-xl font-bold text-wine-charcoal mb-3">Flux Disponibles</h4>
+              <h4 className="text-xl font-bold text-wine-charcoal mb-3">{t('flux.disponibles')}</h4>
               <div className="text-sm text-wine-charcoal/60 mb-4">{t('disponible')} pour SAF</div>
               
               <div className="text-4xl font-bold text-green-600 mb-2">
@@ -127,8 +127,8 @@ export default function ResourcesTab() {
               </div>
               
               <div className="text-left text-sm text-wine-charcoal/70 space-y-1">
-                <div>• Coûts d'élimination actuels: {Math.round(currentData.wasteAllocation?.available * 0.625).toLocaleString()}t</div>
-                <div>• Boues de traitement: {Math.round(currentData.wasteAllocation?.available * 0.375).toLocaleString()}t</div>
+                <div>• {t('couts.elimination')}: {Math.round(currentData.wasteAllocation?.available * 0.625).toLocaleString()}t</div>
+                <div>• {t('boues.traitement')}: {Math.round(currentData.wasteAllocation?.available * 0.375).toLocaleString()}t</div>
               </div>
             </div>
           </div>
@@ -171,47 +171,79 @@ export default function ResourcesTab() {
             </p>
           </div>
 
-          {/* Communes Breakdown */}
+          {/* Communes Chart */}
           <div>
             <h3 className="text-2xl font-bold text-wine-charcoal mb-6 text-center">
-              {t('communes.principales')}
+              {t('communes.principales')} - Comparaison Visuelle
             </h3>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Horizontal Bar Chart for Communes */}
+            <div className="space-y-4 max-w-4xl mx-auto">
               {currentData.topCommunes?.map((commune, index) => (
                 <div
                   key={commune.name}
-                  className="p-6 bg-gradient-subtle rounded-xl border border-wine-cream/40 hover:border-wine-burgundy/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg group"
+                  className="group hover:scale-[1.01] transition-all duration-300"
                 >
-                  <div className="flex items-center justify-between mb-4">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg transition-transform duration-300 group-hover:scale-110 ${
-                      index === 0 ? 'bg-wine-burgundy shadow-wine' : 
-                      index === 1 ? 'bg-wine-gold shadow-elegant' : 
-                      index === 2 ? 'bg-wine-green shadow-elegant' :
-                      index === 3 ? 'bg-wine-charcoal shadow-elegant' :
-                      index === 4 ? 'bg-wine-burgundy/70 shadow-elegant' :
-                      'bg-wine-gold/70 shadow-elegant'
-                    }`}>
-                      {index + 1}
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center space-x-3">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm ${
+                        index === 0 ? 'bg-wine-burgundy' : 
+                        index === 1 ? 'bg-wine-gold' : 
+                        index === 2 ? 'bg-wine-green' :
+                        index === 3 ? 'bg-wine-charcoal' :
+                        index === 4 ? 'bg-wine-burgundy/70' :
+                        'bg-wine-gold/70'
+                      }`}>
+                        {index + 1}
+                      </div>
+                      <span className="font-medium text-wine-charcoal text-lg">
+                        {commune.name}
+                      </span>
+                    </div>
+                    <div className="text-right">
+                      <span className="font-bold text-wine-charcoal text-lg">
+                        {(commune.tonnage / 1000).toFixed(1)}k {t('tonnes')}
+                      </span>
+                      <span className="text-sm text-wine-charcoal/60 ml-2">
+                        ({commune.percentage?.toFixed(0)}%)
+                      </span>
                     </div>
                   </div>
                   
-                  <h4 className="font-bold text-wine-charcoal text-lg mb-2">
-                    {commune.name}
-                  </h4>
-                  
-                  <div className="text-right mb-3">
-                    <span className="text-2xl font-bold text-wine-charcoal group-hover:text-wine-burgundy transition-colors duration-300">
-                      {(commune.tonnage / 1000).toFixed(1)}k
-                    </span>
-                    <span className="text-sm text-wine-charcoal/70 ml-2">{t('tonnes')}</span>
-                  </div>
-                  
-                  <div className="text-sm text-wine-charcoal/60">
-                    {commune.percentage?.toFixed(0)}% {t('production.regionale.percent')}
+                  {/* Bar */}
+                  <div className="w-full bg-wine-cream/30 rounded-full h-6 relative overflow-hidden">
+                    <div 
+                      className={`h-6 rounded-full transition-all duration-1000 ease-out group-hover:opacity-80 ${
+                        index === 0 ? 'bg-wine-burgundy' : 
+                        index === 1 ? 'bg-wine-gold' : 
+                        index === 2 ? 'bg-wine-green' :
+                        index === 3 ? 'bg-wine-charcoal' :
+                        index === 4 ? 'bg-wine-burgundy/70' :
+                        'bg-wine-gold/70'
+                      }`}
+                      style={{ 
+                        width: `${Math.max((commune.percentage || 0), 2)}%`,
+                        animationDelay: `${index * 150}ms`
+                      }}
+                    >
+                      {/* Percentage inside bar */}
+                      {(commune.percentage || 0) > 3 && (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <span className="text-white font-bold text-xs">
+                            {commune.percentage?.toFixed(0)}%
+                          </span>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
+            </div>
+            
+            {/* Summary */}
+            <div className="mt-6 text-center text-sm text-wine-charcoal/60">
+              Total: {currentData.topCommunes?.reduce((sum, c) => sum + (c.percentage || 0), 0).toFixed(0)}% {t('production.regionale.percent')} 
+              | {currentData.topCommunes?.length} {t('communes.principales').toLowerCase()}
             </div>
           </div>
         </div>
