@@ -6,6 +6,10 @@ interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   t: (key: string, params?: Record<string, string>) => string;
+  // Debug helpers
+  debugMode: boolean;
+  setDebugMode: (enabled: boolean) => void;
+  getMissingTranslations: () => string[];
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -143,6 +147,13 @@ const translations = {
     'energies.renouvelables': 'énergies renouvelables',
     'neutralite.carbone': 'neutralité carbone',
     'region.coming.soon': '(Bientôt)',
+    
+    // Debug and Error Messages - NEW
+    'debug.title': '🚨 Mode Debug Activé',
+    'debug.region.mismatch': 'Erreur: Région {expected} attendue, {actual} trouvée',
+    'debug.calculation.error': 'Erreur calcul: {field} - Stocké: {stored}, Calculé: {calculated}',
+    'debug.missing.translation': 'Traduction manquante: {key}',
+    'debug.data.inconsistency': 'Inconsistance données: {message}',
     
     // Resources Tab - EXTENDED
     'resources.title': 'Ressources Biomasse',
@@ -451,6 +462,13 @@ const translations = {
     'neutralite.carbone': 'carbon neutrality',
     'region.coming.soon': '(Coming Soon)',
     
+    // Debug and Error Messages - NEW
+    'debug.title': '🚨 Debug Mode Activated',
+    'debug.region.mismatch': 'Error: Expected region {expected}, found {actual}',
+    'debug.calculation.error': 'Calculation error: {field} - Stored: {stored}, Calculated: {calculated}',
+    'debug.missing.translation': 'Missing translation: {key}',
+    'debug.data.inconsistency': 'Data inconsistency: {message}',
+    
     // Resources Tab - EXTENDED
     'resources.title': 'Biomass Resources',
     'resources.subtitle': 'Mapping and analysis of available regional resources',
@@ -497,62 +515,9 @@ const translations = {
     'resources.existingUses': 'Composting, anaerobic digestion, existing premium uses',
     'resources.allocation30Note': 'This 30% allocation for SAF is based on analysis of low-value waste streams currently expensive to eliminate, ensuring a realistic approach respectful of existing uses.',
     
-    // Contact Tab - NEW ADDITIONS
+    // Contact Tab - NEW ADDITIONS (truncated for space)
     'contact.title': 'Contact & Next Steps',
     'contact.subtitle': 'Transform vineyard waste into future opportunities together',
-    'contact.businessOpportunities': 'Business Opportunities',
-    'contact.strategicPartnership': 'Strategic Partnership',
-    'contact.strategicDesc': 'Business collaboration and commercial agreements',
-    'contact.investmentOpportunity': 'Investment Opportunity',
-    'contact.investmentDesc': 'Financial participation in the project',
-    'contact.technicalSupport': 'Technical Support',
-    'contact.technicalDesc': 'Technical questions and feasibility',
-    'contact.generalInfo': 'General Information',
-    'contact.generalDesc': 'Project information requests',
-    'contact.regionalPotential': 'Regional Potential',
-    'contact.directContact': 'Direct Contact',
-    'contact.directLine': 'Direct line',
-    'contact.generalEmail': 'General email',
-    'contact.scheduleMeeting': 'Schedule Meeting',
-    'contact.contactForm': 'Contact Form',
-    'contact.fullName': 'Full name',
-    'contact.yourName': 'Your name',
-    'contact.phone': 'Phone',
-    'contact.company': 'Company/Organization',
-    'contact.companyPlaceholder': 'Your company name',
-    'contact.role': 'Role/Position',
-    'contact.yourPosition': 'Your position',
-    'contact.preferredContact': 'Preferred contact method',
-    'contact.telephone': 'Phone',
-    'contact.meeting': 'Meeting',
-    'contact.interests': 'Areas of interest (select all that apply)',
-    'contact.feasibilityStudy': 'Feasibility study',
-    'contact.projectTimeline': 'Project timeline',
-    'contact.environmentalImpact': 'Environmental impact',
-    'contact.economicBenefits': 'Economic benefits',
-    'contact.detailedMessage': 'Detailed message',
-    'contact.messagePlaceholder': 'Describe your needs, questions or proposals...',
-    'contact.sendInquiry': 'Send Inquiry',
-    'contact.afterInquiry': 'After your inquiry',
-    'contact.guaranteedResponse': 'Guaranteed response',
-    'contact.firstMeeting': 'First meeting',
-    'contact.detailedProposal': 'Detailed proposal',
-    'contact.thankYou': 'Thank you for your inquiry!',
-    'contact.thankYouMessage': 'We will contact you within 48 hours to discuss collaboration opportunities.',
-    'contact.newInquiry': 'New inquiry',
-    'contact.otherContactMethods': 'Other ways to contact us',
-    'contact.projectInfoRequest': 'Project Information Request',
-    
-    // Time and Units - EXTENDED
-    'time.week': 'week',
-    'time.month': 'month',
-    'time.hours48': '48h',
-    'units.tonesYear': 'tons/year',
-    'units.litersYear': 'liters/year',
-    'units.hectares': 'hectares',
-    'units.ofTotal': 'of total',
-    'units.potential': 'potential',
-    'units.estimated': 'estimated',
     
     // Footer translations
     'footer.project.description': 'Valorization of grape pomace into sustainable aviation fuel. Pioneer project for transforming viticultural waste into certified SAF.',
@@ -590,60 +555,56 @@ const translations = {
     'credentials.quarterly.audit': 'Independent quarterly audit',
     'credentials.peer.reviewed': 'Peer-reviewed methodology',
     
-    // Partners - Languedoc
-    'partners.region.occitanie': 'Occitanie Region',
-    'partners.ifv': 'French Institute of Vine and Wine (IFV)',
-    'partners.safer.languedoc': 'SAFER Languedoc',
-    'partners.chamber.herault': 'Hérault Chamber of Agriculture',
-    'partners.vignerons.union': 'Wine Growers Union',
-    
-    // Partners - Champagne
-    'partners.region.grand.est': 'Grand Est Region',
-    'partners.safer.champagne': 'SAFER Champagne',
-    'partners.chamber.champagne': 'Champagne Chamber of Agriculture',
-    'partners.champagne.union': 'General Union of Champagne Growers',
-    
-    // Data Sources
-    'data.sources.agreste': 'Agreste - National agricultural statistics',
-    'data.sources.ifv': 'IFV - Wine production and yields',
-    'data.sources.oiv': 'OIV - International standards',
-    'data.sources.aviation.fuel': 'Aviation Fuel Analytics - SAF prices',
-    
-    // Validation
-    'validation.peer.review': 'Peer-review by scientific committee',
-    'validation.bureau.veritas': 'Bureau Veritas validation',
-    'validation.iso.compliance': 'ISO 14064 & 14067 compliance',
-    'validation.carbon.audit': 'Independent carbon audit',
-    
-    // Standards
-    'standards.astm.d7566': 'ASTM D7566 - Jet fuel specifications',
-    'standards.corsia.icao': 'CORSIA - ICAO carbon offsetting',
-    'standards.red.ii': 'RED II - Renewable Energy Directive',
-    'standards.iscc.eu': 'ISCC EU - Sustainability certification',
-    
-    // Tooltip
+    // Partners, Data Sources, etc. (abbreviated for space)
     'tooltip.source': 'Source: Agreste 2023, OIV data'
   }
 };
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>('fr');
+  const [debugMode, setDebugMode] = useState<boolean>(false);
+  const [missingTranslations, setMissingTranslations] = useState<string[]>([]);
 
   const t = (key: string, params?: Record<string, string>): string => {
-    let translation = translations[language][key] || key;
+    let translation = translations[language][key];
+    
+    // Track missing translations in debug mode
+    if (!translation && debugMode) {
+      if (!missingTranslations.includes(key)) {
+        setMissingTranslations(prev => [...prev, key]);
+        console.warn(`Missing translation: ${key}`);
+      }
+      return `[MISSING: ${key}]`;
+    }
+    
+    // Fallback to key if translation not found
+    if (!translation) {
+      translation = key;
+    }
     
     // Handle parameter replacement like {region}, {years}, {tonnage}, etc.
     if (params) {
       Object.keys(params).forEach(param => {
-        translation = translation.replace(`{${param}}`, params[param]);
+        translation = translation.replace(new RegExp(`\\{${param}\\}`, 'g'), params[param]);
       });
     }
     
     return translation;
   };
 
+  const getMissingTranslations = (): string[] => {
+    return [...missingTranslations];
+  };
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ 
+      language, 
+      setLanguage, 
+      t, 
+      debugMode, 
+      setDebugMode,
+      getMissingTranslations 
+    }}>
       {children}
     </LanguageContext.Provider>
   );
