@@ -1,12 +1,28 @@
 import { useRegion } from '@/contexts/RegionContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const RegionalMap = () => {
-  const { currentData } = useRegion();
+  const { currentData, debugMode } = useRegion();
+  const { t, debugMode: langDebugMode } = useLanguage();
+  
   const departments = currentData.departments || [];
+
   return (
     <div className="bg-white/90 backdrop-blur-sm rounded-xl p-8 shadow-elegant border border-wine-cream/30 hover:shadow-wine transition-all duration-500">
+      {/* DEBUG BANNER */}
+      {(debugMode || langDebugMode) && (
+        <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-3 py-2 rounded mb-4">
+          <strong className="font-bold">🔍 RegionalMap Debug</strong>
+          <div className="text-sm mt-1">
+            <div>Region: {currentData.displayName} ({currentData.id})</div>
+            <div>Departments: {departments.length} loaded</div>
+            <div>Data: {departments.map(d => `${d.name} (${d.percentage}%)`).join(', ')}</div>
+          </div>
+        </div>
+      )}
+
       <h3 className="text-2xl font-bold text-wine-charcoal mb-8 text-center text-shadow">
-        Répartition Départementale de la Production
+        {t('repartition.departementale')}
       </h3>
       
       <div className="grid grid-cols-2 gap-6">
@@ -27,7 +43,7 @@ const RegionalMap = () => {
                 {dept.percentage}%
               </div>
               <div className="text-base text-wine-charcoal/70">
-                de la production régionale
+                {t('production.regionale')}
               </div>
             </div>
           </div>
