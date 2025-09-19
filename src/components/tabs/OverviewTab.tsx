@@ -255,49 +255,49 @@ const OverviewTab = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             {/* Haffner Energy */}
             <div className="bg-gradient-subtle rounded-xl p-6 border border-wine-burgundy/10">
-              <h3 className="text-xl font-bold text-wine-burgundy mb-3">HAFFNER ENERGY</h3>
-              <h4 className="text-lg font-semibold text-wine-charcoal mb-3">Bioraffinerie Marolles-en-Hurepoix (Essonne)</h4>
+              <h3 className="text-xl font-bold text-wine-burgundy mb-3">{t('industry.haffner.title')}</h3>
+              <h4 className="text-lg font-semibold text-wine-charcoal mb-3">{t('industry.haffner.subtitle')}</h4>
               <div className="space-y-2 text-sm text-wine-charcoal/70">
                 <div>• <span className="font-medium">{t('investissement')}:</span> €180M</div>
                 <div>• <span className="font-medium">{t('capacite')}:</span> 50,000 {t('tonnes.saf.an')} {t('des.2025')}</div>
-                <div>• <span className="font-medium">{t('technologie')}:</span> Biomasse-to-liquids (BTL)</div>
+                <div>• <span className="font-medium">{t('technologie')}:</span> {t('biomass.to.liquids')}</div>
                 <div>• <span className="font-medium">{t('partenariat')}:</span> Région Île-de-France</div>
               </div>
             </div>
 
             {/* LANZAJET */}
             <div className="bg-gradient-subtle rounded-xl p-6 border border-wine-gold/10">
-              <h3 className="text-xl font-bold text-wine-gold mb-3">LANZAJET</h3>
-              <h4 className="text-lg font-semibold text-wine-charcoal mb-3">Freedom Pines Fuels - Partenariat Total Energies</h4>
+              <h3 className="text-xl font-bold text-wine-gold mb-3">{t('industry.lanzajet.title')}</h3>
+              <h4 className="text-lg font-semibold text-wine-charcoal mb-3">{t('industry.lanzajet.subtitle')}</h4>
               <div className="space-y-2 text-sm text-wine-charcoal/70">
-                <div>• <span className="font-medium">Premier site commercial ATJ en Europe</span></div>
+                <div>• <span className="font-medium">{t('industry.lanzajet.first.commercial')}</span></div>
                 <div>• <span className="font-medium">{t('capacite')}:</span> 125,000 {t('tonnes.saf.an')}</div>
-                <div>• <span className="font-medium">Feedstock:</span> Éthanol de déchets agricoles</div>
-                <div>• <span className="font-medium">Certification:</span> ASTM D7566 approuvée</div>
+                <div>• <span className="font-medium">{t('feedstock')}:</span> {t('waste.agricultural.ethanol')}</div>
+                <div>• <span className="font-medium">{t('certification')}:</span> ASTM D7566 {t('approved')}</div>
               </div>
             </div>
 
             {/* Airbus */}
             <div className="bg-gradient-subtle rounded-xl p-6 border border-wine-green/10">
-              <h3 className="text-xl font-bold text-wine-green mb-3">AIRBUS</h3>
-              <h4 className="text-lg font-semibold text-wine-charcoal mb-3">Programme ZEROe - Carburants Verts</h4>
+              <h3 className="text-xl font-bold text-wine-green mb-3">{t('industry.airbus.title')}</h3>
+              <h4 className="text-lg font-semibold text-wine-charcoal mb-3">{t('industry.airbus.subtitle')}</h4>
               <div className="space-y-2 text-sm text-wine-charcoal/70">
-                <div>• <span className="font-medium">{t('objectif')}:</span> Avion hydrogène 2035</div>
-                <div>• <span className="font-medium">SAF transition:</span> 10% {t('minimum.2030')}</div>
-                <div>• <span className="font-medium">Partenariats:</span> 15 aéroports français équipés</div>
+                <div>• <span className="font-medium">{t('objectif')}:</span> {t('industry.airbus.hydrogen.objective')}</div>
+                <div>• <span className="font-medium">{t('industry.airbus.saf.transition')}:</span> 10% {t('minimum.2030')}</div>
+                <div>• <span className="font-medium">{t('industry.airbus.partnerships')}:</span> {t('industry.airbus.airports')}</div>
                 <div>• <span className="font-medium">{t('budget.rd')}:</span> €15 {t('milliards')} {t('mobilises')}</div>
               </div>
             </div>
 
             {/* Total Energies */}
             <div className="bg-gradient-subtle rounded-xl p-6 border border-wine-burgundy/10">
-              <h3 className="text-xl font-bold text-wine-burgundy mb-3">TOTAL ENERGIES</h3>
-              <h4 className="text-lg font-semibold text-wine-charcoal mb-3">Stratégie SAF France 2030</h4>
+              <h3 className="text-xl font-bold text-wine-burgundy mb-3">{t('industry.total.title')}</h3>
+              <h4 className="text-lg font-semibold text-wine-charcoal mb-3">{t('industry.total.subtitle')}</h4>
               <div className="space-y-2 text-sm text-wine-charcoal/70">
                 <div>• <span className="font-medium">{t('investissement')}:</span> €500M {t('sur.ans', { years: '5' })}</div>
-                <div>• <span className="font-medium">{t('objectif')}:</span> 1.5M {t('tonnes.saf.an')} capacité</div>
-                <div>• <span className="font-medium">Bioraffineries:</span> 6 sites {t('modernises')}</div>
-                <div>• <span className="font-medium">Partenariats:</span> 25 {t('fournisseurs.biomasse')}</div>
+                <div>• <span className="font-medium">{t('objectif')}:</span> 1.5M {t('tonnes.saf.an')} {t('capacity')}</div>
+                <div>• <span className="font-medium">{t('industry.total.biorefineries')}:</span> {t('industry.total.sites.modernized')}</div>
+                <div>• <span className="font-medium">{t('industry.total.partnerships')}:</span> {t('industry.total.biomass.suppliers')}</div>
               </div>
             </div>
           </div>
