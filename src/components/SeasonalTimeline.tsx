@@ -1,300 +1,311 @@
-import { useState } from 'react';
-import { Calendar, Leaf, Droplets, TreePine, Grape } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import React, { useState } from 'react';
+import { useRegion } from '@/contexts/RegionContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-const seasonalData = [
-  {
-    month: 'Janvier',
-    activities: [
-      { type: 'Sarments', icon: TreePine, intensity: 80, color: 'wine-charcoal', description: 'Taille hivernale, récupération sarments' },
-      { type: 'Maintenance', icon: Calendar, intensity: 60, color: 'wine-green', description: 'Maintenance équipements valorisation' }
-    ]
-  },
-  {
-    month: 'Février',
-    activities: [
-      { type: 'Sarments', icon: TreePine, intensity: 90, color: 'wine-charcoal', description: 'Pic de taille, collecte maximale' },
-      { type: 'Planning', icon: Calendar, intensity: 40, color: 'wine-green', description: 'Préparation campagne suivante' }
-    ]
-  },
-  {
-    month: 'Mars',
-    activities: [
-      { type: 'Sarments', icon: TreePine, intensity: 70, color: 'wine-charcoal', description: 'Fin de taille, dernières collectes' },
-      { type: 'Lies', icon: Droplets, intensity: 50, color: 'wine-gold', description: 'Traitement lies de vinification' }
-    ]
-  },
-  {
-    month: 'Avril',
-    activities: [
-      { type: 'Maintenance', icon: Calendar, intensity: 80, color: 'wine-green', description: 'Révision installations avant campagne' },
-      { type: 'Formation', icon: Calendar, intensity: 30, color: 'wine-burgundy', description: 'Formation équipes saisonnières' }
-    ]
-  },
-  {
-    month: 'Mai',
-    activities: [
-      { type: 'Préparation', icon: Calendar, intensity: 60, color: 'wine-green', description: 'Préparation logistique vendanges' },
-      { type: 'Contrats', icon: Calendar, intensity: 40, color: 'wine-burgundy', description: 'Négociation contrats collecte' }
-    ]
-  },
-  {
-    month: 'Juin',
-    activities: [
-      { type: 'Veille', icon: Calendar, intensity: 20, color: 'wine-green', description: 'Surveillance état vignoble' },
-      { type: 'Optimisation', icon: Calendar, intensity: 30, color: 'wine-burgundy', description: 'Optimisation circuits collecte' }
-    ]
-  },
-  {
-    month: 'Juillet',
-    activities: [
-      { type: 'Préparation', icon: Calendar, intensity: 40, color: 'wine-green', description: 'Finalisation organisation vendanges' },
-      { type: 'Tests', icon: Calendar, intensity: 50, color: 'wine-burgundy', description: 'Tests équipements de transformation' }
-    ]
-  },
-  {
-    month: 'Août',
-    activities: [
-      { type: 'Mobilisation', icon: Calendar, intensity: 70, color: 'wine-green', description: 'Mobilisation équipes et matériel' },
-      { type: 'Coordination', icon: Calendar, intensity: 60, color: 'wine-burgundy', description: 'Coordination avec domaines partenaires' }
-    ]
-  },
-  {
-    month: 'Septembre',
-    activities: [
-      { type: 'Marc', icon: Grape, intensity: 100, color: 'wine-burgundy', description: 'PEAK: Collecte marc de raisin (85%)' },
-      { type: 'Rafles', icon: Leaf, intensity: 80, color: 'wine-charcoal', description: 'Collecte rafles de vendange' },
-      { type: 'Lies', icon: Droplets, intensity: 40, color: 'wine-gold', description: 'Premières lies de fermentation' }
-    ]
-  },
-  {
-    month: 'Octobre',
-    activities: [
-      { type: 'Marc', icon: Grape, intensity: 90, color: 'wine-burgundy', description: 'Fin collecte marc, traitement intensif' },
-      { type: 'Lies', icon: Droplets, intensity: 70, color: 'wine-gold', description: 'Traitement lies fermentation' },
-      { type: 'Stockage', icon: Calendar, intensity: 80, color: 'wine-green', description: 'Stockage biomasse transformée' }
-    ]
-  },
-  {
-    month: 'Novembre',
-    activities: [
-      { type: 'Marc', icon: Grape, intensity: 60, color: 'wine-burgundy', description: 'Derniers traitements marc tardif' },
-      { type: 'Lies', icon: Droplets, intensity: 80, color: 'wine-gold', description: 'Peak traitement sous-produits liquides' },
-      { type: 'Bilan', icon: Calendar, intensity: 50, color: 'wine-green', description: 'Bilan campagne, optimisations' }
-    ]
-  },
-  {
-    month: 'Décembre',
-    activities: [
-      { type: 'Lies', icon: Droplets, intensity: 60, color: 'wine-gold', description: 'Fin traitement lies vinification' },
-      { type: 'Maintenance', icon: Calendar, intensity: 70, color: 'wine-green', description: 'Maintenance préventive hivernale' },
-      { type: 'Planification', icon: Calendar, intensity: 40, color: 'wine-burgundy', description: 'Planification année suivante' }
-    ]
-  }
-];
+interface SeasonalTimelineProps {
+  defaultView?: 'circular' | 'linear';
+}
 
-const SeasonalTimeline = () => {
-  const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
-  const [viewMode, setViewMode] = useState<'linear' | 'circular'>('linear');
+const SeasonalTimeline = ({ defaultView = 'circular' }: SeasonalTimelineProps) => {
+  const { currentData, debugMode } = useRegion();
+  const { t, debugMode: langDebugMode } = useLanguage();
+  const [viewMode, setViewMode] = useState<'circular' | 'linear'>(defaultView);
+
+  // Seasonal data with translation keys
+  const seasonalData = [
+    { 
+      month: 'janvier', 
+      activities: [
+        { name: 'sarments', intensity: 80, type: 'biomass' },
+        { name: 'maintenance', intensity: 60, type: 'operation' }
+      ]
+    },
+    { 
+      month: 'fevrier', 
+      activities: [
+        { name: 'sarments', intensity: 90, type: 'biomass' },
+        { name: 'planning', intensity: 40, type: 'operation' }
+      ]
+    },
+    { 
+      month: 'mars', 
+      activities: [
+        { name: 'sarments', intensity: 70, type: 'biomass' },
+        { name: 'lies', intensity: 50, type: 'biomass' }
+      ]
+    },
+    { 
+      month: 'avril', 
+      activities: [
+        { name: 'maintenance', intensity: 80, type: 'operation' },
+        { name: 'formation', intensity: 30, type: 'operation' }
+      ]
+    },
+    { 
+      month: 'mai', 
+      activities: [
+        { name: 'preparation', intensity: 60, type: 'operation' },
+        { name: 'contrats', intensity: 40, type: 'operation' }
+      ]
+    },
+    { 
+      month: 'juin', 
+      activities: [
+        { name: 'veille', intensity: 20, type: 'operation' },
+        { name: 'optimisation', intensity: 30, type: 'operation' }
+      ]
+    },
+    { 
+      month: 'juillet', 
+      activities: [
+        { name: 'preparation', intensity: 40, type: 'operation' },
+        { name: 'tests', intensity: 50, type: 'operation' }
+      ]
+    },
+    { 
+      month: 'aout', 
+      activities: [
+        { name: 'mobilisation', intensity: 70, type: 'operation' },
+        { name: 'coordination', intensity: 60, type: 'operation' }
+      ]
+    },
+    { 
+      month: 'septembre', 
+      activities: [
+        { name: 'marc.raisin', intensity: 100, type: 'biomass' },
+        { name: 'rafles', intensity: 80, type: 'biomass' },
+        { name: 'lies', intensity: 40, type: 'biomass' }
+      ]
+    },
+    { 
+      month: 'octobre', 
+      activities: [
+        { name: 'marc.raisin', intensity: 90, type: 'biomass' },
+        { name: 'lies', intensity: 70, type: 'biomass' },
+        { name: 'stockage', intensity: 80, type: 'operation' }
+      ]
+    },
+    { 
+      month: 'novembre', 
+      activities: [
+        { name: 'marc.raisin', intensity: 60, type: 'biomass' },
+        { name: 'lies', intensity: 80, type: 'biomass' },
+        { name: 'bilan', intensity: 50, type: 'operation' }
+      ]
+    },
+    { 
+      month: 'decembre', 
+      activities: [
+        { name: 'lies', intensity: 60, type: 'biomass' },
+        { name: 'maintenance', intensity: 70, type: 'operation' },
+        { name: 'planification', intensity: 40, type: 'operation' }
+      ]
+    }
+  ];
+
+  // French month names mapping
+  const monthNames = {
+    'janvier': 'Janvier',
+    'fevrier': 'Février', 
+    'mars': 'Mars',
+    'avril': 'Avril',
+    'mai': 'Mai',
+    'juin': 'Juin',
+    'juillet': 'Juillet',
+    'aout': 'Août',
+    'septembre': 'Septembre',
+    'octobre': 'Octobre',
+    'novembre': 'Novembre',
+    'decembre': 'Décembre'
+  };
+
+  // English month names mapping
+  const monthNamesEn = {
+    'janvier': 'January',
+    'fevrier': 'February', 
+    'mars': 'March',
+    'avril': 'April',
+    'mai': 'May',
+    'juin': 'June',
+    'juillet': 'July',
+    'aout': 'August',
+    'septembre': 'September',
+    'octobre': 'October',
+    'novembre': 'November',
+    'decembre': 'December'
+  };
 
   const getIntensityColor = (intensity: number) => {
     if (intensity >= 80) return 'bg-wine-burgundy';
     if (intensity >= 60) return 'bg-wine-gold';
     if (intensity >= 40) return 'bg-wine-green';
-    return 'bg-wine-charcoal/50';
+    return 'bg-wine-charcoal/30';
   };
 
-  const getSeasonColor = (month: string) => {
-    const springMonths = ['Mars', 'Avril', 'Mai'];
-    const summerMonths = ['Juin', 'Juillet', 'Août'];
-    const autumnMonths = ['Septembre', 'Octobre', 'Novembre'];
-    const winterMonths = ['Décembre', 'Janvier', 'Février'];
-
-    if (springMonths.includes(month)) return 'border-wine-green/30 bg-wine-green/5';
-    if (summerMonths.includes(month)) return 'border-wine-gold/30 bg-wine-gold/5';
-    if (autumnMonths.includes(month)) return 'border-wine-burgundy/30 bg-wine-burgundy/5';
-    return 'border-wine-charcoal/30 bg-wine-charcoal/5';
+  const getIntensityLabel = (intensity: number) => {
+    if (intensity >= 80) return t('peak');
+    if (intensity >= 60) return t('eleve');
+    if (intensity >= 40) return t('moyen');
+    return t('faible');
   };
 
   return (
-    <Card className="bg-white/90 backdrop-blur-sm border-wine-cream/30 shadow-elegant">
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle className="flex items-center gap-3 text-xl text-wine-charcoal">
-            <Calendar className="text-wine-burgundy" size={24} />
-            Disponibilité Saisonnière des Ressources
-          </CardTitle>
-          <div className="flex gap-2">
-            <Button
-              size="sm"
-              variant={viewMode === 'linear' ? 'default' : 'outline'}
-              onClick={() => setViewMode('linear')}
-            >
-              Vue Linéaire
-            </Button>
-            <Button
-              size="sm"
-              variant={viewMode === 'circular' ? 'default' : 'outline'}
-              onClick={() => setViewMode('circular')}
-            >
-              Vue Circulaire
-            </Button>
+    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
+      {/* DEBUG BANNER */}
+      {(debugMode || langDebugMode) && (
+        <div className="bg-purple-100 border border-purple-400 text-purple-700 px-3 py-2 rounded mb-4">
+          <strong className="font-bold">🗓️ SeasonalTimeline Debug</strong>
+          <div className="text-sm mt-1">
+            <div>Region: {currentData.displayName}</div>
+            <div>View Mode: {viewMode}</div>
+            <div>Data Points: {seasonalData.length} months</div>
+            <div>Peak Season: Septembre-Octobre (Marc production)</div>
           </div>
         </div>
-      </CardHeader>
-      
-      <CardContent>
-        {viewMode === 'linear' ? (
-          <div className="space-y-4">
-            {seasonalData.map((monthData, index) => (
-              <div
-                key={monthData.month}
-                className={`p-4 rounded-lg border-2 transition-all duration-300 cursor-pointer hover:scale-[1.02] ${getSeasonColor(monthData.month)} ${
-                  selectedMonth === monthData.month ? 'ring-2 ring-wine-burgundy/50' : ''
-                }`}
-                onClick={() => setSelectedMonth(selectedMonth === monthData.month ? null : monthData.month)}
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-lg font-bold text-wine-charcoal">{monthData.month}</h3>
-                  <div className="flex items-center gap-2">
-                    {monthData.activities.map((activity, actIndex) => {
-                      const IconComponent = activity.icon;
-                      return (
-                        <div
-                          key={actIndex}
-                          className={`p-2 rounded-full ${getIntensityColor(activity.intensity)} transition-all duration-300 hover:scale-110`}
-                          title={activity.description}
-                        >
-                          <IconComponent size={16} className="text-white" />
+      )}
+
+      <div className="text-center mb-12">
+        <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
+          {t('disponibilite.saisonniere')}
+        </h2>
+        
+        {/* View Toggle */}
+        <div className="flex justify-center mb-8">
+          <div className="bg-wine-cream/20 rounded-lg p-1">
+            <button
+              onClick={() => setViewMode('linear')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+                viewMode === 'linear'
+                  ? 'bg-wine-burgundy text-white shadow-md'
+                  : 'text-wine-charcoal hover:bg-wine-cream/30'
+              }`}
+            >
+              {t('vue.lineaire')}
+            </button>
+            <button
+              onClick={() => setViewMode('circular')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+                viewMode === 'circular'
+                  ? 'bg-wine-burgundy text-white shadow-md'
+                  : 'text-wine-charcoal hover:bg-wine-cream/30'
+              }`}
+            >
+              {t('vue.circulaire')}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Circular View */}
+      {viewMode === 'circular' && (
+        <div className="flex flex-col items-center">
+          <div className="relative w-96 h-96 mx-auto mb-8">
+            <div className="absolute inset-4 rounded-full border-2 border-wine-cream/30"></div>
+            <div className="absolute inset-8 rounded-full border border-wine-cream/20"></div>
+            
+            {seasonalData.map((month, index) => {
+              const angle = (index * 30) - 90; // Start from top
+              const x = 180 + 140 * Math.cos(angle * Math.PI / 180);
+              const y = 180 + 140 * Math.sin(angle * Math.PI / 180);
+              
+              return (
+                <div
+                  key={month.month}
+                  className="absolute transform -translate-x-1/2 -translate-y-1/2 group"
+                  style={{ left: x, top: y }}
+                >
+                  <div className="text-center">
+                    <div className="font-bold text-wine-charcoal mb-2">
+                      {t('language') === 'fr' ? monthNames[month.month] : monthNamesEn[month.month]}
+                    </div>
+                    {month.activities.map((activity, actIndex) => (
+                      <div key={actIndex} className="mb-1">
+                        <div className="text-xs font-medium text-wine-charcoal">
+                          {t(activity.name)}
                         </div>
-                      );
-                    })}
+                        <div className="text-xs text-wine-charcoal/60">
+                          {activity.intensity}%
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Linear View */}
+      {viewMode === 'linear' && (
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {seasonalData.map((month) => (
+              <div
+                key={month.month}
+                className="p-6 bg-gradient-subtle rounded-xl border border-wine-cream/30 hover:scale-105 transition-all duration-300 hover:shadow-lg"
+              >
+                <h3 className="text-lg font-bold text-wine-charcoal mb-4 text-center">
+                  {t('language') === 'fr' ? monthNames[month.month] : monthNamesEn[month.month]}
+                </h3>
                 
-                {/* Intensity Bars */}
-                <div className="space-y-2">
-                  {monthData.activities.map((activity, actIndex) => (
-                    <div key={actIndex} className="flex items-center gap-3">
-                      <div className="w-20 text-sm font-medium text-wine-charcoal">
-                        {activity.type}
+                <div className="space-y-3">
+                  {month.activities.map((activity, index) => (
+                    <div key={index} className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm font-medium text-wine-charcoal">
+                          {t(activity.name)}
+                        </span>
+                        <span className="text-sm font-bold text-wine-charcoal">
+                          {activity.intensity}%
+                        </span>
                       </div>
-                      <div className="flex-1 bg-wine-cream/30 rounded-full h-3 overflow-hidden">
-                        <div
-                          className={`h-full ${getIntensityColor(activity.intensity)} transition-all duration-500 ease-out rounded-full`}
+                      
+                      <div className="w-full bg-wine-cream/30 rounded-full h-2">
+                        <div 
+                          className={`${getIntensityColor(activity.intensity)} h-2 rounded-full transition-all duration-500`}
                           style={{ width: `${activity.intensity}%` }}
                         />
                       </div>
-                      <div className="text-xs text-wine-charcoal/70 w-8">
-                        {activity.intensity}%
+                      
+                      <div className="text-xs text-wine-charcoal/60">
+                        {getIntensityLabel(activity.intensity)}
                       </div>
                     </div>
                   ))}
                 </div>
-                
-                {/* Expanded Details */}
-                {selectedMonth === monthData.month && (
-                  <div className="mt-4 pt-4 border-t border-wine-cream/40 animate-fade-in">
-                    <h4 className="font-semibold text-wine-burgundy mb-2">Activités détaillées :</h4>
-                    <div className="space-y-2">
-                      {monthData.activities.map((activity, actIndex) => (
-                        <div key={actIndex} className="p-3 bg-white/50 rounded-lg">
-                          <div className="flex items-start gap-3">
-                            <activity.icon size={16} className={`text-${activity.color} mt-0.5`} />
-                            <div>
-                              <div className="font-medium text-wine-charcoal">{activity.type}</div>
-                              <div className="text-sm text-wine-charcoal/70">{activity.description}</div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
             ))}
           </div>
-        ) : (
-          <div className="flex justify-center items-center h-96">
-            <div className="relative w-80 h-80">
-              {seasonalData.map((monthData, index) => {
-                const angle = (index * 30) - 90; // 30 degrees per month, start at top
-                const radius = 120;
-                const x = Math.cos(angle * Math.PI / 180) * radius;
-                const y = Math.sin(angle * Math.PI / 180) * radius;
-                
-                return (
-                  <div
-                    key={monthData.month}
-                    className="absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
-                    style={{
-                      left: `50%`,
-                      top: `50%`,
-                      transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`
-                    }}
-                    onClick={() => setSelectedMonth(selectedMonth === monthData.month ? null : monthData.month)}
-                  >
-                    <div className={`p-3 rounded-lg ${getSeasonColor(monthData.month)} border-2 transition-all duration-300 hover:scale-110 ${
-                      selectedMonth === monthData.month ? 'ring-2 ring-wine-burgundy/50 scale-110' : ''
-                    }`}>
-                      <div className="text-xs font-bold text-wine-charcoal text-center mb-1">
-                        {monthData.month}
-                      </div>
-                      <div className="flex gap-1">
-                        {monthData.activities.map((activity, actIndex) => {
-                          const IconComponent = activity.icon;
-                          return (
-                            <div
-                              key={actIndex}
-                              className={`p-1 rounded ${getIntensityColor(activity.intensity)}`}
-                              title={activity.description}
-                            >
-                              <IconComponent size={8} className="text-white" />
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-              
-              {/* Center Legend */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm p-4 rounded-lg shadow-elegant border border-wine-cream/30">
-                <div className="text-center">
-                  <div className="text-sm font-bold text-wine-charcoal mb-2">Cycle Annuel</div>
-                  <div className="text-xs text-wine-charcoal/70">Biomasse Viticole</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+        </div>
+      )}
+
+      {/* Legend */}
+      <div className="mt-8 pt-6 border-t border-wine-cream/30">
+        <h4 className="text-lg font-bold text-wine-charcoal mb-4 text-center">
+          {t('legende.intensite')}
+        </h4>
         
-        {/* Legend */}
-        <div className="mt-6 p-4 bg-wine-cream/10 rounded-lg">
-          <h4 className="font-semibold text-wine-charcoal mb-3">Légende intensité :</h4>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-wine-burgundy rounded"></div>
-              <span className="text-wine-charcoal/70">Peak (80-100%)</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-wine-gold rounded"></div>
-              <span className="text-wine-charcoal/70">Élevé (60-80%)</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-wine-green rounded"></div>
-              <span className="text-wine-charcoal/70">Moyen (40-60%)</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-wine-charcoal/50 rounded"></div>
-              <span className="text-wine-charcoal/70">Faible (0-40%)</span>
-            </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+          <div className="flex items-center space-x-3">
+            <div className="w-4 h-4 rounded-full bg-wine-burgundy"></div>
+            <span className="text-sm text-wine-charcoal">{t('peak')}</span>
+          </div>
+          <div className="flex items-center space-x-3">
+            <div className="w-4 h-4 rounded-full bg-wine-gold"></div>
+            <span className="text-sm text-wine-charcoal">{t('eleve')}</span>
+          </div>
+          <div className="flex items-center space-x-3">
+            <div className="w-4 h-4 rounded-full bg-wine-green"></div>
+            <span className="text-sm text-wine-charcoal">{t('moyen')}</span>
+          </div>
+          <div className="flex items-center space-x-3">
+            <div className="w-4 h-4 rounded-full bg-wine-charcoal/30"></div>
+            <span className="text-sm text-wine-charcoal">{t('faible')}</span>
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 
