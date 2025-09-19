@@ -168,7 +168,7 @@ const OverviewTab = () => {
               <div className="space-y-3 text-sm text-wine-charcoal/70">
                 <div className="flex items-start space-x-2">
                   <span className="font-medium text-wine-charcoal">• {t('base.conservative')}:</span>
-                  <span>30% disponible ({(availableBiomass / 1000).toFixed(0)}kt) - {t('flux.elimination')}</span>
+                  <span>30% {t('disponible')} ({(availableBiomass / 1000).toFixed(0)}kt) - {t('flux.elimination')}</span>
                 </div>
                 <div className="flex items-start space-x-2">
                   <span className="font-medium text-wine-charcoal">• {t('potentiel.negociable')}:</span>
@@ -176,7 +176,7 @@ const OverviewTab = () => {
                 </div>
                 <div className="flex items-start space-x-2">
                   <span className="font-medium text-wine-charcoal">• {t('total.accessible')}:</span>
-                  <span>Jusqu'à 55% ({((availableBiomass + negotiableBiomass) / 1000).toFixed(0)}kt) {t('avec.partenariats')}</span>
+                  <span>{t('jusqua')} 55% ({((availableBiomass + negotiableBiomass) / 1000).toFixed(0)}kt) {t('avec.partenariats')}</span>
                 </div>
               </div>
               <p className="text-sm text-wine-charcoal/60 mt-4 italic border-t border-wine-gold/20 pt-3">
