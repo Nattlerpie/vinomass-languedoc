@@ -128,14 +128,22 @@ const OverviewTab = () => {
               </div>
             </div>
             
-            {/* 6. Réduction CO₂ */}
-            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
+            {/* 6. Réduction CO₂ with Tooltip */}
+            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300 group relative">
               <div className="text-4xl font-bold text-wine-green mb-3">
-                {(realisticCO2Reduction / 1000).toFixed(1)}kt
+                {(realisticCO2Reduction / 1000).toFixed(1)}k {t('tonnes')}
               </div>
-              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('reduction.co2')}</div>
-              <div className="text-sm text-wine-charcoal/60">{t('tonnes.an')}</div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('reduction.co2.potential')}</div>
+              <div className="text-sm text-wine-charcoal/60">/an</div>
               <div className="text-xs text-wine-charcoal/50 mt-1">{t('vs.fossile')}</div>
+              
+              {/* Hover tooltip showing CO2 calculation methodology */}
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-wine-charcoal text-white p-3 rounded-lg shadow-lg text-xs whitespace-nowrap z-10">
+                {t('co2.calculation.tooltip', { 
+                  liters: realisticSafProduction.toFixed(1),
+                  factor: '2.5'
+                })}
+              </div>
             </div>
           </div>
         </div>
