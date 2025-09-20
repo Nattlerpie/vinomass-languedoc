@@ -1,48 +1,57 @@
 import { useState } from 'react';
-import { BarChart3, MapPin, Euro, Handshake, Database, Home } from 'lucide-react';
+import { BarChart3, MapPin, Euro, Handshake, Database, Home, FileText } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-export type TabType = 'overview' | 'resources' | 'economy' | 'partnerships' | 'data';
+export type TabType = 'overview' | 'resources' | 'economy' | 'partnerships' | 'methodology' | 'contact';
 
 interface NavigationProps {
   activeTab: TabType;
   onTabChange: (tab: TabType) => void;
 }
 
-const tabs = [
-  {
-    id: 'overview' as TabType,
-    label: 'Vue d\'ensemble',
-    icon: Home,
-    description: 'Statistiques régionales et métriques clés'
-  },
-  {
-    id: 'resources' as TabType,
-    label: 'Ressources',
-    icon: MapPin,
-    description: 'Analyse des ressources disponibles'
-  },
-  {
-    id: 'economy' as TabType,
-    label: 'Économie',
-    icon: Euro,
-    description: 'Outils économiques et calculateurs'
-  },
-  {
-    id: 'partnerships' as TabType,
-    label: 'Partenariats',
-    icon: Handshake,
-    description: 'Opportunités collaboratives'
-  },
-  {
-    id: 'data' as TabType,
-    label: 'Données',
-    icon: Database,
-    description: 'Méthodologie et sources'
-  }
-];
-
 const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
+  const { t } = useLanguage();
+
+  const tabs = [
+    {
+      id: 'overview' as TabType,
+      label: t('nav.vue.ensemble'),
+      icon: Home,
+      description: t('nav.overview.description')
+    },
+    {
+      id: 'resources' as TabType,
+      label: t('nav.ressources'),
+      icon: MapPin,
+      description: t('nav.resources.description')
+    },
+    {
+      id: 'economy' as TabType,
+      label: t('nav.economie'),
+      icon: Euro,
+      description: t('nav.economy.description')
+    },
+    {
+      id: 'partnerships' as TabType,
+      label: t('nav.partenaires'),
+      icon: Handshake,
+      description: t('nav.partnerships.description')
+    },
+    {
+      id: 'methodology' as TabType,
+      label: t('nav.methodologie'),
+      icon: Database,
+      description: t('nav.methodology.description')
+    },
+    {
+      id: 'contact' as TabType,
+      label: t('nav.contact'),
+      icon: FileText,
+      description: t('nav.contact.description')
+    }
+  ];
+
   return (
     <div className="bg-white/95 backdrop-blur-sm border-b border-wine-cream/30 shadow-elegant sticky top-0 z-40">
       <div className="container mx-auto px-8">
