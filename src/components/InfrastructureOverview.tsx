@@ -94,7 +94,7 @@ const InfrastructureOverview = () => {
 
       {/* Summary Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-        <div className="text-center p-6 bg-wine-cream/10 border border-wine-gold/20 rounded-xl">
+        <div className="text-center p-6 bg-wine-cream/10 border border-wine-gold/20 rounded-xl group relative">
           <div className="text-2xl font-bold text-wine-gold mb-2">
             {totalCO2Avoided.toLocaleString()}t
           </div>
@@ -103,6 +103,15 @@ const InfrastructureOverview = () => {
           </div>
           <div className="text-xs text-wine-charcoal/50 mt-1">
             {t('vs.fossile')}
+          </div>
+          
+          {/* Hover tooltip explaining CO2 calculation */}
+          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-wine-charcoal text-white p-3 rounded-lg shadow-lg text-xs z-10 max-w-xs">
+            {t('infrastructure.co2.calculation.tooltip', {
+              methanization: currentData.infrastructure?.methanization || 0,
+              composting: currentData.infrastructure?.composting || 0,
+              biomass: currentData.infrastructure?.biomass || 0
+            })}
           </div>
         </div>
         
