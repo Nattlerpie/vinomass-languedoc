@@ -217,7 +217,14 @@ const AdvancedROICalculator = () => {
               {/* Static Parameters Display */}
               <div className="bg-gradient-subtle p-6 rounded-xl border border-wine-cream/40">
                 <div className="flex items-center gap-2 mb-4">
-                  <Settings size={20} />
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Settings size={20} className="text-wine-charcoal cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="text-sm">Manual parameter changes coming soon</p>
+                    </TooltipContent>
+                  </Tooltip>
                   <h4 className="text-lg font-semibold text-wine-charcoal">{t('roi.scenario.parameters')}</h4>
                   <Tooltip>
                     <TooltipTrigger>
@@ -281,15 +288,14 @@ const AdvancedROICalculator = () => {
 
               {/* Results Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="text-center p-4 bg-gradient-to-br from-wine-burgundy/10 to-wine-burgundy/5 rounded-xl border border-wine-burgundy/20">
-                  <TrendingUp className="text-wine-burgundy mx-auto mb-2" size={24} />
+                <div className="text-center p-4 bg-gradient-to-br from-wine-burgundy/10 to-wine-burgundy/5 rounded-xl border border-wine-burgundy/20 flex flex-col justify-center min-h-[120px]">
                   <div className="text-2xl font-bold text-wine-burgundy mb-1">
                     {(safProduction / 1000000).toFixed(1)}M
                   </div>
                   <div className="text-xs text-wine-charcoal/70">{t('roi.saf.production.annual')}</div>
                 </div>
 
-                <div className={`text-center p-4 bg-gradient-to-br rounded-xl border ${
+                <div className={`text-center p-4 bg-gradient-to-br rounded-xl border flex flex-col justify-center min-h-[120px] ${
                   roi > 15 ? 'from-wine-green/10 to-wine-green/5 border-wine-green/20' : 
                   roi > 8 ? 'from-wine-gold/10 to-wine-gold/5 border-wine-gold/20' :
                   'from-red-100 to-red-50 border-red-200'
@@ -304,7 +310,7 @@ const AdvancedROICalculator = () => {
                   <div className="text-xs text-wine-charcoal/70">{t('roi.five.year')}</div>
                 </div>
 
-                <div className={`text-center p-4 bg-gradient-to-br rounded-xl border ${
+                <div className={`text-center p-4 bg-gradient-to-br rounded-xl border flex flex-col justify-center min-h-[120px] ${
                   paybackPeriod < 8 ? 'from-wine-green/10 to-wine-green/5 border-wine-green/20' :
                   paybackPeriod < 12 ? 'from-wine-gold/10 to-wine-gold/5 border-wine-gold/20' :
                   'from-red-100 to-red-50 border-red-200'
@@ -319,7 +325,7 @@ const AdvancedROICalculator = () => {
                   <div className="text-xs text-wine-charcoal/70">{t('roi.payback.years')}</div>
                 </div>
 
-                <div className={`text-center p-4 bg-gradient-to-br rounded-xl border ${
+                <div className={`text-center p-4 bg-gradient-to-br rounded-xl border flex flex-col justify-center min-h-[120px] ${
                   irr > 12 ? 'from-wine-green/10 to-wine-green/5 border-wine-green/20' :
                   irr > 8 ? 'from-wine-gold/10 to-wine-gold/5 border-wine-gold/20' :
                   'from-red-100 to-red-50 border-red-200'
