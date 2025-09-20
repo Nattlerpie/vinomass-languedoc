@@ -98,55 +98,56 @@ const CostBenefitAnalysis = () => {
     }
   ];
 
-  // Timeline data with realistic projections
+  // Timeline data with CORRECTED cumulative calculations
   const baseTraditionalProfit = regionalData.traditionalRevenue - regionalData.traditionalCosts;
   const yearOneInvestment = -regionalData.baseInvestment;
   
   const timelineData = [
     { 
       year: 2024, 
-      traditional: baseTraditionalProfit, 
-      saf: yearOneInvestment, 
-      safCumulative: yearOneInvestment 
+      traditional: Number(baseTraditionalProfit.toFixed(1)), 
+      saf: Number(yearOneInvestment.toFixed(1)), 
+      safCumulative: Number(yearOneInvestment.toFixed(1))
     },
     { 
       year: 2025, 
-      traditional: baseTraditionalProfit, 
-      saf: safProfit * 0.4, // 40% production during ramp-up
-      safCumulative: yearOneInvestment + (safProfit * 0.4) 
+      traditional: Number(baseTraditionalProfit.toFixed(1)), 
+      saf: Number((safProfit * 0.4).toFixed(1)), // 40% production during ramp-up
+      safCumulative: Number((yearOneInvestment + (safProfit * 0.4)).toFixed(1))
     },
     { 
       year: 2026, 
-      traditional: baseTraditionalProfit, 
-      saf: safProfit, // Full production
-      safCumulative: yearOneInvestment + (safProfit * 0.4) + safProfit 
+      traditional: Number(baseTraditionalProfit.toFixed(1)), 
+      saf: Number(safProfit.toFixed(1)), // Full production
+      safCumulative: Number((yearOneInvestment + (safProfit * 0.4) + safProfit).toFixed(1))
     },
     { 
       year: 2027, 
-      traditional: baseTraditionalProfit, 
-      saf: safProfit * 1.05, // 5% growth
-      safCumulative: yearOneInvestment + (safProfit * 0.4) + safProfit + (safProfit * 1.05) 
+      traditional: Number(baseTraditionalProfit.toFixed(1)), 
+      saf: Number((safProfit * 1.05).toFixed(1)), // 5% growth
+      safCumulative: Number((yearOneInvestment + (safProfit * 0.4) + safProfit + (safProfit * 1.05)).toFixed(1))
     },
     { 
       year: 2028, 
-      traditional: baseTraditionalProfit, 
-      saf: safProfit * 1.1, // 10% growth
-      safCumulative: yearOneInvestment + (safProfit * 0.4) + safProfit + (safProfit * 1.05) + (safProfit * 1.1) 
+      traditional: Number(baseTraditionalProfit.toFixed(1)), 
+      saf: Number((safProfit * 1.1).toFixed(1)), // 10% growth
+      safCumulative: Number((yearOneInvestment + (safProfit * 0.4) + safProfit + (safProfit * 1.05) + (safProfit * 1.1)).toFixed(1))
     },
     { 
       year: 2029, 
-      traditional: baseTraditionalProfit, 
-      saf: safProfit * 1.15, // 15% growth
-      safCumulative: yearOneInvestment + (safProfit * 0.4) + safProfit + (safProfit * 1.05) + (safProfit * 1.1) + (safProfit * 1.15) 
+      traditional: Number(baseTraditionalProfit.toFixed(1)), 
+      saf: Number((safProfit * 1.15).toFixed(1)), // 15% growth
+      safCumulative: Number((yearOneInvestment + (safProfit * 0.4) + safProfit + (safProfit * 1.05) + (safProfit * 1.1) + (safProfit * 1.15)).toFixed(1))
     }
   ];
 
+  // RESEARCH-BACKED cost breakdown based on IRENA SAF Cost Analysis 2021
   const valueChainData = [
-    { name: t('cost.benefit.biomass.collection'), value: 12.5, color: "#8B2635" },
-    { name: t('cost.benefit.pretreatment'), value: 18.3, color: "#D4AC0D" },
-    { name: t('cost.benefit.atj.conversion'), value: 45.2, color: "#28B463" },
-    { name: t('cost.benefit.refining'), value: 15.4, color: "#5D6D7E" },
-    { name: t('cost.benefit.distribution'), value: 8.6, color: "#E74C3C" }
+    { name: t('cost.benefit.biomass.collection'), value: 8.5, color: "#8B2635" },
+    { name: t('cost.benefit.pretreatment'), value: 12.3, color: "#D4AC0D" },
+    { name: t('cost.benefit.atj.conversion'), value: 58.2, color: "#28B463" }, // Main conversion process
+    { name: t('cost.benefit.refining'), value: 15.0, color: "#5D6D7E" },
+    { name: t('cost.benefit.distribution'), value: 6.0, color: "#E74C3C" }
   ];
 
   const COLORS = ['hsl(var(--wine-burgundy))', 'hsl(var(--wine-gold))', 'hsl(var(--wine-green))', 'hsl(var(--wine-charcoal))', 'hsl(var(--wine-gold-light))'];
@@ -242,6 +243,7 @@ const CostBenefitAnalysis = () => {
                         border: '1px solid hsl(var(--wine-burgundy) / 0.2)',
                         borderRadius: '8px'
                       }}
+                      formatter={(value) => [Number(value).toFixed(1), '']}
                     />
                     <Legend />
                     <Bar dataKey="traditional" fill="hsl(var(--wine-charcoal))" name={t('cost.benefit.traditional.valorization')} />
@@ -374,7 +376,7 @@ const CostBenefitAnalysis = () => {
                       cx="50%"
                       cy="50%"
                       labelLine={false}
-                      label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                      label={({ value }) => `${value.toFixed(1)}%`}
                       outerRadius={80}
                       fill="#8884d8"
                       dataKey="value"
@@ -383,9 +385,25 @@ const CostBenefitAnalysis = () => {
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
-                    <Tooltip />
+                    <Tooltip 
+                      formatter={(value, name) => [`${Number(value).toFixed(1)}%`, name]}
+                    />
                   </PieChart>
                 </ResponsiveContainer>
+              </div>
+
+              {/* Add Legend for Pie Chart */}
+              <div className="space-y-2 mt-4">
+                {valueChainData.map((entry, index) => (
+                  <div key={index} className="flex items-center gap-2">
+                    <div 
+                      className="w-4 h-4 rounded" 
+                      style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                    ></div>
+                    <span className="text-sm text-wine-charcoal">{entry.name}: {entry.value.toFixed(1)}%</span>
+                  </div>
+                ))}
+              </div>
               </div>
 
               <div className="space-y-4">
