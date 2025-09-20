@@ -3,49 +3,127 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useRegion } from "@/contexts/RegionContext";
 
 const InfrastructureOverview = () => {
-  const { t } = useLanguage();
-  const { currentData } = useRegion();
+  const { t, debugMode: langDebugMode } = useLanguage();
+  const { currentData, debugMode } = useRegion();
   
-  const facilities = currentData.id === 'champagne' 
-    ? [
-        { name: t('infrastructure.distilleries'), count: 2, icon: Factory, color: 'text-wine-burgundy' },
-        { name: t('infrastructure.methanization'), count: 3, icon: Zap, color: 'text-wine-gold' },
-        { name: t('infrastructure.composting'), count: 4, icon: Recycle, color: 'text-wine-green' },
-        { name: t('infrastructure.biomass'), count: 1, icon: Flame, color: 'text-wine-charcoal' }
-      ]
-    : [
-        { name: t('infrastructure.distilleries'), count: 16, icon: Factory, color: 'text-wine-burgundy' },
-        { name: t('infrastructure.methanization'), count: 27, icon: Zap, color: 'text-wine-gold' },
-        { name: t('infrastructure.composting'), count: 26, icon: Recycle, color: 'text-wine-green' },
-        { name: t('infrastructure.biomass'), count: 4, icon: Flame, color: 'text-wine-charcoal' }
-      ];
+  // Use infrastructure data from RegionContext instead of hardcoded values
+  const facilities = [
+    { 
+      name: t('infrastructure.distilleries'), 
+      count: currentData.infrastructure?.distilleries || 0, 
+      icon: Factory, 
+      color: 'text-wine-burgundy' 
+    },
+    { 
+      name: t('infrastructure.methanization'), 
+      count: currentData.infrastructure?.methanization || 0, 
+      icon: Zap, 
+      color: 'text-wine-gold' 
+    },
+    { 
+      name: t('infrastructure.composting'), 
+      count: currentData.infrastructure?.composting || 0, 
+      icon: Recycle, 
+      color: 'text-wine-green' 
+    },
+    { 
+      name: t('infrastructure.biomass'), 
+      count: currentData.infrastructure?.biomass || 0, 
+      icon: Flame, 
+      color: 'text-wine-charcoal' 
+    }
+  ];
+
+  // Calculate total CO2 avoided (rough estimate based on infrastructure capacity)
+  const totalCO2Avoided = Math.round(
+    (currentData.infrastructure?.methanization || 0) * 2100 + 
+    (currentData.infrastructure?.composting || 0) * 800 +
+    (currentData.infrastructure?.biomass || 0) * 5000
+  );
 
   return (
-    <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-elegant">
-      <h3 className="text-xl font-bold text-wine-charcoal mb-6 text-center">
-        {t('infrastructure.title')}
-      </h3>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
+      {/* DEBUG BANNER */}
+      {(debugMode || langDebugMode) && (
+        <div className="bg-blue-100 border border-blue-400 text-blue-700 px-3 py-2 rounded mb-4">
+          <strong className="font-bold">🏭 Infrastructure Debug</strong>
+          <div className="text-sm mt-1">
+            <div>Region: {currentData.displayName}</div>
+            <div>Infrastructure: {JSON.stringify(currentData.infrastructure)}</div>
+            <div>Total Facilities: {facilities.reduce((sum, f) => sum + f.count, 0)}</div>
+            <div>CO₂ Avoided: {totalCO2Avoided.toLocaleString()}t/year</div>
+          </div>
+        </div>
+      )}
+
+      <div className="text-center mb-12">
+        <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
+          {t('infrastructure.title')}
+        </h2>
+        <p className="text-lg text-wine-charcoal/70">
+          {t('infrastructure.subtitle')}
+        </p>
+      </div>
+
+      {/* Infrastructure Grid */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
         {facilities.map((facility) => {
           const IconComponent = facility.icon;
           return (
-            <div key={facility.name} className="text-center space-y-3">
-              <div className="flex justify-center">
-                <div className="w-16 h-16 rounded-full bg-gradient-subtle border-2 border-wine-cream/30 flex items-center justify-center">
+            <div 
+              key={facility.name} 
+              className="text-center p-6 bg-gradient-subtle rounded-xl border border-wine-cream/30 hover:scale-105 transition-all duration-300 hover:shadow-lg group"
+            >
+              <div className="flex justify-center mb-4">
+                <div className="w-16 h-16 rounded-full bg-white/70 border-2 border-wine-cream/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <IconComponent size={32} className={facility.color} />
                 </div>
               </div>
               <div>
-                <div className={`text-2xl font-bold ${facility.color}`}>
+                <div className={`text-3xl font-bold ${facility.color} mb-2 group-hover:scale-110 transition-transform duration-300`}>
                   {facility.count}
                 </div>
-                <div className="text-sm text-wine-charcoal/70 font-medium">
+                <div className="text-sm text-wine-charcoal font-medium">
                   {facility.name}
                 </div>
               </div>
             </div>
           );
         })}
+      </div>
+
+      {/* Summary Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+        <div className="text-center p-6 bg-wine-cream/10 border border-wine-gold/20 rounded-xl">
+          <div className="text-2xl font-bold text-wine-gold mb-2">
+            {totalCO2Avoided.toLocaleString()}t
+          </div>
+          <div className="text-sm text-wine-charcoal/70">
+            {t('co2.evite.annuel')}
+          </div>
+          <div className="text-xs text-wine-charcoal/50 mt-1">
+            {t('vs.fossile')}
+          </div>
+        </div>
+        
+        <div className="text-center p-6 bg-wine-cream/10 border border-wine-green/20 rounded-xl">
+          <div className="text-2xl font-bold text-wine-green mb-2">
+            {facilities.reduce((sum, f) => sum + f.count, 0)}
+          </div>
+          <div className="text-sm text-wine-charcoal/70">
+            {t('infrastructure.total.facilities')}
+          </div>
+          <div className="text-xs text-wine-charcoal/50 mt-1">
+            {t('infrastructure.existing.capacity')}
+          </div>
+        </div>
+      </div>
+
+      {/* Methodology Note */}
+      <div className="mt-8 text-center p-4 bg-wine-charcoal/5 rounded-lg">
+        <p className="text-xs text-wine-charcoal/60 italic">
+          * {t('infrastructure.disclaimer')}
+        </p>
       </div>
     </div>
   );
