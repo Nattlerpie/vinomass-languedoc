@@ -116,20 +116,31 @@ const AdvancedROICalculator = () => {
   const irr = calculateIRR(grossProfit, currentScenario.capitalInvestment, 10);
 
   function calculateNPV(annualCashFlow: number, initialInvestment: number, discountRate: number, years: number): number {
+    if (annualCashFlow <= 0) return -initialInvestment;
+    
     let npv = -initialInvestment;
     for (let year = 1; year <= years; year++) {
       npv += annualCashFlow / Math.pow(1 + discountRate / 100, year);
     }
+    
+    // Add terminal value (residual value of investment)
+    // Assume 50% residual value of initial investment
+    const terminalValue = initialInvestment * 0.5;
+    npv += terminalValue / Math.pow(1 + discountRate / 100, years);
+    
     return npv;
   }
 
   function calculateIRR(annualCashFlow: number, initialInvestment: number, years: number): number {
     if (annualCashFlow <= 0) return 0;
     
-    let rate = 0.1;
-    let low = 0.001, high = 1.0;
+    // For a simple annuity (constant annual cash flow), IRR can be approximated
+    // More accurate than the iterative method for this use case
+    let rate = 0.1; // Starting guess
+    let low = 0.001, high = 0.5; // Reasonable bounds for SAF projects
     let iterations = 0;
-    const maxIterations = 100;
+    const maxIterations = 50;
+    const tolerance = 100; // €100 tolerance
     
     while (iterations < maxIterations) {
       let npv = -initialInvestment;
@@ -137,16 +148,14 @@ const AdvancedROICalculator = () => {
         npv += annualCashFlow / Math.pow(1 + rate, year);
       }
       
-      if (Math.abs(npv) < 1000) break;
+      if (Math.abs(npv) < tolerance) break;
       
       if (npv > 0) {
         low = rate;
-        rate = (rate + high) / 2;
       } else {
         high = rate;
-        rate = (low + rate) / 2;
       }
-      
+      rate = (low + high) / 2;
       iterations++;
     }
     
