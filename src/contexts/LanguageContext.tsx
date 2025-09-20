@@ -27,7 +27,7 @@ const translations = {
     'partager': 'Partager',
     'imprimer': 'Imprimer',
     
-    // Navigation & Header
+    // Navigation & Header - EXPANDED
     'header.title': 'SAF {region}',
     'header.subtitle': 'Valorisation des déchets vitivinicoles en carburant aviation durable',
     'nav.vue.ensemble': 'Vue d\'ensemble',
@@ -37,6 +37,12 @@ const translations = {
     'nav.donnees': 'Données',
     'nav.methodologie': 'Méthodologie',
     'nav.contact': 'Contact',
+    'nav.overview.description': 'Statistiques régionales et métriques clés',
+    'nav.resources.description': 'Analyse des ressources disponibles',
+    'nav.economy.description': 'Outils économiques et calculateurs',
+    'nav.partnerships.description': 'Opportunités collaboratives',
+    'nav.methodology.description': 'Méthodologie et sources de données',
+    'nav.contact.description': 'Contact et prochaines étapes',
     
     // Technical Specifications
     'volume': 'Volume',
@@ -502,7 +508,7 @@ const translations = {
     'partager': 'Share',
     'imprimer': 'Print',
     
-    // Navigation & Header
+    // Navigation & Header - EXPANDED
     'header.title': 'SAF {region}',
     'header.subtitle': 'Valorization of viticulture waste into sustainable aviation fuel',
     'nav.vue.ensemble': 'Overview',
@@ -512,6 +518,12 @@ const translations = {
     'nav.donnees': 'Data',
     'nav.methodologie': 'Methodology',
     'nav.contact': 'Contact',
+    'nav.overview.description': 'Regional statistics and key metrics',
+    'nav.resources.description': 'Analysis of available resources',
+    'nav.economy.description': 'Economic tools and calculators',
+    'nav.partnerships.description': 'Collaborative opportunities',
+    'nav.methodology.description': 'Methodology and data sources',
+    'nav.contact.description': 'Contact and next steps',
     
     // Technical Specifications
     'volume': 'Volume',
