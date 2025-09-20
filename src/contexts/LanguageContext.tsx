@@ -65,6 +65,7 @@ const translations = {
     'potentiel.saf': 'Potentiel SAF (70% efficacité)',
     'revenue.potential': 'Potentiel de revenus',
     'reduction.co2': 'Réduction CO₂',
+    'reduction.co2.potential': 'Réduction CO₂ potentielle',
     'hectares': 'hectares',
     'tonnes': 'tonnes',
     'base.regionale': 'Base régionale',
@@ -77,6 +78,11 @@ const translations = {
     'emplois.crees': 'Emplois créés',
     'retour.investissement': 'Retour investissement',
     'ans.payback': 'Ans payback',
+    
+    // Calculation Tooltips - NEW
+    'co2.calculation.tooltip': '{liters}M litres SAF × {factor}kg CO₂/litre évités vs carburant fossile',
+    'economy.feedstock.tooltip': '{percentage}% de {total}k tonnes biomasse totale disponible pour SAF',
+    'infrastructure.co2.calculation.tooltip': 'Estimation: {methanization} méthanisation (×2,1kt) + {composting} compostage (×0,8kt) + {biomass} biomasse (×5kt)',
     
     // Regional Analysis
     'analyse.regionale': 'Analyse Régionale',
@@ -546,6 +552,7 @@ const translations = {
     'potentiel.saf': 'SAF Potential (70% efficiency)',
     'revenue.potential': 'Revenue Potential',
     'reduction.co2': 'CO₂ Reduction',
+    'reduction.co2.potential': 'Potential CO₂ Reduction',
     'hectares': 'hectares',
     'tonnes': 'tonnes',
     'base.regionale': 'Regional base',
@@ -558,6 +565,11 @@ const translations = {
     'emplois.crees': 'Jobs created',
     'retour.investissement': 'Return on investment',
     'ans.payback': 'Years payback',
+    
+    // Calculation Tooltips - NEW
+    'co2.calculation.tooltip': '{liters}M liters SAF × {factor}kg CO₂/liter avoided vs fossil fuel',
+    'economy.feedstock.tooltip': '{percentage}% of {total}k tonnes total biomass available for SAF',
+    'infrastructure.co2.calculation.tooltip': 'Estimate: {methanization} methanization (×2.1kt) + {composting} composting (×0.8kt) + {biomass} biomass (×5kt)',
     
     // Regional Analysis
     'analyse.regionale': 'Regional Analysis',
@@ -797,9 +809,14 @@ const translations = {
     'economy.skilled.workforce': 'Skilled workforce',
     'economy.industrial.infrastructure': 'Industrial infrastructure',
     
-    // Commune Production - NEW
+    // Commune Production - EXPANDED
     'repartition.production.commune': 'Production Distribution by Commune',
-    'communes.principales': 'Main Communes',
+    'communes.principales': 'Top Producing Communes',
+    'communes.tooltip': 'Data based on Agreste statistics and municipal analyses',
+    'communes.tracked': 'Tracked communes',
+    'communes.total.production': 'Total production',
+    'communes.coverage': 'Regional coverage',
+    'communes.methodology.note': 'Top producing communes in {region} representing a significant share of the {total}kt total regional biomass',
     'production.regionale.percent': 'of regional production',
     
     // Resources Tab - EXTENDED
