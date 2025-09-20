@@ -1,18 +1,14 @@
 import { useState, useEffect } from "react";
 import { Calculator, TrendingUp, Settings, Download, BarChart3, Info } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Slider } from "@/components/ui/slider";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useRegion } from "@/contexts/RegionContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-interface Scenario {
+interface ScenarioData {
   name: string;
   biomassInput: number;
   processEfficiency: number;
@@ -21,62 +17,103 @@ interface Scenario {
   capitalInvestment: number;
 }
 
+interface RegionalScenarios {
+  conservative: ScenarioData;
+  realistic: ScenarioData;
+  optimistic: ScenarioData;
+}
+
 const AdvancedROICalculator = () => {
-  const { currentData } = useRegion();
+  const { currentData, regionId } = useRegion();
   const { t } = useLanguage();
   const [activeScenario, setActiveScenario] = useState<string>("conservative");
-  
-  // Research-backed scenarios with realistic parameters for viable projects
-  const [scenarios] = useState<Record<string, Scenario>>({
-    conservative: {
-      name: t('roi.conservative'),
-      biomassInput: currentData.id === 'champagne' ? Math.round(currentData.annualPomace * 0.75) : 60000,
-      processEfficiency: 65, // Lower end of ATJ technology efficiency (IEA Bioenergy, 2021)
-      safPrice: 1.35, // IATA conservative SAF price projections 2025 - adjusted up for viability
-      operatingCosts: 0.75, // Industry standard including feedstock processing (IRENA, 2021)
-      capitalInvestment: currentData.id === 'champagne' ? 30000000 : 75000000 // Reduced for realistic payback
-    },
-    realistic: {
-      name: t('roi.realistic'),
-      biomassInput: currentData.id === 'champagne' ? currentData.annualPomace : 80000,
-      processEfficiency: 70, // Current ATJ technology average (Honeywell UOP, BP)
-      safPrice: 1.50, // IATA realistic SAF pricing 2025-2027 with premiums
-      operatingCosts: 0.70, // Optimized operations with economies of scale
-      capitalInvestment: currentData.id === 'champagne' ? 40000000 : 95000000 // €1.2M per kt capacity
-    },
-    optimistic: {
-      name: t('roi.optimistic'),
-      biomassInput: currentData.id === 'champagne' ? Math.round(currentData.annualPomace * 1.1) : 100000,
-      processEfficiency: 75, // Best-in-class ATJ efficiency (Total Energies, Eni targets)
-      safPrice: 1.65, // Premium SAF pricing with carbon credits (CORSIA)
-      operatingCosts: 0.65, // Advanced process optimization
-      capitalInvestment: currentData.id === 'champagne' ? 50000000 : 120000000 // €1.2M per kt with scale advantages
+
+  // Region-specific static scenarios - no manual adjustments to avoid calculation errors
+  const getRegionalScenarios = (): RegionalScenarios => {
+    if (regionId === 'champagne') {
+      return {
+        conservative: {
+          name: t('roi.conservative'),
+          biomassInput: 25000, // 75% of Champagne pomace capacity
+          processEfficiency: 65,
+          safPrice: 1.35,
+          operatingCosts: 0.75,
+          capitalInvestment: 30000000 // €30M for smaller scale
+        },
+        realistic: {
+          name: t('roi.realistic'),
+          biomassInput: 33000, // Full Champagne pomace capacity
+          processEfficiency: 70,
+          safPrice: 1.50,
+          operatingCosts: 0.70,
+          capitalInvestment: 40000000 // €40M
+        },
+        optimistic: {
+          name: t('roi.optimistic'),
+          biomassInput: 40000, // With partnerships (120% capacity)
+          processEfficiency: 75,
+          safPrice: 1.65,
+          operatingCosts: 0.65,
+          capitalInvestment: 50000000 // €50M
+        }
+      };
+    } else {
+      // Languedoc-Roussillon scenarios
+      return {
+        conservative: {
+          name: t('roi.conservative'),
+          biomassInput: 60000, // 75% of available waste allocation
+          processEfficiency: 65,
+          safPrice: 1.35,
+          operatingCosts: 0.75,
+          capitalInvestment: 75000000 // €75M
+        },
+        realistic: {
+          name: t('roi.realistic'),
+          biomassInput: 80000, // Full available waste allocation
+          processEfficiency: 70,
+          safPrice: 1.50,
+          operatingCosts: 0.70,
+          capitalInvestment: 95000000 // €95M
+        },
+        optimistic: {
+          name: t('roi.optimistic'),
+          biomassInput: 100000, // With expanded partnerships
+          processEfficiency: 75,
+          safPrice: 1.65,
+          operatingCosts: 0.65,
+          capitalInvestment: 120000000 // €120M
+        }
+      };
     }
-  });
+  };
 
-  const [customValues, setCustomValues] = useState<Scenario>(scenarios.conservative);
+  const [scenarios, setScenarios] = useState<RegionalScenarios>(getRegionalScenarios());
+  const [currentScenario, setCurrentScenario] = useState<ScenarioData>(scenarios.conservative);
 
+  // Update scenarios when region changes
   useEffect(() => {
-    setCustomValues(scenarios[activeScenario]);
+    const newScenarios = getRegionalScenarios();
+    setScenarios(newScenarios);
+    setCurrentScenario(newScenarios[activeScenario as keyof RegionalScenarios]);
+  }, [regionId, activeScenario, t]);
+
+  // Update current scenario when tab changes
+  useEffect(() => {
+    setCurrentScenario(scenarios[activeScenario as keyof RegionalScenarios]);
   }, [activeScenario, scenarios]);
 
-  // CORRECTED calculations based on proper financial formulas
-  const safProduction = (customValues.biomassInput * 280 * customValues.processEfficiency) / 100; // L/year (280L/tonne ATJ yield)
-  const annualRevenue = safProduction * customValues.safPrice;
-  const annualOperatingCosts = safProduction * customValues.operatingCosts;
+  // Calculate financial metrics with current scenario
+  const safProduction = (currentScenario.biomassInput * 280 * currentScenario.processEfficiency) / 100;
+  const annualRevenue = safProduction * currentScenario.safPrice;
+  const annualOperatingCosts = safProduction * currentScenario.operatingCosts;
   const grossProfit = annualRevenue - annualOperatingCosts;
   
-  // FIXED ROI: Annual return as percentage of investment
-  const roi = (grossProfit / customValues.capitalInvestment) * 100;
-  
-  // FIXED Payback Period: Years to recover investment
-  const paybackPeriod = grossProfit > 0 ? customValues.capitalInvestment / grossProfit : 99;
-  
-  // FIXED NPV calculation
-  const npv = calculateNPV(grossProfit, customValues.capitalInvestment, 8, 10);
-  
-  // FIXED IRR calculation with better algorithm
-  const irr = calculateIRR(grossProfit, customValues.capitalInvestment, 10);
+  // Fixed financial calculations
+  const roi = (grossProfit / currentScenario.capitalInvestment) * 100;
+  const paybackPeriod = grossProfit > 0 ? currentScenario.capitalInvestment / grossProfit : 99;
+  const npv = calculateNPV(grossProfit, currentScenario.capitalInvestment, 8, 10);
+  const irr = calculateIRR(grossProfit, currentScenario.capitalInvestment, 10);
 
   function calculateNPV(annualCashFlow: number, initialInvestment: number, discountRate: number, years: number): number {
     let npv = -initialInvestment;
@@ -89,7 +126,7 @@ const AdvancedROICalculator = () => {
   function calculateIRR(annualCashFlow: number, initialInvestment: number, years: number): number {
     if (annualCashFlow <= 0) return 0;
     
-    let rate = 0.1; // Starting guess
+    let rate = 0.1;
     let low = 0.001, high = 1.0;
     let iterations = 0;
     const maxIterations = 100;
@@ -118,8 +155,9 @@ const AdvancedROICalculator = () => {
 
   const exportResults = () => {
     const results = {
-      scenario: scenarios[activeScenario].name,
-      inputs: customValues,
+      region: regionId,
+      scenario: currentScenario.name,
+      inputs: currentScenario,
       outputs: {
         safProduction: Math.round(safProduction),
         annualRevenue: Math.round(annualRevenue),
@@ -136,11 +174,15 @@ const AdvancedROICalculator = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `roi-analysis-${activeScenario}-${new Date().toISOString().split('T')[0]}.json`;
+    a.download = `roi-analysis-${regionId}-${activeScenario}-${new Date().toISOString().split('T')[0]}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+  };
+
+  const getRegionDisplayName = () => {
+    return regionId === 'champagne' ? 'Champagne' : 'Languedoc-Roussillon';
   };
 
   return (
@@ -153,7 +195,8 @@ const AdvancedROICalculator = () => {
               <span className="text-2xl text-wine-charcoal">{t('roi.calculator.title')}</span>
             </div>
             <div className="flex items-center gap-3">
-              <Badge className="bg-blue-600 text-white">{t('roi.real.data')}</Badge>
+              <Badge className="bg-blue-600 text-white">{getRegionDisplayName()}</Badge>
+              <Badge className="bg-green-600 text-white">{t('roi.real.data')}</Badge>
               <Button onClick={exportResults} variant="outline" size="sm" className="gap-2">
                 <Download size={16} />
                 {t('roi.export')}
@@ -171,7 +214,7 @@ const AdvancedROICalculator = () => {
             </TabsList>
 
             <TabsContent value={activeScenario} className="space-y-6 mt-6">
-              {/* Input Controls */}
+              {/* Static Parameters Display */}
               <div className="bg-gradient-subtle p-6 rounded-xl border border-wine-cream/40">
                 <div className="flex items-center gap-2 mb-4">
                   <Settings size={20} />
@@ -193,79 +236,45 @@ const AdvancedROICalculator = () => {
                   </Tooltip>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <div>
-                      <Label className="text-sm font-medium text-wine-charcoal">
-                        {t('roi.biomass.input')}: {customValues.biomassInput.toLocaleString()}
-                      </Label>
-                      <Slider
-                        value={[customValues.biomassInput]}
-                        onValueChange={([value]) => setCustomValues(prev => ({ ...prev, biomassInput: value }))}
-                        min={currentData.id === 'champagne' ? 10000 : 40000}
-                        max={currentData.id === 'champagne' ? 50000 : 120000}
-                        step={currentData.id === 'champagne' ? 1000 : 5000}
-                        className="mt-2"
-                      />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="text-center p-4 bg-white/70 rounded-xl border border-wine-burgundy/10">
+                    <div className="text-2xl font-bold text-wine-burgundy mb-1">
+                      {currentScenario.biomassInput.toLocaleString()}
                     </div>
-
-                    <div>
-                      <Label className="text-sm font-medium text-wine-charcoal">
-                        {t('roi.process.efficiency')}: {customValues.processEfficiency}%
-                      </Label>
-                      <Slider
-                        value={[customValues.processEfficiency]}
-                        onValueChange={([value]) => setCustomValues(prev => ({ ...prev, processEfficiency: value }))}
-                        min={50}
-                        max={85}
-                        step={1}
-                        className="mt-2"
-                      />
-                    </div>
-
-                    <div>
-                      <Label className="text-sm font-medium text-wine-charcoal">
-                        {t('roi.saf.price')}: €{customValues.safPrice.toFixed(2)}/L
-                      </Label>
-                      <Slider
-                        value={[customValues.safPrice]}
-                        onValueChange={([value]) => setCustomValues(prev => ({ ...prev, safPrice: value }))}
-                        min={1.0}
-                        max={2.5}
-                        step={0.05}
-                        className="mt-2"
-                      />
-                    </div>
+                    <div className="text-sm font-medium text-wine-charcoal mb-2">{t('roi.biomass.input')}</div>
+                    <div className="text-xs text-wine-charcoal/60">tonnes/an</div>
                   </div>
 
-                  <div className="space-y-4">
-                    <div>
-                      <Label className="text-sm font-medium text-wine-charcoal">
-                        {t('roi.operating.costs')}: €{customValues.operatingCosts.toFixed(2)}/L
-                      </Label>
-                      <Slider
-                        value={[customValues.operatingCosts]}
-                        onValueChange={([value]) => setCustomValues(prev => ({ ...prev, operatingCosts: value }))}
-                        min={0.5}
-                        max={1.5}
-                        step={0.05}
-                        className="mt-2"
-                      />
+                  <div className="text-center p-4 bg-white/70 rounded-xl border border-wine-burgundy/10">
+                    <div className="text-2xl font-bold text-wine-burgundy mb-1">
+                      {currentScenario.processEfficiency}%
                     </div>
+                    <div className="text-sm font-medium text-wine-charcoal mb-2">{t('roi.process.efficiency')}</div>
+                    <div className="text-xs text-wine-charcoal/60">ATJ Technology</div>
+                  </div>
 
-                    <div>
-                      <Label className="text-sm font-medium text-wine-charcoal">
-                        {t('roi.capital.investment')}: €{(customValues.capitalInvestment / 1000000).toFixed(1)}M
-                      </Label>
-                      <Slider
-                        value={[customValues.capitalInvestment]}
-                        onValueChange={([value]) => setCustomValues(prev => ({ ...prev, capitalInvestment: value }))}
-                        min={currentData.id === 'champagne' ? 20000000 : 50000000}
-                        max={currentData.id === 'champagne' ? 80000000 : 200000000}
-                        step={currentData.id === 'champagne' ? 2000000 : 5000000}
-                        className="mt-2"
-                      />
+                  <div className="text-center p-4 bg-white/70 rounded-xl border border-wine-burgundy/10">
+                    <div className="text-2xl font-bold text-wine-burgundy mb-1">
+                      €{currentScenario.safPrice.toFixed(2)}/L
                     </div>
+                    <div className="text-sm font-medium text-wine-charcoal mb-2">{t('roi.saf.price')}</div>
+                    <div className="text-xs text-wine-charcoal/60">IATA Projections</div>
+                  </div>
+
+                  <div className="text-center p-4 bg-white/70 rounded-xl border border-wine-gold/10">
+                    <div className="text-2xl font-bold text-wine-gold mb-1">
+                      €{currentScenario.operatingCosts.toFixed(2)}/L
+                    </div>
+                    <div className="text-sm font-medium text-wine-charcoal mb-2">{t('roi.operating.costs')}</div>
+                    <div className="text-xs text-wine-charcoal/60">IRENA Benchmarks</div>
+                  </div>
+
+                  <div className="text-center p-4 bg-white/70 rounded-xl border border-wine-green/10">
+                    <div className="text-2xl font-bold text-wine-green mb-1">
+                      €{(currentScenario.capitalInvestment / 1000000).toFixed(0)}M
+                    </div>
+                    <div className="text-sm font-medium text-wine-charcoal mb-2">{t('roi.capital.investment')}</div>
+                    <div className="text-xs text-wine-charcoal/60">Industry CAPEX</div>
                   </div>
                 </div>
               </div>
@@ -363,10 +372,21 @@ const AdvancedROICalculator = () => {
                     </div>
                     <div className="flex justify-between">
                       <span>{t('roi.capital.required')}:</span>
-                      <span className="font-semibold">€{(customValues.capitalInvestment / 1000000).toFixed(0)}M</span>
+                      <span className="font-semibold">€{(currentScenario.capitalInvestment / 1000000).toFixed(0)}M</span>
                     </div>
                   </div>
                 </div>
+              </div>
+
+              {/* Region-Specific Notes */}
+              <div className="bg-wine-cream/10 p-4 rounded-lg border border-wine-burgundy/10">
+                <p className="text-sm text-wine-charcoal/80">
+                  <strong>{getRegionDisplayName()} Context:</strong> {
+                    regionId === 'champagne' 
+                      ? 'Parameters scaled for premium wine region with smaller biomass volumes but higher value products.'
+                      : 'Parameters based on large-scale viticulture waste availability with established agricultural infrastructure.'
+                  }
+                </p>
               </div>
             </TabsContent>
           </Tabs>
