@@ -72,12 +72,20 @@ const EconomyTab = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
+            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300 group relative">
               <div className="text-4xl font-bold text-wine-burgundy mb-3">
-                {(availableBiomass / 1000).toFixed(0)}kt
+                {(availableBiomass / 1000).toFixed(0)}k {t('tonnes')}
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.available.feedstock')}</div>
               <div className="text-sm text-wine-charcoal/60">{t('economy.biomass.secured')}</div>
+              
+              {/* Hover tooltip explaining feedstock calculation */}
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-wine-charcoal text-white p-3 rounded-lg shadow-lg text-xs whitespace-nowrap z-10">
+                {t('economy.feedstock.tooltip', { 
+                  total: (currentData.annualPomace / 1000).toFixed(0),
+                  percentage: '30'
+                })}
+              </div>
             </div>
             
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
