@@ -206,12 +206,16 @@ const translations = {
     'communes.impliquees': 'Communes impliquées',
     'repartition.detaillee.biomasse': 'Répartition Détaillée de la Biomasse',
     
-    // Infrastructure - NEW
+    // Infrastructure - UPDATED
     'infrastructure.title': 'Infrastructure de Valorisation',
+    'infrastructure.subtitle': 'Capacités de transformation et valorisation régionales',
     'infrastructure.distilleries': 'Distilleries',
     'infrastructure.methanization': 'Unités de méthanisation',
     'infrastructure.composting': 'Plateformes de compostage',
     'infrastructure.biomass': 'Chaudières biomasse',
+    'infrastructure.total.facilities': 'Installations totales',
+    'infrastructure.existing.capacity': 'Capacité existante',
+    'infrastructure.disclaimer': 'Estimations basées sur les infrastructures existantes et capacités moyennes par type d\'installation',
     'co2.evite.annuel': 'CO₂ évité annuel',
     
     // Seasonal Terms - NEW
@@ -660,12 +664,16 @@ const translations = {
     'communes.impliquees': 'Communes involved',
     'repartition.detaillee.biomasse': 'Detailed Biomass Breakdown',
     
-    // Infrastructure - NEW
+    // Infrastructure - UPDATED
     'infrastructure.title': 'Processing Infrastructure',
+    'infrastructure.subtitle': 'Regional transformation and valorization capacities',
     'infrastructure.distilleries': 'Distilleries',
     'infrastructure.methanization': 'Methanization units',
     'infrastructure.composting': 'Composting platforms',
     'infrastructure.biomass': 'Biomass boilers',
+    'infrastructure.total.facilities': 'Total facilities',
+    'infrastructure.existing.capacity': 'Existing capacity',
+    'infrastructure.disclaimer': 'Estimates based on existing infrastructure and average capacities per facility type',
     'co2.evite.annuel': 'Annual CO₂ avoided',
     
     // Seasonal Terms - NEW
