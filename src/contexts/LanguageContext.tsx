@@ -1,58 +1,4 @@
-'cost.benefit.champagne.context': 'Analysis adapted to premium scale with lower volumes but higher margins.',
-    'cost.benefit.languedoc.context': 'Modeling based on large volumes and established regional infrastructure.',
-    
-    // Economic Projections Translation Keys - NEW
-    'projections.title': 'Economic Projections',
-    'projections.five.years': '5 years',
-    'projections.ten.years': '10 years',
-    'projections.export': 'Export',
-    'projections.certified.data': 'Certified Data',
-    'projections.official.sources': 'Official sources',
-    'projections.volume': 'Volume',
-    'projections.pomace': 'pomace',
-    'projections.saf': 'SAF',
-    'projections.price': 'Price',
-    'projections.co2': 'CO₂',
-    'projections.avoided': 'avoided',
-    'projections.efficiency': 'Efficiency',
-    'projections.cumulative.profit': 'Cumulative profit',
-    'projections.total.jobs': 'Total jobs',
-    'projections.taxes.collected': 'Taxes collected',
-    'projections.co2.avoided.cumulative': 'CO₂ avoided cumulative',
-    'projections.financial.evolution': 'Financial Evolution',
-    'projections.years': 'years',
-    'projections.revenue': 'Revenue',
-    'projections.costs': 'Costs',
-    'projections.annual.profit': 'Annual profit',
-    'projections.job.creation': 'Job Creation',
-    'projections.jobs': 'Jobs',
-    'projections.annual.carbon.impact': 'Annual Carbon Impact',
-    'projections.co2.avoided': 'CO₂ avoided',
-    'projections.economic.multipliers': 'Regional Economic Multipliers',
-    'projections.oecd.source': 'Source: OECD Rural Development Studies 2023',
-    'projections.agriculture': 'Agriculture',
-    'projections.industry': 'Industry',
-    'projections.services': 'Services',
-    'projections.transport': 'Transport',
-    'projections.construction': 'Construction',
-    'projections.direct': 'Direct',
-    'projections.indirect': 'Indirect',
-    'projections.total': 'Total',
-    'projections.regional.economic.impact': 'Regional Economic Impact',
-    'projections.direct.jobs': 'Direct jobs',
-    'projections.indirect.jobs': 'Indirect jobs',
-    'projections.total.payroll': 'Total payroll',
-    'projections.local.purchases': 'Local purchases',
-    'projections.tax.contribution': 'Tax contribution',
-    'projections.average.salary': 'Average salary',
-    'projections.context': 'Context',
-    'projections.champagne.context': 'Projections adapted to premium scale with focus on quality and innovation.',
-    'projections.languedoc.context': 'Economic model based on significant volumes and established regional infrastructure.',
-    
-    // Commune Production - NEW
-    'repartition.production.commune': 'Production Distribution by Commune',
-    'communes.principales': 'Top Producing Communes',
-    'production.regionale.percent': 'of regional production',import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 export type Language = 'fr' | 'en';
 
@@ -402,7 +348,339 @@ const translations = {
     'roi.capital.investment': 'Investissement capital (M€)',
     'roi.saf.production.annual': 'Litres SAF/an',
     'roi.five.year': 'ROI (5 ans)',
-    'roi.payback.years': 'Années de retour',
+    'roi.payback.years': 'Payback years',
+    'roi.irr': 'IRR',
+    'roi.revenue.costs.annual': 'Annual Revenue & Costs',
+    'roi.gross.revenue': 'Gross revenue',
+    'roi.operating.costs': 'Operating costs',
+    'roi.gross.profit': 'Gross profit',
+    'roi.financial.indicators': 'Financial Indicators',
+    'roi.npv.ten.years': 'NPV (10 years, 8%)',
+    'roi.gross.margin': 'Gross margin',
+    'roi.capital.required': 'Capital required',
+    
+    // Cost-Benefit Analysis Translation Keys - NEW
+    'cost.benefit.title': 'Cost-Benefit Analysis',
+    'cost.benefit.comparison': 'Comparison',
+    'cost.benefit.timeline': 'Timeline',
+    'cost.benefit.breakdown': 'Breakdown',
+    'cost.benefit.revenue': 'Revenue',
+    'cost.benefit.operating.costs': 'Operating costs',
+    'cost.benefit.net.profit': 'Net profit',
+    'cost.benefit.jobs.created': 'Jobs created',
+    'cost.benefit.co2.avoided': 'CO₂ avoided (kt)',
+    'cost.benefit.profit.improvement': 'Profit improvement',
+    'cost.benefit.additional.benefit': 'Additional benefit',
+    'cost.benefit.co2.avoided.annual': 'CO₂ avoided/year',
+    'cost.benefit.real.data': 'Real data',
+    'cost.benefit.traditional.valorization': 'Traditional valorization (M€)',
+    'cost.benefit.saf.valorization': 'SAF valorization (M€)',
+    'cost.benefit.detailed.comparison': 'Detailed Comparison',
+    'cost.benefit.category': 'Category',
+    'cost.benefit.traditional': 'Traditional',
+    'cost.benefit.saf': 'SAF',
+    'cost.benefit.difference': 'Difference',
+    'cost.benefit.improvement': 'Improvement',
+    'cost.benefit.traditional.annual': 'Traditional (M€/year)',
+    'cost.benefit.saf.annual': 'SAF (M€/year)',
+    'cost.benefit.saf.cumulative': 'SAF Cumulative (M€)',
+    'cost.benefit.breakeven.point': 'Breakeven point',
+    'cost.benefit.investment.return': 'Return on investment',
+    'cost.benefit.cumulative.profit': 'Cumulative profit',
+    'cost.benefit.over.six.years': 'Over 6 years',
+    'cost.benefit.annual.growth': 'Annual growth',
+    'cost.benefit.average.2025.2029': 'Average 2025-2029',
+    'cost.benefit.saf.cost.breakdown': 'SAF Cost Breakdown',
+    'cost.benefit.biomass.collection': 'Biomass collection',
+    'cost.benefit.pretreatment': 'Pretreatment',
+    'cost.benefit.atj.conversion': 'ATJ conversion',
+    'cost.benefit.refining': 'Refining',
+    'cost.benefit.distribution': 'Distribution',
+    'cost.benefit.regional.economic.impact': 'Regional Economic Impact',
+    'cost.benefit.direct.jobs': 'Direct jobs',
+    'cost.benefit.positions': 'positions',
+    'cost.benefit.production.maintenance': 'Production and maintenance',
+    'cost.benefit.indirect.jobs': 'Indirect jobs',
+    'cost.benefit.services.suppliers': 'Services and suppliers',
+    'cost.benefit.local.taxes': 'Local taxes',
+    'cost.benefit.municipal.revenue': 'Municipal revenue',
+    'cost.benefit.local.purchases': 'Local purchases',
+    'cost.benefit.circular.economy': 'Circular economy',
+    'cost.benefit.context': 'Context',
+    'cost.benefit.champagne.context': 'Analysis adapted to premium scale with lower volumes but higher margins.',
+    'cost.benefit.languedoc.context': 'Modeling based on large volumes and established regional infrastructure.',
+    
+    // Economic Projections - NEW SECTION
+    'projections.title': 'Economic Projections',
+    'projections.five.years': '5 years',
+    'projections.ten.years': '10 years',
+    'projections.export': 'Export',
+    'projections.certified.data': 'Certified Data',
+    'projections.official.sources': 'Official Sources',
+    'projections.volume': 'Volume',
+    'projections.pomace': 'pomace',
+    'projections.saf': 'SAF',
+    'projections.price': 'Price',
+    'projections.co2': 'CO₂',
+    'projections.avoided': 'avoided',
+    'projections.efficiency': 'Efficiency',
+    'projections.cumulative.profit': 'Cumulative profit',
+    'projections.total.jobs': 'Total jobs',
+    'projections.taxes.collected': 'Taxes collected',
+    'projections.co2.avoided.cumulative': 'Cumulative CO₂ avoided',
+    'projections.financial.evolution': 'Financial Evolution',
+    'projections.years': 'years',
+    'projections.revenue': 'Revenue',
+    'projections.costs': 'Costs',
+    'projections.annual.profit': 'Annual profit',
+    'projections.job.creation': 'Job Creation',
+    'projections.jobs': 'jobs',
+    'projections.annual.carbon.impact': 'Annual Carbon Impact',
+    'projections.co2.avoided': 'CO₂ avoided',
+    'projections.economic.multipliers': 'Economic Multipliers',
+    'projections.oecd.source': 'Source: OECD Rural Development Studies',
+    'projections.agriculture': 'Agriculture',
+    'projections.industry': 'Industry',
+    'projections.services': 'Services',
+    'projections.transport': 'Transport',
+    'projections.construction': 'Construction',
+    'projections.direct': 'Direct',
+    'projections.indirect': 'Indirect',
+    'projections.total': 'Total',
+    'projections.regional.economic.impact': 'Regional Economic Impact',
+    'projections.direct.jobs': 'Direct jobs',
+    'projections.indirect.jobs': 'Indirect jobs',
+    'projections.total.payroll': 'Total payroll',
+    'projections.local.purchases': 'Local purchases',
+    'projections.tax.contribution': 'Tax contribution',
+    'projections.average.salary': 'Average salary',
+    'projections.context': 'Context',
+    'projections.champagne.context': 'Analysis adapted to premium scale with lower volumes but higher margins and concentrated economic impact on quality.',
+    'projections.languedoc.context': 'Modeling based on large volumes and established infrastructure, enabling significant economies of scale.',
+    
+    // Commune Production - NEW
+    'repartition.production.commune': 'Production Distribution by Commune',
+    'communes.principales': 'Top Producing Communes',
+    'production.regionale.percent': 'of regional production',
+    
+    // Resources Tab - EXTENDED
+    'resources.title': 'Biomass Resources',
+    'resources.subtitle': 'Mapping and analysis of available regional resources',
+    'resources.biomassTotal': 'Total Biomass',
+    'resources.availableForSAF': 'Available for SAF',
+    'resources.safProduction': 'SAF Production',
+    'resources.revenuesPotential': 'Revenue Potential',
+    'resources.allocationTitle': 'Realistic Flow Allocation',
+    'resources.allocationSubtitle': 'Effective availability for SAF production',
+    'resources.total.biomass.regional': 'Total Regional Viticulture Biomass',
+    'resources.totalProduction': 'Total theoretical production',
+    'resources.totalPercentage': '100% of biomass resources',
+    'resources.realisticAllocation': 'realistic allocation',
+    'resources.otherValorisations': 'Other valorizations',
+    'resources.otherValorisationsDesc': 'Distillation, composting, methanization',
+    'resources.whyThirtyPercent.title': 'Why only 30%?',
+    'resources.whyThirtyPercent.description': 'Existing distilleries, logistical constraints, seasonality and local needs limit real availability for new SAF projects.',
+    'resources.analysisTitle': 'Resource Analysis',
+    'resources.analysisSubtitle': 'Distribution and seasonality of available biomass',
+    'resources.infrastructureTitle': 'Existing Infrastructure',
+    'resources.infrastructureSubtitle': 'Processing and valorization capacities',
+    'resources.safPotentialTitle': 'SAF Production Potential',
+    'resources.safPotentialSubtitle': 'Realistic capacity based on {tonnage} available tonnes',
+    'resources.annualSafProduction': 'Annual SAF production',
+    'resources.yieldRate': 'At 280L/tonne yield rate',
+    'resources.potentialRevenue': 'Potential revenue',
+    'resources.pricePerLiter': 'At €1.22/L selling price',
+    'resources.annualCo2Avoided': 'Annual CO₂ avoided',
+    'resources.vsFossilFuel': 'vs fossil fuel',
+    'resources.disclaimer': '* Estimates based on ATJ (Alcohol-to-Jet) technologies and current market conditions',
+    
+    // Contact Tab - NEW ADDITIONS
+    'contact.title': 'Contact & Next Steps',
+    'contact.subtitle': 'Transform vineyard waste into future opportunities together',
+    'contact.businessOpportunities': 'Collaboration Opportunities',
+    'contact.strategicPartnership': 'Strategic Partnership',
+    'contact.strategicDesc': 'Collaboration and commercial agreements',
+    'contact.investmentOpportunity': 'Investment Opportunity',
+    'contact.investmentDesc': 'Financial participation in the project',
+    'contact.technicalSupport': 'Technical Support',
+    'contact.technicalDesc': 'Technical questions and feasibility',
+    'contact.generalInfo': 'General Information',
+    'contact.generalDesc': 'Project information requests',
+    'contact.regionalPotential': 'Regional Potential',
+    'contact.directContact': 'Direct Contact',
+    'contact.directLine': 'Direct line',
+    'contact.generalEmail': 'General email',
+    'contact.scheduleMeeting': 'Schedule Meeting',
+    'contact.contactForm': 'Contact Form',
+    'contact.fullName': 'Full name',
+    'contact.yourName': 'Your name',
+    'contact.phone': 'Phone',
+    'contact.company': 'Company/Organization',
+    'contact.companyPlaceholder': 'Your company name',
+    'contact.role': 'Role/Position',
+    'contact.yourPosition': 'Your position',
+    'contact.preferredContact': 'Preferred contact method',
+    'contact.telephone': 'Telephone',
+    'contact.meeting': 'Meeting',
+    'contact.interests': 'Areas of interest (select all that apply)',
+    'contact.feasibilityStudy': 'Feasibility study',
+    'contact.projectTimeline': 'Project timeline',
+    'contact.environmentalImpact': 'Environmental impact',
+    'contact.economicBenefits': 'Economic benefits',
+    'contact.detailedMessage': 'Detailed message',
+    'contact.messagePlaceholder': 'Describe your needs, questions or proposals...',
+    'contact.sendInquiry': 'Send Inquiry',
+    'contact.afterInquiry': 'After your inquiry',
+    'contact.guaranteedResponse': 'Guaranteed response',
+    'contact.firstMeeting': 'First meeting',
+    'contact.detailedProposal': 'Detailed proposal',
+    'contact.thankYou': 'Thank you for your inquiry!',
+    'contact.thankYouMessage': 'We will contact you within 48 hours to discuss collaboration opportunities.',
+    'contact.newInquiry': 'New inquiry',
+    'contact.otherContactMethods': 'Other ways to contact us',
+    'contact.projectInfoRequest': 'Project information requests',
+    
+    // Time and Units - EXTENDED
+    'time.week': 'week',
+    'time.month': 'month',
+    'time.hours48': '48h',
+    'units.tonesYear': 'tonnes/year',
+    'units.litersYear': 'liters/year',
+    'units.hectares': 'hectares',
+    'units.tonne': 'tonne',
+    'units.ofTotal': 'of total',
+    'units.potential': 'potential',
+    'units.estimated': 'estimated',
+    
+    // Footer translations
+    'footer.project.description': 'Valorization of grape pomace into sustainable aviation fuel. Pioneer project for transforming viticultural waste into certified SAF.',
+    'footer.revenues': 'revenues',
+    'footer.co2.avoided': 'CO₂ avoided',
+    'footer.methodology.standards': 'Methodology & Standards',
+    'footer.certifications.audits': 'Certifications & Audits',
+    'footer.institutional.partners': 'Institutional Partners',
+    'footer.primary.data.sources': 'Primary Data Sources',
+    'footer.scientific.validation': 'Scientific Validation',
+    'footer.international.standards': 'International Standards',
+    'footer.copyright': 'SAF {region} Project. All rights reserved.',
+    'footer.data.updated': 'Data updated: December 2023',
+    'footer.next.revision': 'Next revision: March 2024',
+    'footer.legal.notices': 'Legal notices',
+    'footer.data.protection': 'Data protection',
+    'footer.terms.of.use': 'Terms of use',
+    'footer.disclaimer.title': 'Disclaimer:',
+    'footer.disclaimer.text': 'Financial and technical projections are based on real 2023 data and assumptions validated by independent experts. Future results may vary according to market conditions. This document does not constitute investment advice.',
+    
+    // Methodology
+    'methodology.atj.title': 'ATJ Methodology',
+    'methodology.atj.description': 'ASTM D7566 certified Alcohol-to-Jet process',
+    'methodology.agreste.title': 'Agreste Data',
+    'methodology.agreste.description': 'Official French agricultural statistics',
+    'methodology.ifv.title': 'IFV Institute',
+    'methodology.ifv.description': 'French Institute of Vine and Wine',
+    'methodology.corsia.title': 'CORSIA Standards',
+    'methodology.corsia.description': 'ICAO Carbon Offsetting Scheme',
+    
+    // Credentials
+    'credentials.bureau.veritas': 'Data certified by Bureau Veritas',
+    'credentials.astm.compliance': 'ASTM D7566 & EN 15940 compliance',
+    'credentials.corsia.validation': 'CORSIA validation for carbon credits',
+    'credentials.quarterly.audit': 'Independent quarterly audit',
+    'credentials.peer.reviewed': 'Peer-reviewed methodology',
+    
+    // Partners - Languedoc
+    'partners.region.occitanie': 'Occitanie Region',
+    'partners.ifv': 'French Institute of Vine (IFV)',
+    'partners.safer.languedoc': 'SAFER Languedoc',
+    'partners.chamber.herault': 'Hérault Chamber of Agriculture',
+    'partners.vignerons.union': 'Winegrowers Union',
+    
+    // Partners - Champagne
+    'partners.region.grand.est': 'Grand Est Region',
+    'partners.safer.champagne': 'SAFER Champagne',
+    'partners.chamber.champagne': 'Champagne Chamber of Agriculture',
+    'partners.champagne.union': 'General Union of Champagne Winegrowers',
+    
+    // Data Sources
+    'data.sources.agreste': 'Agreste - National agricultural statistics',
+    'data.sources.ifv': 'IFV - Wine production and yields',
+    'data.sources.oiv': 'OIV - International standards',
+    'data.sources.aviation.fuel': 'Aviation Fuel Analytics - SAF pricing',
+    
+    // Validation
+    'validation.peer.review': 'Peer-review by scientific committee',
+    'validation.bureau.veritas': 'Bureau Veritas validation',
+    'validation.iso.compliance': 'ISO 14064 & 14067 compliance',
+    'validation.carbon.audit': 'Third-party independent carbon audit',
+    
+    // Standards
+    'standards.astm.d7566': 'ASTM D7566 - Jet fuel specifications',
+    'standards.corsia.icao': 'CORSIA - ICAO carbon offsetting',
+    'standards.red.ii': 'RED II - Renewable Energy Directive',
+    'standards.iscc.eu': 'ISCC EU - Sustainability certification',
+    
+    // Tooltip
+    'tooltip.source': 'Source: Agreste 2023, OIV data'
+  }
+};
+
+export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [language, setLanguage] = useState<Language>('fr');
+  const [debugMode, setDebugMode] = useState<boolean>(false);
+  const [missingTranslations, setMissingTranslations] = useState<string[]>([]);
+
+  const t = (key: string, params?: Record<string, string>): string => {
+    let translation = translations[language][key];
+    
+    // Track missing translations in debug mode
+    if (!translation && debugMode) {
+      if (!missingTranslations.includes(key)) {
+        setMissingTranslations(prev => [...prev, key]);
+        console.warn(`Missing translation: ${key}`);
+      }
+      return `[MISSING: ${key}]`;
+    }
+    
+    // Fallback to key if translation not found
+    if (!translation) {
+      translation = key;
+    }
+    
+    // Handle parameter replacement like {region}, {years}, {tonnage}, etc.
+    if (params) {
+      Object.keys(params).forEach(param => {
+        translation = translation.replace(new RegExp(`\\{${param}\\}`, 'g'), params[param]);
+      });
+    }
+    
+    return translation;
+  };
+
+  const getMissingTranslations = (): string[] => {
+    return [...missingTranslations];
+  };
+
+  return (
+    <LanguageContext.Provider value={{ 
+      language, 
+      setLanguage, 
+      t, 
+      debugMode, 
+      setDebugMode,
+      getMissingTranslations 
+    }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+export const useLanguage = () => {
+  const context = useContext(LanguageContext);
+  if (context === undefined) {
+    throw new Error('useLanguage must be used within a LanguageProvider');
+  }
+  return context;
+};Années de retour',
     'roi.irr': 'TRI',
     'roi.revenue.costs.annual': 'Revenus & Coûts Annuels',
     'roi.gross.revenue': 'Revenus bruts',
@@ -464,13 +742,13 @@ const translations = {
     'cost.benefit.champagne.context': 'Analyse adaptée à l\'échelle premium avec volumes plus faibles mais marges supérieures.',
     'cost.benefit.languedoc.context': 'Modélisation basée sur les volumes importants et l\'infrastructure établie de la région.',
     
-    // Economic Projections Translation Keys - NEW
+    // Economic Projections - NEW SECTION
     'projections.title': 'Projections Économiques',
     'projections.five.years': '5 ans',
     'projections.ten.years': '10 ans',
     'projections.export': 'Exporter',
     'projections.certified.data': 'Données Certifiées',
-    'projections.official.sources': 'Sources officielles',
+    'projections.official.sources': 'Sources Officielles',
     'projections.volume': 'Volume',
     'projections.pomace': 'marc',
     'projections.saf': 'SAF',
@@ -488,11 +766,11 @@ const translations = {
     'projections.costs': 'Coûts',
     'projections.annual.profit': 'Profit annuel',
     'projections.job.creation': 'Création d\'Emplois',
-    'projections.jobs': 'Emplois',
+    'projections.jobs': 'emplois',
     'projections.annual.carbon.impact': 'Impact Carbone Annuel',
     'projections.co2.avoided': 'CO₂ évité',
-    'projections.economic.multipliers': 'Multiplicateurs Économiques Régionaux',
-    'projections.oecd.source': 'Source: OECD Rural Development Studies 2023',
+    'projections.economic.multipliers': 'Multiplicateurs Économiques',
+    'projections.oecd.source': 'Source: Études OCDE Développement Rural',
     'projections.agriculture': 'Agriculture',
     'projections.industry': 'Industrie',
     'projections.services': 'Services',
@@ -509,8 +787,8 @@ const translations = {
     'projections.tax.contribution': 'Contribution fiscale',
     'projections.average.salary': 'Salaire moyen',
     'projections.context': 'Contexte',
-    'projections.champagne.context': 'Projections adaptées à l\'échelle premium avec focus sur la qualité et l\'innovation.',
-    'projections.languedoc.context': 'Modèle économique basé sur les volumes significatifs et l\'infrastructure régionale établie.',
+    'projections.champagne.context': 'Analyse adaptée à l\'échelle premium avec volumes plus faibles mais marges supérieures et impact économique concentré sur la qualité.',
+    'projections.languedoc.context': 'Modélisation basée sur les volumes importants et l\'infrastructure établie, permettant des économies d\'échelle significatives.',
     
     // Commune Production - NEW
     'repartition.production.commune': 'Répartition de Production par Commune',
@@ -601,6 +879,7 @@ const translations = {
     'units.tonesYear': 'tonnes/an',
     'units.litersYear': 'litres/an',
     'units.hectares': 'hectares',
+    'units.tonne': 'tonne',
     'units.ofTotal': 'du total',
     'units.potential': 'potentiel',
     'units.estimated': 'estimation',
@@ -1009,287 +1288,4 @@ const translations = {
     'roi.capital.investment': 'Capital investment (M€)',
     'roi.saf.production.annual': 'Liters SAF/year',
     'roi.five.year': 'ROI (5 years)',
-    'roi.payback.years': 'Payback years',
-    'roi.irr': 'IRR',
-    'roi.revenue.costs.annual': 'Annual Revenue & Costs',
-    'roi.gross.revenue': 'Gross revenue',
-    'roi.operating.costs': 'Operating costs',
-    'roi.gross.profit': 'Gross profit',
-    'roi.financial.indicators': 'Financial Indicators',
-    'roi.npv.ten.years': 'NPV (10 years, 8%)',
-    'roi.gross.margin': 'Gross margin',
-    'roi.capital.required': 'Capital required',
-    
-    // Cost-Benefit Analysis Translation Keys - NEW
-    'cost.benefit.title': 'Cost-Benefit Analysis',
-    'cost.benefit.comparison': 'Comparison',
-    'cost.benefit.timeline': 'Timeline',
-    'cost.benefit.breakdown': 'Breakdown',
-    'cost.benefit.revenue': 'Revenue',
-    'cost.benefit.operating.costs': 'Operating costs',
-    'cost.benefit.net.profit': 'Net profit',
-    'cost.benefit.jobs.created': 'Jobs created',
-    'cost.benefit.co2.avoided': 'CO₂ avoided (kt)',
-    'cost.benefit.profit.improvement': 'Profit improvement',
-    'cost.benefit.additional.benefit': 'Additional benefit',
-    'cost.benefit.co2.avoided.annual': 'CO₂ avoided/year',
-    'cost.benefit.real.data': 'Real data',
-    'cost.benefit.traditional.valorization': 'Traditional valorization (M€)',
-    'cost.benefit.saf.valorization': 'SAF valorization (M€)',
-    'cost.benefit.detailed.comparison': 'Detailed Comparison',
-    'cost.benefit.category': 'Category',
-    'cost.benefit.traditional': 'Traditional',
-    'cost.benefit.saf': 'SAF',
-    'cost.benefit.difference': 'Difference',
-    'cost.benefit.improvement': 'Improvement',
-    'cost.benefit.traditional.annual': 'Traditional (M€/year)',
-    'cost.benefit.saf.annual': 'SAF (M€/year)',
-    'cost.benefit.saf.cumulative': 'SAF Cumulative (M€)',
-    'cost.benefit.breakeven.point': 'Breakeven point',
-    'cost.benefit.investment.return': 'Return on investment',
-    'cost.benefit.cumulative.profit': 'Cumulative profit',
-    'cost.benefit.over.six.years': 'Over 6 years',
-    'cost.benefit.annual.growth': 'Annual growth',
-    'cost.benefit.average.2025.2029': 'Average 2025-2029',
-    'cost.benefit.saf.cost.breakdown': 'SAF Cost Breakdown',
-    'cost.benefit.biomass.collection': 'Biomass collection',
-    'cost.benefit.pretreatment': 'Pretreatment',
-    'cost.benefit.atj.conversion': 'ATJ conversion',
-    'cost.benefit.refining': 'Refining',
-    'cost.benefit.distribution': 'Distribution',
-    'cost.benefit.regional.economic.impact': 'Regional Economic Impact',
-    'cost.benefit.direct.jobs': 'Direct jobs',
-    'cost.benefit.positions': 'positions',
-    'cost.benefit.production.maintenance': 'Production and maintenance',
-    'cost.benefit.indirect.jobs': 'Indirect jobs',
-    'cost.benefit.services.suppliers': 'Services and suppliers',
-    'cost.benefit.local.taxes': 'Local taxes',
-    'cost.benefit.municipal.revenue': 'Municipal revenue',
-    'cost.benefit.local.purchases': 'Local purchases',
-    'cost.benefit.circular.economy': 'Circular economy',
-    'cost.benefit.context': 'Context',
-    'cost.benefit.champagne.context': 'Analysis adapted to premium scale with lower volumes but higher margins.',
-    'cost.benefit.languedoc.context': 'Modeling based on large volumes and established regional infrastructure.',
-    
-    // Commune Production - NEW
-    'repartition.production.commune': 'Production Distribution by Commune',
-    'communes.principales': 'Top Producing Communes',
-    'production.regionale.percent': 'of regional production',
-    
-    // Resources Tab - EXTENDED
-    'resources.title': 'Biomass Resources',
-    'resources.subtitle': 'Mapping and analysis of available regional resources',
-    'resources.biomassTotal': 'Total Biomass',
-    'resources.availableForSAF': 'Available for SAF',
-    'resources.safProduction': 'SAF Production',
-    'resources.revenuesPotential': 'Revenue Potential',
-    'resources.allocationTitle': 'Realistic Flow Allocation',
-    'resources.allocationSubtitle': 'Effective availability for SAF production',
-    'resources.total.biomass.regional': 'Total Regional Viticulture Biomass',
-    'resources.totalProduction': 'Total theoretical production',
-    'resources.totalPercentage': '100% of biomass resources',
-    'resources.realisticAllocation': 'realistic allocation',
-    'resources.otherValorisations': 'Other valorizations',
-    'resources.otherValorisationsDesc': 'Distillation, composting, methanization',
-    'resources.whyThirtyPercent.title': 'Why only 30%?',
-    'resources.whyThirtyPercent.description': 'Existing distilleries, logistical constraints, seasonality and local needs limit real availability for new SAF projects.',
-    'resources.analysisTitle': 'Resource Analysis',
-    'resources.analysisSubtitle': 'Distribution and seasonality of available biomass',
-    'resources.infrastructureTitle': 'Existing Infrastructure',
-    'resources.infrastructureSubtitle': 'Processing and valorization capacities',
-    'resources.safPotentialTitle': 'SAF Production Potential',
-    'resources.safPotentialSubtitle': 'Realistic capacity based on {tonnage} available tonnes',
-    'resources.annualSafProduction': 'Annual SAF production',
-    'resources.yieldRate': 'At 280L/tonne yield rate',
-    'resources.potentialRevenue': 'Potential revenue',
-    'resources.pricePerLiter': 'At €1.22/L selling price',
-    'resources.annualCo2Avoided': 'Annual CO₂ avoided',
-    'resources.vsFossilFuel': 'vs fossil fuel',
-    'resources.disclaimer': '* Estimates based on ATJ (Alcohol-to-Jet) technologies and current market conditions',
-    
-    // Contact Tab - NEW ADDITIONS
-    'contact.title': 'Contact & Next Steps',
-    'contact.subtitle': 'Transform vineyard waste into future opportunities together',
-    'contact.businessOpportunities': 'Collaboration Opportunities',
-    'contact.strategicPartnership': 'Strategic Partnership',
-    'contact.strategicDesc': 'Collaboration and commercial agreements',
-    'contact.investmentOpportunity': 'Investment Opportunity',
-    'contact.investmentDesc': 'Financial participation in the project',
-    'contact.technicalSupport': 'Technical Support',
-    'contact.technicalDesc': 'Technical questions and feasibility',
-    'contact.generalInfo': 'General Information',
-    'contact.generalDesc': 'Project information requests',
-    'contact.regionalPotential': 'Regional Potential',
-    'contact.directContact': 'Direct Contact',
-    'contact.directLine': 'Direct line',
-    'contact.generalEmail': 'General email',
-    'contact.scheduleMeeting': 'Schedule Meeting',
-    'contact.contactForm': 'Contact Form',
-    'contact.fullName': 'Full name',
-    'contact.yourName': 'Your name',
-    'contact.phone': 'Phone',
-    'contact.company': 'Company/Organization',
-    'contact.companyPlaceholder': 'Your company name',
-    'contact.role': 'Role/Position',
-    'contact.yourPosition': 'Your position',
-    'contact.preferredContact': 'Preferred contact method',
-    'contact.telephone': 'Telephone',
-    'contact.meeting': 'Meeting',
-    'contact.interests': 'Areas of interest (select all that apply)',
-    'contact.feasibilityStudy': 'Feasibility study',
-    'contact.projectTimeline': 'Project timeline',
-    'contact.environmentalImpact': 'Environmental impact',
-    'contact.economicBenefits': 'Economic benefits',
-    'contact.detailedMessage': 'Detailed message',
-    'contact.messagePlaceholder': 'Describe your needs, questions or proposals...',
-    'contact.sendInquiry': 'Send Inquiry',
-    'contact.afterInquiry': 'After your inquiry',
-    'contact.guaranteedResponse': 'Guaranteed response',
-    'contact.firstMeeting': 'First meeting',
-    'contact.detailedProposal': 'Detailed proposal',
-    'contact.thankYou': 'Thank you for your inquiry!',
-    'contact.thankYouMessage': 'We will contact you within 48 hours to discuss collaboration opportunities.',
-    'contact.newInquiry': 'New inquiry',
-    'contact.otherContactMethods': 'Other ways to contact us',
-    'contact.projectInfoRequest': 'Project information requests',
-    
-    // Time and Units - EXTENDED
-    'time.week': 'week',
-    'time.month': 'month',
-    'time.hours48': '48h',
-    'units.tonesYear': 'tonnes/year',
-    'units.litersYear': 'liters/year',
-    'units.hectares': 'hectares',
-    'units.ofTotal': 'of total',
-    'units.potential': 'potential',
-    'units.estimated': 'estimated',
-    
-    // Footer translations
-    'footer.project.description': 'Valorization of grape pomace into sustainable aviation fuel. Pioneer project for transforming viticultural waste into certified SAF.',
-    'footer.revenues': 'revenues',
-    'footer.co2.avoided': 'CO₂ avoided',
-    'footer.methodology.standards': 'Methodology & Standards',
-    'footer.certifications.audits': 'Certifications & Audits',
-    'footer.institutional.partners': 'Institutional Partners',
-    'footer.primary.data.sources': 'Primary Data Sources',
-    'footer.scientific.validation': 'Scientific Validation',
-    'footer.international.standards': 'International Standards',
-    'footer.copyright': 'SAF {region} Project. All rights reserved.',
-    'footer.data.updated': 'Data updated: December 2023',
-    'footer.next.revision': 'Next revision: March 2024',
-    'footer.legal.notices': 'Legal notices',
-    'footer.data.protection': 'Data protection',
-    'footer.terms.of.use': 'Terms of use',
-    'footer.disclaimer.title': 'Disclaimer:',
-    'footer.disclaimer.text': 'Financial and technical projections are based on real 2023 data and assumptions validated by independent experts. Future results may vary according to market conditions. This document does not constitute investment advice.',
-    
-    // Methodology
-    'methodology.atj.title': 'ATJ Methodology',
-    'methodology.atj.description': 'ASTM D7566 certified Alcohol-to-Jet process',
-    'methodology.agreste.title': 'Agreste Data',
-    'methodology.agreste.description': 'Official French agricultural statistics',
-    'methodology.ifv.title': 'IFV Institute',
-    'methodology.ifv.description': 'French Institute of Vine and Wine',
-    'methodology.corsia.title': 'CORSIA Standards',
-    'methodology.corsia.description': 'ICAO Carbon Offsetting Scheme',
-    
-    // Credentials
-    'credentials.bureau.veritas': 'Data certified by Bureau Veritas',
-    'credentials.astm.compliance': 'ASTM D7566 & EN 15940 compliance',
-    'credentials.corsia.validation': 'CORSIA validation for carbon credits',
-    'credentials.quarterly.audit': 'Independent quarterly audit',
-    'credentials.peer.reviewed': 'Peer-reviewed methodology',
-    
-    // Partners - Languedoc
-    'partners.region.occitanie': 'Occitanie Region',
-    'partners.ifv': 'French Institute of Vine (IFV)',
-    'partners.safer.languedoc': 'SAFER Languedoc',
-    'partners.chamber.herault': 'Hérault Chamber of Agriculture',
-    'partners.vignerons.union': 'Winegrowers Union',
-    
-    // Partners - Champagne
-    'partners.region.grand.est': 'Grand Est Region',
-    'partners.safer.champagne': 'SAFER Champagne',
-    'partners.chamber.champagne': 'Champagne Chamber of Agriculture',
-    'partners.champagne.union': 'General Union of Champagne Winegrowers',
-    
-    // Data Sources
-    'data.sources.agreste': 'Agreste - National agricultural statistics',
-    'data.sources.ifv': 'IFV - Wine production and yields',
-    'data.sources.oiv': 'OIV - International standards',
-    'data.sources.aviation.fuel': 'Aviation Fuel Analytics - SAF pricing',
-    
-    // Validation
-    'validation.peer.review': 'Peer-review by scientific committee',
-    'validation.bureau.veritas': 'Bureau Veritas validation',
-    'validation.iso.compliance': 'ISO 14064 & 14067 compliance',
-    'validation.carbon.audit': 'Third-party independent carbon audit',
-    
-    // Standards
-    'standards.astm.d7566': 'ASTM D7566 - Jet fuel specifications',
-    'standards.corsia.icao': 'CORSIA - ICAO carbon offsetting',
-    'standards.red.ii': 'RED II - Renewable Energy Directive',
-    'standards.iscc.eu': 'ISCC EU - Sustainability certification',
-    
-    // Tooltip
-    'tooltip.source': 'Source: Agreste 2023, OIV data'
-  }
-};
-
-export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('fr');
-  const [debugMode, setDebugMode] = useState<boolean>(false);
-  const [missingTranslations, setMissingTranslations] = useState<string[]>([]);
-
-  const t = (key: string, params?: Record<string, string>): string => {
-    let translation = translations[language][key];
-    
-    // Track missing translations in debug mode
-    if (!translation && debugMode) {
-      if (!missingTranslations.includes(key)) {
-        setMissingTranslations(prev => [...prev, key]);
-        console.warn(`Missing translation: ${key}`);
-      }
-      return `[MISSING: ${key}]`;
-    }
-    
-    // Fallback to key if translation not found
-    if (!translation) {
-      translation = key;
-    }
-    
-    // Handle parameter replacement like {region}, {years}, {tonnage}, etc.
-    if (params) {
-      Object.keys(params).forEach(param => {
-        translation = translation.replace(new RegExp(`\\{${param}\\}`, 'g'), params[param]);
-      });
-    }
-    
-    return translation;
-  };
-
-  const getMissingTranslations = (): string[] => {
-    return [...missingTranslations];
-  };
-
-  return (
-    <LanguageContext.Provider value={{ 
-      language, 
-      setLanguage, 
-      t, 
-      debugMode, 
-      setDebugMode,
-      getMissingTranslations 
-    }}>
-      {children}
-    </LanguageContext.Provider>
-  );
-};
-
-export const useLanguage = () => {
-  const context = useContext(LanguageContext);
-  if (context === undefined) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
-  }
-  return context;
-};
+    'roi.payback.years': '
