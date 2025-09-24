@@ -12,6 +12,7 @@ import {
   AlertTriangle
 } from 'lucide-react';
 import ImplementationTimeline from "../ImplementationTimeline";
+import ContactIntegration from "../ContactIntegration";
 import { useRegion } from "@/contexts/RegionContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -448,6 +449,9 @@ const PartnershipsTab = () => {
           </div>
         </div>
       </div>
+
+      {/* Contact Section */}
+      <ContactIntegration />
     </div>
   );
 };
