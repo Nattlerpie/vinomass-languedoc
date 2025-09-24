@@ -1,15 +1,34 @@
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, MapPin, Building, TrendingUp, Handshake, Target, ArrowRight, CheckCircle } from 'lucide-react';
+import { 
+  Users, 
+  MapPin, 
+  Building, 
+  TrendingUp, 
+  Handshake, 
+  Target, 
+  ArrowRight, 
+  CheckCircle,
+  AlertTriangle
+} from 'lucide-react';
 import ImplementationTimeline from "../ImplementationTimeline";
-import ContactIntegration from "../ContactIntegration";
 import { useRegion } from "@/contexts/RegionContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const PartnershipsTab = () => {
   const { currentData } = useRegion();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const [debugMode] = useState(false);
 
-  // Regional partnership framework data
+  // Debug info
+  const debugInfo = {
+    region: currentData.name,
+    language: language,
+    dataLoaded: !!currentData,
+    componentsRendered: 8
+  };
+
+  // Regional partnership framework data with dynamic calculations
   const frameworkMetrics = currentData.id === 'languedoc' ? {
     targetPartners: "25-40",
     communes: "15-25",
@@ -26,32 +45,32 @@ const PartnershipsTab = () => {
     revenueOpportunity: 1.2
   };
 
-  // Industry examples with real data
+  // Industry examples with real data - using translation keys
   const industryExamples = [
     {
       model: t('partnerships.neste.model'),
       description: t('partnerships.neste.desc'),
       partners: "200+",
-      feedstock: "Food waste",
-      capacity: "1.5M tonnes/year"
+      feedstock: t('partnerships.feedstock.food.waste'),
+      capacity: "1.5M " + t('partnerships.tonnes.year')
     },
     {
       model: t('partnerships.bp.model'), 
       description: t('partnerships.bp.desc'),
       partners: "50+",
-      feedstock: "Agricultural residues",
-      capacity: "800k tonnes/year"
+      feedstock: t('partnerships.feedstock.agricultural.residues'),
+      capacity: "800k " + t('partnerships.tonnes.year')
     },
     {
       model: t('partnerships.total.model'),
       description: t('partnerships.total.desc'),
       partners: "25",
-      feedstock: "Mixed biomass",
-      capacity: "500k tonnes/year"
+      feedstock: t('partnerships.feedstock.mixed.biomass'),
+      capacity: "500k " + t('partnerships.tonnes.year')
     }
   ];
 
-  // Partnership types framework
+  // Partnership types framework - FIXED terminology and translation keys
   const partnershipTypes = [
     {
       title: t('partnerships.collectivites.title'),
@@ -67,7 +86,7 @@ const PartnershipsTab = () => {
     },
     {
       title: t('partnerships.producers.title'),
-      description: t('partnerships.producers.desc'),
+      description: t('partnerships.producers.desc'), // Now uses "viticulture waste producers"
       icon: Users,
       benefits: [
         t('partnerships.benefits.waste.valorization'),
@@ -82,10 +101,10 @@ const PartnershipsTab = () => {
       description: t('partnerships.industrial.desc'),
       icon: Building,
       benefits: [
-        "Infrastructure existante",
-        "Logistique optimisée", 
-        "Expertise technique",
-        "Économies d'échelle"
+        t('partnerships.benefits.existing.infrastructure'),
+        t('partnerships.benefits.optimized.logistics'), 
+        t('partnerships.benefits.technical.expertise'),
+        t('partnerships.benefits.economies.scale')
       ],
       color: "wine-gold"
     },
@@ -94,42 +113,54 @@ const PartnershipsTab = () => {
       description: t('partnerships.institutional.desc'),
       icon: TrendingUp,
       benefits: [
-        "Support réglementaire",
-        "Financement public",
-        "Validation scientifique",
-        "Réseau institutionnel"
+        t('partnerships.benefits.regulatory.support'),
+        t('partnerships.benefits.financement.public'),
+        t('partnerships.benefits.validation.scientifique'),
+        t('partnerships.benefits.reseau.institutionnel')
       ],
       color: "wine-charcoal"
     }
   ];
 
-  // Implementation phases
+  // Implementation phases with dynamic volumes based on region
   const implementationPhases = [
     {
       phase: t('partnerships.phase.pilot'),
       description: t('partnerships.phase.pilot.desc'),
-      duration: "6-12 mois",
+      duration: "6-12 " + t('timeline.months'),
       partners: "5-10",
-      volume: currentData.id === 'languedoc' ? "15-25k tonnes" : "3-5k tonnes"
+      volume: currentData.id === 'languedoc' ? "15-25k " + t('partnerships.tonnes') : "3-5k " + t('partnerships.tonnes')
     },
     {
       phase: t('partnerships.phase.scale'),
       description: t('partnerships.phase.scale.desc'),
-      duration: "12-24 mois",
+      duration: "12-24 " + t('timeline.months'),
       partners: "15-25",
-      volume: currentData.id === 'languedoc' ? "50-80k tonnes" : "10-15k tonnes"
+      volume: currentData.id === 'languedoc' ? "50-80k " + t('partnerships.tonnes') : "10-15k " + t('partnerships.tonnes')
     },
     {
       phase: t('partnerships.phase.mature'),
       description: t('partnerships.phase.mature.desc'),
-      duration: "24+ mois",
+      duration: "24+ " + t('timeline.months'),
       partners: frameworkMetrics.targetPartners,
-      volume: currentData.id === 'languedoc' ? "80-120k tonnes" : "15-24k tonnes"
+      volume: currentData.id === 'languedoc' ? "80-120k " + t('partnerships.tonnes') : "15-24k " + t('partnerships.tonnes')
     }
   ];
 
   return (
     <div className="min-h-screen w-full">
+      {/* Debug Banner */}
+      {debugMode && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 mx-8">
+          <div className="font-bold">DEBUG - Partnerships Tab</div>
+          <div className="text-sm">
+            Region: {debugInfo.region} | Language: {debugInfo.language} | 
+            Data Loaded: {debugInfo.dataLoaded ? 'Yes' : 'No'} | 
+            Components: {debugInfo.componentsRendered}
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
       <section className="mb-16">
         <div className="text-center mb-8">
@@ -137,11 +168,11 @@ const PartnershipsTab = () => {
             {t('partnerships.title')}
           </h1>
           <p className="text-xl text-wine-charcoal/70 max-w-4xl mx-auto mb-6">
-            {t('partnerships.subtitle')}
+            {t('partnerships.subtitle')} {currentData.name}
           </p>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 max-w-4xl mx-auto">
             <p className="text-sm text-blue-800">
-              <strong>Note:</strong> {t('partnerships.framework.note')}
+              <strong>{t('partnerships.note.title')}:</strong> {t('partnerships.framework.note')}
             </p>
           </div>
         </div>
@@ -157,7 +188,7 @@ const PartnershipsTab = () => {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-wine-charcoal mb-2">4</div>
-              <div className="text-sm text-wine-charcoal/70">Types principaux</div>
+              <div className="text-sm text-wine-charcoal/70">{t('partnerships.main.types')}</div>
             </CardContent>
           </Card>
 
@@ -165,12 +196,12 @@ const PartnershipsTab = () => {
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center text-wine-gold">
                 <Target className="w-5 h-5 mr-2" />
-                Partenaires Cibles
+                {t('partnerships.target.partners')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-wine-charcoal mb-2">{frameworkMetrics.targetPartners}</div>
-              <div className="text-sm text-wine-charcoal/70">Objectif réseau</div>
+              <div className="text-sm text-wine-charcoal/70">{t('partnerships.network.objective')}</div>
             </CardContent>
           </Card>
 
@@ -178,12 +209,12 @@ const PartnershipsTab = () => {
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center text-wine-green">
                 <TrendingUp className="w-5 h-5 mr-2" />
-                Réduction Coûts
+                {t('partnerships.cost.reduction')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-wine-charcoal mb-2">{frameworkMetrics.wasteReduction}%</div>
-              <div className="text-sm text-wine-charcoal/70">Traitement déchets</div>
+              <div className="text-sm text-wine-charcoal/70">{t('partnerships.waste.treatment')}</div>
             </CardContent>
           </Card>
 
@@ -191,12 +222,12 @@ const PartnershipsTab = () => {
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center text-wine-charcoal">
                 <ArrowRight className="w-5 h-5 mr-2" />
-                Nouveaux Revenus
+                {t('partnerships.new.revenues')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-wine-charcoal mb-2">€{frameworkMetrics.revenueOpportunity}M</div>
-              <div className="text-sm text-wine-charcoal/70">Potentiel annuel</div>
+              <div className="text-sm text-wine-charcoal/70">{t('partnerships.annual.potential')}</div>
             </CardContent>
           </Card>
         </div>
@@ -261,11 +292,11 @@ const PartnershipsTab = () => {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-wine-cream/30">
-                  <th className="text-left p-4 font-semibold text-wine-charcoal">Modèle</th>
-                  <th className="text-left p-4 font-semibold text-wine-charcoal">Description</th>
-                  <th className="text-right p-4 font-semibold text-wine-charcoal">Partenaires</th>
-                  <th className="text-right p-4 font-semibold text-wine-charcoal">Matière Première</th>
-                  <th className="text-right p-4 font-semibold text-wine-charcoal">Capacité</th>
+                  <th className="text-left p-4 font-semibold text-wine-charcoal">{t('partnerships.table.model')}</th>
+                  <th className="text-left p-4 font-semibold text-wine-charcoal">{t('partnerships.table.description')}</th>
+                  <th className="text-right p-4 font-semibold text-wine-charcoal">{t('partnerships.table.partners')}</th>
+                  <th className="text-right p-4 font-semibold text-wine-charcoal">{t('partnerships.table.feedstock')}</th>
+                  <th className="text-right p-4 font-semibold text-wine-charcoal">{t('partnerships.table.capacity')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -293,7 +324,7 @@ const PartnershipsTab = () => {
             {t('partnerships.implementation.phases')}
           </h2>
           <p className="text-lg text-wine-charcoal/70">
-            Approche progressive basée sur les meilleures pratiques sectorielles
+            {t('partnerships.progressive.approach')}
           </p>
         </div>
 
@@ -304,7 +335,7 @@ const PartnershipsTab = () => {
                 <div className="flex items-center justify-between mb-2">
                   <CardTitle className="text-wine-burgundy">{phase.phase}</CardTitle>
                   <div className="bg-wine-burgundy text-white text-sm px-3 py-1 rounded-full">
-                    Phase {index + 1}
+                    {t('partnerships.phase')} {index + 1}
                   </div>
                 </div>
               </CardHeader>
@@ -312,15 +343,15 @@ const PartnershipsTab = () => {
                 <p className="text-wine-charcoal/70 mb-4">{phase.description}</p>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-wine-charcoal/60">Durée:</span>
+                    <span className="text-sm text-wine-charcoal/60">{t('partnerships.duration')}:</span>
                     <span className="font-semibold text-wine-charcoal">{phase.duration}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-wine-charcoal/60">Partenaires:</span>
+                    <span className="text-sm text-wine-charcoal/60">{t('partnerships.partners')}:</span>
                     <span className="font-semibold text-wine-charcoal">{phase.partners}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-wine-charcoal/60">Volume cible:</span>
+                    <span className="text-sm text-wine-charcoal/60">{t('partnerships.target.volume')}:</span>
                     <span className="font-semibold text-wine-green">{phase.volume}</span>
                   </div>
                 </div>
@@ -339,7 +370,7 @@ const PartnershipsTab = () => {
             {t('partnerships.value.proposition')}
           </h2>
           <p className="text-lg text-wine-charcoal/70">
-            Transformation des coûts de déchets en flux de revenus
+            {t('partnerships.transform.costs.to.revenue')}
           </p>
         </div>
 
@@ -364,7 +395,7 @@ const PartnershipsTab = () => {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-xl font-bold text-wine-green">Nouveaux Revenus</h3>
+              <h3 className="text-xl font-bold text-wine-green">{t('partnerships.new.revenues')}</h3>
               <div className="space-y-2">
                 <div className="bg-wine-green/10 p-3 rounded-lg">
                   <div className="text-2xl font-bold text-wine-green">€25-40/t</div>
@@ -383,7 +414,7 @@ const PartnershipsTab = () => {
               <div className="text-3xl font-bold text-wine-gold mb-2">
                 +€20-40/t
               </div>
-              <div className="text-wine-charcoal/70">{t('partnerships.net.benefit')} par tonne</div>
+              <div className="text-wine-charcoal/70">{t('partnerships.net.benefit')} {t('partnerships.per.tonne')}</div>
             </div>
           </div>
         </div>
@@ -395,10 +426,10 @@ const PartnershipsTab = () => {
       <section className="mb-16">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-            Planification Mise en Œuvre
+            {t('partnerships.implementation.planning')}
           </h2>
           <p className="text-lg text-wine-charcoal/70">
-            Roadmap et étapes clés du projet
+            {t('partnerships.roadmap.key.steps')}
           </p>
         </div>
         <ImplementationTimeline />
@@ -408,13 +439,15 @@ const PartnershipsTab = () => {
 
       {/* Disclaimer */}
       <div className="bg-wine-cream/10 p-6 rounded-lg border border-wine-burgundy/10 mb-16">
-        <p className="text-sm text-wine-charcoal/80 text-center">
-          <strong>Méthodologie:</strong> {t('partnerships.framework.disclaimer')}
-        </p>
+        <div className="flex items-start gap-3">
+          <AlertTriangle className="text-wine-burgundy mt-1" size={20} />
+          <div>
+            <p className="text-sm text-wine-charcoal/80">
+              <strong>{t('partnerships.methodology.title')}:</strong> {t('partnerships.framework.disclaimer')}
+            </p>
+          </div>
+        </div>
       </div>
-
-      {/* Contact Section */}
-      <ContactIntegration />
     </div>
   );
 };
