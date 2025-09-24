@@ -16,37 +16,37 @@ const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
   const tabs = [
     {
       id: 'overview' as TabType,
-      label: t('nav.vue.ensemble'),
+      label: t('nav.vue.ensemble'), // Overview
       icon: Home,
       description: t('nav.overview.description')
     },
     {
       id: 'resources' as TabType,
-      label: t('nav.ressources'),
+      label: t('nav.ressources'), // Resources
       icon: MapPin,
       description: t('nav.resources.description')
     },
     {
       id: 'economy' as TabType,
-      label: t('nav.economie'),
+      label: t('nav.economie'), // Economics
       icon: Euro,
       description: t('nav.economy.description')
     },
     {
       id: 'partnerships' as TabType,
-      label: t('nav.partenaires'),
+      label: t('nav.partenaires'), // Partners
       icon: Handshake,
       description: t('nav.partnerships.description')
     },
     {
       id: 'methodology' as TabType,
-      label: t('nav.methodologie'),
+      label: t('nav.methodologie'), // Methodology
       icon: Database,
       description: t('nav.methodology.description')
     },
     {
       id: 'contact' as TabType,
-      label: t('nav.contact'),
+      label: t('nav.contact'), // Contact
       icon: FileText,
       description: t('nav.contact.description')
     }
@@ -79,7 +79,7 @@ const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
                     isActive ? "text-wine-burgundy" : "text-wine-charcoal/50 group-hover:text-wine-burgundy"
                   )} />
                   <span className="font-semibold">{tab.label}</span>
-                  
+
                   {/* Active indicator */}
                   {isActive && (
                     <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-gold animate-scale-in" />
