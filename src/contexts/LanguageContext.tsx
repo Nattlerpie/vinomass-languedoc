@@ -190,14 +190,111 @@ const translations = {
     'revenus.potentiels': 'Revenus potentiels',
     'marge.beneficiaire': 'Marge bénéficiaire',
     
-    // Partnerships & Collaboration
+    // Partnerships & Collaboration - COMPLETE
     'opportunites.partenariat': 'Opportunités de Partenariat',
     'collaboration.recherche': 'Collaboration Recherche',
     'financement.disponible': 'Financement Disponible',
     'subventions.europeennes': 'Subventions Européennes',
     'aides.regionales': 'Aides Régionales',
     
-    // Partnerships Tab - Detailed
+    // Core Partnership Keys (12 keys)
+    'partnerships.title': 'Partenariats Stratégiques',
+    'partnerships.subtitle': 'Écosystème collaboratif pour la valorisation des déchets vitivinicoles en carburant aviation durable',
+    'partnerships.note.title': 'Note',
+    'partnerships.framework.note': 'Cette analyse s\'appuie sur les modèles de partenariats observés dans l\'industrie des biocarburants avancés et les meilleures pratiques sectorielles',
+    'partnerships.types.needed': 'Types de Partenariats',
+    'partnerships.main.types': 'Types principaux',
+    'partnerships.target.partners': 'Partenaires Cibles',
+    'partnerships.network.objective': 'Objectif réseau',
+    'partnerships.cost.reduction': 'Réduction Coûts',
+    'partnerships.waste.treatment': 'Traitement déchets',
+    'partnerships.new.revenues': 'Nouveaux Revenus',
+    'partnerships.annual.potential': 'Potentiel annuel',
+    
+    // Partnership Categories (8 keys)
+    'partnerships.collectivites.title': 'Collectivités',
+    'partnerships.collectivites.desc': 'Partenariats avec les collectivités locales pour la gestion coordonnée des déchets',
+    'partnerships.producers.title': 'Producteurs de Déchets Vitivinicoles',
+    'partnerships.producers.desc': 'Vignerons et caves coopératives générant la matière première',
+    'partnerships.industrial.title': 'Partenaires Industriels',
+    'partnerships.industrial.desc': 'Entreprises avec infrastructure de traitement existante',
+    'partnerships.institutional.title': 'Partenaires Institutionnels',
+    'partnerships.institutional.desc': 'Organismes publics et centres de recherche',
+    
+    // Benefits (16 keys)
+    'partnerships.benefits.waste.reduction': 'Réduction des déchets',
+    'partnerships.benefits.local.revenue': 'Revenus locaux',
+    'partnerships.benefits.job.creation': 'Créations d\'emplois',
+    'partnerships.benefits.carbon.goals': 'Objectifs carbone',
+    'partnerships.benefits.waste.valorization': 'Valorisation déchets',
+    'partnerships.benefits.additional.income': 'Revenus additionnels',
+    'partnerships.benefits.sustainability': 'Durabilité',
+    'partnerships.benefits.cost.reduction': 'Réduction coûts',
+    'partnerships.benefits.existing.infrastructure': 'Infrastructure existante',
+    'partnerships.benefits.optimized.logistics': 'Logistique optimisée',
+    'partnerships.benefits.technical.expertise': 'Expertise technique',
+    'partnerships.benefits.economies.scale': 'Économies d\'échelle',
+    'partnerships.benefits.regulatory.support': 'Support réglementaire',
+    'partnerships.benefits.financement.public': 'Financement public',
+    'partnerships.benefits.validation.scientifique': 'Validation scientifique',
+    'partnerships.benefits.reseau.institutionnel': 'Réseau institutionnel',
+    
+    // Industry Examples & Table (15 keys)
+    'partnerships.neste.model': 'Modèle Neste',
+    'partnerships.neste.desc': 'Partenariats décentralisés avec collecteurs locaux',
+    'partnerships.bp.model': 'Modèle BP Bunge',
+    'partnerships.bp.desc': 'Intégration verticale avec producteurs agricoles',
+    'partnerships.total.model': 'Modèle Total Energies',
+    'partnerships.total.desc': 'Approche collaborative multi-partenaires',
+    'partnerships.feedstock.food.waste': 'Déchets alimentaires',
+    'partnerships.feedstock.agricultural.residues': 'Résidus agricoles',
+    'partnerships.feedstock.mixed.biomass': 'Biomasse mixte',
+    'partnerships.tonnes.year': 'tonnes/an',
+    'partnerships.table.model': 'Modèle',
+    'partnerships.table.description': 'Description',
+    'partnerships.table.partners': 'Partenaires',
+    'partnerships.table.feedstock': 'Matière Première',
+    'partnerships.table.capacity': 'Capacité',
+    
+    // Implementation & Phases (7 keys)
+    'partnerships.progressive.approach': 'Approche progressive basée sur les meilleures pratiques sectorielles',
+    'partnerships.phase': 'Phase',
+    'partnerships.duration': 'Durée',
+    'partnerships.partners': 'Partenaires',
+    'partnerships.target.volume': 'Volume cible',
+    'partnerships.tonnes': 'tonnes',
+    
+    // Existing Phase Keys
+    'partnerships.phase.pilot': 'Phase Pilote',
+    'partnerships.phase.pilot.desc': 'Validation technique et économique',
+    'partnerships.phase.scale': 'Phase d\'Expansion',
+    'partnerships.phase.scale.desc': 'Montée en échelle progressive',
+    'partnerships.phase.mature': 'Phase Mature',
+    'partnerships.phase.mature.desc': 'Optimisation et expansion régionale',
+    
+    // Value Proposition & Final (6 keys)
+    'partnerships.waste.to.revenue': 'Transformer les coûts de déchets en flux de revenus',
+    'partnerships.transform.costs.to.revenue': 'Transformation des coûts de déchets en flux de revenus',
+    'partnerships.per.tonne': 'par tonne',
+    'partnerships.implementation.planning': 'Planification Mise en Œuvre',
+    'partnerships.roadmap.key.steps': 'Roadmap et étapes clés du projet',
+    'partnerships.methodology.title': 'Méthodologie',
+    
+    // Existing Partnership Keys
+    'partnerships.value.proposition': 'Proposition de Valeur',
+    'partnerships.current.costs': 'Coûts Actuels',
+    'partnerships.waste.disposal': 'Élimination déchets',
+    'partnerships.transport.costs': 'Coûts transport',
+    'partnerships.saf.revenue': 'Revenus SAF',
+    'partnerships.carbon.credits': 'Crédits carbone',
+    'partnerships.net.benefit': 'Bénéfice net',
+    'partnerships.implementation.phases': 'Phases de Mise en Œuvre',
+    'partnerships.industry.examples': 'Exemples Industriels',
+    'partnerships.examples.subtitle': 'Modèles de partenariats observés dans l\'industrie',
+    'partnerships.framework.disclaimer': 'Cadre d\'analyse basé sur les données sectorielles',
+    'timeline.months': 'mois',
+    
+    // Legacy Partnership Keys
     'partenariats.requis': 'Types de Partenariats Requis',
     'types.principaux': 'Types principaux',
     'partenaires.cibles': 'Partenaires Cibles',
@@ -206,20 +303,14 @@ const translations = {
     'traitement.dechets': 'Traitement déchets',
     'nouveaux.revenus': 'Nouveaux Revenus',
     'potentiel.annuel': 'Potentiel annuel',
-    
-    // Implementation Phases
     'phases.implementation': 'Phases de Mise en Œuvre',
     'approche.progressive': 'Approche progressive basée sur les meilleures pratiques sectorielles',
     'duree': 'Durée',
     'partenaires': 'Partenaires',
     'volume.cible': 'Volume cible',
-    
-    // Value Proposition
     'proposition.valeur': 'Proposition de Valeur',
     'transformation.couts': 'Transformation des coûts de déchets en flux de revenus',
     'benefice.net.tonne': 'Bénéfice net par tonne',
-    
-    // Implementation Planning
     'planification.oeuvre': 'Planification Mise en Œuvre',
     'roadmap.etapes': 'Roadmap et étapes clés du projet',
     'timeline.implementation': 'Timeline d\'Implémentation',
@@ -488,36 +579,127 @@ const translations = {
     'revenus.potentiels': 'Potential revenue',
     'marge.beneficiaire': 'Profit margin',
     
-    // Partnerships & Collaboration
+    // Partnerships & Collaboration - COMPLETE
     'opportunites.partenariat': 'Partnership Opportunities',
     'collaboration.recherche': 'Research Collaboration',
     'financement.disponible': 'Available Funding',
     'subventions.europeennes': 'European Grants',
     'aides.regionales': 'Regional Aid',
     
-    // Partnerships Tab - Detailed
+    // Core Partnership Keys (12 keys)
+    'partnerships.title': 'Strategic Partnerships',
+    'partnerships.subtitle': 'Collaborative ecosystem for valorizing viticulture waste into sustainable aviation fuel',
+    'partnerships.note.title': 'Note',
+    'partnerships.framework.note': 'This analysis is based on partnership models observed in the advanced biofuels industry and sectoral best practices',
+    'partnerships.types.needed': 'Partnership Types',
+    'partnerships.main.types': 'Main types',
+    'partnerships.target.partners': 'Target Partners',
+    'partnerships.network.objective': 'Network objective',
+    'partnerships.cost.reduction': 'Cost Reduction',
+    'partnerships.waste.treatment': 'Waste treatment',
+    'partnerships.new.revenues': 'New Revenues',
+    'partnerships.annual.potential': 'Annual potential',
+    
+    // Partnership Categories (8 keys)
+    'partnerships.collectivites.title': 'Local Authorities',
+    'partnerships.collectivites.desc': 'Partnerships with local authorities for coordinated waste management',
+    'partnerships.producers.title': 'Viticulture Waste Producers',
+    'partnerships.producers.desc': 'Winegrowers and cooperative cellars generating raw materials',
+    'partnerships.industrial.title': 'Industrial Partners',
+    'partnerships.industrial.desc': 'Companies with existing processing infrastructure',
+    'partnerships.institutional.title': 'Institutional Partners',
+    'partnerships.institutional.desc': 'Public organizations and research centers',
+    
+    // Benefits (16 keys)
+    'partnerships.benefits.waste.reduction': 'Waste reduction',
+    'partnerships.benefits.local.revenue': 'Local revenue',
+    'partnerships.benefits.job.creation': 'Job creation',
+    'partnerships.benefits.carbon.goals': 'Carbon goals',
+    'partnerships.benefits.waste.valorization': 'Waste valorization',
+    'partnerships.benefits.additional.income': 'Additional income',
+    'partnerships.benefits.sustainability': 'Sustainability',
+    'partnerships.benefits.cost.reduction': 'Cost reduction',
+    'partnerships.benefits.existing.infrastructure': 'Existing infrastructure',
+    'partnerships.benefits.optimized.logistics': 'Optimized logistics',
+    'partnerships.benefits.technical.expertise': 'Technical expertise',
+    'partnerships.benefits.economies.scale': 'Economies of scale',
+    'partnerships.benefits.regulatory.support': 'Regulatory support',
+    'partnerships.benefits.financement.public': 'Public funding',
+    'partnerships.benefits.validation.scientifique': 'Scientific validation',
+    'partnerships.benefits.reseau.institutionnel': 'Institutional network',
+    
+    // Industry Examples & Table (15 keys)
+    'partnerships.neste.model': 'Neste Model',
+    'partnerships.neste.desc': 'Decentralized partnerships with local collectors',
+    'partnerships.bp.model': 'BP Bunge Model',
+    'partnerships.bp.desc': 'Vertical integration with agricultural producers',
+    'partnerships.total.model': 'Total Energies Model',
+    'partnerships.total.desc': 'Multi-partner collaborative approach',
+    'partnerships.feedstock.food.waste': 'Food waste',
+    'partnerships.feedstock.agricultural.residues': 'Agricultural residues',
+    'partnerships.feedstock.mixed.biomass': 'Mixed biomass',
+    'partnerships.tonnes.year': 'tonnes/year',
+    'partnerships.table.model': 'Model',
+    'partnerships.table.description': 'Description',
+    'partnerships.table.partners': 'Partners',
+    'partnerships.table.feedstock': 'Feedstock',
+    'partnerships.table.capacity': 'Capacity',
+    
+    // Implementation & Phases (7 keys)
+    'partnerships.progressive.approach': 'Progressive approach based on sectoral best practices',
+    'partnerships.phase': 'Phase',
+    'partnerships.duration': 'Duration',
+    'partnerships.partners': 'Partners',
+    'partnerships.target.volume': 'Target volume',
+    'partnerships.tonnes': 'tonnes',
+    
+    // Existing Phase Keys
+    'partnerships.phase.pilot': 'Pilot Phase',
+    'partnerships.phase.pilot.desc': 'Technical and economic validation',
+    'partnerships.phase.scale': 'Scale-up Phase',
+    'partnerships.phase.scale.desc': 'Progressive scaling',
+    'partnerships.phase.mature': 'Mature Phase',
+    'partnerships.phase.mature.desc': 'Optimization and regional expansion',
+    
+    // Value Proposition & Final (6 keys)
+    'partnerships.waste.to.revenue': 'Transform waste costs into revenue streams',
+    'partnerships.transform.costs.to.revenue': 'Transform waste costs into revenue streams',
+    'partnerships.per.tonne': 'per tonne',
+    'partnerships.implementation.planning': 'Implementation Planning',
+    'partnerships.roadmap.key.steps': 'Roadmap and key project steps',
+    'partnerships.methodology.title': 'Methodology',
+    
+    // Existing Partnership Keys
+    'partnerships.value.proposition': 'Value Proposition',
+    'partnerships.current.costs': 'Current Costs',
+    'partnerships.waste.disposal': 'Waste disposal',
+    'partnerships.transport.costs': 'Transport costs',
+    'partnerships.saf.revenue': 'SAF revenue',
+    'partnerships.carbon.credits': 'Carbon credits',
+    'partnerships.net.benefit': 'Net benefit',
+    'partnerships.implementation.phases': 'Implementation Phases',
+    'partnerships.industry.examples': 'Industry Examples',
+    'partnerships.examples.subtitle': 'Partnership models observed in the industry',
+    'partnerships.framework.disclaimer': 'Analysis framework based on sectoral data',
+    'timeline.months': 'months',
+    
+    // Legacy Partnership Keys
     'partenariats.requis': 'Required Partnership Types',
     'types.principaux': 'Main types',
     'partenaires.cibles': 'Target Partners',
     'objectif.reseau': 'Network objective',
     'reduction.couts': 'Cost Reduction',
     'traitement.dechets': 'Waste treatment',
-    'nouveaux.revenus': 'New Revenue',
+    'nouveaux.revenus': 'New Revenues',
     'potentiel.annuel': 'Annual potential',
-    
-    // Implementation Phases
     'phases.implementation': 'Implementation Phases',
     'approche.progressive': 'Progressive approach based on sector best practices',
     'duree': 'Duration',
     'partenaires': 'Partners',
     'volume.cible': 'Target volume',
-    
-    // Value Proposition
     'proposition.valeur': 'Value Proposition',
-    'transformation.couts': 'Transforming waste costs into revenue streams',
+    'transformation.couts': 'Transform waste costs into revenue streams',
     'benefice.net.tonne': 'Net benefit per tonne',
-    
-    // Implementation Planning
     'planification.oeuvre': 'Implementation Planning',
     'roadmap.etapes': 'Project roadmap and key stages',
     'timeline.implementation': 'Implementation Timeline',
