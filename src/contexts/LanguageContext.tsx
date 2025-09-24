@@ -59,7 +59,7 @@ const translations = {
     'disponible': 'Disponible',
     'jusqua': 'Jusqu\'à',
     
-    // Overview Tab - Key Points & Metrics  
+    // Overview Tab - Key Points & Metrics - COMPLETE UPDATE
     'points.cles': 'Points Clés',
     'points.cles.subtitle': 'Indicateurs régionaux de performance',
     'superficie.viticole': 'Surface Viticole',
@@ -76,6 +76,8 @@ const translations = {
     'analyse.regionale': 'Analyse Régionale',
     'analyse.regionale.subtitle': 'Répartition et potentiel par zone géographique',
     'production.regionale.percent': 'Production Régionale',
+    'saf.potential': 'Potentiel SAF',
+    'base.sur.disponibles': 'Basé sur 80k tonnes disponibles',
     
     // Overview Tab Metrics - RESTORED
     'metriques.cles': 'Métriques Clés',
@@ -668,7 +670,7 @@ const translations = {
     'erreur.chargement': 'Erreur de chargement',
     'donnees.non.disponibles': 'Données non disponibles',
     
-    // Units & Measurements
+    // Units & Measurements - UPDATED WITH SPACING
     'unite.tonnes': 'tonnes',
     'unite.hectares': 'ha',
     'unite.pourcentage': '%',
@@ -677,6 +679,45 @@ const translations = {
     'unite.annee': '/an',
     'unite.kilogrammes': 'kg',
     'unite.litres': 'L',
+    'units.tonne': 'tonne',
+    'units.tonnes': 'tonnes',
+    'litres.an': 'litres/an',
+    
+    // Resources Tab - COST BENEFIT ANALYSIS (NEW KEYS)
+    'cost.benefit.title': 'Analyse Coût-Bénéfice',
+    'cost.benefit.comparison': 'Comparaison',
+    'cost.benefit.timeline': 'Chronologie',
+    'cost.benefit.breakdown': 'Répartition',
+    'cost.benefit.profit.improvement': 'Amélioration profit',
+    'cost.benefit.additional.benefit': 'Bénéfice additionnel',
+    'cost.benefit.jobs.created': 'Emplois créés',
+    'cost.benefit.co2.avoided.annual': 'CO₂ évité annuel',
+    'cost.benefit.real.data': 'Données Réelles',
+    'cost.benefit.revenue': 'Revenus',
+    'cost.benefit.operating.costs': 'Coûts opérationnels',
+    'cost.benefit.net.profit': 'Profit net',
+    'cost.benefit.traditional.valorization': 'Valorisation traditionnelle',
+    'cost.benefit.saf.valorization': 'Valorisation SAF',
+    'cost.benefit.detailed.comparison': 'Comparaison Détaillée',
+    'cost.benefit.category': 'Catégorie',
+    'cost.benefit.traditional': 'Traditionnel',
+    'cost.benefit.saf': 'SAF',
+    'cost.benefit.difference': 'Différence',
+    'cost.benefit.improvement': 'Amélioration',
+    'cost.benefit.context': 'Contexte',
+    'cost.benefit.languedoc.context': 'Analyse basée sur les capacités industrielles et l\'infrastructure logistique établie de la plus grande région viticole française',
+    
+    // Economy Tab - FINANCING OVERVIEW (NEW KEYS)
+    'economy.financing.overview': 'Aperçu du Financement',
+    'economy.equity.funding': 'Financement Capitaux Propres',
+    'economy.equity.percentage': '35% capitaux propres',
+    'economy.bank.debt': 'Dette Bancaire',
+    'economy.interest.rate': '4.5% taux d\'intérêt',
+    'economy.subsidies': 'Subventions',
+    'economy.eu.france.funding': 'UE + France 2030',
+    'economy.total.investment': 'Investissement Total',
+    'economy.capacity.description': '80kt capacité SAF',
+    'economy.scaling.note': 'Modélisation évolutive basée sur la biomasse disponible régionale',
     
     // Common Actions
     'voir.details': 'Voir détails',
@@ -736,7 +777,7 @@ const translations = {
     'disponible': 'Available',
     'jusqua': 'Up to',
     
-    // Overview Tab - Key Points & Metrics - ENGLISH
+    // Overview Tab - Key Points & Metrics - COMPLETE ENGLISH UPDATE
     'points.cles': 'Key Points',
     'points.cles.subtitle': 'Regional performance indicators',
     'superficie.viticole': 'Wine-growing Area',
@@ -753,6 +794,8 @@ const translations = {
     'analyse.regionale': 'Regional Analysis',
     'analyse.regionale.subtitle': 'Distribution and potential by geographic area',
     'production.regionale.percent': 'Regional Production',
+    'saf.potential': 'SAF Potential',
+    'base.sur.disponibles': 'Based on 80k tonnes available',
     
     // Overview Tab Metrics - ENGLISH RESTORED
     'metriques.cles': 'Key Metrics',
@@ -1345,7 +1388,7 @@ const translations = {
     'erreur.chargement': 'Loading error',
     'donnees.non.disponibles': 'Data not available',
     
-    // Units & Measurements
+    // Units & Measurements - UPDATED WITH SPACING
     'unite.tonnes': 'tonnes',
     'unite.hectares': 'ha',
     'unite.pourcentage': '%',
@@ -1354,6 +1397,45 @@ const translations = {
     'unite.annee': '/year',
     'unite.kilogrammes': 'kg',
     'unite.litres': 'L',
+    'units.tonne': 'tonne',
+    'units.tonnes': 'tonnes',
+    'litres.an': 'litres/year',
+    
+    // Resources Tab - COST BENEFIT ANALYSIS (NEW KEYS)
+    'cost.benefit.title': 'Cost-Benefit Analysis',
+    'cost.benefit.comparison': 'Comparison',
+    'cost.benefit.timeline': 'Timeline',
+    'cost.benefit.breakdown': 'Breakdown',
+    'cost.benefit.profit.improvement': 'Profit improvement',
+    'cost.benefit.additional.benefit': 'Additional benefit',
+    'cost.benefit.jobs.created': 'Jobs created',
+    'cost.benefit.co2.avoided.annual': 'Annual CO₂ avoided',
+    'cost.benefit.real.data': 'Real Data',
+    'cost.benefit.revenue': 'Revenue',
+    'cost.benefit.operating.costs': 'Operating costs',
+    'cost.benefit.net.profit': 'Net profit',
+    'cost.benefit.traditional.valorization': 'Traditional valorization',
+    'cost.benefit.saf.valorization': 'SAF valorization',
+    'cost.benefit.detailed.comparison': 'Detailed Comparison',
+    'cost.benefit.category': 'Category',
+    'cost.benefit.traditional': 'Traditional',
+    'cost.benefit.saf': 'SAF',
+    'cost.benefit.difference': 'Difference',
+    'cost.benefit.improvement': 'Improvement',
+    'cost.benefit.context': 'Context',
+    'cost.benefit.languedoc.context': 'Analysis based on industrial capacities and established logistics infrastructure of France\'s largest wine region',
+    
+    // Economy Tab - FINANCING OVERVIEW (NEW KEYS)
+    'economy.financing.overview': 'Financing Overview',
+    'economy.equity.funding': 'Equity Funding',
+    'economy.equity.percentage': '35% equity',
+    'economy.bank.debt': 'Bank Debt',
+    'economy.interest.rate': '4.5% interest rate',
+    'economy.subsidies': 'Subsidies',
+    'economy.eu.france.funding': 'EU + France 2030',
+    'economy.total.investment': 'Total Investment',
+    'economy.capacity.description': '80kt SAF capacity',
+    'economy.scaling.note': 'Scalable modeling based on regional biomass availability',
     
     // Common Actions
     'voir.details': 'View details',
