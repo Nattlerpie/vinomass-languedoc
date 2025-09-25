@@ -366,7 +366,7 @@ const OverviewTab = () => {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-            {/* Key Industry Projects */}
+            {/* Key Industry Projects - ALL 4 COMPANIES */}
             <div className="space-y-4">
               <h3 className="text-xl font-bold text-wine-charcoal mb-4">Projets de Référence</h3>
               
@@ -385,26 +385,45 @@ const OverviewTab = () => {
               </div>
             </div>
             
-            {/* Regulatory Support */}
-            <div>
-              <h3 className="text-xl font-bold text-wine-charcoal mb-4">Soutien Réglementaire</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-white/50 rounded-lg p-3 text-center">
-                  <div className="text-lg font-bold text-wine-burgundy">2%</div>
-                  <div className="text-xs">SAF minimum 2025 (EU)</div>
+            {/* Major Industrials */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-wine-charcoal mb-4">Majors Industriels</h3>
+              
+              <div className="bg-gradient-subtle rounded-lg p-4 border border-wine-green/10">
+                <h4 className="font-bold text-wine-green mb-2">Airbus - Programme ZEROe</h4>
+                <div className="text-sm text-wine-charcoal/70">
+                  Avion hydrogène 2035 • 10% SAF minimum 2030 • €15B R&D
                 </div>
-                <div className="bg-white/50 rounded-lg p-3 text-center">
-                  <div className="text-lg font-bold text-wine-gold">€4B</div>
-                  <div className="text-xs">France 2030</div>
+              </div>
+              
+              <div className="bg-gradient-subtle rounded-lg p-4 border border-wine-burgundy/10">
+                <h4 className="font-bold text-wine-burgundy mb-2">Total Energies - Stratégie SAF</h4>
+                <div className="text-sm text-wine-charcoal/70">
+                  €500M sur 5 ans • 1.5M t SAF/an • 6 bioraffineries modernisées
                 </div>
-                <div className="bg-white/50 rounded-lg p-3 text-center">
-                  <div className="text-lg font-bold text-wine-green">€210B</div>
-                  <div className="text-xs">EU REPowerEU</div>
-                </div>
-                <div className="bg-white/50 rounded-lg p-3 text-center">
-                  <div className="text-lg font-bold text-wine-charcoal">2050</div>
-                  <div className="text-xs">Neutralité carbone</div>
-                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Regulatory Support */}
+          <div className="mb-8">
+            <h3 className="text-xl font-bold text-wine-charcoal mb-4 text-center">Soutien Réglementaire</h3>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="bg-white/50 rounded-lg p-4 text-center">
+                <div className="text-2xl font-bold text-wine-burgundy">2%</div>
+                <div className="text-sm">SAF minimum 2025 (EU)</div>
+              </div>
+              <div className="bg-white/50 rounded-lg p-4 text-center">
+                <div className="text-2xl font-bold text-wine-gold">€4B</div>
+                <div className="text-sm">France 2030</div>
+              </div>
+              <div className="bg-white/50 rounded-lg p-4 text-center">
+                <div className="text-2xl font-bold text-wine-green">€210B</div>
+                <div className="text-sm">EU REPowerEU</div>
+              </div>
+              <div className="bg-white/50 rounded-lg p-4 text-center">
+                <div className="text-2xl font-bold text-wine-charcoal">2050</div>
+                <div className="text-sm">Neutralité carbone</div>
               </div>
             </div>
           </div>
