@@ -38,6 +38,10 @@ const ValoorizationChart = () => {
   const totalBiomass = currentData.annualPomace;
   const calculateTonnage = (percentage: number) => Math.round((totalBiomass * percentage) / 100);
 
+  // Get biomass allocation data
+  const availableBiomass = currentData.wasteAllocation.available;
+  const negotiableBiomass = currentData.wasteAllocation.negotiable;
+
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
@@ -46,7 +50,7 @@ const ValoorizationChart = () => {
       return (
         <div className="bg-white p-4 border border-wine-charcoal rounded-lg shadow-lg">
           <p className="font-semibold text-wine-charcoal">{data.name}</p>
-          <p className="text-wine-charcoal/70">{data.value}% - {tonnage.toLocaleString()}t</p>
+          <p className="text-wine-charcoal/70">{data.value}% - {tonnage.toLocaleString()} t</p>
           <p className="text-xs text-wine-charcoal/60 mt-1">{data.description}</p>
         </div>
       );
@@ -83,8 +87,8 @@ const ValoorizationChart = () => {
           <strong className="font-bold">📊 ValoorizationChart Debug</strong>
           <div className="text-sm mt-1">
             <div>Region: {currentData.displayName}</div>
-            <div>Total Biomass: {totalBiomass?.toLocaleString()}t</div>
-            <div>Distillation: {calculateTonnage(45).toLocaleString()}t (45%)</div>
+            <div>Total Biomass: {totalBiomass?.toLocaleString()} t</div>
+            <div>Distillation: {calculateTonnage(45).toLocaleString()} t (45%)</div>
             <div>Data Points: {data.length} valorization methods</div>
           </div>
         </div>
@@ -128,7 +132,7 @@ const ValoorizationChart = () => {
         {/* Legend with Tonnages */}
         <div className="space-y-4">
           <h3 className="text-lg font-bold text-wine-charcoal mb-4">
-            {t('valorization.breakdown')} ({totalBiomass?.toLocaleString()}t {t('tonnes.total')})
+            {t('valorization.breakdown')} ({totalBiomass?.toLocaleString()} t {t('tonnes.total')})
           </h3>
           
           {data.map((item, index) => (
@@ -156,7 +160,7 @@ const ValoorizationChart = () => {
                   {item.value}%
                 </div>
                 <div className="text-sm text-wine-charcoal/70">
-                  {calculateTonnage(item.value).toLocaleString()}t
+                  {calculateTonnage(item.value).toLocaleString()} t
                 </div>
               </div>
             </div>
@@ -164,17 +168,26 @@ const ValoorizationChart = () => {
         </div>
       </div>
 
-      {/* Regional Context */}
+      {/* REPLACED: Biomass Strategy Context (replacing Regional Context) */}
       <div className="mt-8 p-6 bg-wine-cream/10 border border-wine-gold/20 rounded-xl">
-        <h4 className="font-bold text-wine-charcoal mb-3">
-          {t('valorization.regional.context')}
-        </h4>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-wine-charcoal/70">
-          <div>• <span className="font-medium">{t('valorization.established.chains')}:</span> {t('valorization.mature.infrastructure')}</div>
-          <div>• <span className="font-medium">{t('valorization.saf.opportunity')}:</span> 30% {t('valorization.new.allocation')}</div>
-          <div>• <span className="font-medium">{t('valorization.compliance')}:</span> {t('valorization.eu.directive')}</div>
-          <div>• <span className="font-medium">{t('valorization.economic.impact')}:</span> {currentData.wasteAllocation?.realisticJobs} {t('valorization.jobs.supported')}</div>
+        <h4 className="text-lg font-bold text-wine-charcoal mb-4">{t('strategie.biomasse')}</h4>
+        <div className="space-y-3 text-sm text-wine-charcoal/70">
+          <div className="flex items-start space-x-2">
+            <span className="font-medium text-wine-charcoal">• {t('base.conservative')}:</span>
+            <span>30% {t('disponible')} ({(availableBiomass / 1000).toFixed(0)} kt) - {t('flux.elimination')}</span>
+          </div>
+          <div className="flex items-start space-x-2">
+            <span className="font-medium text-wine-charcoal">• {t('potentiel.negociable')}:</span>
+            <span>+25% ({(negotiableBiomass / 1000).toFixed(0)} kt) - {t('surplus.excedents')}</span>
+          </div>
+          <div className="flex items-start space-x-2">
+            <span className="font-medium text-wine-charcoal">• {t('total.accessible')}:</span>
+            <span>{t('jusqua')} 55% ({((availableBiomass + negotiableBiomass) / 1000).toFixed(0)} kt) {t('avec.partenariats')}</span>
+          </div>
         </div>
+        <p className="text-sm text-wine-charcoal/60 mt-4 italic border-t border-wine-gold/20 pt-3">
+          {t('respecte.filieres')}
+        </p>
       </div>
 
       {/* Methodology Note */}
