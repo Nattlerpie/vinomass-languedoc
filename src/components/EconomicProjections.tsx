@@ -5,7 +5,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { TrendingUp, Users, Building, Coins, Download } from "lucide-react";
+import { TrendingUp, Users, Building, Coins, Download, Leaf } from "lucide-react";
 
 interface ProjectionData {
   year: number;
@@ -24,27 +24,27 @@ const EconomicProjections = () => {
   const { t } = useLanguage();
   const [timeframe, setTimeframe] = useState<5 | 10>(5);
 
-  // Region-specific economic data
+  // Region-specific economic data - CORRECTED to match project data
   const getRegionalBaseData = () => {
     if (regionId === 'champagne') {
       return {
-        pomaceVolume: 33000, // tonnes
-        baseRevenue: 9.2, // M€ (realistic SAF revenue)
-        baseCosts: 3.2, // M€ (operating costs)
-        baseProfit: 6.0, // M€ (net profit)
-        baseEmployment: 150, // jobs
-        investmentCost: 40, // M€
-        co2Reduction: 15.4 // kt CO₂/year
+        pomaceVolume: 33000, // tonnes (total pomace, 7,000 available)
+        baseRevenue: 2.4, // M€ (corrected SAF revenue)
+        baseCosts: 1.6, // M€ (operating costs)
+        baseProfit: 0.8, // M€ (net profit)
+        baseEmployment: 45, // jobs (corrected)
+        investmentCost: 15, // M€ (corrected)
+        co2Reduction: 5.5 // kt CO₂/year (corrected)
       };
     } else {
       return {
-        pomaceVolume: 80000, // tonnes
-        baseRevenue: 23.5, // M€ (realistic SAF revenue)
+        pomaceVolume: 80000, // tonnes (available for SAF)
+        baseRevenue: 27.3, // M€ (corrected SAF revenue)
         baseCosts: 11.0, // M€ (operating costs)
-        baseProfit: 12.5, // M€ (net profit)
-        baseEmployment: 350, // jobs
-        investmentCost: 95, // M€
-        co2Reduction: 38.5 // kt CO₂/year
+        baseProfit: 16.3, // M€ (net profit)
+        baseEmployment: 180, // jobs (corrected)
+        investmentCost: 120, // M€ (corrected)
+        co2Reduction: 61.6 // kt CO₂/year (corrected)
       };
     }
   };
@@ -165,6 +165,15 @@ const EconomicProjections = () => {
     return regionId === 'champagne' ? 'Champagne' : 'Languedoc-Roussillon';
   };
 
+  // Helper functions for consistent formatting
+  const formatCurrency = (value: number, unit: string = '') => {
+    return `${t('currency.euro')} ${value}${unit}`;
+  };
+
+  const formatUnit = (value: number, unit: string) => {
+    return `${value} ${unit}`;
+  };
+
   return (
     <div className="space-y-6">
       <Card className="bg-white/95 backdrop-blur-sm border-wine-burgundy/20 shadow-elegant">
@@ -213,11 +222,11 @@ const EconomicProjections = () => {
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-5 gap-3 text-xs text-blue-700">
-              <div><strong>{t('projections.volume')}:</strong> {regionalData.pomaceVolume.toLocaleString()}t {t('projections.pomace')}</div>
-              <div><strong>{t('projections.saf')}:</strong> 280L/{t('units.tonne')}</div>
-              <div><strong>{t('projections.price')}:</strong> €1.50/L</div>
-              <div><strong>{t('projections.co2')}:</strong> 2.75kg/L {t('projections.avoided')}</div>
-              <div><strong>{t('projections.efficiency')}:</strong> 70% ATJ</div>
+              <div><strong>{t('projections.volume')}:</strong> {formatUnit(regionalData.pomaceVolume.toLocaleString(), t('units.tonnes'))} {t('projections.pomace')}</div>
+              <div><strong>{t('projections.saf')}:</strong> {formatUnit(280, `${t('units.liters')}/${t('units.tonne')}`)}</div>
+              <div><strong>{t('projections.price')}:</strong> {formatCurrency(1.50, `/${t('units.liter')}`)}</div>
+              <div><strong>{t('projections.co2')}:</strong> {formatUnit(2.75, `${t('units.kilograms')}/${t('units.liter')}`)} {t('projections.avoided')}</div>
+              <div><strong>{t('projections.efficiency')}:</strong> 70{t('units.percent')} ATJ</div>
             </div>
           </div>
 
@@ -226,7 +235,7 @@ const EconomicProjections = () => {
             <div className="text-center p-4 bg-gradient-to-br from-wine-burgundy/10 to-wine-burgundy/5 rounded-xl border border-wine-burgundy/20">
               <Coins className="text-wine-burgundy mx-auto mb-2" size={24} />
               <div className="text-2xl font-bold text-wine-burgundy mb-1">
-                €{displayData[displayData.length - 1]?.cumulativeProfit || 0}M
+                {formatCurrency(displayData[displayData.length - 1]?.cumulativeProfit || 0, ` ${t('units.million')}`)}
               </div>
               <div className="text-xs text-wine-charcoal/70">{t('projections.cumulative.profit')}</div>
             </div>
@@ -242,14 +251,15 @@ const EconomicProjections = () => {
             <div className="text-center p-4 bg-gradient-to-br from-wine-gold/10 to-wine-gold/5 rounded-xl border border-wine-gold/20">
               <Building className="text-wine-gold mx-auto mb-2" size={24} />
               <div className="text-2xl font-bold text-wine-gold mb-1">
-                €{displayData.reduce((acc, d) => acc + d.taxRevenue, 0).toFixed(1)}M
+                {formatCurrency(displayData.reduce((acc, d) => acc + d.taxRevenue, 0).toFixed(1), ` ${t('units.million')}`)}
               </div>
               <div className="text-xs text-wine-charcoal/70">{t('projections.taxes.collected')}</div>
             </div>
 
             <div className="text-center p-4 bg-gradient-to-br from-wine-charcoal/10 to-wine-charcoal/5 rounded-xl border border-wine-charcoal/20">
+              <Leaf className="text-wine-charcoal mx-auto mb-2" size={24} />
               <div className="text-2xl font-bold text-wine-charcoal mb-1">
-                {displayData.reduce((acc, d) => acc + d.carbonSavings, 0).toFixed(0)}kt
+                {formatUnit(displayData.reduce((acc, d) => acc + d.carbonSavings, 0).toFixed(0), t('units.kilotonnes'))}
               </div>
               <div className="text-xs text-wine-charcoal/70">{t('projections.co2.avoided.cumulative')}</div>
             </div>
@@ -273,7 +283,7 @@ const EconomicProjections = () => {
                         border: '1px solid hsl(var(--wine-burgundy) / 0.2)',
                         borderRadius: '8px'
                       }}
-                      formatter={(value, name) => [`€${Number(value).toFixed(1)}M`, name]}
+                      formatter={(value, name) => [`${t('currency.euro')} ${Number(value).toFixed(1)} ${t('units.million')}`, name]}
                     />
                     <Legend />
                     <Line 
@@ -361,7 +371,7 @@ const EconomicProjections = () => {
                           border: '1px solid hsl(var(--wine-burgundy) / 0.2)',
                           borderRadius: '8px'
                         }}
-                        formatter={(value) => [`${value}kt`, t('projections.co2.avoided')]}
+                        formatter={(value) => [`${value} ${t('units.kilotonnes')}`, t('projections.co2.avoided')]}
                       />
                       <Bar dataKey="carbonSavings" fill="hsl(var(--wine-green))" />
                     </BarChart>
@@ -431,25 +441,25 @@ const EconomicProjections = () => {
                     <div className="flex justify-between items-center">
                       <span className="text-wine-charcoal">{t('projections.total.payroll')}:</span>
                       <span className="font-semibold text-wine-burgundy">
-                        €{(regionalImpact.totalPayroll / 1000000).toFixed(1)}M/an
+                        {formatCurrency((regionalImpact.totalPayroll / 1000000).toFixed(1), ` ${t('units.million')}/${t('common.year')}`)}
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-wine-charcoal">{t('projections.local.purchases')}:</span>
                       <span className="font-semibold text-wine-gold">
-                        €{(regionalImpact.localPurchases / 1000000).toFixed(1)}M/an
+                        {formatCurrency((regionalImpact.localPurchases / 1000000).toFixed(1), ` ${t('units.million')}/${t('common.year')}`)}
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-wine-charcoal">{t('projections.tax.contribution')}:</span>
                       <span className="font-semibold text-wine-green">
-                        €{(regionalImpact.taxContribution / 1000000).toFixed(1)}M/an
+                        {formatCurrency((regionalImpact.taxContribution / 1000000).toFixed(1), ` ${t('units.million')}/${t('common.year')}`)}
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-wine-charcoal">{t('projections.average.salary')}:</span>
                       <span className="font-semibold text-wine-charcoal">
-                        €{regionalImpact.averageSalary.toLocaleString()}/an
+                        {formatCurrency(regionalImpact.averageSalary.toLocaleString(), `/${t('common.year')}`)}
                       </span>
                     </div>
                   </div>
