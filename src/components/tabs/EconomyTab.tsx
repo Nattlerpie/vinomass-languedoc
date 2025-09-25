@@ -111,12 +111,11 @@ const EconomyTab = () => {
             </div>
             
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-charcoal/10 hover:scale-105 transition-all duration-300 group relative">
-              <div className="text-2xl mb-2">💼</div>
               <div className="text-4xl font-bold text-wine-charcoal mb-3">
-                {directJobs}
+                {totalJobs.toLocaleString()}
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.jobs.created')}</div>
-              <div className="text-sm text-wine-charcoal/60">{t('economy.direct.employment')}</div>
+              <div className="text-sm text-wine-charcoal/60">{t('economy.regional.impact')}</div>
               
               {/* Enhanced Employment Tooltip with Breakdown */}
               <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-wine-charcoal text-white p-4 rounded-lg shadow-lg text-xs z-10 whitespace-nowrap">
