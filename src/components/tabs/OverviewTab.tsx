@@ -17,6 +17,11 @@ const OverviewTab = () => {
   const realisticRevenue = currentData.wasteAllocation.realisticRevenue;
   const realisticCO2Reduction = currentData.wasteAllocation.realisticCo2Reduction;
   
+  // Calculate total installations based on region infrastructure
+  const totalInstallations = currentData.id === 'languedoc' ? 73 : 
+                           currentData.id === 'champagne' ? 10 : 
+                           45; // default for other regions
+  
   // Debug validation
   const debugErrors = debugMode || langDebugMode ? validateData() : [];
   
@@ -165,12 +170,47 @@ const OverviewTab = () => {
         
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12">
           <div className="space-y-4">
-            <TopCommunes />
+            {/* TopCommunes WITHOUT RegionalMap (departmental distribution removed) */}
+            <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-elegant border border-wine-cream/30 hover:shadow-wine transition-all duration-500">
+              <h3 className="text-xl font-bold text-wine-charcoal mb-6 text-center text-shadow">
+                {t('communes.title')}
+              </h3>
+              <div className="space-y-4">
+                {[
+                  { name: 'Vieussan', tonnage: 14158 },
+                  { name: 'Saint-Thibéry', tonnage: 8899 },
+                  { name: 'Trausse', tonnage: 7984 }
+                ].map((commune, index) => (
+                  <div
+                    key={commune.name}
+                    className="flex items-center justify-between p-4 bg-gradient-subtle rounded-xl border border-wine-cream/40 hover:border-wine-burgundy/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg group"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold transition-transform duration-300 group-hover:scale-110 ${
+                        index === 0 ? 'bg-wine-burgundy shadow-wine' : 
+                        index === 1 ? 'bg-wine-gold shadow-elegant' : 'bg-wine-green shadow-elegant'
+                      }`}>
+                        {index + 1}
+                      </div>
+                      <span className="font-semibold text-wine-charcoal">
+                        {commune.name}
+                      </span>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-xl font-bold text-wine-charcoal group-hover:text-wine-burgundy transition-colors duration-300">
+                        {(commune.tonnage / 1000).toFixed(1)} k
+                      </span>
+                      <span className="text-sm text-wine-charcoal/70 ml-2">{t('tonnes')}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
           <div className="space-y-4">
             <ValoorizationChart />
             
-            {/* Biomass Strategy Context */}
+            {/* REPLACED: Biomass Strategy section (replacing Regional Context under pie chart) */}
             <div className="bg-wine-cream/10 border border-wine-gold/20 rounded-xl p-6 mt-6">
               <h4 className="text-lg font-bold text-wine-charcoal mb-4">{t('strategie.biomasse')}</h4>
               <div className="space-y-3 text-sm text-wine-charcoal/70">
@@ -198,7 +238,7 @@ const OverviewTab = () => {
       {/* Divider */}
       <div className="border-t border-wine-cream/30 mb-16"></div>
 
-      {/* Regional Context Section - Updated with 4th card */}
+      {/* Regional Context Section - Updated with 4th card (dynamic installations) */}
       <section className="mb-16">
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
           <div className="text-center mb-12">
@@ -242,11 +282,10 @@ const OverviewTab = () => {
               <div className="text-sm text-wine-charcoal/60">{t('secteur.vitivinicole')}</div>
             </div>
             
-            {/* 4th card - NEW: Established chains */}
+            {/* 4th card - UPDATED: Dynamic installations without emoji */}
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
-              <div className="text-2xl mb-2">🏭</div>
               <div className="text-4xl font-bold text-wine-burgundy mb-3">
-                73
+                {totalInstallations}
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('chaines.etablies')}</div>
               <div className="text-sm text-wine-charcoal/60">{t('infrastructure.mature')}</div>
