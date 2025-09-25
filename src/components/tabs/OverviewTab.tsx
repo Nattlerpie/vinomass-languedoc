@@ -51,15 +51,27 @@ const OverviewTab = () => {
         </div>
       )}
 
-      {/* Hero Section - Header Only */}
+      {/* Hero Section - Enhanced with Value Proposition */}
       <section className="mb-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl lg:text-5xl font-bold text-wine-charcoal mb-4">
             {t('header.title', { region: currentData.displayName })}
           </h1>
-          <p className="text-xl text-wine-charcoal/70 max-w-3xl mx-auto">
+          <p className="text-xl text-wine-charcoal/70 max-w-3xl mx-auto mb-6">
             {t('header.subtitle')}
           </p>
+          
+          {/* Value Proposition Banner */}
+          <div className="max-w-4xl mx-auto mb-8">
+            <div className="bg-gradient-to-r from-wine-burgundy/10 to-wine-gold/10 border border-wine-gold/30 rounded-xl p-6">
+              <h2 className="text-2xl font-bold text-wine-charcoal mb-3">
+                À partir de {(currentData.annualPomace / 1000).toFixed(0)}k t de déchets viticoles, valoriser {(availableBiomass / 1000).toFixed(0)}k t → {realisticSafProduction.toFixed(1)}M L de SAF
+              </h2>
+              <p className="text-lg text-wine-charcoal/80">
+                Une opportunité de €{realisticRevenue}M/an qui respecte les filières existantes tout en créant une nouvelle chaîne de valeur durable
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Points Clés Hero Section */}
@@ -156,15 +168,68 @@ const OverviewTab = () => {
 
       {/* Divider */}
       <div className="border-t border-wine-cream/30 mb-16"></div>
+
+      {/* Market Validation Section - REPOSITIONED for better flow */}
+      <section className="mb-16">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
+              Validation du Marché International
+            </h2>
+            <p className="text-lg text-wine-charcoal/70">
+              Les dernières données IATA confirment l'opportunité stratégique
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* IATA Report Highlight */}
+            <div className="lg:col-span-2 bg-gradient-subtle rounded-xl p-6 border border-wine-green/10">
+              <h3 className="text-xl font-bold text-wine-green mb-3">IATA Global Feedstock Assessment 2025</h3>
+              <h4 className="text-lg font-semibold text-wine-charcoal mb-4">Validation of Agricultural Residues Strategy</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-wine-charcoal/70">
+                <div>• <span className="font-medium">Déficit SAF:</span> 100 Mt manquantes d'ici 2050</div>
+                <div>• <span className="font-medium">Résidus Agricoles:</span> 58% des matières premières prioritaires</div>
+                <div>• <span className="font-medium">Europe:</span> Top 4 mondial pour développement</div>
+                <div>• <span className="font-medium">Technologie EtJ:</span> Voie validée pour matières agricoles</div>
+              </div>
+              <div className="text-xs text-wine-charcoal/50 mt-3 italic">
+                Source: IATA Global Feedstock Assessment for SAF Production Outlook to 2050 - Janvier 2025
+              </div>
+            </div>
+            
+            {/* Market Opportunity */}
+            <div className="bg-gradient-subtle rounded-xl p-6 border border-wine-burgundy/10">
+              <h3 className="text-xl font-bold text-wine-burgundy mb-3">Opportunité de Marché</h3>
+              <div className="space-y-3 text-sm text-wine-charcoal/70">
+                <div className="text-center p-3 bg-white/50 rounded-lg">
+                  <div className="text-2xl font-bold text-wine-burgundy">500 Mt</div>
+                  <div className="text-xs">Demande SAF 2050</div>
+                </div>
+                <div className="text-center p-3 bg-white/50 rounded-lg">
+                  <div className="text-2xl font-bold text-wine-gold">400 Mt</div>
+                  <div className="text-xs">Production prévue</div>
+                </div>
+                <div className="text-center p-3 bg-wine-green/10 rounded-lg">
+                  <div className="text-2xl font-bold text-wine-green">100 Mt</div>
+                  <div className="text-xs">DÉFICIT À COMBLER</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Divider */}
+      <div className="border-t border-wine-cream/30 mb-16"></div>
       
-      {/* Regional Analysis Section */}
+      {/* Regional Implementation Section */}
       <section className="mb-16">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-            {t('analyse.regionale')}
+            Mise en Œuvre Régionale
           </h2>
           <p className="text-lg text-wine-charcoal/70">
-            {t('analyse.regionale.subtitle')}
+            Infrastructure existante et stratégie biomasse respectueuse
           </p>
         </div>
         
@@ -209,28 +274,6 @@ const OverviewTab = () => {
           </div>
           <div className="space-y-4">
             <ValoorizationChart />
-            
-            {/* REPLACED: Biomass Strategy section (replacing Regional Context under pie chart) */}
-            <div className="bg-wine-cream/10 border border-wine-gold/20 rounded-xl p-6 mt-6">
-              <h4 className="text-lg font-bold text-wine-charcoal mb-4">{t('strategie.biomasse')}</h4>
-              <div className="space-y-3 text-sm text-wine-charcoal/70">
-                <div className="flex items-start space-x-2">
-                  <span className="font-medium text-wine-charcoal">• {t('base.conservative')}:</span>
-                  <span>30% {t('disponible')} ({(availableBiomass / 1000).toFixed(0)} kt) - {t('flux.elimination')}</span>
-                </div>
-                <div className="flex items-start space-x-2">
-                  <span className="font-medium text-wine-charcoal">• {t('potentiel.negociable')}:</span>
-                  <span>+25% ({(negotiableBiomass / 1000).toFixed(0)} kt) - {t('surplus.excedents')}</span>
-                </div>
-                <div className="flex items-start space-x-2">
-                  <span className="font-medium text-wine-charcoal">• {t('total.accessible')}:</span>
-                  <span>{t('jusqua')} 55% ({((availableBiomass + negotiableBiomass) / 1000).toFixed(0)} kt) {t('avec.partenariats')}</span>
-                </div>
-              </div>
-              <p className="text-sm text-wine-charcoal/60 mt-4 italic border-t border-wine-gold/20 pt-3">
-                {t('respecte.filieres')}
-              </p>
-            </div>
           </div>
         </div>
       </section>
@@ -238,15 +281,15 @@ const OverviewTab = () => {
       {/* Divider */}
       <div className="border-t border-wine-cream/30 mb-16"></div>
 
-      {/* Regional Context Section - Updated with 4th card (dynamic installations) */}
+      {/* Regional Context Section - Consolidated */}
       <section className="mb-16">
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              {t('contexte.regional')}
+              Avantages Compétitifs Régionaux
             </h2>
             <p className="text-lg text-wine-charcoal/70">
-              {t('contexte.regional.subtitle')}
+              Infrastructure mature et leadership viticole français
             </p>
           </div>
           
@@ -282,7 +325,7 @@ const OverviewTab = () => {
               <div className="text-sm text-wine-charcoal/60">{t('secteur.vitivinicole')}</div>
             </div>
             
-            {/* 4th card - UPDATED: Dynamic installations without emoji */}
+            {/* Infrastructure établie */}
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-burgundy mb-3">
                 {totalInstallations}
@@ -298,140 +341,86 @@ const OverviewTab = () => {
       {/* Divider */}
       <div className="border-t border-wine-cream/30 mb-16"></div>
 
-      {/* Industry News Section */}
-      <section className="mb-8">
+      {/* Industry Momentum Section - Streamlined */}
+      <section className="mb-16">
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              {t('actualites.saf')}
+              Dynamique Industrielle
             </h2>
             <p className="text-lg text-wine-charcoal/70">
-              {t('actualites.subtitle')}
+              Projets de référence et soutien réglementaire
             </p>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 mb-8">
-            {/* NEW: IATA Global Feedstock Assessment */}
-            <div className="bg-gradient-subtle rounded-xl p-6 border border-wine-green/10 xl:col-span-1 lg:col-span-2">
-              <h3 className="text-xl font-bold text-wine-green mb-3">IATA Global Feedstock Assessment 2025</h3>
-              <h4 className="text-lg font-semibold text-wine-charcoal mb-3">Validation of Agricultural Residues Strategy</h4>
-              <div className="space-y-2 text-sm text-wine-charcoal/70">
-                <div>• <span className="font-medium">Massive SAF Demand Gap:</span> 500 Mt needed by 2050, only 400 Mt forecast - 100 Mt shortage creates strong market</div>
-                <div>• <span className="font-medium">Agricultural Residues Priority:</span> 58% of biomass feedstocks will come from agricultural residues (wine waste category)</div>
-                <div>• <span className="font-medium">Europe as Key Region:</span> Positioned among top 4 global regions for feedstock development alongside US, Brazil, India</div>
-                <div>• <span className="font-medium">EtJ Pathway Validated:</span> Alcohol-to-Jet technology confirmed as core SAF production route for agricultural materials</div>
-                <div>• <span className="font-medium">Technology Rollout:</span> Main constraint is deployment pace, not feedstock availability - opportunity for first-movers</div>
-              </div>
-              <div className="text-xs text-wine-charcoal/50 mt-3 italic">
-                Source: IATA Global Feedstock Assessment for SAF Production Outlook to 2050 - January 2025
-              </div>
-            </div>
-
-            {/* Haffner Energy */}
-            <div className="bg-gradient-subtle rounded-xl p-6 border border-wine-burgundy/10">
-              <h3 className="text-xl font-bold text-wine-burgundy mb-3">{t('industry.haffner.title')}</h3>
-              <h4 className="text-lg font-semibold text-wine-charcoal mb-3">{t('industry.haffner.subtitle')}</h4>
-              <div className="space-y-2 text-sm text-wine-charcoal/70">
-                <div>• <span className="font-medium">{t('investissement')}:</span> €180M</div>
-                <div>• <span className="font-medium">{t('capacite')}:</span> 50,000 {t('tonnes.saf.an')} {t('des.2025')}</div>
-                <div>• <span className="font-medium">{t('technologie')}:</span> {t('biomass.to.liquids')}</div>
-                <div>• <span className="font-medium">{t('partenariat')}:</span> Région Île-de-France</div>
-              </div>
-            </div>
-
-            {/* LANZAJET */}
-            <div className="bg-gradient-subtle rounded-xl p-6 border border-wine-gold/10">
-              <h3 className="text-xl font-bold text-wine-gold mb-3">{t('industry.lanzajet.title')}</h3>
-              <h4 className="text-lg font-semibold text-wine-charcoal mb-3">{t('industry.lanzajet.subtitle')}</h4>
-              <div className="space-y-2 text-sm text-wine-charcoal/70">
-                <div>• <span className="font-medium">{t('industry.lanzajet.first.commercial')}</span></div>
-                <div>• <span className="font-medium">{t('capacite')}:</span> 125,000 {t('tonnes.saf.an')}</div>
-                <div>• <span className="font-medium">{t('feedstock')}:</span> {t('waste.agricultural.ethanol')}</div>
-                <div>• <span className="font-medium">{t('certification')}:</span> ASTM D7566 {t('approved')}</div>
-              </div>
-            </div>
-
-            {/* Airbus */}
-            <div className="bg-gradient-subtle rounded-xl p-6 border border-wine-green/10">
-              <h3 className="text-xl font-bold text-wine-green mb-3">{t('industry.airbus.title')}</h3>
-              <h4 className="text-lg font-semibold text-wine-charcoal mb-3">{t('industry.airbus.subtitle')}</h4>
-              <div className="space-y-2 text-sm text-wine-charcoal/70">
-                <div>• <span className="font-medium">{t('objectif')}:</span> {t('industry.airbus.hydrogen.objective')}</div>
-                <div>• <span className="font-medium">{t('industry.airbus.saf.transition')}:</span> 10% {t('minimum.2030')}</div>
-                <div>• <span className="font-medium">{t('industry.airbus.partnerships')}:</span> {t('industry.airbus.airports')}</div>
-                <div>• <span className="font-medium">{t('budget.rd')}:</span> €15 {t('milliards')} {t('mobilises')}</div>
-              </div>
-            </div>
-
-            {/* Total Energies */}
-            <div className="bg-gradient-subtle rounded-xl p-6 border border-wine-burgundy/10">
-              <h3 className="text-xl font-bold text-wine-burgundy mb-3">{t('industry.total.title')}</h3>
-              <h4 className="text-lg font-semibold text-wine-charcoal mb-3">{t('industry.total.subtitle')}</h4>
-              <div className="space-y-2 text-sm text-wine-charcoal/70">
-                <div>• <span className="font-medium">{t('investissement')}:</span> €500M {t('sur.ans', { years: '5' })}</div>
-                <div>• <span className="font-medium">{t('objectif')}:</span> 1.5M {t('tonnes.saf.an')} {t('capacity')}</div>
-                <div>• <span className="font-medium">{t('industry.total.biorefineries')}:</span> {t('industry.total.sites.modernized')}</div>
-                <div>• <span className="font-medium">{t('industry.total.partnerships')}:</span> {t('industry.total.biomass.suppliers')}</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Enhanced Regulatory Context */}
-          <div className="bg-wine-cream/10 border border-wine-gold/20 rounded-xl p-8">
-            <h3 className="text-xl font-bold text-wine-charcoal mb-6 text-center">{t('contexte.reglementaire')}</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white/50 rounded-lg p-4">
-                <div className="flex items-center mb-3">
-                  <div className="text-2xl mr-3">🇪🇺</div>
-                  <div>
-                    <div className="font-semibold text-wine-charcoal">ReFuelEU Aviation</div>
-                    <div className="text-sm text-wine-charcoal/70">2% SAF minimum 2025, 70% en 2050</div>
-                  </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            {/* Key Industry Projects */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-wine-charcoal mb-4">Projets de Référence</h3>
+              
+              <div className="bg-gradient-subtle rounded-lg p-4 border border-wine-burgundy/10">
+                <h4 className="font-bold text-wine-burgundy mb-2">Haffner Energy - France</h4>
+                <div className="text-sm text-wine-charcoal/70">
+                  €180M • 50,000 t SAF/an dès 2025 • Biomasse-to-Liquide
                 </div>
               </div>
               
-              <div className="bg-white/50 rounded-lg p-4">
-                <div className="flex items-center mb-3">
-                  <div className="text-2xl mr-3">🇫🇷</div>
-                  <div>
-                    <div className="font-semibold text-wine-charcoal">France 2030</div>
-                    <div className="text-sm text-wine-charcoal/70">€4 {t('milliards')} {t('fonds.verts')} déployés</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-white/50 rounded-lg p-4">
-                <div className="flex items-center mb-3">
-                  <div className="text-2xl mr-3">⚡</div>
-                  <div>
-                    <div className="font-semibold text-wine-charcoal">EU REPowerEU</div>
-                    <div className="text-sm text-wine-charcoal/70">€210 {t('milliards')} {t('energies.renouvelables')}</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-white/50 rounded-lg p-4">
-                <div className="flex items-center mb-3">
-                  <div className="text-2xl mr-3">🌍</div>
-                  <div>
-                    <div className="font-semibold text-wine-charcoal">CORSIA ICAO</div>
-                    <div className="text-sm text-wine-charcoal/70">{t('neutralite.carbone')} 2050</div>
-                  </div>
+              <div className="bg-gradient-subtle rounded-lg p-4 border border-wine-gold/10">
+                <h4 className="font-bold text-wine-gold mb-2">LanzaJet - États-Unis</h4>
+                <div className="text-sm text-wine-charcoal/70">
+                  125,000 t SAF/an • Éthanol agricole • Certification ASTM D7566
                 </div>
               </div>
             </div>
             
-            <div className="text-center mt-6 p-4 bg-wine-gold/10 rounded-lg">
-              <p className="text-sm font-medium text-wine-charcoal">
-                💡 {t('opportunite.strategique')}: {t('positionnement.optimal')}
-              </p>
+            {/* Regulatory Support */}
+            <div>
+              <h3 className="text-xl font-bold text-wine-charcoal mb-4">Soutien Réglementaire</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-white/50 rounded-lg p-3 text-center">
+                  <div className="text-lg font-bold text-wine-burgundy">2%</div>
+                  <div className="text-xs">SAF minimum 2025 (EU)</div>
+                </div>
+                <div className="bg-white/50 rounded-lg p-3 text-center">
+                  <div className="text-lg font-bold text-wine-gold">€4B</div>
+                  <div className="text-xs">France 2030</div>
+                </div>
+                <div className="bg-white/50 rounded-lg p-3 text-center">
+                  <div className="text-lg font-bold text-wine-green">€210B</div>
+                  <div className="text-xs">EU REPowerEU</div>
+                </div>
+                <div className="bg-white/50 rounded-lg p-3 text-center">
+                  <div className="text-lg font-bold text-wine-charcoal">2050</div>
+                  <div className="text-xs">Neutralité carbone</div>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="text-center mt-8">
-            <p className="text-sm text-wine-charcoal/60 italic">
-              {t('projet.inscrit')}
-            </p>
+      {/* Call to Action Section */}
+      <section className="mb-8">
+        <div className="bg-gradient-to-r from-wine-burgundy to-wine-gold text-white rounded-2xl p-8 lg:p-12 shadow-elegant text-center">
+          <h2 className="text-3xl font-bold mb-4">
+            Une Opportunité Stratégique à Saisir
+          </h2>
+          <p className="text-xl mb-6 opacity-90">
+            Transformer le défi des déchets viticoles en avantage concurrentiel SAF
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div>
+              <div className="text-2xl font-bold mb-2">🎯 Timing Optimal</div>
+              <div className="text-sm opacity-80">Réglementation favorable + demande croissante</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold mb-2">⚡ First-Mover</div>
+              <div className="text-sm opacity-80">Contrainte = déploiement, pas ressources</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold mb-2">🤝 Gagnant-Gagnant</div>
+              <div className="text-sm opacity-80">Respecte filières + crée valeur</div>
+            </div>
           </div>
         </div>
       </section>
