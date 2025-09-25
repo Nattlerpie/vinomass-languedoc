@@ -61,15 +61,27 @@ const OverviewTab = () => {
             {t('header.subtitle')}
           </p>
           
-          {/* Value Proposition Banner */}
+          {/* Value Proposition Banner - CLEANED UP */}
           <div className="max-w-4xl mx-auto mb-8">
-            <div className="bg-gradient-to-r from-wine-burgundy/10 to-wine-gold/10 border border-wine-gold/30 rounded-xl p-6">
-              <h2 className="text-2xl font-bold text-wine-charcoal mb-3">
-                À partir de {(currentData.annualPomace / 1000).toFixed(0)}k t de déchets viticoles, valoriser {(availableBiomass / 1000).toFixed(0)}k t → {realisticSafProduction.toFixed(1)}M L de SAF
-              </h2>
-              <p className="text-lg text-wine-charcoal/80">
-                Une opportunité de €{realisticRevenue}M/an qui respecte les filières existantes tout en créant une nouvelle chaîne de valeur durable
-              </p>
+            <div className="bg-gradient-to-r from-wine-burgundy/10 to-wine-gold/10 border border-wine-gold/30 rounded-xl p-8">
+              <div className="text-center mb-4">
+                <h2 className="text-2xl lg:text-3xl font-bold text-wine-charcoal mb-3">
+                  Transformer les Déchets Viticoles en SAF
+                </h2>
+                <div className="text-xl text-wine-charcoal/80 space-y-2">
+                  <div>
+                    <span className="font-semibold">{(currentData.annualPomace / 1000).toFixed(0)}k t</span> déchets régionaux → 
+                    <span className="font-semibold text-wine-green ml-2">{(availableBiomass / 1000).toFixed(0)}k t</span> valorisables → 
+                    <span className="font-semibold text-wine-burgundy ml-2">{realisticSafProduction.toFixed(1)}M L SAF</span>
+                  </div>
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="inline-flex items-center bg-white/50 rounded-full px-6 py-3">
+                  <span className="text-2xl font-bold text-wine-gold mr-3">€{realisticRevenue}M/an</span>
+                  <span className="text-sm text-wine-charcoal/70">• Respecte les filières existantes</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
