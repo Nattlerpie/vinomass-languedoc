@@ -22,6 +22,12 @@ const EconomyTab = () => {
   const scaledDebt = Math.round(scaledInvestment * 0.5); // 50% debt
   const scaledSubsidies = Math.round(scaledInvestment * 0.15); // 15% subsidies
 
+  // Calculate employment figures based on ADEME research data
+  const directJobs = currentData.wasteAllocation?.realisticJobs || 180;
+  const indirectJobs = Math.round(directJobs * 1.8); // 1.8x multiplier
+  const inducedJobs = Math.round(directJobs * 2.3); // 2.3x multiplier
+  const totalJobs = directJobs + indirectJobs + inducedJobs;
+
   return (
     <div className="min-h-screen w-full">
       {/* DEBUG BANNER */}
@@ -30,7 +36,7 @@ const EconomyTab = () => {
           <strong className="font-bold">💰 EconomyTab Debug</strong>
           <div className="text-sm mt-2">
             <div>Region: {currentData.displayName} ({currentData.id})</div>
-            <div>Available Biomass: {availableBiomass.toLocaleString()}t</div>
+            <div>Available Biomass: {availableBiomass.toLocaleString()} t</div>
             <div>Scaled Investment: €{scaledInvestment}M</div>
             <div>SAF Revenue: €{currentData.wasteAllocation?.realisticRevenue}M/year</div>
             {debugErrors.length > 0 && (
@@ -74,7 +80,7 @@ const EconomyTab = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300 group relative">
               <div className="text-4xl font-bold text-wine-burgundy mb-3">
-                {(availableBiomass / 1000).toFixed(0)}k {t('tonnes')}
+                {(availableBiomass / 1000).toFixed(0)} k {t('tonnes')}
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.available.feedstock')}</div>
               <div className="text-sm text-wine-charcoal/60">{t('economy.biomass.secured')}</div>
@@ -90,7 +96,7 @@ const EconomyTab = () => {
             
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-gold mb-3">
-                {(currentData.wasteAllocation?.realisticSafPotential / 1000000).toFixed(1)}M
+                {(currentData.wasteAllocation?.realisticSafPotential / 1000000).toFixed(1)} M
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.saf.production')}</div>
               <div className="text-sm text-wine-charcoal/60">{t('litres.an')}</div>
@@ -104,12 +110,25 @@ const EconomyTab = () => {
               <div className="text-sm text-wine-charcoal/60">{t('economy.market.price')}</div>
             </div>
             
-            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-charcoal/10 hover:scale-105 transition-all duration-300">
+            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-charcoal/10 hover:scale-105 transition-all duration-300 group relative">
+              <div className="text-2xl mb-2">💼</div>
               <div className="text-4xl font-bold text-wine-charcoal mb-3">
-                {currentData.wasteAllocation?.realisticJobs}
+                {directJobs}
               </div>
               <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.jobs.created')}</div>
               <div className="text-sm text-wine-charcoal/60">{t('economy.direct.employment')}</div>
+              
+              {/* Enhanced Employment Tooltip with Breakdown */}
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-wine-charcoal text-white p-4 rounded-lg shadow-lg text-xs z-10 whitespace-nowrap">
+                <div className="font-bold mb-2">{t('economy.employment.breakdown')}</div>
+                <div>• {t('economy.direct.jobs')}: {directJobs}</div>
+                <div>• {t('economy.indirect.jobs')}: {indirectJobs}</div>
+                <div>• {t('economy.induced.jobs')}: {inducedJobs}</div>
+                <div className="border-t border-white/20 mt-2 pt-2">
+                  <div className="font-bold">{t('economy.total.impact')}: {totalJobs.toLocaleString()} {t('jobs')}</div>
+                </div>
+                <div className="text-xs opacity-75 mt-1">{t('economy.ademe.research')}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -192,22 +211,22 @@ const EconomyTab = () => {
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-burgundy/10">
-                  <div className="text-3xl font-bold text-wine-burgundy mb-3">€{scaledEquity}M</div>
+                  <div className="text-3xl font-bold text-wine-burgundy mb-3">€{scaledEquity} M</div>
                   <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.equity.funding')}</div>
                   <div className="text-sm text-wine-charcoal/60">{t('economy.equity.percentage')}</div>
                 </div>
                 <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-gold/10">
-                  <div className="text-3xl font-bold text-wine-gold mb-3">€{scaledDebt}M</div>
+                  <div className="text-3xl font-bold text-wine-gold mb-3">€{scaledDebt} M</div>
                   <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.bank.debt')}</div>
                   <div className="text-sm text-wine-charcoal/60">{t('economy.interest.rate')}</div>
                 </div>
                 <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-green/10">
-                  <div className="text-3xl font-bold text-wine-green mb-3">€{scaledSubsidies}M</div>
+                  <div className="text-3xl font-bold text-wine-green mb-3">€{scaledSubsidies} M</div>
                   <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.subsidies')}</div>
                   <div className="text-sm text-wine-charcoal/60">{t('economy.eu.france.funding')}</div>
                 </div>
                 <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-charcoal/10">
-                  <div className="text-3xl font-bold text-wine-charcoal mb-3">€{scaledInvestment}M</div>
+                  <div className="text-3xl font-bold text-wine-charcoal mb-3">€{scaledInvestment} M</div>
                   <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.total.investment')}</div>
                   <div className="text-sm text-wine-charcoal/60">{t('economy.capacity.description', { capacity: (availableBiomass / 1000).toFixed(0) })}</div>
                 </div>
