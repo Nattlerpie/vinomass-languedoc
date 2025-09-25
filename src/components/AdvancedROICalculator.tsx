@@ -118,15 +118,17 @@ const AdvancedROICalculator = () => {
   function calculateNPV(annualCashFlow: number, initialInvestment: number, discountRate: number, years: number): number {
     if (annualCashFlow <= 0) return -initialInvestment;
     
+    // Use 15-year analysis period for better long-term view
+    const analysisYears = 15;
     let npv = -initialInvestment;
-    for (let year = 1; year <= years; year++) {
+    
+    for (let year = 1; year <= analysisYears; year++) {
       npv += annualCashFlow / Math.pow(1 + discountRate / 100, year);
     }
     
-    // Add terminal value (residual value of assets)
-    // Assume 30% residual value of initial investment after 10 years
-    const terminalValue = initialInvestment * 0.3;
-    npv += terminalValue / Math.pow(1 + discountRate / 100, years);
+    // Add terminal value (50% residual value of assets after 15 years)
+    const terminalValue = initialInvestment * 0.5;
+    npv += terminalValue / Math.pow(1 + discountRate / 100, analysisYears);
     
     return npv;
   }
@@ -433,10 +435,10 @@ const AdvancedROICalculator = () => {
               {/* Region-Specific Notes */}
               <div className="bg-wine-cream/10 p-4 rounded-lg border border-wine-burgundy/10">
                 <p className="text-sm text-wine-charcoal/80">
-                  <strong>{getRegionDisplayName()} Context:</strong> {
+                  <strong>{getRegionDisplayName()} {t('economy.regional.context')}:</strong> {
                     regionId === 'champagne' 
-                      ? t('roi.champagne.context')
-                      : t('roi.languedoc.context')
+                      ? t('roi.champagne.context', 'Parameters scaled for premium wine region with smaller biomass volumes but higher value products.')
+                      : t('roi.languedoc.context', 'Parameters based on large-scale viticulture waste availability with established agricultural infrastructure.')
                   }
                 </p>
               </div>
