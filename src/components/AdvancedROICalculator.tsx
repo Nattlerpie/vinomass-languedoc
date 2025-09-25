@@ -123,9 +123,9 @@ const AdvancedROICalculator = () => {
       npv += annualCashFlow / Math.pow(1 + discountRate / 100, year);
     }
     
-    // Add terminal value (residual value of investment)
-    // Assume 50% residual value of initial investment
-    const terminalValue = initialInvestment * 0.5;
+    // Add terminal value (residual value of assets)
+    // Assume 30% residual value of initial investment after 10 years
+    const terminalValue = initialInvestment * 0.3;
     npv += terminalValue / Math.pow(1 + discountRate / 100, years);
     
     return npv;
@@ -134,29 +134,42 @@ const AdvancedROICalculator = () => {
   function calculateIRR(annualCashFlow: number, initialInvestment: number, years: number): number {
     if (annualCashFlow <= 0) return 0;
     
-    // For a simple annuity (constant annual cash flow), IRR can be approximated
-    // More accurate than the iterative method for this use case
-    let rate = 0.1; // Starting guess
-    let low = 0.001, high = 0.5; // Reasonable bounds for SAF projects
-    let iterations = 0;
-    const maxIterations = 50;
-    const tolerance = 100; // €100 tolerance
+    // Newton-Raphson method for IRR calculation
+    let rate = 0.1; // Starting guess of 10%
+    let tolerance = 0.0001;
+    let maxIterations = 100;
     
-    while (iterations < maxIterations) {
+    for (let i = 0; i < maxIterations; i++) {
       let npv = -initialInvestment;
+      let derivative = 0;
+      
+      // Calculate NPV and its derivative at current rate
       for (let year = 1; year <= years; year++) {
-        npv += annualCashFlow / Math.pow(1 + rate, year);
+        const discountFactor = Math.pow(1 + rate, year);
+        npv += annualCashFlow / discountFactor;
+        derivative -= (year * annualCashFlow) / (discountFactor * (1 + rate));
       }
       
-      if (Math.abs(npv) < tolerance) break;
+      // Add terminal value (30% residual value)
+      const terminalValue = initialInvestment * 0.3;
+      const terminalDiscountFactor = Math.pow(1 + rate, years);
+      npv += terminalValue / terminalDiscountFactor;
+      derivative -= (years * terminalValue) / (terminalDiscountFactor * (1 + rate));
       
-      if (npv > 0) {
-        low = rate;
+      // Check for convergence
+      if (Math.abs(npv) < tolerance) {
+        return rate * 100;
+      }
+      
+      // Newton-Raphson update
+      if (Math.abs(derivative) > tolerance) {
+        rate = rate - npv / derivative;
       } else {
-        high = rate;
+        break;
       }
-      rate = (low + high) / 2;
-      iterations++;
+      
+      // Ensure rate stays within reasonable bounds
+      rate = Math.max(0.001, Math.min(rate, 1.0));
     }
     
     return rate * 100;
@@ -231,7 +244,7 @@ const AdvancedROICalculator = () => {
                       <Settings size={20} className="text-wine-charcoal cursor-help" />
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p className="text-sm">Manual parameter changes coming soon</p>
+                      <p className="text-sm">{t('roi.manual.changes.coming')}</p>
                     </TooltipContent>
                   </Tooltip>
                   <h4 className="text-lg font-semibold text-wine-charcoal">{t('roi.scenario.parameters')}</h4>
@@ -258,7 +271,7 @@ const AdvancedROICalculator = () => {
                       {currentScenario.biomassInput.toLocaleString()}
                     </div>
                     <div className="text-sm font-medium text-wine-charcoal mb-2">{t('roi.biomass.input')}</div>
-                    <div className="text-xs text-wine-charcoal/60">tonnes/an</div>
+                    <div className="text-xs text-wine-charcoal/60">{t('roi.tonnes.per.year')}</div>
                   </div>
 
                   <div className="text-center p-4 bg-white/70 rounded-xl border border-wine-burgundy/10">
@@ -266,7 +279,7 @@ const AdvancedROICalculator = () => {
                       {currentScenario.processEfficiency}%
                     </div>
                     <div className="text-sm font-medium text-wine-charcoal mb-2">{t('roi.process.efficiency')}</div>
-                    <div className="text-xs text-wine-charcoal/60">ATJ Technology</div>
+                    <div className="text-xs text-wine-charcoal/60">{t('roi.atj.technology')}</div>
                   </div>
 
                   <div className="text-center p-4 bg-white/70 rounded-xl border border-wine-burgundy/10">
@@ -274,7 +287,7 @@ const AdvancedROICalculator = () => {
                       €{currentScenario.safPrice.toFixed(2)}/L
                     </div>
                     <div className="text-sm font-medium text-wine-charcoal mb-2">{t('roi.saf.price')}</div>
-                    <div className="text-xs text-wine-charcoal/60">IATA Projections</div>
+                    <div className="text-xs text-wine-charcoal/60">{t('roi.iata.projections')}</div>
                   </div>
 
                   <div className="text-center p-4 bg-white/70 rounded-xl border border-wine-gold/10">
@@ -282,15 +295,15 @@ const AdvancedROICalculator = () => {
                       €{currentScenario.operatingCosts.toFixed(2)}/L
                     </div>
                     <div className="text-sm font-medium text-wine-charcoal mb-2">{t('roi.operating.costs')}</div>
-                    <div className="text-xs text-wine-charcoal/60">IRENA Benchmarks</div>
+                    <div className="text-xs text-wine-charcoal/60">{t('roi.irena.benchmarks')}</div>
                   </div>
 
                   <div className="text-center p-4 bg-white/70 rounded-xl border border-wine-green/10">
                     <div className="text-2xl font-bold text-wine-green mb-1">
-                      €{(currentScenario.capitalInvestment / 1000000).toFixed(0)}M
+                      €{(currentScenario.capitalInvestment / 1000000).toFixed(0)} M
                     </div>
                     <div className="text-sm font-medium text-wine-charcoal mb-2">{t('roi.capital.investment')}</div>
-                    <div className="text-xs text-wine-charcoal/60">Industry CAPEX</div>
+                    <div className="text-xs text-wine-charcoal/60">{t('roi.industry.capex')}</div>
                   </div>
                 </div>
               </div>
@@ -299,7 +312,7 @@ const AdvancedROICalculator = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="text-center p-4 bg-gradient-to-br from-wine-burgundy/10 to-wine-burgundy/5 rounded-xl border border-wine-burgundy/20 flex flex-col justify-center min-h-[120px]">
                   <div className="text-2xl font-bold text-wine-burgundy mb-1">
-                    {(safProduction / 1000000).toFixed(1)}M
+                    {(safProduction / 1000000).toFixed(1)} M
                   </div>
                   <div className="text-xs text-wine-charcoal/70">{t('roi.saf.production.annual')}</div>
                 </div>
@@ -339,13 +352,25 @@ const AdvancedROICalculator = () => {
                   irr > 8 ? 'from-wine-gold/10 to-wine-gold/5 border-wine-gold/20' :
                   'from-red-100 to-red-50 border-red-200'
                 }`}>
-                  <div className={`text-2xl font-bold mb-1 ${
-                    irr > 12 ? 'text-wine-green' :
-                    irr > 8 ? 'text-wine-gold' :
-                    'text-red-600'
-                  }`}>
-                    {irr.toFixed(1)}%
-                  </div>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <div className={`text-2xl font-bold mb-1 cursor-help ${
+                        irr > 12 ? 'text-wine-green' :
+                        irr > 8 ? 'text-wine-gold' :
+                        'text-red-600'
+                      }`}>
+                        {irr.toFixed(1)}%
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-sm">
+                      <div className="space-y-1 text-sm">
+                        <p><strong>{t('roi.irr.french.long')}</strong></p>
+                        <p><strong>{t('roi.irr.english.long')}</strong></p>
+                        <p>{t('roi.irr.explanation.fr')}</p>
+                        <p>{t('roi.irr.explanation.en')}</p>
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
                   <div className="text-xs text-wine-charcoal/70">{t('roi.irr')}</div>
                 </div>
               </div>
@@ -357,16 +382,16 @@ const AdvancedROICalculator = () => {
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span>{t('roi.gross.revenue')}:</span>
-                      <span className="font-semibold">€{(annualRevenue / 1000000).toFixed(1)}M</span>
+                      <span className="font-semibold">€{(annualRevenue / 1000000).toFixed(1)} M</span>
                     </div>
                     <div className="flex justify-between">
                       <span>{t('roi.operating.costs')}:</span>
-                      <span className="font-semibold">€{(annualOperatingCosts / 1000000).toFixed(1)}M</span>
+                      <span className="font-semibold">€{(annualOperatingCosts / 1000000).toFixed(1)} M</span>
                     </div>
                     <div className="flex justify-between border-t pt-2">
                       <span className="font-semibold">{t('roi.gross.profit')}:</span>
                       <span className={`font-semibold ${grossProfit > 0 ? 'text-wine-green' : 'text-red-600'}`}>
-                        €{(grossProfit / 1000000).toFixed(1)}M
+                        €{(grossProfit / 1000000).toFixed(1)} M
                       </span>
                     </div>
                   </div>
@@ -376,9 +401,21 @@ const AdvancedROICalculator = () => {
                   <h5 className="font-semibold text-wine-charcoal mb-3">{t('roi.financial.indicators')}</h5>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span>{t('roi.npv.ten.years')}:</span>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <span className="cursor-help border-b border-dotted">{t('roi.npv.ten.years')}</span>
+                        </TooltipTrigger>
+                        <TooltipContent className="max-w-sm">
+                          <div className="space-y-1 text-sm">
+                            <p><strong>{t('roi.npv.french.long')}</strong></p>
+                            <p><strong>{t('roi.npv.english.long')}</strong></p>
+                            <p>{t('roi.npv.explanation.fr')}</p>
+                            <p>{t('roi.npv.explanation.en')}</p>
+                          </div>
+                        </TooltipContent>
+                      </Tooltip>
                       <span className={`font-semibold ${npv > 0 ? 'text-wine-green' : 'text-red-600'}`}>
-                        €{(npv / 1000000).toFixed(1)}M
+                        €{(npv / 1000000).toFixed(1)} M
                       </span>
                     </div>
                     <div className="flex justify-between">
@@ -387,7 +424,7 @@ const AdvancedROICalculator = () => {
                     </div>
                     <div className="flex justify-between">
                       <span>{t('roi.capital.required')}:</span>
-                      <span className="font-semibold">€{(currentScenario.capitalInvestment / 1000000).toFixed(0)}M</span>
+                      <span className="font-semibold">€{(currentScenario.capitalInvestment / 1000000).toFixed(0)} M</span>
                     </div>
                   </div>
                 </div>
@@ -398,8 +435,8 @@ const AdvancedROICalculator = () => {
                 <p className="text-sm text-wine-charcoal/80">
                   <strong>{getRegionDisplayName()} Context:</strong> {
                     regionId === 'champagne' 
-                      ? 'Parameters scaled for premium wine region with smaller biomass volumes but higher value products.'
-                      : 'Parameters based on large-scale viticulture waste availability with established agricultural infrastructure.'
+                      ? t('roi.champagne.context')
+                      : t('roi.languedoc.context')
                   }
                 </p>
               </div>
