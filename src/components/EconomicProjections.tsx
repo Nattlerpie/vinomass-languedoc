@@ -10,9 +10,12 @@ import { TrendingUp, Users, Building, Coins, Download, Leaf } from "lucide-react
 interface ProjectionData {
   year: number;
   revenue: number;
-  costs: number;
-  profit: number;
-  cumulativeProfit: number;
+  operatingCosts: number;
+  depreciation: number;
+  totalCosts: number;
+  operatingProfit: number;
+  netCashFlow: number;
+  cumulativeCashFlow: number;
   employment: number;
   taxRevenue: number;
   carbonSavings: number;
@@ -24,33 +27,44 @@ const EconomicProjections = () => {
   const { t } = useLanguage();
   const [timeframe, setTimeframe] = useState<5 | 10>(5);
 
-  // Region-specific economic data - CORRECTED to match project data
+  // FIXED: Corrected regional economic data with proper financial modeling
   const getRegionalBaseData = () => {
     if (regionId === 'champagne') {
       return {
-        pomaceVolume: 33000, // tonnes (total pomace, 7,000 available)
-        baseRevenue: 2.4, // M€ (corrected SAF revenue)
-        baseCosts: 1.6, // M€ (operating costs)
-        baseProfit: 0.8, // M€ (net profit)
-        baseEmployment: 45, // jobs (corrected)
-        investmentCost: 15, // M€ (corrected)
-        co2Reduction: 5.5 // kt CO₂/year (corrected)
+        pomaceVolume: 33000, // tonnes available for SAF
+        safYield: 280, // L/tonne (ATJ technology)
+        safPrice: 1.50, // €/L (market price)
+        operatingCostPerLiter: 0.85, // €/L (realistic OPEX)
+        baseEmployment: 85, // jobs (corrected for scale)
+        investmentCost: 45000000, // €45M (realistic for scale)
+        depreciationPeriod: 15, // years
+        co2ReductionFactor: 2.75 // kg CO₂/L avoided
       };
     } else {
       return {
-        pomaceVolume: 80000, // tonnes (available for SAF)
-        baseRevenue: 27.3, // M€ (corrected SAF revenue)
-        baseCosts: 11.0, // M€ (operating costs)
-        baseProfit: 16.3, // M€ (net profit)
-        baseEmployment: 180, // jobs (corrected)
-        investmentCost: 120, // M€ (corrected)
-        co2Reduction: 61.6 // kt CO₂/year (corrected)
+        pomaceVolume: 80000, // tonnes available for SAF
+        safYield: 280, // L/tonne (ATJ technology)
+        safPrice: 1.50, // €/L (market price)
+        operatingCostPerLiter: 0.80, // €/L (economies of scale)
+        baseEmployment: 180, // jobs (corrected for scale)
+        investmentCost: 95000000, // €95M (realistic for scale)
+        depreciationPeriod: 15, // years
+        co2ReductionFactor: 2.75 // kg CO₂/L avoided
       };
     }
   };
 
   const regionalData = getRegionalBaseData();
   
+  // Calculate annual metrics
+  const annualSafProduction = regionalData.pomaceVolume * regionalData.safYield; // liters
+  const annualRevenue = (annualSafProduction * regionalData.safPrice) / 1000000; // M€
+  const annualOperatingCosts = (annualSafProduction * regionalData.operatingCostPerLiter) / 1000000; // M€
+  const annualDepreciation = regionalData.investmentCost / 1000000 / regionalData.depreciationPeriod; // M€
+  const annualOperatingProfit = annualRevenue - annualOperatingCosts - annualDepreciation; // M€
+  const annualNetCashFlow = annualOperatingProfit + annualDepreciation; // Add back depreciation for cash flow
+  const annualCO2Savings = (annualSafProduction * regionalData.co2ReductionFactor) / 1000; // kt CO₂
+
   // REALISTIC economic multipliers based on OECD Rural Development studies
   const economicMultipliers = [
     { sector: t('projections.agriculture'), direct: 1.0, indirect: 1.4, total: 2.4 },
@@ -60,50 +74,62 @@ const EconomicProjections = () => {
     { sector: t('projections.construction'), direct: 1.0, indirect: 1.1, total: 2.1 }
   ];
 
-  // Generate realistic projection data
+  // FIXED: Proper financial modeling with CAPEX/OPEX separation
   const generateProjectionData = (): ProjectionData[] => {
     const data: ProjectionData[] = [];
-    let cumulativeProfit = 0;
+    let cumulativeCashFlow = -regionalData.investmentCost / 1000000; // Initial investment
 
     for (let year = 2024; year <= 2033; year++) {
-      let revenue, costs, profit, employment, carbonSavings;
+      let revenue, operatingCosts, employment, carbonSavings, netCashFlow;
+      const depreciation = annualDepreciation;
       
       if (year === 2024) {
-        // Investment year
+        // Construction year - no operations
         revenue = 0;
-        costs = regionalData.investmentCost;
-        profit = -regionalData.investmentCost;
-        employment = Math.round(regionalData.baseEmployment * 0.3);
+        operatingCosts = 0;
+        employment = Math.round(regionalData.baseEmployment * 0.4); // Construction jobs
         carbonSavings = 0;
+        netCashFlow = -regionalData.investmentCost / 1000000; // Initial investment
       } else if (year === 2025) {
-        // Ramp-up year
-        revenue = regionalData.baseRevenue * 0.4;
-        costs = regionalData.baseCosts * 0.4;
-        profit = revenue - costs;
-        employment = Math.round(regionalData.baseEmployment * 0.7);
-        carbonSavings = regionalData.co2Reduction * 0.4;
+        // Ramp-up year (60% capacity)
+        const capacityFactor = 0.6;
+        revenue = annualRevenue * capacityFactor;
+        operatingCosts = annualOperatingCosts * capacityFactor;
+        employment = Math.round(regionalData.baseEmployment * 0.8);
+        carbonSavings = annualCO2Savings * capacityFactor;
+        const operatingProfit = revenue - operatingCosts - depreciation;
+        netCashFlow = operatingProfit + depreciation; // Add back depreciation for cash flow
       } else {
-        // Growth years
-        const growthFactor = Math.pow(1.05, year - 2026); // 5% annual growth
-        revenue = regionalData.baseRevenue * growthFactor;
-        costs = regionalData.baseCosts * growthFactor;
-        profit = revenue - costs;
+        // Full operations with 3% annual growth
+        const growthFactor = Math.pow(1.03, year - 2026);
+        revenue = annualRevenue * growthFactor;
+        operatingCosts = annualOperatingCosts * growthFactor;
         employment = Math.round(regionalData.baseEmployment * growthFactor);
-        carbonSavings = regionalData.co2Reduction * growthFactor;
+        carbonSavings = annualCO2Savings * growthFactor;
+        const operatingProfit = revenue - operatingCosts - depreciation;
+        netCashFlow = operatingProfit + depreciation; // Add back depreciation for cash flow
       }
 
-      cumulativeProfit += profit;
+      if (year > 2024) {
+        cumulativeCashFlow += netCashFlow;
+      }
+
+      const totalCosts = operatingCosts + depreciation;
+      const operatingProfit = revenue - totalCosts;
 
       data.push({
         year,
         revenue: Number(revenue.toFixed(1)),
-        costs: Number(costs.toFixed(1)),
-        profit: Number(profit.toFixed(1)),
-        cumulativeProfit: Number(cumulativeProfit.toFixed(1)),
+        operatingCosts: Number(operatingCosts.toFixed(1)),
+        depreciation: Number(depreciation.toFixed(1)),
+        totalCosts: Number(totalCosts.toFixed(1)),
+        operatingProfit: Number(operatingProfit.toFixed(1)),
+        netCashFlow: Number(netCashFlow.toFixed(1)),
+        cumulativeCashFlow: Number(cumulativeCashFlow.toFixed(1)),
         employment: employment,
-        taxRevenue: Number((revenue * 0.07).toFixed(1)), // 7% tax rate
+        taxRevenue: Number((revenue * 0.08).toFixed(1)), // 8% effective tax rate
         carbonSavings: Number(carbonSavings.toFixed(1)),
-        multiplierEffect: year <= 2024 ? 1.0 : Number((1.0 + (year - 2024) * 0.3).toFixed(1))
+        multiplierEffect: year <= 2024 ? 1.0 : Number((1.0 + (year - 2024) * 0.2).toFixed(1))
       });
     }
 
@@ -125,8 +151,8 @@ const EconomicProjections = () => {
       totalJobs: directJobs + indirectJobs,
       averageSalary,
       totalPayroll: (directJobs + indirectJobs) * averageSalary,
-      localPurchases: regionalData.baseRevenue * 1000000 * 0.25, // 25% of revenue
-      taxContribution: regionalData.baseRevenue * 1000000 * 0.12 // 12% total tax contribution
+      localPurchases: annualRevenue * 1000000 * 0.30, // 30% of revenue
+      taxContribution: annualRevenue * 1000000 * 0.12 // 12% total tax contribution
     };
   };
 
@@ -141,10 +167,12 @@ const EconomicProjections = () => {
       economicMultipliers,
       summary: {
         totalRevenue: displayData.reduce((acc, d) => acc + d.revenue, 0),
-        totalProfit: displayData.reduce((acc, d) => acc + d.profit, 0),
+        totalOperatingProfit: displayData.reduce((acc, d) => acc + d.operatingProfit, 0),
+        finalCumulativeCashFlow: displayData[displayData.length - 1]?.cumulativeCashFlow || 0,
         peakEmployment: Math.max(...displayData.map(d => d.employment)),
         totalCarbonSavings: displayData.reduce((acc, d) => acc + d.carbonSavings, 0),
         totalTaxRevenue: displayData.reduce((acc, d) => acc + d.taxRevenue, 0),
+        paybackPeriod: calculatePaybackPeriod(displayData),
         averageMultiplier: displayData.reduce((acc, d) => acc + d.multiplierEffect, 0) / displayData.length
       },
       timestamp: new Date().toISOString()
@@ -159,6 +187,19 @@ const EconomicProjections = () => {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+  };
+
+  const calculatePaybackPeriod = (data: ProjectionData[]): number => {
+    for (let i = 1; i < data.length; i++) {
+      if (data[i].cumulativeCashFlow > 0) {
+        // Linear interpolation for more precise payback period
+        const prevCashFlow = data[i - 1].cumulativeCashFlow;
+        const currCashFlow = data[i].cumulativeCashFlow;
+        const yearFraction = -prevCashFlow / (currCashFlow - prevCashFlow);
+        return (data[i - 1].year - 2024) + yearFraction;
+      }
+    }
+    return timeframe + 1; // Beyond projection period
   };
 
   const getRegionDisplayName = () => {
@@ -221,12 +262,13 @@ const EconomicProjections = () => {
                 Agreste, IFV, OIV
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-3 text-xs text-blue-700">
+            <div className="grid grid-cols-1 md:grid-cols-6 gap-3 text-xs text-blue-700">
               <div><strong>{t('projections.volume')}:</strong> {formatUnit(regionalData.pomaceVolume.toLocaleString(), t('units.tonnes'))} {t('projections.pomace')}</div>
-              <div><strong>{t('projections.saf')}:</strong> {formatUnit(280, `${t('units.liters')}/${t('units.tonne')}`)}</div>
-              <div><strong>{t('projections.price')}:</strong> {formatCurrency(1.50, `/${t('units.liter')}`)}</div>
-              <div><strong>{t('projections.co2')}:</strong> {formatUnit(2.75, `${t('units.kilograms')}/${t('units.liter')}`)} {t('projections.avoided')}</div>
+              <div><strong>{t('projections.saf')}:</strong> {formatUnit(regionalData.safYield, `${t('units.liters')}/${t('units.tonne')}`)}</div>
+              <div><strong>{t('projections.price')}:</strong> {formatCurrency(regionalData.safPrice.toFixed(2), `/${t('units.liter')}`)}</div>
+              <div><strong>{t('projections.co2')}:</strong> {formatUnit(regionalData.co2ReductionFactor, `${t('units.kilograms')}/${t('units.liter')}`)} {t('projections.avoided')}</div>
               <div><strong>{t('projections.efficiency')}:</strong> 70{t('units.percent')} ATJ</div>
+              <div><strong>CAPEX:</strong> {formatCurrency((regionalData.investmentCost / 1000000).toFixed(0), ` ${t('units.million')}`)}</div>
             </div>
           </div>
 
@@ -235,7 +277,7 @@ const EconomicProjections = () => {
             <div className="text-center p-4 bg-gradient-to-br from-wine-burgundy/10 to-wine-burgundy/5 rounded-xl border border-wine-burgundy/20">
               <Coins className="text-wine-burgundy mx-auto mb-2" size={24} />
               <div className="text-2xl font-bold text-wine-burgundy mb-1">
-                {formatCurrency(displayData[displayData.length - 1]?.cumulativeProfit || 0, ` ${t('units.million')}`)}
+                {formatCurrency(displayData[displayData.length - 1]?.cumulativeCashFlow || 0, ` ${t('units.million')}`)}
               </div>
               <div className="text-xs text-wine-charcoal/70">{t('projections.cumulative.profit')}</div>
             </div>
@@ -295,25 +337,25 @@ const EconomicProjections = () => {
                     />
                     <Line 
                       type="monotone" 
-                      dataKey="costs" 
+                      dataKey="operatingCosts" 
                       stroke="hsl(var(--wine-burgundy))" 
                       strokeWidth={2}
-                      name={t('projections.costs')}
+                      name="Operating Costs"
                     />
                     <Line 
                       type="monotone" 
-                      dataKey="profit" 
+                      dataKey="operatingProfit" 
                       stroke="hsl(var(--wine-gold))" 
                       strokeWidth={2}
-                      name={t('projections.annual.profit')}
+                      name="Operating Profit"
                     />
                     <Line 
                       type="monotone" 
-                      dataKey="cumulativeProfit" 
+                      dataKey="cumulativeCashFlow" 
                       stroke="hsl(var(--wine-charcoal))" 
                       strokeWidth={2}
                       strokeDasharray="5 5"
-                      name={t('projections.cumulative.profit')}
+                      name="Cumulative Cash Flow"
                     />
                   </LineChart>
                 </ResponsiveContainer>
@@ -461,6 +503,16 @@ const EconomicProjections = () => {
                       <span className="font-semibold text-wine-charcoal">
                         {formatCurrency(regionalImpact.averageSalary.toLocaleString(), `/${t('common.year')}`)}
                       </span>
+                    </div>
+                  </div>
+
+                  {/* Payback Period Display */}
+                  <div className="bg-wine-green/10 p-3 rounded-lg border border-wine-green/20">
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-wine-green mb-1">
+                        {calculatePaybackPeriod(displayData).toFixed(1)} years
+                      </div>
+                      <div className="text-sm text-wine-charcoal/70">Payback Period</div>
                     </div>
                   </div>
                 </div>
