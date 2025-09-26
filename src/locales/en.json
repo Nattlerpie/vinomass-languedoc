@@ -7,6 +7,7 @@
   "mode.presentation": "Presentation Mode",
   "partager": "Share",
   "imprimer": "Print",
+  "francais": "French",
   
   "header.title": "SAF {region}",
   "header.subtitle": "Valorization of viticulture waste into sustainable aviation fuel",
@@ -243,13 +244,13 @@
   "mois.novembre": "November",
   "mois.decembre": "December",
   
-  "valorisation.title": "Current Valorization Methods",
+  "valorisation.title": "Valorization Methods",
   "valorisation.subtitle": "Biomass flow distribution by sector",
   "valorisation.breakdown": "Valorization breakdown",
   "valorisation.distillation": "Distillation",
-  "valorisation.distillation.desc": "Alcohol and spirits production",
+  "valorisation.distillation.desc": "Transformation into alcohol and spirits",
   "valorisation.composting": "Composting",
-  "valorisation.composting.desc": "Organic amendments",
+  "valorisation.composting.desc": "Production of organic amendments",
   "valorisation.methanization": "Methanization",
   "valorisation.methanization.desc": "Biogas and digestate production",
   "valorisation.direct.spreading": "Direct spreading",
@@ -273,6 +274,11 @@
   "valorisation.emplois.crees": "Jobs created",
   "valorisation.contexte.regional": "Regional context",
   "valorisation.methodologie": "Methodology based on 2023 sectoral data",
+  
+  "communes.title": "Main Producing Communes",
+  "chaines.etablies": "Established chains",
+  "infrastructure.mature": "Mature infrastructure",
+  "capacite.existante": "Existing capacity",
   
   "strategie.biomasse": "Biomass Strategy",
   "base.conservative": "Conservative base",
