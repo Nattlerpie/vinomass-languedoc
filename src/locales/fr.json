@@ -140,6 +140,11 @@
   "tonnage.total": "Tonnage total",
   "part.total": "Part totale",
   "communes.impliquees": "Communes impliquées",
+  "communes.title": "Principales Communes Productrices",
+  "valorization.breakdown": "Répartition valorisation", 
+  "valorization.respects.existing": "Respecte filières existantes",
+  "chaines.etablies": "Chaînes établies",
+"capacite.existante": "Capacité existante",
   
   "cost.benefit.title": "Analyse Coût-Bénéfice",
   "cost.benefit.comparison": "Comparaison",
@@ -738,13 +743,9 @@
   "roi.tonnes.per.year": "tonnes/an",
   
   "roi.irr.french.long": "TRI - Taux de Rentabilité Interne",
-  "roi.irr.english.long": "TRI - Taux de Rentabilité Interne",
   "roi.irr.explanation.fr": "Le taux d'actualisation qui annule la VAN du projet",
-  "roi.irr.explanation.en": "Le taux d'actualisation qui annule la VAN du projet",
   "roi.npv.french.long": "VAN - Valeur Actuelle Nette",
-  "roi.npv.english.long": "VAN - Valeur Actuelle Nette",
   "roi.npv.explanation.fr": "Valeur présente des flux financiers futurs actualisés à 8%",
-  "roi.npv.explanation.en": "Valeur présente des flux financiers futurs actualisés à 8%",
   
   "roi.champagne.context": "Paramètres adaptés pour la région viticole premium avec des volumes de biomasse plus faibles mais des produits de plus haute valeur",
   "roi.languedoc.context": "Paramètres basés sur la disponibilité de déchets vitivinicoles à grande échelle avec une infrastructure agricole établie",
@@ -794,5 +795,12 @@
   "projections.average.salary": "Salaire moyen",
   "projections.context": "Contexte",
   "projections.champagne.context": "Modélisation adaptée au marché premium avec volumes plus faibles mais valorisation supérieure grâce au prestige régional",
-  "projections.languedoc.context": "Projections basées sur l'échelle industrielle et l'infrastructure logistique établie de la plus grande région viticole française"
+  "projections.languedoc.context": "Projections basées sur l'échelle industrielle et l'infrastructure logistique établie de la plus grande région viticole française",
+  "footer.data.updated": "Données mises à jour",
+  "footer.next.revision": "Prochaine révision",
+  "footer.legal.notices": "Mentions légales", 
+  "footer.data.protection": "Protection des données",
+  "footer.terms.of.use": "Conditions d'utilisation",
+  "footer.disclaimer.title": "Avertissement",
+  "footer.disclaimer.text": "Cette analyse s'appuie sur les données sectorielles disponibles et les meilleures pratiques industrielles. Les projections sont indicatives et doivent être validées par une étude de faisabilité détaillée.",
 }
