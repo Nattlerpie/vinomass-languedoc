@@ -59,7 +59,7 @@ const translations = {
     'disponible': 'Disponible',
     'jusqua': 'Jusqu\'à',
     
-    // Overview Tab - Key Points & Metrics - COMPLETE UPDATE
+    // Overview Tab - COMPLETE WITH NEW BANNER & MARKET VALIDATION
     'points.cles': 'Points Clés',
     'points.cles.subtitle': 'Indicateurs régionaux de performance',
     'superficie.viticole': 'Surface Viticole',
@@ -78,6 +78,62 @@ const translations = {
     'production.regionale.percent': 'Production Régionale',
     'saf.potential': 'Potentiel SAF',
     'base.sur.disponibles': 'Basé sur 80k tonnes disponibles',
+    
+    // Banner & Transformation Section
+    'banner.transform.title': 'Transformer les Déchets Viticoles en SAF',
+    'banner.waste.regional': 'déchets régionaux',
+    'banner.valorizable': 'valorisables',
+    'banner.respects.existing': 'Respecte les filières existantes',
+    
+    // Market Validation - IATA Section  
+    'market.validation.title': 'Validation du Marché International',
+    'market.validation.subtitle': 'Les dernières données IATA confirment l\'opportunité stratégique',
+    'iata.report.title': 'IATA Global Feedstock Assessment 2025',
+    'iata.report.subtitle': 'Validation de la Stratégie des Résidus Agricoles',
+    'iata.deficit.saf': 'Déficit SAF',
+    'iata.deficit.desc': '100 Mt manquantes d\'ici 2050',
+    'iata.agricultural.residues': 'Résidus Agricoles',
+    'iata.agricultural.desc': '58% des matières premières prioritaires',
+    'iata.europe': 'Europe',
+    'iata.europe.desc': 'Top 4 mondial pour développement',
+    'iata.etj.technology': 'Technologie EtJ',
+    'iata.etj.desc': 'Voie validée pour matières agricoles',
+    'iata.source': 'Source: IATA Global Feedstock Assessment for SAF Production Outlook to 2050 - Janvier 2025',
+    
+    // Market Opportunity
+    'market.opportunity.title': 'Opportunité de Marché',
+    'market.demand.2050': 'Demande SAF 2050',
+    'market.production.forecast': 'Production prévue',
+    'market.deficit.gap': 'DÉFICIT À COMBLER',
+    
+    // Regional Implementation
+    'regional.implementation.title': 'Mise en Œuvre Régionale',
+    'regional.implementation.subtitle': 'Infrastructure existante et stratégie biomasse respectueuse',
+    'regional.advantages.title': 'Avantages Compétitifs Régionaux',
+    'regional.advantages.subtitle': 'Infrastructure mature et leadership viticole français',
+    
+    // Industry Momentum
+    'industry.momentum.title': 'Dynamique Industrielle',
+    'industry.momentum.subtitle': 'Projets de référence et soutien réglementaire',
+    'industry.reference.projects': 'Projets de Référence',
+    'industry.major.industrials': 'Majors Industriels',
+    'industry.airbus.program.desc': 'Avion hydrogène 2035 • 10% SAF minimum 2030 • €15B R&D',
+    'industry.total.strategy.desc': '€500M sur 5 ans • 1.5M t SAF/an • 6 bioraffineries modernisées',
+    'industry.regulatory.support': 'Soutien Réglementaire',
+    'regulatory.saf.minimum': 'SAF minimum 2025 (EU)',
+    'regulatory.france.2030': 'France 2030',
+    'regulatory.eu.repower': 'EU REPowerEU',
+    'regulatory.carbon.neutral': 'Neutralité carbone',
+    
+    // Call-to-Action Section
+    'cta.strategic.opportunity': 'Une Opportunité Stratégique à Saisir',
+    'cta.transform.challenge': 'Transformer le défi des déchets viticoles en avantage concurrentiel SAF',
+    'cta.timing.optimal': 'Timing Optimal',
+    'cta.timing.desc': 'Réglementation favorable + demande croissante',
+    'cta.first.mover': 'First-Mover',
+    'cta.first.mover.desc': 'Contrainte = déploiement, pas ressources',
+    'cta.win.win': 'Gagnant-Gagnant',
+    'cta.win.win.desc': 'Respecte filières + crée valeur',
     
     // Overview Tab Metrics - RESTORED
     'metriques.cles': 'Métriques Clés',
@@ -262,7 +318,7 @@ const translations = {
     'standards.red.ii': 'RED II',
     'standards.iscc.eu': 'ISCC EU',
     
-    // Economy Tab - RESTORED ALL MISSING KEYS
+    // Economy Tab - COMPLETE WITH ALL MISSING KEYS
     'economy.title': 'Analyse Économique',
     'economy.subtitle': 'Modélisation financière et opportunités d\'investissement',
     'economy.regional.context': 'Contexte économique régional',
@@ -323,6 +379,50 @@ const translations = {
     'economy.distribution.network': 'Réseau distribution',
     'economy.skilled.workforce': 'Main-d\'œuvre qualifiée',
     'economy.industrial.infrastructure': 'Infrastructure industrielle',
+    
+    // Economy Tab - Employment & Regional Impact
+    'economy.employment.breakdown': 'Impact Emploi Régional',
+    'economy.direct.jobs': 'Emplois directs',
+    'economy.indirect.jobs': 'Emplois indirects',
+    'economy.induced.jobs': 'Emplois induits',
+    'economy.total.impact': 'Impact total',
+    'economy.ademe.research': 'Basé sur les multiplicateurs d\'emploi ADEME',
+    'jobs': 'emplois',
+    'economy.regional.impact': 'Impact régional',
+    
+    // Economy Tab - Financing Overview
+    'economy.financing.overview': 'Aperçu du Financement',
+    'economy.equity.funding': 'Financement Capitaux Propres',
+    'economy.equity.percentage': '35% capitaux propres',
+    'economy.bank.debt': 'Dette Bancaire',
+    'economy.interest.rate': '4.5% taux d\'intérêt',
+    'economy.subsidies': 'Subventions',
+    'economy.eu.france.funding': 'UE + France 2030',
+    'economy.total.investment': 'Investissement Total',
+    'economy.capacity.description': '80kt capacité SAF',
+    'economy.scaling.note': 'Modélisation évolutive basée sur la biomasse disponible régionale',
+    
+    // ROI Calculator - Advanced Features
+    'roi.manual.changes.coming': 'Modifications manuelles à venir',
+    'roi.atj.technology': 'Technologie ATJ',
+    'roi.iata.projections': 'Projections IATA',
+    'roi.irena.benchmarks': 'Références IRENA',
+    'roi.industry.capex': 'CAPEX Industriel',
+    'roi.tonnes.per.year': 'tonnes/an',
+    
+    // ROI Calculator - Acronym Tooltips
+    'roi.irr.french.long': 'TRI - Taux de Rentabilité Interne',
+    'roi.irr.english.long': 'TRI - Taux de Rentabilité Interne',
+    'roi.irr.explanation.fr': 'Le taux d\'actualisation qui annule la VAN du projet',
+    'roi.irr.explanation.en': 'Le taux d\'actualisation qui annule la VAN du projet',
+    'roi.npv.french.long': 'VAN - Valeur Actuelle Nette',
+    'roi.npv.english.long': 'VAN - Valeur Actuelle Nette',
+    'roi.npv.explanation.fr': 'Valeur présente des flux financiers futurs actualisés à 8%',
+    'roi.npv.explanation.en': 'Valeur présente des flux financiers futurs actualisés à 8%',
+    
+    // ROI Calculator - Regional Context
+    'roi.champagne.context': 'Paramètres adaptés pour la région viticole premium avec des volumes de biomasse plus faibles mais des produits de plus haute valeur',
+    'roi.languedoc.context': 'Paramètres basés sur la disponibilité de déchets vitivinicoles à grande échelle avec une infrastructure agricole établie',
     
     // Biomass Types & Resources
     'types.biomasse': 'Types de Biomasse',
@@ -670,7 +770,7 @@ const translations = {
     'erreur.chargement': 'Erreur de chargement',
     'donnees.non.disponibles': 'Données non disponibles',
     
-    // Units & Measurements - UPDATED WITH SPACING
+    // Units & Measurements - COMPLETE WITH ALL UNIT KEYS
     'unite.tonnes': 'tonnes',
     'unite.hectares': 'ha',
     'unite.pourcentage': '%',
@@ -682,6 +782,20 @@ const translations = {
     'units.tonne': 'tonne',
     'units.tonnes': 'tonnes',
     'litres.an': 'litres/an',
+    
+    // Cost-Benefit Analysis & Economic Projections Units
+    'currency.euro': '€',
+    'units.million': 'M',
+    'units.kilotonnes': 'kt',
+    'units.kilo': 'k',
+    'units.percent': '%',
+    'common.plus': '+',
+    'common.year': 'an',
+    'units.kilograms': 'kg',
+    'units.liters': 'L',
+    'units.liter': 'L',
+    'units.tonnes': 't',
+    'units.tonne': 't',
     
     // Resources Tab - COST BENEFIT ANALYSIS (NEW KEYS)
     'cost.benefit.title': 'Analyse Coût-Bénéfice',
@@ -777,7 +891,7 @@ const translations = {
     'disponible': 'Available',
     'jusqua': 'Up to',
     
-    // Overview Tab - Key Points & Metrics - COMPLETE ENGLISH UPDATE
+    // Overview Tab - COMPLETE ENGLISH WITH NEW BANNER & MARKET VALIDATION
     'points.cles': 'Key Points',
     'points.cles.subtitle': 'Regional performance indicators',
     'superficie.viticole': 'Wine-growing Area',
@@ -796,6 +910,62 @@ const translations = {
     'production.regionale.percent': 'Regional Production',
     'saf.potential': 'SAF Potential',
     'base.sur.disponibles': 'Based on 80k tonnes available',
+    
+    // Banner & Transformation Section
+    'banner.transform.title': 'Transform Viticulture Waste into SAF',
+    'banner.waste.regional': 'regional waste',
+    'banner.valorizable': 'valorizable',
+    'banner.respects.existing': 'Respects existing supply chains',
+    
+    // Market Validation - IATA Section  
+    'market.validation.title': 'International Market Validation',
+    'market.validation.subtitle': 'Latest IATA data confirms strategic opportunity',
+    'iata.report.title': 'IATA Global Feedstock Assessment 2025',
+    'iata.report.subtitle': 'Validation of Agricultural Residues Strategy',
+    'iata.deficit.saf': 'SAF Deficit',
+    'iata.deficit.desc': '100 Mt shortage by 2050',
+    'iata.agricultural.residues': 'Agricultural Residues',
+    'iata.agricultural.desc': '58% of priority feedstocks',
+    'iata.europe': 'Europe',
+    'iata.europe.desc': 'Top 4 globally for development',
+    'iata.etj.technology': 'EtJ Technology',
+    'iata.etj.desc': 'Validated pathway for agricultural materials',
+    'iata.source': 'Source: IATA Global Feedstock Assessment for SAF Production Outlook to 2050 - January 2025',
+    
+    // Market Opportunity
+    'market.opportunity.title': 'Market Opportunity',
+    'market.demand.2050': 'SAF Demand 2050',
+    'market.production.forecast': 'Forecasted production',
+    'market.deficit.gap': 'DEFICIT TO BRIDGE',
+    
+    // Regional Implementation
+    'regional.implementation.title': 'Regional Implementation',
+    'regional.implementation.subtitle': 'Existing infrastructure and respectful biomass strategy',
+    'regional.advantages.title': 'Regional Competitive Advantages',
+    'regional.advantages.subtitle': 'Mature infrastructure and French viticulture leadership',
+    
+    // Industry Momentum
+    'industry.momentum.title': 'Industry Momentum',
+    'industry.momentum.subtitle': 'Reference projects and regulatory support',
+    'industry.reference.projects': 'Reference Projects',
+    'industry.major.industrials': 'Major Industrials',
+    'industry.airbus.program.desc': 'Hydrogen aircraft 2035 • 10% SAF minimum 2030 • €15B R&D',
+    'industry.total.strategy.desc': '€500M over 5 years • 1.5M t SAF/year • 6 modernized biorefineries',
+    'industry.regulatory.support': 'Regulatory Support',
+    'regulatory.saf.minimum': '2% SAF minimum 2025 (EU)',
+    'regulatory.france.2030': 'France 2030',
+    'regulatory.eu.repower': 'EU REPowerEU',
+    'regulatory.carbon.neutral': 'Carbon neutrality',
+    
+    // Call-to-Action Section
+    'cta.strategic.opportunity': 'A Strategic Opportunity to Seize',
+    'cta.transform.challenge': 'Transform viticulture waste challenge into SAF competitive advantage',
+    'cta.timing.optimal': 'Optimal Timing',
+    'cta.timing.desc': 'Favorable regulation + growing demand',
+    'cta.first.mover': 'First-Mover',
+    'cta.first.mover.desc': 'Constraint = deployment, not resources',
+    'cta.win.win': 'Win-Win',
+    'cta.win.win.desc': 'Respects supply chains + creates value',
     
     // Overview Tab Metrics - ENGLISH RESTORED
     'metriques.cles': 'Key Metrics',
@@ -980,7 +1150,7 @@ const translations = {
     'standards.red.ii': 'RED II',
     'standards.iscc.eu': 'ISCC EU',
     
-    // Economy Tab - ENGLISH RESTORED ALL MISSING KEYS
+    // Economy Tab - COMPLETE WITH ALL MISSING KEYS
     'economy.title': 'Economic Analysis',
     'economy.subtitle': 'Financial modeling and investment opportunities',
     'economy.regional.context': 'Regional economic context',
@@ -1041,6 +1211,50 @@ const translations = {
     'economy.distribution.network': 'Distribution network',
     'economy.skilled.workforce': 'Skilled workforce',
     'economy.industrial.infrastructure': 'Industrial infrastructure',
+    
+    // Economy Tab - Employment & Regional Impact
+    'economy.employment.breakdown': 'Regional Employment Impact',
+    'economy.direct.jobs': 'Direct jobs',
+    'economy.indirect.jobs': 'Indirect jobs',
+    'economy.induced.jobs': 'Induced jobs',
+    'economy.total.impact': 'Total impact',
+    'economy.ademe.research': 'Based on ADEME employment multipliers',
+    'jobs': 'jobs',
+    'economy.regional.impact': 'Regional impact',
+    
+    // Economy Tab - Financing Overview
+    'economy.financing.overview': 'Financing Overview',
+    'economy.equity.funding': 'Equity Funding',
+    'economy.equity.percentage': '35% equity',
+    'economy.bank.debt': 'Bank Debt',
+    'economy.interest.rate': '4.5% interest rate',
+    'economy.subsidies': 'Subsidies',
+    'economy.eu.france.funding': 'EU + France 2030',
+    'economy.total.investment': 'Total Investment',
+    'economy.capacity.description': '80kt SAF capacity',
+    'economy.scaling.note': 'Scalable modeling based on regional biomass availability',
+    
+    // ROI Calculator - Advanced Features
+    'roi.manual.changes.coming': 'Manual parameter changes coming soon',
+    'roi.atj.technology': 'ATJ Technology',
+    'roi.iata.projections': 'IATA Projections',
+    'roi.irena.benchmarks': 'IRENA Benchmarks',
+    'roi.industry.capex': 'Industry CAPEX',
+    'roi.tonnes.per.year': 'tonnes/year',
+    
+    // ROI Calculator - Acronym Tooltips
+    'roi.irr.french.long': 'IRR - Internal Rate of Return',
+    'roi.irr.english.long': 'IRR - Internal Rate of Return',
+    'roi.irr.explanation.fr': 'The discount rate that makes the project\'s NPV equal to zero',
+    'roi.irr.explanation.en': 'The discount rate that makes the project\'s NPV equal to zero',
+    'roi.npv.french.long': 'NPV - Net Present Value',
+    'roi.npv.english.long': 'NPV - Net Present Value',
+    'roi.npv.explanation.fr': 'Present value of future cash flows discounted at 8%',
+    'roi.npv.explanation.en': 'Present value of future cash flows discounted at 8%',
+    
+    // ROI Calculator - Regional Context
+    'roi.champagne.context': 'Parameters scaled for premium wine region with smaller biomass volumes but higher value products',
+    'roi.languedoc.context': 'Parameters based on large-scale viticulture waste availability with established agricultural infrastructure',
     
     // Biomass Types & Resources
     'types.biomasse': 'Biomass Types',
@@ -1388,7 +1602,7 @@ const translations = {
     'erreur.chargement': 'Loading error',
     'donnees.non.disponibles': 'Data not available',
     
-    // Units & Measurements - UPDATED WITH SPACING
+    // Units & Measurements - COMPLETE WITH ALL UNIT KEYS
     'unite.tonnes': 'tonnes',
     'unite.hectares': 'ha',
     'unite.pourcentage': '%',
@@ -1400,6 +1614,20 @@ const translations = {
     'units.tonne': 'tonne',
     'units.tonnes': 'tonnes',
     'litres.an': 'litres/year',
+    
+    // Cost-Benefit Analysis & Economic Projections Units
+    'currency.euro': '€',
+    'units.million': 'M',
+    'units.kilotonnes': 'kt',
+    'units.kilo': 'k',
+    'units.percent': '%',
+    'common.plus': '+',
+    'common.year': 'year',
+    'units.kilograms': 'kg',
+    'units.liters': 'L',
+    'units.liter': 'L',
+    'units.tonnes': 't',
+    'units.tonne': 't',
     
     // Resources Tab - COST BENEFIT ANALYSIS (NEW KEYS)
     'cost.benefit.title': 'Cost-Benefit Analysis',
