@@ -300,7 +300,7 @@ const EconomicProjections = () => {
             <div className="text-center p-4 bg-gradient-to-br from-wine-charcoal/10 to-wine-charcoal/5 rounded-xl border border-wine-charcoal/20">
               <Leaf className="text-wine-charcoal mx-auto mb-2" size={24} />
               <div className="text-2xl font-bold text-wine-charcoal mb-1">
-                {formatUnit(displayData.reduce((acc, d) => acc + d.carbonSavings, 0).toFixed(0), t('units.kilotonnes'))}
+                {Math.round(displayData.reduce((acc, d) => acc + d.carbonSavings, 0))} {t('units.kilotonnes')}
               </div>
               <div className="text-xs text-wine-charcoal/70">{t('projections.co2.avoided.cumulative')}</div>
             </div>
