@@ -6,31 +6,31 @@ const ValoorizationChart = () => {
   const { t, debugMode: langDebugMode } = useLanguage();
   const { currentData, debugMode } = useRegion();
   
-  // Valorization data - same percentages for both regions but contextualized
+  // FIXED: Using correct translation keys that match JSON files (valorisation not valorization)
   const data = [
     { 
-      name: t('valorization.distillation'), 
+      name: t('valorisation.distillation'), 
       value: 45, 
       color: '#722F37', // wine-burgundy
-      description: t('valorization.distillation.desc')
+      description: t('valorisation.distillation.desc')
     },
     { 
-      name: t('valorization.composting'), 
+      name: t('valorisation.composting'), 
       value: 25, 
       color: '#B8860B', // wine-gold
-      description: t('valorization.composting.desc')
+      description: t('valorisation.composting.desc')
     },
     { 
-      name: t('valorization.methanization'), 
+      name: t('valorisation.methanization'), 
       value: 20, 
       color: '#2D5A27', // wine-green
-      description: t('valorization.methanization.desc')
+      description: t('valorisation.methanization.desc')
     },
     { 
-      name: t('valorization.direct.spreading'), 
+      name: t('valorisation.direct.spreading'), 
       value: 10, 
       color: '#1C1C1C', // wine-charcoal
-      description: t('valorization.spreading.desc')
+      description: t('valorisation.spreading.desc')
     }
   ];
 
@@ -50,7 +50,7 @@ const ValoorizationChart = () => {
       return (
         <div className="bg-white p-4 border border-wine-charcoal rounded-lg shadow-lg">
           <p className="font-semibold text-wine-charcoal">{data.name}</p>
-          <p className="text-wine-charcoal/70">{data.value}% - {tonnage.toLocaleString()} t</p>
+          <p className="text-wine-charcoal/70">{data.value}% - {tonnage.toLocaleString()} {t('units.tonnes')}</p>
           <p className="text-xs text-wine-charcoal/60 mt-1">{data.description}</p>
         </div>
       );
@@ -96,10 +96,10 @@ const ValoorizationChart = () => {
 
       <div className="text-center mb-8">
         <h2 className="text-2xl font-bold text-wine-charcoal mb-4">
-          {t('valorization.title')}
+          {t('valorisation.title')}
         </h2>
         <p className="text-lg text-wine-charcoal/70">
-          {t('valorization.subtitle')} - {currentData.displayName}
+          {t('valorisation.subtitle')} - {currentData.displayName}
         </p>
       </div>
 
@@ -132,7 +132,7 @@ const ValoorizationChart = () => {
         {/* Legend with Tonnages */}
         <div className="space-y-4">
           <h3 className="text-lg font-bold text-wine-charcoal mb-4">
-            {t('valorization.breakdown')} ({totalBiomass?.toLocaleString()} t {t('tonnes.total')})
+            {t('valorisation.breakdown')} ({totalBiomass?.toLocaleString()} {t('units.tonnes')} {t('tonnage.total')})
           </h3>
           
           {data.map((item, index) => (
@@ -160,7 +160,7 @@ const ValoorizationChart = () => {
                   {item.value}%
                 </div>
                 <div className="text-sm text-wine-charcoal/70">
-                  {calculateTonnage(item.value).toLocaleString()} t
+                  {calculateTonnage(item.value).toLocaleString()} {t('units.tonnes')}
                 </div>
               </div>
             </div>
@@ -168,21 +168,21 @@ const ValoorizationChart = () => {
         </div>
       </div>
 
-      {/* REPLACED: Biomass Strategy Context (replacing Regional Context) */}
+      {/* FIXED: Biomass Strategy Context with proper translation keys */}
       <div className="mt-8 p-6 bg-wine-cream/10 border border-wine-gold/20 rounded-xl">
         <h4 className="text-lg font-bold text-wine-charcoal mb-4">{t('strategie.biomasse')}</h4>
         <div className="space-y-3 text-sm text-wine-charcoal/70">
           <div className="flex items-start space-x-2">
             <span className="font-medium text-wine-charcoal">• {t('base.conservative')}:</span>
-            <span>30% {t('disponible')} ({(availableBiomass / 1000).toFixed(0)} kt) - {t('flux.elimination')}</span>
+            <span>30% {t('disponible')} ({(availableBiomass / 1000).toFixed(0)} {t('units.kilotonnes')}) - {t('flux.elimination')}</span>
           </div>
           <div className="flex items-start space-x-2">
             <span className="font-medium text-wine-charcoal">• {t('potentiel.negociable')}:</span>
-            <span>+25% ({(negotiableBiomass / 1000).toFixed(0)} kt) - {t('surplus.excedents')}</span>
+            <span>+25% ({(negotiableBiomass / 1000).toFixed(0)} {t('units.kilotonnes')}) - {t('surplus.excedents')}</span>
           </div>
           <div className="flex items-start space-x-2">
             <span className="font-medium text-wine-charcoal">• {t('total.accessible')}:</span>
-            <span>{t('jusqua')} 55% ({((availableBiomass + negotiableBiomass) / 1000).toFixed(0)} kt) {t('avec.partenariats')}</span>
+            <span>{t('jusqua')} 55% ({((availableBiomass + negotiableBiomass) / 1000).toFixed(0)} {t('units.kilotonnes')}) {t('avec.partenariats')}</span>
           </div>
         </div>
         <p className="text-sm text-wine-charcoal/60 mt-4 italic border-t border-wine-gold/20 pt-3">
@@ -190,10 +190,10 @@ const ValoorizationChart = () => {
         </p>
       </div>
 
-      {/* Methodology Note */}
+      {/* FIXED: Methodology Note with proper translation key */}
       <div className="mt-6 text-center p-4 bg-wine-charcoal/5 rounded-lg">
         <p className="text-xs text-wine-charcoal/60 italic">
-          * {t('valorization.methodology.note')}
+          * {t('valorisation.methodology.note')}
         </p>
       </div>
     </div>
