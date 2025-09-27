@@ -10,7 +10,9 @@ const tabLabels: Record<TabType, string> = {
   resources: 'Ressources',
   economy: 'Économie', 
   partnerships: 'Partenariats',
-  data: 'Données'
+  implementation: 'Support à l\'Implémentation',
+  contact: 'Contact',
+  methodology: 'Appendix'
 };
 
 const Breadcrumbs = ({ activeTab }: BreadcrumbsProps) => {
