@@ -3,7 +3,7 @@ import { BarChart3, MapPin, Euro, Handshake, Database, Home, FileText } from 'lu
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-export type TabType = 'overview' | 'resources' | 'economy' | 'partnerships' | 'implementation' | 'contact' | 'methodology';
+export type TabType = 'overview' | 'resources' | 'economy' | 'partnerships' | 'methodology' | 'contact';
 
 interface NavigationProps {
   activeTab: TabType;
@@ -39,22 +39,16 @@ const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
       description: t('nav.partnerships.description')
     },
     {
-      id: 'implementation' as TabType,
-      label: 'Support à l\'Implémentation', // Implementation Support
-      icon: BarChart3,
-      description: 'Outils et ressources pour la mise en œuvre'
+      id: 'methodology' as TabType,
+      label: t('nav.methodologie'), // Methodology
+      icon: Database,
+      description: t('nav.methodology.description')
     },
     {
       id: 'contact' as TabType,
       label: t('nav.contact'), // Contact
       icon: FileText,
       description: t('nav.contact.description')
-    },
-    {
-      id: 'methodology' as TabType,
-      label: 'Appendix', // Changed from Méthodologie to Appendix
-      icon: Database,
-      description: t('nav.methodology.description')
     }
   ];
 

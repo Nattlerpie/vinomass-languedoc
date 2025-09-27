@@ -5,7 +5,6 @@ import ResourcesTab from "./tabs/ResourcesTab";
 import EconomyTab from "./tabs/EconomyTab";
 import PartnershipsTab from "./tabs/PartnershipsTab";
 import DataTab from "./tabs/DataTab";
-import ImplementationSupportTab from "./tabs/ImplementationSupportTab";
 import ExecutiveDashboard from "./ExecutiveDashboard";
 import ContactIntegration from "./ContactIntegration";
 import ProfessionalFooter from "./ProfessionalFooter";
@@ -15,25 +14,24 @@ import GuidedTour from "./GuidedTour";
 import { Button } from "@/components/ui/button";
 import { HelpCircle } from 'lucide-react';
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState("overview");
+  const [activeTab, setActiveTab] = useState("executive");
   const [showTour, setShowTour] = useState(false);
   return <div className="min-h-screen bg-gradient-subtle">
       <DashboardHeader />
       
     
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-7 bg-white/90 backdrop-blur-sm border border-wine-cream/50 mx-8 mt-8">
-          <TabsTrigger value="overview" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Vue d'ensemble</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-6 bg-white/90 backdrop-blur-sm border border-wine-cream/50 mx-8 mt-8">
+          <TabsTrigger value="executive" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Vue d'ensemble</TabsTrigger>
           <TabsTrigger value="resources" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Ressources</TabsTrigger>
           <TabsTrigger value="economy" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Économie</TabsTrigger>
           <TabsTrigger value="partnerships" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Partenariats</TabsTrigger>
-          <TabsTrigger value="implementation" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Support à l'Implémentation</TabsTrigger>
+          <TabsTrigger value="data" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Méthodologie</TabsTrigger>
           <TabsTrigger value="contact" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Contact</TabsTrigger>
-          <TabsTrigger value="methodology" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">Appendix</TabsTrigger>
         </TabsList>
 
         <div className="container mx-auto px-8 py-4">
-          <TabsContent value="overview">
+          <TabsContent value="executive">
             <OverviewTab />
           </TabsContent>
 
@@ -49,8 +47,8 @@ const Dashboard = () => {
             <PartnershipsTab />
           </TabsContent>
 
-          <TabsContent value="implementation">
-            <ImplementationSupportTab />
+          <TabsContent value="data">
+            <DataTab />
           </TabsContent>
 
           <TabsContent value="contact">
@@ -58,10 +56,6 @@ const Dashboard = () => {
               <ContactIntegration />
               <ErrorHandling />
             </div>
-          </TabsContent>
-
-          <TabsContent value="methodology">
-            <DataTab />
           </TabsContent>
         </div>
       </Tabs>
