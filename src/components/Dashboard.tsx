@@ -4,6 +4,7 @@ import OverviewTab from "./tabs/OverviewTab";
 import ResourcesTab from "./tabs/ResourcesTab";
 import EconomyTab from "./tabs/EconomyTab";
 import PartnershipsTab from "./tabs/PartnershipsTab";
+import ImplementationSupport from "@/components/tabs/ImplementationSupport";
 import DataTab from "./tabs/DataTab";
 import ExecutiveDashboard from "./ExecutiveDashboard";
 import ContactIntegration from "./ContactIntegration";
