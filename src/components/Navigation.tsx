@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { BarChart3, MapPin, Euro, Handshake, Database, Home, FileText } from 'lucide-react';
+import { BarChart3, MapPin, Euro, Handshake, Database, Home, FileText, Lightbulb } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/contexts/LanguageContext';
+import ImplementationSupport from '@/components/tabs/ImplementationSupport';
 
-export type TabType = 'overview' | 'resources' | 'economy' | 'partnerships' | 'methodology' | 'contact';
+// FIXED: Add 'implementation' to TabType
+export type TabType = 'overview' | 'resources' | 'economy' | 'partnerships' | 'implementation' | 'contact' | 'methodology';
 
 interface NavigationProps {
   activeTab: TabType;
@@ -12,43 +14,50 @@ interface NavigationProps {
 
 const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
   const { t } = useLanguage();
-
+  
   const tabs = [
     {
       id: 'overview' as TabType,
-      label: t('nav.vue.ensemble'), // Overview
+      label: t('nav.vue.ensemble'),
       icon: Home,
       description: t('nav.overview.description')
     },
     {
       id: 'resources' as TabType,
-      label: t('nav.ressources'), // Resources
+      label: t('nav.ressources'),
       icon: MapPin,
       description: t('nav.resources.description')
     },
     {
       id: 'economy' as TabType,
-      label: t('nav.economie'), // Economics
+      label: t('nav.economie'),
       icon: Euro,
       description: t('nav.economy.description')
     },
     {
       id: 'partnerships' as TabType,
-      label: t('nav.partenaires'), // Partners
+      label: t('nav.partenaires'),
       icon: Handshake,
       description: t('nav.partnerships.description')
     },
     {
-      id: 'methodology' as TabType,
-      label: t('nav.methodologie'), // Methodology
-      icon: Database,
-      description: t('nav.methodology.description')
+      id: 'implementation' as TabType, // FIXED: Added 'as TabType'
+      label: t('nav.implementation'),
+      icon: Lightbulb, // FIXED: Added icon
+      description: t('nav.implementation.description')
+      // REMOVED: component property (this should be handled in Dashboard.tsx)
     },
     {
       id: 'contact' as TabType,
-      label: t('nav.contact'), // Contact
+      label: t('nav.contact'),
       icon: FileText,
       description: t('nav.contact.description')
+    },
+    {
+      id: 'methodology' as TabType,
+      label: t('nav.methodologie'),
+      icon: Database,
+      description: t('nav.methodology.description')
     }
   ];
 
