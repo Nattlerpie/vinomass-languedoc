@@ -897,4 +897,25 @@
   "projections.context": "Context",
   "projections.champagne.context": "Modeling adapted to the premium market with lower volumes but higher valorization thanks to regional prestige",
   "projections.languedoc.context": "Projections based on industrial scale and established logistics infrastructure of France's largest wine region"
+
+"debug.mode": "Debug Mode",
+"debug.region.data": "Region data",
+"debug.missing.translations": "Missing translations",
+"debug.data.validation": "Data validation",
+"debug.component.loaded": "Component loaded successfully",
+"debug.translation.function": "Translation function status",
+"debug.json.loaded": "JSON files loaded",
+"debug.current.language": "Current language",
+"debug.current.region": "Current region",
+"debug.barrier.count": "Barrier count",
+"debug.service.count": "Service count",
+"debug.risk.count": "Risk count",
+"error.loading": "Loading error",
+"error.data.unavailable": "Data unavailable",
+"error.translation.missing": "Translation missing",
+"error.component.failed": "Component failed to load",
+"error.json.parse": "JSON parsing error",
+"status.ok": "OK",
+"status.error": "ERROR",
+"status.warning": "WARNING"
 }
