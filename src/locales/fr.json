@@ -908,4 +908,25 @@
   "footer.terms.of.use": "Conditions d'utilisation",
   "footer.disclaimer.title": "Avertissement",
   "footer.disclaimer.text": "Cette analyse s'appuie sur les données sectorielles disponibles et les meilleures pratiques industrielles. Les projections sont indicatives et doivent être validées par une étude de faisabilité détaillée."
+
+  "debug.mode": "Mode Debug",
+  "debug.region.data": "Données région",
+  "debug.missing.translations": "Traductions manquantes",
+  "debug.data.validation": "Validation des données",
+  "debug.component.loaded": "Composant chargé avec succès",
+  "debug.translation.function": "Statut fonction traduction",
+  "debug.json.loaded": "Fichiers JSON chargés",
+  "debug.current.language": "Langue actuelle",
+  "debug.current.region": "Région actuelle",
+  "debug.barrier.count": "Nombre de barrières",
+  "debug.service.count": "Nombre de services",
+  "debug.risk.count": "Nombre de risques",
+  "error.loading": "Erreur de chargement",
+  "error.data.unavailable": "Données non disponibles",
+  "error.translation.missing": "Traduction manquante",
+  "error.component.failed": "Échec du chargement du composant",
+  "error.json.parse": "Erreur d'analyse JSON",
+  "status.ok": "OK",
+  "status.error": "ERREUR",
+ "status.warning": "AVERTISSEMENT"
 }
