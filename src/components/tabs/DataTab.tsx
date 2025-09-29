@@ -1,7 +1,8 @@
 import TechnicalMethodology from "../TechnicalMethodology";
 import RegulatoryCompliance from "../RegulatoryCompliance";
-import AcademicReferences from "../AcademicReferences";
 import { useRegion } from "@/contexts/RegionContext";
+import { Download, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const AppendixTab = () => {
   const { currentData } = useRegion();
@@ -22,12 +23,12 @@ const AppendixTab = () => {
 
       <div className="border-t border-wine-cream/30 mb-16"></div>
 
-      {/* A. Technical Documentation */}
+      {/* I. Technical Documentation */}
       <section className="mb-16">
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              A. Documentation Technique
+              I. Documentation Technique
             </h2>
             <p className="text-lg text-wine-charcoal/70">
               Processus technologique et évaluation TRL
@@ -61,12 +62,12 @@ const AppendixTab = () => {
         </div>
       </section>
 
-      {/* B. Economic Modeling */}
+      {/* II. Economic Modeling */}
       <section className="mb-16">
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              B. Modélisation Économique
+              II. Modélisation Économique
             </h2>
             <p className="text-lg text-wine-charcoal/70">
               Hypothèses, analyse de sensibilité et benchmarking concurrentiel
@@ -81,9 +82,9 @@ const AppendixTab = () => {
                 <div className="p-4 bg-gradient-subtle rounded-xl border border-wine-gold/20">
                   <div className="flex justify-between items-center">
                     <span className="font-bold text-wine-charcoal">Prix SAF (€/L):</span>
-                    <span className="text-wine-gold font-bold">€1.65</span>
+                    <span className="text-wine-gold font-bold">€1.45</span>
                   </div>
-                  <div className="text-sm text-wine-charcoal/60 mt-1">Marché européen 2023-2024</div>
+                  <div className="text-sm text-wine-charcoal/60 mt-1">Marché européen 2024-2025 (conservative)</div>
                 </div>
                 <div className="p-4 bg-gradient-subtle rounded-xl border border-wine-gold/20">
                   <div className="flex justify-between items-center">
@@ -97,14 +98,14 @@ const AppendixTab = () => {
                     <span className="font-bold text-wine-charcoal">Rendement SAF:</span>
                     <span className="text-wine-gold font-bold">280L/tonne</span>
                   </div>
-                  <div className="text-sm text-wine-charcoal/60 mt-1">Marc de raisin frais</div>
+                  <div className="text-sm text-wine-charcoal/60 mt-1">Marc de raisin frais (IFV 2020)</div>
                 </div>
                 <div className="p-4 bg-gradient-subtle rounded-xl border border-wine-gold/20">
                   <div className="flex justify-between items-center">
-                    <span className="font-bold text-wine-charcoal">Efficacité ATJ:</span>
-                    <span className="text-wine-gold font-bold">70%</span>
+                    <span className="font-bold text-wine-charcoal">Sélectivité ATJ:</span>
+                    <span className="text-wine-gold font-bold">60-70%</span>
                   </div>
-                  <div className="text-sm text-wine-charcoal/60 mt-1">Alcohol-to-jet conversion</div>
+                  <div className="text-sm text-wine-charcoal/60 mt-1">Alcohol-to-jet conversion (ANF 2023)</div>
                 </div>
               </div>
             </div>
@@ -149,20 +150,20 @@ const AppendixTab = () => {
               </div>
               <div className="p-4 bg-white/70 rounded-lg text-center">
                 <div className="text-lg font-bold text-wine-green">Kérosène Fossile</div>
-                <div className="text-wine-charcoal/70">€0.45-0.65/L</div>
-                <div className="text-sm text-wine-charcoal/50">Référence marché</div>
+                <div className="text-wine-charcoal/70">€0.73/L</div>
+                <div className="text-sm text-wine-charcoal/50">Référence marché 2024</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* C. Regulatory Compliance */}
+      {/* III. Regulatory Compliance */}
       <section className="mb-16">
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              C. Conformité Réglementaire
+              III. Conformité Réglementaire
             </h2>
             <p className="text-lg text-wine-charcoal/70">
               Cadre législatif et normes applicables
@@ -172,12 +173,12 @@ const AppendixTab = () => {
         </div>
       </section>
 
-      {/* D. Risk Assessment & Mitigation */}
+      {/* IV. Risk Assessment & Mitigation */}
       <section className="mb-16">
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              D. Évaluation et Mitigation des Risques
+              IV. Évaluation et Mitigation des Risques
             </h2>
             <p className="text-lg text-wine-charcoal/70">
               Identification des risques et stratégies d'atténuation
@@ -265,27 +266,150 @@ const AppendixTab = () => {
         </div>
       </section>
 
-      {/* E. Academic References */}
+      {/* V. Key References */}
       <section className="mb-16">
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              E. Références Académiques
+              V. Références Clés
             </h2>
-            <p className="text-lg text-wine-charcoal/70">
-              Publications scientifiques et études de référence
+            <p className="text-lg text-wine-charcoal/70 mb-6">
+              Publications scientifiques et sources principales utilisées
+            </p>
+            <Button 
+              className="bg-wine-burgundy hover:bg-wine-burgundy/90 text-white"
+              onClick={() => window.open('/bibliography-complete.pdf', '_blank')}
+            >
+              <Download className="mr-2 h-4 w-4" />
+              Télécharger Bibliographie Complète (35 sources)
+            </Button>
+          </div>
+
+          <div className="space-y-6">
+            {/* Reference 1 - IFV ATLAS */}
+            <div className="p-6 bg-gradient-subtle rounded-xl border-l-4 border-wine-burgundy">
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1">
+                  <h4 className="text-lg font-bold text-wine-charcoal mb-2">
+                    ATLAS Biomasse vitivinicole Bassin Languedoc-Roussillon
+                  </h4>
+                  <p className="text-wine-charcoal/70 mb-2">
+                    Institut Français de la Vigne et du Vin (IFV), 2020
+                  </p>
+                  <p className="text-sm text-wine-charcoal/60 italic">
+                    Source primaire: Rendement 280L SAF/tonne, données régionales sur les déchets viticoles
+                  </p>
+                </div>
+                <ExternalLink className="h-5 w-5 text-wine-burgundy flex-shrink-0 ml-4" />
+              </div>
+            </div>
+
+            {/* Reference 2 - ANF SAF Report */}
+            <div className="p-6 bg-gradient-subtle rounded-xl border-l-4 border-wine-gold">
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1">
+                  <h4 className="text-lg font-bold text-wine-charcoal mb-2">
+                    Decarbonisation of the aviation sector through the production of sustainable fuels
+                  </h4>
+                  <p className="text-wine-charcoal/70 mb-2">
+                    National Academy of Technologies of France, February 2023
+                  </p>
+                  <p className="text-sm text-wine-charcoal/60 italic">
+                    Validation: Sélectivité ATJ 60-70%, niveaux TRL, efficacité de conversion biomasse-SAF
+                  </p>
+                </div>
+                <ExternalLink className="h-5 w-5 text-wine-gold flex-shrink-0 ml-4" />
+              </div>
+            </div>
+
+            {/* Reference 3 - EASA Pricing */}
+            <div className="p-6 bg-gradient-subtle rounded-xl border-l-4 border-wine-green">
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1">
+                  <h4 className="text-lg font-bold text-wine-charcoal mb-2">
+                    2024 Aviation Fuels Reference Prices for ReFuelEU Aviation
+                  </h4>
+                  <p className="text-wine-charcoal/70 mb-2">
+                    European Union Aviation Safety Agency (EASA), 2024
+                  </p>
+                  <p className="text-sm text-wine-charcoal/60 italic">
+                    Validation marché: Prix moyen biocarburants aviation €1.67/L (€2,085/tonne)
+                  </p>
+                </div>
+                <ExternalLink className="h-5 w-5 text-wine-green flex-shrink-0 ml-4" />
+              </div>
+            </div>
+
+            {/* Reference 4 - RMI WTP Study */}
+            <div className="p-6 bg-gradient-subtle rounded-xl border-l-4 border-wine-charcoal">
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1">
+                  <h4 className="text-lg font-bold text-wine-charcoal mb-2">
+                    Unraveling Willingness to Pay for Sustainable Aviation Fuel
+                  </h4>
+                  <p className="text-wine-charcoal/70 mb-2">
+                    Azarova, V., Singh, H., & Shams, A., RMI, September 2024
+                  </p>
+                  <p className="text-sm text-wine-charcoal/60 italic">
+                    Validation demande: Compagnies aériennes prêtes à payer $6/gallon (~€1.47/L), préférence déchets
+                  </p>
+                </div>
+                <ExternalLink className="h-5 w-5 text-wine-charcoal flex-shrink-0 ml-4" />
+              </div>
+            </div>
+
+            {/* Reference 5 - IATA Market Report */}
+            <div className="p-6 bg-gradient-subtle rounded-xl border-l-4 border-blue-500">
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1">
+                  <h4 className="text-lg font-bold text-wine-charcoal mb-2">
+                    IATA chief hits out at "profiteering" fuel suppliers as SAF production expected to double in 2025
+                  </h4>
+                  <p className="text-wine-charcoal/70 mb-2">
+                    Surgenor, C., Green Air News, June 2025
+                  </p>
+                  <p className="text-sm text-wine-charcoal/60 italic">
+                    Dynamique marché: Production 2M tonnes 2025, prix moyen €1.37/L (hors frais conformité UE)
+                  </p>
+                </div>
+                <ExternalLink className="h-5 w-5 text-blue-500 flex-shrink-0 ml-4" />
+              </div>
+            </div>
+
+            {/* Reference 6 - RED II Directive */}
+            <div className="p-6 bg-gradient-subtle rounded-xl border-l-4 border-purple-500">
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1">
+                  <h4 className="text-lg font-bold text-wine-charcoal mb-2">
+                    Renewable Energy Directive (RED II) 2018/2001
+                  </h4>
+                  <p className="text-wine-charcoal/70 mb-2">
+                    European Commission, 2018
+                  </p>
+                  <p className="text-sm text-wine-charcoal/60 italic">
+                    Cadre réglementaire: Réduction GES minimum 65% vs fossile, critères durabilité biomasse
+                  </p>
+                </div>
+                <ExternalLink className="h-5 w-5 text-purple-500 flex-shrink-0 ml-4" />
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <p className="text-sm text-blue-800">
+              <strong>Note méthodologique:</strong> Ces 6 références constituent les sources primaires pour les calculs et projections présentés. 
+              La bibliographie complète inclut 35 sources supplémentaires couvrant aspects techniques, réglementaires et économiques.
             </p>
           </div>
-          <AcademicReferences />
         </div>
       </section>
 
-      {/* F. Data Sources & Validation */}
+      {/* VI. Data Sources & Validation */}
       <section className="mb-16">
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              F. Sources de Données et Validation
+              VI. Sources de Données et Validation
             </h2>
             <p className="text-lg text-wine-charcoal/70">
               Fiabilité et traçabilité des informations
@@ -365,15 +489,15 @@ const AppendixTab = () => {
                 <div className="space-y-3">
                   <div className="p-4 bg-white/70 rounded-lg">
                     <span className="font-bold text-wine-charcoal">Rendement SAF:</span>
-                    <span className="text-wine-charcoal/70 ml-2">280L SAF/tonne marc (données réelles)</span>
+                    <span className="text-wine-charcoal/70 ml-2">280L/tonne marc (IFV ATLAS 2020)</span>
                   </div>
                   <div className="p-4 bg-white/70 rounded-lg">
-                    <span className="font-bold text-wine-charcoal">Efficacité ATJ:</span>
-                    <span className="text-wine-charcoal/70 ml-2">70% alcohol-to-jet (validé pilote)</span>
+                    <span className="font-bold text-wine-charcoal">Sélectivité ATJ:</span>
+                    <span className="text-wine-charcoal/70 ml-2">60-70% (ANF 2023, plage validée)</span>
                   </div>
                   <div className="p-4 bg-white/70 rounded-lg">
                     <span className="font-bold text-wine-charcoal">Prix SAF:</span>
-                    <span className="text-wine-charcoal/70 ml-2">€1.65/L (marché européen 2023-2024)</span>
+                    <span className="text-wine-charcoal/70 ml-2">€1.45/L baseline (EASA 2024, RMI 2024)</span>
                   </div>
                   <div className="p-4 bg-white/70 rounded-lg">
                     <span className="font-bold text-wine-charcoal">Collecte:</span>
@@ -386,12 +510,12 @@ const AppendixTab = () => {
         </div>
       </section>
 
-      {/* G. Implementation Protocols */}
+      {/* VII. Implementation Protocols */}
       <section className="mb-16">
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              G. Protocoles de Mise en Œuvre
+              VII. Protocoles de Mise en Œuvre
             </h2>
             <p className="text-lg text-wine-charcoal/70">
               Détails opérationnels et procédures d'implémentation
@@ -507,19 +631,19 @@ const AppendixTab = () => {
           <div className="space-y-4 text-wine-charcoal/70">
             <div className="p-4 bg-white/50 rounded-lg">
               <strong className="text-wine-charcoal">Nature prospective:</strong> Les projections économiques sont basées sur les conditions 
-              de marché actuelles et peuvent évoluer significativement.
+              de marché 2024-2025 et peuvent évoluer significativement. Prix SAF baseline €1.45/L avec sensibilité ±20%.
             </div>
             <div className="p-4 bg-white/50 rounded-lg">
               <strong className="text-wine-charcoal">Validation requise:</strong> Toute décision d'investissement doit faire l'objet 
-              d'études de faisabilité détaillées et actualisées.
+              d'études de faisabilité détaillées et actualisées spécifiques au contexte local.
             </div>
             <div className="p-4 bg-white/50 rounded-lg">
-              <strong className="text-wine-charcoal">Réglementations:</strong> L'évolution du cadre réglementaire SAF peut impacter 
-              les hypothèses de rentabilité présentées.
+              <strong className="text-wine-charcoal">Réglementations:</strong> L'évolution du cadre réglementaire SAF (mandats UE, 
+              certifications, prix carbone) peut impacter significativement les hypothèses de rentabilité présentées.
             </div>
             <div className="p-4 bg-white/50 rounded-lg">
-              <strong className="text-wine-charcoal">Mise à jour:</strong> Données actualisées au 31 décembre 2023, révision 
-              annuelle recommandée.
+              <strong className="text-wine-charcoal">Mise à jour:</strong> Données actualisées au 31 décembre 2024, révision 
+              annuelle recommandée pour refléter évolutions marché et réglementaires.
             </div>
           </div>
         </div>
@@ -534,14 +658,15 @@ const AppendixTab = () => {
             </h3>
             <p className="text-wine-charcoal/70 leading-relaxed">
               Ministère de l'Agriculture français (Agreste), Organisation Internationale de la Vigne et du Vin (OIV), 
-              Institut Français de la Vigne et du Vin (IFV), FranceAgriMer, Interprofessions viticoles régionales
+              Institut Français de la Vigne et du Vin (IFV), FranceAgriMer, Interprofessions viticoles régionales, 
+              European Union Aviation Safety Agency (EASA), International Air Transport Association (IATA)
             </p>
           </div>
           
           <div className="inline-flex items-center space-x-6 bg-wine-cream/20 backdrop-blur-sm rounded-full px-8 py-4 border border-wine-cream/30">
             <div className="w-4 h-4 rounded-full bg-wine-burgundy"></div>
             <span className="text-lg font-semibold text-wine-charcoal">
-              Données actualisées - Région {currentData.name} 2023
+              Données actualisées - Région {currentData.name} 2024
             </span>
             <div className="w-4 h-4 rounded-full bg-wine-gold"></div>
           </div>
