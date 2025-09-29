@@ -17,9 +17,6 @@
   "nav.partenaires": "Partenaires",
   "nav.donnees": "Données",
   "nav.methodologie": "Méthodologie",
-  "nav.implementation": "Mise en Œuvre",
-  "nav.contact": "Contact",
-  "nav.appendix": "Annexe",            
   "nav.overview.description": "Statistiques régionales et métriques clés",
   "nav.resources.description": "Analyse des ressources disponibles",
   "nav.economy.description": "Outils économiques et calculateurs",
@@ -558,6 +555,8 @@
 
   "nav.implementation": "Support à l'Implémentation",
   "nav.implementation.description": "Navigation des barrières et facilitation",
+  "nav.contact": "Contact",
+  "nav.appendix": "Annexe",
   "implementation.title": "Support à l'Implémentation",
   "implementation.subtitle": "Navigation des barrières réglementaires et facilitation de l'accès au marché",
   "implementation.export": "Exporter Guide",
@@ -632,7 +631,6 @@
   "implementation.context": "Contexte",
   "implementation.champagne.context": "Région premium avec infrastructure établie et accès privilégié aux financements innovation",
   "implementation.languedoc.context": "Écosystème industriel mature avec support ADEME renforcé et synergies sectorielles",
-  
   "implementation.quality.control": "Contrôle Qualité",
   "implementation.quality.description": "Systèmes d'assurance et de contrôle qualité pour la production de carburant durable",
   "implementation.storage.logistics": "Stockage & Logistique",
@@ -667,13 +665,6 @@
   "demande.donnees": "Demande de Données",
   "collaboration.industrie": "Collaboration Industrie",
   
-  "debug.mode": "Mode Debug",
-  "debug.donnees.region": "Données région",
-  "debug.traductions.manquantes": "Traductions manquantes",
-  "debug.validation.donnees": "Validation des données",
-  "erreur.chargement": "Erreur de chargement",
-  "donnees.non.disponibles": "Données non disponibles",
-  
   "unite.tonnes": "tonnes",
   "unite.hectares": "ha",
   "unite.pourcentage": "%",
@@ -682,20 +673,10 @@
   "unite.annee": "/an",
   "unite.kilogrammes": "kg",
   "unite.litres": "L",
-  "units.tonne": "tonne",
-  "units.tonnes": "tonnes",
   "litres.an": "litres/an",
   "currency.euro": "€",
-  "units.million": "M",
-  "units.kilotonnes": "kt",
-  "units.kilo": "k",
-  "units.percent": "%",
   "common.plus": "+",
   "common.year": "an",
-  "units.kilograms": "kg",
-  "units.liters": "L",
-  "units.liter": "L",
-  "units.tonnes": "t",
   
   "voir.details": "Voir détails",
   "telecharger": "Télécharger",
@@ -908,7 +889,7 @@
   "footer.terms.of.use": "Conditions d'utilisation",
   "footer.disclaimer.title": "Avertissement",
   "footer.disclaimer.text": "Cette analyse s'appuie sur les données sectorielles disponibles et les meilleures pratiques industrielles. Les projections sont indicatives et doivent être validées par une étude de faisabilité détaillée.",
-
+  
   "debug.mode": "Mode Debug",
   "debug.region.data": "Données région",
   "debug.missing.translations": "Traductions manquantes",
@@ -928,5 +909,5 @@
   "error.json.parse": "Erreur d'analyse JSON",
   "status.ok": "OK",
   "status.error": "ERREUR",
- "status.warning": "AVERTISSEMENT"
+  "status.warning": "AVERTISSEMENT"
 }
