@@ -17,9 +17,9 @@
   "nav.partenaires": "Partenaires",
   "nav.donnees": "Données",
   "nav.methodologie": "Méthodologie",
-  "nav.implementation': 'Mise en Œuvre",
-  "nav.contact': 'Contact",
-  "nav.appendix': 'Annexe",            
+  "nav.implementation": "Mise en Œuvre",
+  "nav.contact": "Contact",
+  "nav.appendix": "Annexe",            
   "nav.overview.description": "Statistiques régionales et métriques clés",
   "nav.resources.description": "Analyse des ressources disponibles",
   "nav.economy.description": "Outils économiques et calculateurs",
@@ -907,7 +907,7 @@
   "footer.data.protection": "Protection des données",
   "footer.terms.of.use": "Conditions d'utilisation",
   "footer.disclaimer.title": "Avertissement",
-  "footer.disclaimer.text": "Cette analyse s'appuie sur les données sectorielles disponibles et les meilleures pratiques industrielles. Les projections sont indicatives et doivent être validées par une étude de faisabilité détaillée."
+  "footer.disclaimer.text": "Cette analyse s'appuie sur les données sectorielles disponibles et les meilleures pratiques industrielles. Les projections sont indicatives et doivent être validées par une étude de faisabilité détaillée.",
 
   "debug.mode": "Mode Debug",
   "debug.region.data": "Données région",
