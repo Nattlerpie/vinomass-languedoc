@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { CheckCircle, Circle, Clock, Users, FileText, Wrench } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface TimelinePhase {
   id: string;
@@ -23,110 +23,158 @@ interface TimelinePhase {
 }
 
 const ImplementationTimeline = () => {
+  const { t } = useLanguage();
   const [selectedPhase, setSelectedPhase] = useState<string>('1');
 
   const phases: TimelinePhase[] = [
     {
       id: '1',
-      title: 'Étude de Faisabilité',
-      description: 'Analyse technique et économique complète du projet',
-      duration: '3 mois',
+      title: t('timeline.phase1.title'),
+      description: t('timeline.phase1.description'),
+      duration: t('timeline.phase1.duration'),
       status: 'completed',
       progress: 100,
       milestones: [
-        { name: 'Étude de marché', completed: true, date: '2024-01-15' },
-        { name: 'Analyse technique', completed: true, date: '2024-02-10' },
-        { name: 'Modèle économique', completed: true, date: '2024-02-28' },
-        { name: 'Rapport final', completed: true, date: '2024-03-15' }
+        { name: t('timeline.phase1.milestone1'), completed: true, date: '2024-01-15' },
+        { name: t('timeline.phase1.milestone2'), completed: true, date: '2024-02-10' },
+        { name: t('timeline.phase1.milestone3'), completed: true, date: '2024-02-28' },
+        { name: t('timeline.phase1.milestone4'), completed: true, date: '2024-03-15' }
       ],
-      stakeholders: ['Équipe projet', 'Consultants externes', 'Investisseurs'],
+      stakeholders: [
+        t('timeline.stakeholders.project.team'),
+        t('timeline.stakeholders.external.consultants'),
+        t('timeline.stakeholders.investors')
+      ],
       dependencies: [],
-      risks: ['Délais consultants', 'Évolution réglementaire']
+      risks: [
+        t('timeline.risks.consultant.delays'),
+        t('timeline.risks.regulatory.evolution')
+      ]
     },
     {
       id: '2',
-      title: 'Développement Partenariats',
-      description: 'Signature des accords avec vignerons et transformateurs',
-      duration: '6 mois',
+      title: t('timeline.phase2.title'),
+      description: t('timeline.phase2.description'),
+      duration: t('timeline.phase2.duration'),
       status: 'in-progress',
       progress: 65,
       milestones: [
-        { name: 'Identification partenaires', completed: true, date: '2024-04-01' },
-        { name: 'Négociations préliminaires', completed: true, date: '2024-05-15' },
-        { name: 'Accords de principe', completed: false },
-        { name: 'Contrats finalisés', completed: false }
+        { name: t('timeline.phase2.milestone1'), completed: true, date: '2024-04-01' },
+        { name: t('timeline.phase2.milestone2'), completed: true, date: '2024-05-15' },
+        { name: t('timeline.phase2.milestone3'), completed: false },
+        { name: t('timeline.phase2.milestone4'), completed: false }
       ],
-      stakeholders: ['Vignerons', 'Coopératives', 'Équipe commerciale'],
-      dependencies: ['Étude de faisabilité'],
-      risks: ['Résistance vignerons', 'Conditions tarifaires']
+      stakeholders: [
+        t('timeline.stakeholders.winemakers'),
+        t('timeline.stakeholders.cooperatives'),
+        t('timeline.stakeholders.sales.team')
+      ],
+      dependencies: [t('timeline.dependencies.feasibility.study')],
+      risks: [
+        t('timeline.risks.winemaker.resistance'),
+        t('timeline.risks.pricing.conditions')
+      ]
     },
     {
       id: '3',
-      title: 'Financement et Autorisations',
-      description: 'Levée de fonds et obtention des permis administratifs',
-      duration: '8 mois',
+      title: t('timeline.phase3.title'),
+      description: t('timeline.phase3.description'),
+      duration: t('timeline.phase3.duration'),
       status: 'in-progress',
       progress: 30,
       milestones: [
-        { name: 'Dossier de financement', completed: true, date: '2024-06-01' },
-        { name: 'Négociations investisseurs', completed: false },
-        { name: 'Permis de construire', completed: false },
-        { name: 'Autorisations environnementales', completed: false }
+        { name: t('timeline.phase3.milestone1'), completed: true, date: '2024-06-01' },
+        { name: t('timeline.phase3.milestone2'), completed: false },
+        { name: t('timeline.phase3.milestone3'), completed: false },
+        { name: t('timeline.phase3.milestone4'), completed: false }
       ],
-      stakeholders: ['Investisseurs', 'Administration', 'Banques'],
-      dependencies: ['Partenariats développés'],
-      risks: ['Refus autorisations', 'Conditions de financement']
+      stakeholders: [
+        t('timeline.stakeholders.investors'),
+        t('timeline.stakeholders.administration'),
+        t('timeline.stakeholders.banks')
+      ],
+      dependencies: [t('timeline.dependencies.partnerships.developed')],
+      risks: [
+        t('timeline.risks.authorization.refusal'),
+        t('timeline.risks.financing.conditions')
+      ]
     },
     {
       id: '4',
-      title: 'Construction Infrastructure',
-      description: 'Construction de l\'unité de transformation ATJ',
-      duration: '18 mois',
+      title: t('timeline.phase4.title'),
+      description: t('timeline.phase4.description'),
+      duration: t('timeline.phase4.duration'),
       status: 'pending',
       progress: 0,
       milestones: [
-        { name: 'Appel d\'offres construction', completed: false },
-        { name: 'Début travaux', completed: false },
-        { name: 'Installation équipements', completed: false },
-        { name: 'Tests et commissioning', completed: false }
+        { name: t('timeline.phase4.milestone1'), completed: false },
+        { name: t('timeline.phase4.milestone2'), completed: false },
+        { name: t('timeline.phase4.milestone3'), completed: false },
+        { name: t('timeline.phase4.milestone4'), completed: false }
       ],
-      stakeholders: ['Constructeurs', 'Fournisseurs équipements', 'Équipe technique'],
-      dependencies: ['Financement', 'Autorisations'],
-      risks: ['Retards construction', 'Dépassement budget', 'Qualité équipements']
+      stakeholders: [
+        t('timeline.stakeholders.builders'),
+        t('timeline.stakeholders.equipment.suppliers'),
+        t('timeline.stakeholders.technical.team')
+      ],
+      dependencies: [
+        t('timeline.dependencies.financing'),
+        t('timeline.dependencies.authorizations')
+      ],
+      risks: [
+        t('timeline.risks.construction.delays'),
+        t('timeline.risks.budget.overrun'),
+        t('timeline.risks.equipment.quality')
+      ]
     },
     {
       id: '5',
-      title: 'Démarrage Production',
-      description: 'Mise en service et montée en cadence',
-      duration: '12 mois',
+      title: t('timeline.phase5.title'),
+      description: t('timeline.phase5.description'),
+      duration: t('timeline.phase5.duration'),
       status: 'pending',
       progress: 0,
       milestones: [
-        { name: 'Formation équipes', completed: false },
-        { name: 'Tests de production', completed: false },
-        { name: 'Certification SAF', completed: false },
-        { name: 'Production commerciale', completed: false }
+        { name: t('timeline.phase5.milestone1'), completed: false },
+        { name: t('timeline.phase5.milestone2'), completed: false },
+        { name: t('timeline.phase5.milestone3'), completed: false },
+        { name: t('timeline.phase5.milestone4'), completed: false }
       ],
-      stakeholders: ['Équipe opérationnelle', 'Organismes certification', 'Clients'],
-      dependencies: ['Infrastructure terminée'],
-      risks: ['Problèmes techniques', 'Délais certification', 'Qualité produit']
+      stakeholders: [
+        t('timeline.stakeholders.operations.team'),
+        t('timeline.stakeholders.certification.bodies'),
+        t('timeline.stakeholders.clients')
+      ],
+      dependencies: [t('timeline.dependencies.infrastructure.completed')],
+      risks: [
+        t('timeline.risks.technical.issues'),
+        t('timeline.risks.certification.delays'),
+        t('timeline.risks.product.quality')
+      ]
     },
     {
       id: '6',
-      title: 'Expansion Régionale',
-      description: 'Extension à d\'autres régions viticoles',
-      duration: '24 mois',
+      title: t('timeline.phase6.title'),
+      description: t('timeline.phase6.description'),
+      duration: t('timeline.phase6.duration'),
       status: 'pending',
       progress: 0,
       milestones: [
-        { name: 'Analyse nouveaux marchés', completed: false },
-        { name: 'Partenariats régionaux', completed: false },
-        { name: 'Unités secondaires', completed: false },
-        { name: 'Réseau national', completed: false }
+        { name: t('timeline.phase6.milestone1'), completed: false },
+        { name: t('timeline.phase6.milestone2'), completed: false },
+        { name: t('timeline.phase6.milestone3'), completed: false },
+        { name: t('timeline.phase6.milestone4'), completed: false }
       ],
-      stakeholders: ['Nouveaux partenaires', 'Équipe expansion'],
-      dependencies: ['Production opérationnelle'],
-      risks: ['Concurrence', 'Saturation marché', 'Ressources limitées']
+      stakeholders: [
+        t('timeline.stakeholders.new.partners'),
+        t('timeline.stakeholders.expansion.team')
+      ],
+      dependencies: [t('timeline.dependencies.production.operational')],
+      risks: [
+        t('timeline.risks.competition'),
+        t('timeline.risks.market.saturation'),
+        t('timeline.risks.limited.resources')
+      ]
     }
   ];
 
@@ -150,6 +198,16 @@ const ImplementationTimeline = () => {
     }
   };
 
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case 'completed': return t('timeline.status.completed');
+      case 'in-progress': return t('timeline.status.in.progress');
+      case 'pending': return t('timeline.status.pending');
+      case 'blocked': return t('timeline.status.blocked');
+      default: return status;
+    }
+  };
+
   const selectedPhaseData = phases.find(p => p.id === selectedPhase)!;
 
   return (
@@ -157,7 +215,7 @@ const ImplementationTimeline = () => {
       <CardHeader>
         <CardTitle className="flex items-center gap-3">
           <Wrench className="text-wine-burgundy w-7 h-7" />
-          <span className="text-2xl text-wine-charcoal">Timeline d'Implémentation</span>
+          <span className="text-2xl text-wine-charcoal">{t('timeline.implementation.timeline')}</span>
         </CardTitle>
       </CardHeader>
 
@@ -202,10 +260,7 @@ const ImplementationTimeline = () => {
                   {selectedPhaseData.title}
                 </h3>
                 <Badge className={getStatusColor(selectedPhaseData.status)}>
-                  {selectedPhaseData.status === 'completed' ? 'Terminé' :
-                   selectedPhaseData.status === 'in-progress' ? 'En cours' :
-                   selectedPhaseData.status === 'pending' ? 'À venir' :
-                   'Bloqué'}
+                  {getStatusText(selectedPhaseData.status)}
                 </Badge>
               </div>
               
@@ -213,7 +268,7 @@ const ImplementationTimeline = () => {
               
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-wine-charcoal">Progression</span>
+                  <span className="text-sm font-medium text-wine-charcoal">{t('timeline.progress')}</span>
                   <span className="text-sm text-wine-charcoal">{selectedPhaseData.progress}%</span>
                 </div>
                 <Progress value={selectedPhaseData.progress} className="h-2" />
@@ -224,7 +279,7 @@ const ImplementationTimeline = () => {
             <div className="bg-white/70 p-6 rounded-xl border border-wine-cream/40">
               <h4 className="text-lg font-semibold text-wine-charcoal mb-4 flex items-center gap-2">
                 <CheckCircle className="w-5 h-5" />
-                Jalons
+                {t('timeline.milestones')}
               </h4>
               
               <div className="space-y-3">
@@ -252,7 +307,7 @@ const ImplementationTimeline = () => {
             <div className="bg-white/70 p-6 rounded-xl border border-wine-cream/40">
               <h4 className="text-lg font-semibold text-wine-charcoal mb-4 flex items-center gap-2">
                 <Users className="w-5 h-5" />
-                Parties Prenantes
+                {t('timeline.stakeholders')}
               </h4>
               
               <div className="flex flex-wrap gap-2">
@@ -267,7 +322,7 @@ const ImplementationTimeline = () => {
             <div className="bg-white/70 p-6 rounded-xl border border-wine-cream/40">
               <h4 className="text-lg font-semibold text-wine-charcoal mb-4 flex items-center gap-2">
                 <FileText className="w-5 h-5" />
-                Dépendances
+                {t('timeline.dependencies')}
               </h4>
               
               {selectedPhaseData.dependencies.length > 0 ? (
@@ -279,13 +334,13 @@ const ImplementationTimeline = () => {
                   ))}
                 </div>
               ) : (
-                <div className="text-sm text-wine-charcoal/60">Aucune dépendance</div>
+                <div className="text-sm text-wine-charcoal/60">{t('timeline.no.dependencies')}</div>
               )}
             </div>
 
             <div className="bg-red-50 border border-red-200 p-6 rounded-xl">
               <h4 className="text-lg font-semibold text-red-700 mb-4">
-                Risques Identifiés
+                {t('timeline.identified.risks')}
               </h4>
               
               <div className="space-y-2">
@@ -301,33 +356,33 @@ const ImplementationTimeline = () => {
 
         {/* Progress Summary */}
         <div className="bg-gradient-subtle p-6 rounded-xl border border-wine-cream/40">
-          <h4 className="text-lg font-semibold text-wine-charcoal mb-4">Résumé Global du Projet</h4>
+          <h4 className="text-lg font-semibold text-wine-charcoal mb-4">{t('timeline.project.summary')}</h4>
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="text-center p-3 bg-white/70 rounded-lg">
               <div className="text-2xl font-bold text-wine-green">
                 {phases.filter(p => p.status === 'completed').length}
               </div>
-              <div className="text-sm text-wine-charcoal/70">Phases terminées</div>
+              <div className="text-sm text-wine-charcoal/70">{t('timeline.phases.completed')}</div>
             </div>
             
             <div className="text-center p-3 bg-white/70 rounded-lg">
               <div className="text-2xl font-bold text-wine-gold">
                 {phases.filter(p => p.status === 'in-progress').length}
               </div>
-              <div className="text-sm text-wine-charcoal/70">Phases en cours</div>
+              <div className="text-sm text-wine-charcoal/70">{t('timeline.phases.in.progress')}</div>
             </div>
             
             <div className="text-center p-3 bg-white/70 rounded-lg">
               <div className="text-2xl font-bold text-wine-charcoal">
                 {Math.round(phases.reduce((acc, p) => acc + p.progress, 0) / phases.length)}%
               </div>
-              <div className="text-sm text-wine-charcoal/70">Progression totale</div>
+              <div className="text-sm text-wine-charcoal/70">{t('timeline.total.progress')}</div>
             </div>
             
             <div className="text-center p-3 bg-white/70 rounded-lg">
               <div className="text-2xl font-bold text-wine-burgundy">47</div>
-              <div className="text-sm text-wine-charcoal/70">Mois estimés</div>
+              <div className="text-sm text-wine-charcoal/70">{t('timeline.estimated.months')}</div>
             </div>
           </div>
         </div>
