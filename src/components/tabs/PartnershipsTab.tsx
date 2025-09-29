@@ -12,7 +12,6 @@ import {
   AlertTriangle
 } from 'lucide-react';
 import ImplementationTimeline from "../ImplementationTimeline";
-import ContactIntegration from "../ContactIntegration";
 import { useRegion } from "@/contexts/RegionContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -87,7 +86,7 @@ const PartnershipsTab = () => {
     },
     {
       title: t('partnerships.producers.title'),
-      description: t('partnerships.producers.desc'), // Now uses "viticulture waste producers"
+      description: t('partnerships.producers.desc'),
       icon: Users,
       benefits: [
         t('partnerships.benefits.waste.valorization'),
@@ -449,8 +448,8 @@ const PartnershipsTab = () => {
           </div>
         </div>
       </div>
-
-    );
+    </div>
+  );
 };
 
 export default PartnershipsTab;
