@@ -17,9 +17,9 @@
   "nav.partenaires": "Partners",
   "nav.donnees": "Data",
   "nav.methodologie": "Methodology",
-  "nav.implementation': 'Implementation",
-  "nav.contact': 'Contact",
-  "nav.appendix': 'Appendix",
+  "nav.implementation": 'Implementation",
+  "nav.contact": "Contact",
+  "nav.appendix": "Appendix",
   "nav.overview.description": "Regional statistics and key metrics",
   "nav.resources.description": "Available resource analysis",
   "nav.economy.description": "Economic tools and calculators",
@@ -896,7 +896,7 @@
   "projections.average.salary": "Average salary",
   "projections.context": "Context",
   "projections.champagne.context": "Modeling adapted to the premium market with lower volumes but higher valorization thanks to regional prestige",
-  "projections.languedoc.context": "Projections based on industrial scale and established logistics infrastructure of France's largest wine region"
+  "projections.languedoc.context": "Projections based on industrial scale and established logistics infrastructure of France's largest wine region",
 
 "debug.mode": "Debug Mode",
 "debug.region.data": "Region data",
