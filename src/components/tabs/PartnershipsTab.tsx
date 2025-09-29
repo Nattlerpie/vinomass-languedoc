@@ -450,10 +450,7 @@ const PartnershipsTab = () => {
         </div>
       </div>
 
-      {/* Contact Section */}
-      <ContactIntegration />
-    </div>
-  );
+    );
 };
 
 export default PartnershipsTab;
