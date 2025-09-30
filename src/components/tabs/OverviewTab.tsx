@@ -23,7 +23,7 @@ const OverviewTab = () => {
   
   const debugErrors = debugMode || langDebugMode ? validateData() : [];
   
-  const lastUpdated = "31 décembre 2024";
+  const lastUpdated = "30 séptembre 2025";
   
   // Scroll to top functionality
   const [showScrollTop, setShowScrollTop] = useState(false);
