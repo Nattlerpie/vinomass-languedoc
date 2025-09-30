@@ -205,6 +205,7 @@
   "infrastructure.total.facilities": "Installations totales",
   "infrastructure.existing.capacity": "Capacité existante",
   "infrastructure.disclaimer": "Méthodologie basée sur les données sectorielles 2023",
+  "infrastructure.mature": "Infrastructure mature",
   
   "disponibilite.saisonniere": "Disponibilité Saisonnière",
   "calendrier.recolte": "Calendrier de Récolte",
@@ -673,6 +674,8 @@
   "unite.annee": "/an",
   "unite.kilogrammes": "kg",
   "unite.litres": "L",
+  "units.tonnes": "tonnes"
+  "units.kilotonnes": "kt"
   "litres.an": "litres/an",
   "currency.euro": "€",
   "common.plus": "+",
@@ -911,7 +914,7 @@
   "status.error": "ERREUR",
   "status.warning": "AVERTISSEMENT",
   
-  "overview.hero.title": "Transformer les Déchets Viticoles en SAF",
+  "overview.hero.title": "Transformer les Déchets Viticoles en CAD",
   "overview.hero.regional.waste": "déchets régionaux",
   "overview.hero.available": "valorisables",
   "overview.hero.respects.existing": "Respecte les filières existantes",
@@ -966,6 +969,16 @@
   "overview.cta.winwin.icon": "🤝",
   "overview.cta.winwin.title": "Gagnant-Gagnant",
   "overview.cta.winwin.description": "Respecte filières + crée valeur",
-  "overview.last.updated": "Dernière mise à jour"
+  "overview.last.updated": "Dernière mise à jour",
+  "overview.biomass.strategy": "Stratégie Biomasse",
+  "overview.biomass.conservative": "Base conservative:",
+  "overview.biomass.available": "Disponible",
+  "overview.biomass.elimination.flow": "Flux élimination",
+  "overview.biomass.negotiable": "Potentiel Négociable:",
+  "overview.biomass.surplus": "Surplus excédents",
+  "overview.biomass.total.accessible": "Total accessible:",
+  "overview.biomass.with.partnerships": "Avec partenariats",
+  "overview.total.facilities": "Installations totales",
+  "overview.existing.capacity": "Capacité existante".
   
 }
