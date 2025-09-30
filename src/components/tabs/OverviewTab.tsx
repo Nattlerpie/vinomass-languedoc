@@ -249,9 +249,260 @@ const OverviewTab = () => {
         </div>
       </section>
 
-      {/* Continue with rest of sections from previous code... */}
-      {/* Regional Implementation, Competitive Advantages, Industry Momentum, CTA */}
-      {/* Copy from the previous complete OverviewTab I provided */}
+     {/* Market Opportunity */}
+            <div className="bg-gradient-subtle rounded-xl p-6 border border-wine-burgundy/10">
+              <h3 className="text-xl font-bold text-wine-burgundy mb-3">{t('overview.market.opportunity')}</h3>
+              <div className="space-y-3 text-sm text-wine-charcoal/70">
+                <div className="text-center p-3 bg-white/50 rounded-lg">
+                  <div className="text-2xl font-bold text-wine-burgundy">500 Mt</div>
+                  <div className="text-xs">{t('overview.market.demand.2050')}</div>
+                </div>
+                <div className="text-center p-3 bg-white/50 rounded-lg">
+                  <div className="text-2xl font-bold text-wine-gold">400 Mt</div>
+                  <div className="text-xs">{t('overview.market.forecast.production')}</div>
+                </div>
+                <div className="text-center p-3 bg-wine-green/10 rounded-lg">
+                  <div className="text-2xl font-bold text-wine-green">100 Mt</div>
+                  <div className="text-xs">{t('overview.market.deficit')}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Divider */}
+      <div className="border-t border-wine-cream/30 mb-16"></div>
+      
+      {/* Regional Implementation Section */}
+      <section className="mb-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
+            {t('overview.regional.implementation')}
+          </h2>
+          <p className="text-lg text-wine-charcoal/70">
+            {t('overview.regional.implementation.subtitle')}
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12">
+          <div className="space-y-4">
+            <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-elegant border border-wine-cream/30 hover:shadow-wine transition-all duration-500">
+              <h3 className="text-xl font-bold text-wine-charcoal mb-6 text-center text-shadow">
+                {t('communes.title')}
+              </h3>
+              <div className="space-y-4">
+                {[
+                  { name: 'Vieussan', tonnage: 14158 },
+                  { name: 'Saint-Thibéry', tonnage: 8899 },
+                  { name: 'Trausse', tonnage: 7984 }
+                ].map((commune, index) => (
+                  <div
+                    key={commune.name}
+                    className="flex items-center justify-between p-4 bg-gradient-subtle rounded-xl border border-wine-cream/40 hover:border-wine-burgundy/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg group"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold transition-transform duration-300 group-hover:scale-110 ${
+                        index === 0 ? 'bg-wine-burgundy shadow-wine' : 
+                        index === 1 ? 'bg-wine-gold shadow-elegant' : 'bg-wine-green shadow-elegant'
+                      }`}>
+                        {index + 1}
+                      </div>
+                      <span className="font-semibold text-wine-charcoal">
+                        {commune.name}
+                      </span>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-xl font-bold text-wine-charcoal group-hover:text-wine-burgundy transition-colors duration-300">
+                        {(commune.tonnage / 1000).toFixed(1)} k
+                      </span>
+                      <span className="text-sm text-wine-charcoal/70 ml-2">{t('tonnes')}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="space-y-4">
+            <ValoorizationChart />
+          </div>
+        </div>
+      </section>
+
+      {/* Divider */}
+      <div className="border-t border-wine-cream/30 mb-16"></div>
+
+      {/* Regional Context Section */}
+      <section className="mb-16">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
+              {t('overview.competitive.advantages')}
+            </h2>
+            <p className="text-lg text-wine-charcoal/70">
+              {t('overview.competitive.advantages.subtitle')}
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
+              <div className="text-4xl font-bold text-wine-burgundy mb-3">
+                {currentData.ranking}
+              </div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">
+                {t(currentData.id === 'languedoc' ? 'region.viticole.francaise' : 'region.premium.champagne')}
+              </div>
+              <div className="text-sm text-wine-charcoal/60">
+                {t(currentData.id === 'languedoc' ? 'volume.production' : 'marche.prestige')}
+              </div>
+            </div>
+            
+            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
+              <div className="text-4xl font-bold text-wine-gold mb-3">
+                {currentData.nationalProductionShare}%
+              </div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('production.nationale')}</div>
+              <div className="text-sm text-wine-charcoal/60">
+                {currentData.hectolitres} {t('hectolitres')}
+                {currentData.id === 'champagne' && ` (${t('segment.premium')})`}
+              </div>
+            </div>
+            
+            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
+              <div className="text-4xl font-bold text-wine-green mb-3">
+                €{currentData.wineIndustryRevenue}B
+              </div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('ca.annuel')}</div>
+              <div className="text-sm text-wine-charcoal/60">{t('secteur.vitivinicole')}</div>
+            </div>
+            
+            {/* Infrastructure établie */}
+            <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
+              <div className="text-4xl font-bold text-wine-burgundy mb-3">
+                {totalInstallations}
+              </div>
+              <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('chaines.etablies')}</div>
+              <div className="text-sm text-wine-charcoal/60">{t('infrastructure.mature')}</div>
+              <div className="text-xs text-wine-charcoal/50 mt-1">{t('capacite.existante')}</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Divider */}
+      <div className="border-t border-wine-cream/30 mb-16"></div>
+
+      {/* Industry Momentum Section */}
+      <section className="mb-16">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
+              {t('overview.industry.momentum')}
+            </h2>
+            <p className="text-lg text-wine-charcoal/70">
+              {t('overview.industry.momentum.subtitle')}
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            {/* Key Industry Projects */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-wine-charcoal mb-4">{t('overview.reference.projects')}</h3>
+              
+              <div className="bg-gradient-subtle rounded-lg p-4 border border-wine-burgundy/10">
+                <h4 className="font-bold text-wine-burgundy mb-2">Haffner Energy - France</h4>
+                <div className="text-sm text-wine-charcoal/70">
+                  {t('overview.haffner.details')}
+                </div>
+              </div>
+              
+              <div className="bg-gradient-subtle rounded-lg p-4 border border-wine-gold/10">
+                <h4 className="font-bold text-wine-gold mb-2">LanzaJet - {t('overview.usa')}</h4>
+                <div className="text-sm text-wine-charcoal/70">
+                  {t('overview.lanzajet.details')}
+                </div>
+              </div>
+            </div>
+            
+            {/* Major Industrials */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-wine-charcoal mb-4">{t('overview.major.industrials')}</h3>
+              
+              <div className="bg-gradient-subtle rounded-lg p-4 border border-wine-green/10">
+                <h4 className="font-bold text-wine-green mb-2">Airbus - {t('overview.zeroe.program')}</h4>
+                <div className="text-sm text-wine-charcoal/70">
+                  {t('overview.airbus.details')}
+                </div>
+              </div>
+              
+              <div className="bg-gradient-subtle rounded-lg p-4 border border-wine-burgundy/10">
+                <h4 className="font-bold text-wine-burgundy mb-2">Total Energies - {t('overview.saf.strategy')}</h4>
+                <div className="text-sm text-wine-charcoal/70">
+                  {t('overview.totalenergies.details')}
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Regulatory Support */}
+          <div className="mb-8">
+            <h3 className="text-xl font-bold text-wine-charcoal mb-4 text-center">{t('overview.regulatory.support')}</h3>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="bg-white/50 rounded-lg p-4 text-center">
+                <div className="text-2xl font-bold text-wine-burgundy">2%</div>
+                <div className="text-sm">{t('overview.saf.minimum.2025')}</div>
+              </div>
+              <div className="bg-white/50 rounded-lg p-4 text-center">
+                <div className="text-2xl font-bold text-wine-gold">€4B</div>
+                <div className="text-sm">{t('overview.france.2030')}</div>
+              </div>
+              <div className="bg-white/50 rounded-lg p-4 text-center">
+                <div className="text-2xl font-bold text-wine-green">€210B</div>
+                <div className="text-sm">{t('overview.eu.repowereu')}</div>
+              </div>
+              <div className="bg-white/50 rounded-lg p-4 text-center">
+                <div className="text-2xl font-bold text-wine-charcoal">2050</div>
+                <div className="text-sm">{t('overview.carbon.neutrality')}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action Section */}
+      <section className="mb-8">
+        <div className="bg-gradient-to-r from-wine-burgundy to-wine-gold text-white rounded-2xl p-8 lg:p-12 shadow-elegant text-center">
+          <h2 className="text-3xl font-bold mb-4">
+            {t('overview.cta.title')}
+          </h2>
+          <p className="text-xl mb-6 opacity-90">
+            {t('overview.cta.subtitle')}
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div>
+              <div className="text-2xl font-bold mb-2">{t('overview.cta.timing.icon')} {t('overview.cta.timing.title')}</div>
+              <div className="text-sm opacity-80">{t('overview.cta.timing.description')}</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold mb-2">{t('overview.cta.firstmover.icon')} {t('overview.cta.firstmover.title')}</div>
+              <div className="text-sm opacity-80">{t('overview.cta.firstmover.description')}</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold mb-2">{t('overview.cta.winwin.icon')} {t('overview.cta.winwin.title')}</div>
+              <div className="text-sm opacity-80">{t('overview.cta.winwin.description')}</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Last Updated Footer */}
+      <section className="mb-8">
+        <div className="text-center">
+          <p className="text-sm text-wine-charcoal/50">
+            {t('overview.last.updated')}: {lastUpdated}
+          </p>
+        </div>
+      </section>
     </div>
   );
 };
