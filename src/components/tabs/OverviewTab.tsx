@@ -23,7 +23,7 @@ const OverviewTab = () => {
   
   const debugErrors = debugMode || langDebugMode ? validateData() : [];
   
-  const lastUpdated = "30 séptembre 2025";
+  const lastUpdated = "31 décembre 2024";
   
   // Scroll to top functionality
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -135,7 +135,7 @@ const OverviewTab = () => {
                   </div>
                   <div className="text-center p-3 bg-gradient-subtle rounded-lg">
                     <div className="font-bold text-wine-burgundy mb-1">{t('overview.biomass.total.accessible')}</div>
-                    <div className="text-wine-charcoal/70">55% ({((availableBiomass + negotiableBiomass) / 1000).toFixed(0)} kt)</div>
+                    <div className="text-wine-charcoal/70">{t('overview.biomass.up.to')} 55% ({((availableBiomass + negotiableBiomass) / 1000).toFixed(0)} kt)</div>
                     <div className="text-xs text-wine-charcoal/50 mt-1">{t('overview.biomass.with.partnerships')}</div>
                   </div>
                 </div>
@@ -291,7 +291,7 @@ const OverviewTab = () => {
         </div>
         
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-          <div className="space-y-4">
+          <div className="space-y-8">
             <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-elegant border border-wine-cream/30">
               <h3 className="text-xl font-bold text-wine-charcoal mb-6 text-center">
                 {t('communes.title')}
@@ -328,7 +328,7 @@ const OverviewTab = () => {
               </div>
             </div>
             
-            {/* Competitive Advantages - Moved here to align with communes */}
+            {/* Competitive Advantages */}
             <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-elegant border border-wine-cream/30">
               <h3 className="text-xl font-bold text-wine-charcoal mb-6 text-center">
                 {t('overview.competitive.advantages')}
@@ -439,7 +439,7 @@ const OverviewTab = () => {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="bg-white/50 rounded-lg p-4 text-center">
                 <div className="text-2xl font-bold text-wine-burgundy">2%</div>
-                <div className="text-sm">{t('overview.saf.minimum.2025')}</div>
+                <div className="text-sm">{language === 'fr' ? 'CAD' : 'SAF'} {t('overview.saf.minimum.2025')}</div>
               </div>
               <div className="bg-white/50 rounded-lg p-4 text-center">
                 <div className="text-2xl font-bold text-wine-gold">€4B</div>
