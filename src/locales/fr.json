@@ -666,7 +666,7 @@
   "demande.donnees": "Demande de Données",
   "collaboration.industrie": "Collaboration Industrie",
   
-  "unite.tonnes": "tonnes",
+ "unite.tonnes": "tonnes",
   "unite.hectares": "ha",
   "unite.pourcentage": "%",
   "unite.euros": "€",
@@ -674,8 +674,8 @@
   "unite.annee": "/an",
   "unite.kilogrammes": "kg",
   "unite.litres": "L",
-  "units.tonnes": "tonnes"
-  "units.kilotonnes": "kt"
+  "units.tonnes": "tonnes",
+  "units.kilotonnes": "kt",
   "litres.an": "litres/an",
   "currency.euro": "€",
   "common.plus": "+",
@@ -736,6 +736,7 @@
   
   "economy.title": "Analyse Économique",
   "economy.subtitle": "Modélisation financière et opportunités d'investissement",
+
   "economy.cost.benefit.title": "Analyse Coût-Bénéfice",
   "economy.cost.benefit.description": "Comparaison économique entre valorisation traditionnelle et production SAF",
   "economy.projections.title": "Projections Économiques",
@@ -979,6 +980,6 @@
   "overview.biomass.total.accessible": "Total accessible:",
   "overview.biomass.with.partnerships": "Avec partenariats",
   "overview.total.facilities": "Installations totales",
-  "overview.existing.capacity": "Capacité existante".
+  "overview.existing.capacity": "Capacité existante"
   
 }
