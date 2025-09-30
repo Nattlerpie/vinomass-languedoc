@@ -963,5 +963,18 @@
   "overview.cta.winwin.icon": "🤝",
   "overview.cta.winwin.title": "Win-Win",
   "overview.cta.winwin.description": "Respects existing channels + creates value",
-  "overview.last.updated": "Last updated"
+  "overview.last.updated": "Last updated",
+  
+  "overview.hero.title": "Valorization of Wine Waste into Sustainable Aviation Fuel",
+  "overview.biomass.strategy": "Biomass Strategy",
+  "overview.biomass.conservative": "Conservative base:",
+  "overview.biomass.available": "Available",
+  "overview.biomass.elimination.flow": "Elimination flow",
+  "overview.biomass.negotiable": "Negotiable Potential:",
+  "overview.biomass.surplus": "Surplus excess",
+  "overview.biomass.total.accessible": "Total accessible:",
+  "overview.biomass.with.partnerships": "With partnerships",
+  "overview.total.facilities": "Total facilities",
+  "overview.existing.capacity": "Existing capacity"
+
   }
