@@ -66,7 +66,7 @@ export interface RegionData {
 // CALCULATION FORMULAS for validation and consistency
 export const CALCULATION_FORMULAS = {
   safProduction: (availableBiomass: number) => availableBiomass * 280 * 0.7, // tonnes * L/tonne * efficiency
-  revenue: (safLiters: number) => (safLiters / 1000000) * 1.22, // ML * €1.45/L
+  revenue: (safLiters: number) => (safLiters / 1000000) * 1.45, // ML * €1.45/L
   co2Reduction: (safLiters: number) => (safLiters / 1000000) * 2.5 * 1000, // ML * 2.5kg CO2/L, convert to tonnes
   employment: (availableBiomass: number) => Math.round(availableBiomass / 444) // industry standard ratio
 };
@@ -83,7 +83,7 @@ const regionData: Record<RegionType, RegionData> = {
     annualPomace: 266000,
     availableBiomass: 80000, // 30% of total
     safProduction: 15680000, // Calculated: 80,000 * 280 * 0.7
-    revenue: 19.1, // Calculated: 15.68M L * €1.45/L
+    revenue: 22.7, // Calculated: 15.68M L * €1.45/L
     co2Reduction: 39200, // Calculated: 15.68ML * 2.5kg/L
     jobs: 180,
     
@@ -114,7 +114,7 @@ const regionData: Record<RegionType, RegionData> = {
       percentageProtected: 45,
       // Realistic calculations
       realisticSafPotential: 15680000, // 80,000t × 280L/t × 70%
-      realisticRevenue: 19.1, // 15.68ML × €1.45/L
+      realisticRevenue: 22.7, // 15.68ML × €1.45/L
       realisticCo2Reduction: 39200, // 15.68ML × 2.5kg/L
       realisticJobs: 180
     },
@@ -148,7 +148,7 @@ const regionData: Record<RegionType, RegionData> = {
     annualPomace: 24000,
     availableBiomass: 7000, // 30% of total (24,000 * 0.3 = 7,200, rounded to 7,000)
     safProduction: 1372000, // Calculated: 7,000 * 280 * 0.7
-    revenue: 1.7, // Calculated: 1.372M L * €1.45/L
+    revenue: 2.0, // Calculated: 1.372M L * €1.45/L
     co2Reduction: 3430, // Calculated: 1.372ML * 2.5kg/L
     jobs: 45,
     
@@ -179,7 +179,7 @@ const regionData: Record<RegionType, RegionData> = {
       percentageProtected: 45,
       // Realistic calculations
       realisticSafPotential: 1372000, // 7,000t × 280L/t × 70%
-      realisticRevenue: 1.7, // 1.372ML × €1.45/L
+      realisticRevenue: 2.0, // 1.372ML × €1.45/L
       realisticCo2Reduction: 3430, // 1.372ML × 2.5kg/L
       realisticJobs: 45
     },
