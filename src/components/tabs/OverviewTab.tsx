@@ -251,43 +251,7 @@ const OverviewTab = () => {
         
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
           <div className="space-y-6">
-            <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-elegant border border-wine-cream/30 hover:shadow-wine transition-all duration-500">
-              <h3 className="text-xl font-bold text-wine-charcoal mb-6 text-center text-shadow">
-                {t('communes.title')}
-              </h3>
-              <div className="space-y-4">
-                {[
-                  { name: 'Vieussan', tonnage: 14158 },
-                  { name: 'Saint-Thibéry', tonnage: 8899 },
-                  { name: 'Trausse', tonnage: 7984 }
-                ].map((commune, index) => (
-                  <div
-                    key={commune.name}
-                    className="flex items-center justify-between p-4 bg-gradient-subtle rounded-xl border border-wine-cream/40 hover:border-wine-burgundy/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg group"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold transition-transform duration-300 group-hover:scale-110 ${
-                        index === 0 ? 'bg-wine-burgundy shadow-wine' : 
-                        index === 1 ? 'bg-wine-gold shadow-elegant' : 'bg-wine-green shadow-elegant'
-                      }`}>
-                        {index + 1}
-                      </div>
-                      <span className="font-semibold text-wine-charcoal">
-                        {commune.name}
-                      </span>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-xl font-bold text-wine-charcoal group-hover:text-wine-burgundy transition-colors duration-300">
-                        {(commune.tonnage / 1000).toFixed(1)} k
-                      </span>
-                      <span className="text-sm text-wine-charcoal/70 ml-2">{t('tonnes')}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            {/* Regional Context (Moved under communes) */}
+            {/* Regional Context (Moved ABOVE communes) */}
             <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-elegant border border-wine-cream/30">
               <h3 className="text-xl font-bold text-wine-charcoal mb-6 text-center">
                 {t('overview.competitive.advantages')}
@@ -330,6 +294,42 @@ const OverviewTab = () => {
                   <div className="text-sm font-semibold text-wine-charcoal mb-1">{t('total.facilities')}</div>
                   <div className="text-xs text-wine-charcoal/60">{t('existing.capacity')}</div>
                 </div>
+              </div>
+            </div>
+            
+            <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-elegant border border-wine-cream/30 hover:shadow-wine transition-all duration-500">
+              <h3 className="text-xl font-bold text-wine-charcoal mb-6 text-center text-shadow">
+                {t('communes.title')}
+              </h3>
+              <div className="space-y-4">
+                {[
+                  { name: 'Vieussan', tonnage: 14158 },
+                  { name: 'Saint-Thibéry', tonnage: 8899 },
+                  { name: 'Trausse', tonnage: 7984 }
+                ].map((commune, index) => (
+                  <div
+                    key={commune.name}
+                    className="flex items-center justify-between p-4 bg-gradient-subtle rounded-xl border border-wine-cream/40 hover:border-wine-burgundy/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg group"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold transition-transform duration-300 group-hover:scale-110 ${
+                        index === 0 ? 'bg-wine-burgundy shadow-wine' : 
+                        index === 1 ? 'bg-wine-gold shadow-elegant' : 'bg-wine-green shadow-elegant'
+                      }`}>
+                        {index + 1}
+                      </div>
+                      <span className="font-semibold text-wine-charcoal">
+                        {commune.name}
+                      </span>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-xl font-bold text-wine-charcoal group-hover:text-wine-burgundy transition-colors duration-300">
+                        {(commune.tonnage / 1000).toFixed(1)} k
+                      </span>
+                      <span className="text-sm text-wine-charcoal/70 ml-2">{t('tonnes')}</span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
