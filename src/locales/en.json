@@ -908,7 +908,6 @@
   "status.error": "ERROR",
   "status.warning": "WARNING",
 
-  "overview.hero.title": "Transform Wine Waste into SAF",
   "overview.hero.regional.waste": "regional waste",
   "overview.hero.available": "available",
   "overview.hero.respects.existing": "Respects existing channels",
@@ -953,7 +952,7 @@
   "overview.eu.repowereu": "EU REPowerEU",
   "overview.carbon.neutrality": "Carbon neutrality",
   "overview.cta.title": "A Strategic Opportunity to Seize",
-  "overview.cta.subtitle": "Transform wine waste challenge into SAF competitive advantage",
+  "overview.cta.subtitle": "Transform wine waste challenge into competitive SAF advantage",
   "overview.cta.timing.icon": "🎯",
   "overview.cta.timing.title": "Optimal Timing",
   "overview.cta.timing.description": "Favorable regulation + growing demand",
@@ -975,6 +974,11 @@
   "overview.biomass.total.accessible": "Total accessible:",
   "overview.biomass.with.partnerships": "With partnerships",
   "overview.total.facilities": "Total facilities",
+  "overview.biomass.up.to": "Up to",
+  "overview.saf.minimum.2025": "minimum 2025 (EU)",
+  "overview.saf.acronym": "SAF",
+  "total.facilities": "Total facilities",
+  "existing.capacity": "Existing capacity",
   "overview.existing.capacity": "Existing capacity"
 
   }
