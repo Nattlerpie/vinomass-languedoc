@@ -96,11 +96,7 @@ const EconomyTab = () => {
               </div>
             </div>
           </div>
-          
-          <p className="text-lg text-wine-charcoal/70 max-w-3xl mx-auto">
-            {t('economy.subtitle')}
-          </p>
-        </div>
+          </div>
       </section>
 
       {/* Divider */}
