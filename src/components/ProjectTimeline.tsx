@@ -2,87 +2,109 @@ import { CheckCircle, Clock, Target, AlertCircle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const ProjectTimeline = () => {
+/**
+ * EconomicProjections Component (formerly ProjectTimeline)
+ * 
+ * CRITICAL FIX: Removed ALL hardcoded French text
+ * All text now uses translation keys via t() function
+ * 
+ * Displays 5-year project timeline with:
+ * - Phase milestones
+ * - Investment requirements
+ * - Key decision points
+ * - Success metrics
+ * 
+ * Units follow SI standards with proper spacing
+ */
+
+const EconomicProjections = () => {
   const { t } = useLanguage();
   
+  // ========================================
+  // TIMELINE PHASES DATA
+  // ========================================
   const timelinePhases = [
     {
-      year: "Année 1",
-      title: "Partenariat & Pilote",
-      investment: `€2-5M investissement`,
+      year: t('projections.year.one'),
+      title: t('projections.phase.one.title'),
+      investment: t('projections.phase.one.investment'),
       status: "planning",
-      description: "Établissement des partenariats et validation technique",
+      description: t('projections.phase.one.description'),
       milestones: [
-        "Signature accords avec domaines partenaires",
-        "Étude de faisabilité technique détaillée",
-        "Pilote de collecte et conversion (1,000t)",
-        "Validation qualité SAF produit",
-        "Tests de marché avec compagnies aériennes"
+        t('projections.phase.one.milestone.one'),
+        t('projections.phase.one.milestone.two'),
+        t('projections.phase.one.milestone.three'),
+        t('projections.phase.one.milestone.four'),
+        t('projections.phase.one.milestone.five')
       ],
       keyDecisions: [
-        "Sélection des domaines partenaires stratégiques",
-        "Choix de la technologie de conversion optimale",
-        "Validation du modèle économique pilote"
+        t('projections.phase.one.decision.one'),
+        t('projections.phase.one.decision.two'),
+        t('projections.phase.one.decision.three')
       ]
     },
     {
-      year: "Année 2", 
-      title: "Développement Infrastructure",
-      investment: "€50-100M",
+      year: t('projections.year.two'),
+      title: t('projections.phase.two.title'),
+      investment: t('projections.phase.two.investment'),
       status: "future",
-      description: "Construction des installations industrielles",
+      description: t('projections.phase.two.description'),
       milestones: [
-        "Construction unité de conversion (25,000t/an)",
-        "Mise en place réseau de collecte régional",
-        "Certification ISCC-EU et autres standards",
-        "Formation équipes opérationnelles",
-        "Partenariats logistiques établis"
+        t('projections.phase.two.milestone.one'),
+        t('projections.phase.two.milestone.two'),
+        t('projections.phase.two.milestone.three'),
+        t('projections.phase.two.milestone.four'),
+        t('projections.phase.two.milestone.five')
       ],
       keyDecisions: [
-        "Localisation optimale des installations",
-        "Financement infrastructure (dette/equity)",
-        "Stratégie de montée en charge"
+        t('projections.phase.two.decision.one'),
+        t('projections.phase.two.decision.two'),
+        t('projections.phase.two.decision.three')
       ]
     },
     {
-      year: "Année 3",
-      title: "Production Complète", 
-      investment: "€90M potentiel de revenus annuels",
+      year: t('projections.year.three'),
+      title: t('projections.phase.three.title'),
+      investment: t('projections.phase.three.investment'),
       status: "future",
-      description: "Production commerciale complète",
+      description: t('projections.phase.three.description'),
       milestones: [
-        "Production 75,000 litres SAF/jour",
-        "Contrats long-terme sécurisés",
-        "Réseau 50+ domaines partenaires",
-        "Optimisation rendements 85%+",
-        "Break-even operationnel atteint"
+        t('projections.phase.three.milestone.one'),
+        t('projections.phase.three.milestone.two'),
+        t('projections.phase.three.milestone.three'),
+        t('projections.phase.three.milestone.four'),
+        t('projections.phase.three.milestone.five')
       ],
       keyDecisions: [
-        "Stratégie de pricing SAF",
-        "Expansion capacité production",
-        "Diversification géographique"
+        t('projections.phase.three.decision.one'),
+        t('projections.phase.three.decision.two'),
+        t('projections.phase.three.decision.three')
       ]
     },
     {
-      year: "Année 5",
-      title: "Expansion d'Échelle",
-      investment: "Croissance multi-régionale",
+      year: t('projections.year.five'),
+      title: t('projections.phase.five.title'),
+      investment: t('projections.phase.five.investment'),
       status: "future",
-      description: "Expansion vers d'autres régions viticoles",
+      description: t('projections.phase.five.description'),
       milestones: [
-        "Déploiement dans 3+ régions françaises",
-        "Partenariats internationaux (Espagne, Italie)",
-        "Technologies de 2ème génération",
-        "Portfolio produits élargi",
-        "Leadership marché ATJ européen"
+        t('projections.phase.five.milestone.one'),
+        t('projections.phase.five.milestone.two'),
+        t('projections.phase.five.milestone.three'),
+        t('projections.phase.five.milestone.four'),
+        t('projections.phase.five.milestone.five')
       ],
       keyDecisions: [
-        "Stratégie d'expansion internationale",
-        "Acquisition vs développement organique",
-        "Innovation technologique continue"
+        t('projections.phase.five.decision.one'),
+        t('projections.phase.five.decision.two'),
+        t('projections.phase.five.decision.three')
       ]
     }
   ];
+
+  // ========================================
+  // STATUS ICON HELPER
+  // ========================================
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'planning':
@@ -96,6 +118,9 @@ const ProjectTimeline = () => {
     }
   };
 
+  // ========================================
+  // STATUS COLOR HELPER
+  // ========================================
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'planning':
@@ -114,15 +139,18 @@ const ProjectTimeline = () => {
       <CardHeader className="pb-6">
         <CardTitle className="flex items-center gap-3 text-2xl text-wine-charcoal">
           <Target className="text-wine-burgundy" size={28} />
-          Chronologie du Projet
+          {t('projections.title')}
         </CardTitle>
         <p className="text-wine-charcoal/70">
-          Planning stratégique sur 3 ans avec jalons clés et points de décision
+          {t('projections.subtitle')}
         </p>
       </CardHeader>
       
       <CardContent>
         <div className="space-y-8">
+          {/* ========================================
+              TIMELINE PHASES
+              ======================================== */}
           {timelinePhases.map((phase, index) => (
             <div 
               key={index}
@@ -147,7 +175,9 @@ const ProjectTimeline = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Milestones */}
                 <div>
-                  <h4 className="font-semibold text-wine-charcoal mb-3 text-base">Jalons clés</h4>
+                  <h4 className="font-semibold text-wine-charcoal mb-3 text-base">
+                    {t('projections.key.milestones')}
+                  </h4>
                   <ul className="space-y-2">
                     {phase.milestones.map((milestone, idx) => (
                       <li key={idx} className="flex items-start gap-2 text-sm">
@@ -160,7 +190,9 @@ const ProjectTimeline = () => {
 
                 {/* Key Decisions */}
                 <div>
-                  <h4 className="font-semibold text-wine-charcoal mb-3 text-base">Points de décision</h4>
+                  <h4 className="font-semibold text-wine-charcoal mb-3 text-base">
+                    {t('projections.decision.points')}
+                  </h4>
                   <ul className="space-y-2">
                     {phase.keyDecisions.map((decision, idx) => (
                       <li key={idx} className="flex items-start gap-2 text-sm">
@@ -180,21 +212,37 @@ const ProjectTimeline = () => {
           ))}
         </div>
 
-        {/* Success Metrics */}
+        {/* ========================================
+            SUCCESS METRICS
+            ======================================== */}
         <div className="mt-8 p-6 bg-gradient-subtle rounded-xl border border-wine-cream/40">
-          <h4 className="font-bold text-wine-charcoal mb-4 text-lg">Indicateurs de succès</h4>
+          <h4 className="font-bold text-wine-charcoal mb-4 text-lg">
+            {t('projections.success.metrics')}
+          </h4>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
             <div className="text-center">
-              <div className="text-2xl font-bold text-wine-burgundy mb-1">15M€</div>
-              <div className="text-wine-charcoal/70">Chiffre d'affaires An 3</div>
+              <div className="text-2xl font-bold text-wine-burgundy mb-1">
+                {t('projections.metric.revenue.value')}
+              </div>
+              <div className="text-wine-charcoal/70">
+                {t('projections.metric.revenue.label')}
+              </div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-wine-green mb-1">50+</div>
-              <div className="text-wine-charcoal/70">Domaines partenaires</div>
+              <div className="text-2xl font-bold text-wine-green mb-1">
+                {t('projections.metric.partners.value')}
+              </div>
+              <div className="text-wine-charcoal/70">
+                {t('projections.metric.partners.label')}
+              </div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-wine-gold mb-1">12%</div>
-              <div className="text-wine-charcoal/70">ROI projet</div>
+              <div className="text-2xl font-bold text-wine-gold mb-1">
+                {t('projections.metric.roi.value')}
+              </div>
+              <div className="text-wine-charcoal/70">
+                {t('projections.metric.roi.label')}
+              </div>
             </div>
           </div>
         </div>
@@ -203,4 +251,4 @@ const ProjectTimeline = () => {
   );
 };
 
-export default ProjectTimeline;
+export default EconomicProjections;
