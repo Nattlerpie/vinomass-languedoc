@@ -915,7 +915,7 @@
   "status.error": "ERREUR",
   "status.warning": "AVERTISSEMENT",
   
-  "overview.hero.title": "Transformer les Déchets Viticoles en CAD",
+  "overview.hero.title": "Valorisation des Déchets Vitivinicoles en Carburant Aviation Durable",
   "overview.hero.regional.waste": "déchets régionaux",
   "overview.hero.available": "valorisables",
   "overview.hero.respects.existing": "Respecte les filières existantes",
@@ -955,7 +955,6 @@
   "overview.saf.strategy": "Stratégie SAF",
   "overview.totalenergies.details": "€500M sur 5 ans • 1.5M t SAF/an • 6 bioraffineries modernisées",
   "overview.regulatory.support": "Soutien Réglementaire",
-  "overview.saf.minimum.2025": "SAF minimum 2025 (EU)",
   "overview.france.2030": "France 2030",
   "overview.eu.repowereu": "EU REPowerEU",
   "overview.carbon.neutrality": "Neutralité carbone",
@@ -980,6 +979,11 @@
   "overview.biomass.total.accessible": "Total accessible:",
   "overview.biomass.with.partnerships": "Avec partenariats",
   "overview.total.facilities": "Installations totales",
+  "overview.biomass.up.to": "Jusqu'à",
+  "overview.saf.minimum.2025": "minimum 2025 (EU)",
+  "overview.saf.acronym": "CAD",
+  "total.facilities": "Installations totales",
+  "existing.capacity": "Capacité existante",
   "overview.existing.capacity": "Capacité existante"
   
 }
