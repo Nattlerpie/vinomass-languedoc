@@ -11,7 +11,7 @@ import ContactIntegration from "./ContactIntegration";
 import ProfessionalFooter from "./ProfessionalFooter";
 import ErrorHandling from "./ErrorHandling";
 import DashboardHeader from "./DashboardHeader";
-import GuidedTour from "./GuidedTour";
+import ScrollToTop from "./ScrollToTop";
 import { Button } from "@/components/ui/button";
 import { HelpCircle } from 'lucide-react';
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -80,6 +80,7 @@ const Dashboard = () => {
       
       <ProfessionalFooter />
       <GuidedTour isOpen={showTour} onClose={() => setShowTour(false)} activeTab={activeTab} onTabChange={setActiveTab} />
+    <ScrollToTop />
     </div>
   );
 };
