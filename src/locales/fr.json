@@ -1165,6 +1165,50 @@
   "overview.saf.acronym": "CAD",
   "total.facilities": "Installations totales",
   "existing.capacity": "Capacité existante",
-  "overview.existing.capacity": "Capacité existante"
+  "overview.existing.capacity": "Capacité existante",
+  "roi.biomass": "Biomasse",
+    "roi.efficiency": "Efficacité",
+    "roi.costs": "Coûts",
+    "roi.capex": "CAPEX",
+    "roi.biomass.source": "Basé sur données sectorielles régionales",
+    "roi.efficiency.source": "Technologie ATJ certifiée ASTM D7566",
+    "roi.price.source": "Projections IATA 2025-2030",
+    "roi.costs.source": "Références IRENA et projets industriels",
+    "roi.capex.source": "Benchmarks industrie biocarburants",
+    "roi.parameter.sources": "Sources des Paramètres :",
+    "roi.five.year": "ROI sur 5 ans",
+    "roi.return.on.investment": "Retour sur investissement",
+    
+    "units.liters": "L",
+    "units.tonne": "t",
+    "units.tonnes": "tonnes",
+    "units.liter": "L",
+    "units.kilograms": "kg",
+    "units.percent": "%",
+    "units.million": "M",
+    "units.kilotonnes": "kt",
+    "units.kilo": "k",
+    
+    "cost.benefit.data.sources": "Sources des Données",
+    "cost.benefit.data.sources.tooltip": "Valorisation traditionnelle : Données sectorielles régionales 2023 | Production SAF : Technologie de conversion ATJ (280 L/t, 70 % efficacité) | Prix : Projections marché IATA 2025 (€1,45/L base) | Emploi : Multiplicateurs recherche ADEME | CO₂ : Analyse cycle de vie vs kérosène conventionnel",
+    "cost.benefit.visual.comparison": "Comparaison Visuelle : Valorisation Traditionnelle vs SAF",
+    
+    "constants.saf.conversion": "280 L/t",
+    "constants.saf.conversion.label": "Conversion SAF",
+    "constants.saf.price": "€1,45/L",
+    "constants.saf.price.label": "Prix",
+    "constants.co2.avoided": "2,75 kg/L",
+    "constants.co2.avoided.label": "CO₂ évité",
+    "constants.efficiency": "70 %",
+    "constants.efficiency.label": "Efficacité",
+    "constants.capex.champagne": "€40 M",
+    "constants.capex.languedoc": "€95 M",
+    "constants.capex.label": "CAPEX",
+    
+    "common.year": "an",
+    "common.plus": "+",
+    "currency.euro": "€",
+    
+    "cost.benefit.co2.avoided.cumulative": "CO₂ évité cumulé (6 ans)"
   
 }
