@@ -165,6 +165,7 @@
 "resources.summary.text": "Biomasse disponible sans perturber les valorisations existantes, collectée via installations établies",
 "resources.summary.transition": "Cet approvisionnement sécurisé permet une analyse économique détaillée →",
 "resources.summary.next": "Voir l'onglet Analyse Économique pour les projections financières",
+  "resources.incurs.costs": "génère des coûts",
   
   "cost.benefit.title": "Analyse Coût-Bénéfice",
   "cost.benefit.comparison": "Comparaison",
