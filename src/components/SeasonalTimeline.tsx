@@ -4,9 +4,8 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 const SeasonalTimeline = () => {
   const { currentData, debugMode } = useRegion();
-  const { t, debugMode: langDebugMode } = useLanguage();
+  const { t, language, debugMode: langDebugMode } = useLanguage(); // ← Added language here
 
-  // Seasonal data with translation keys
   const seasonalData = [
     { 
       month: 'janvier', 
@@ -98,7 +97,6 @@ const SeasonalTimeline = () => {
     }
   ];
 
-  // French month names mapping
   const monthNames = {
     'janvier': 'Janvier',
     'fevrier': 'Février', 
@@ -114,7 +112,6 @@ const SeasonalTimeline = () => {
     'decembre': 'Décembre'
   };
 
-  // English month names mapping
   const monthNamesEn = {
     'janvier': 'January',
     'fevrier': 'February', 
@@ -146,7 +143,6 @@ const SeasonalTimeline = () => {
 
   return (
     <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
-      {/* DEBUG BANNER */}
       {(debugMode || langDebugMode) && (
         <div className="bg-purple-100 border border-purple-400 text-purple-700 px-3 py-2 rounded mb-4">
           <strong className="font-bold">🗓️ SeasonalTimeline Debug</strong>
@@ -164,7 +160,6 @@ const SeasonalTimeline = () => {
         </h2>
       </div>
 
-      {/* Linear View */}
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {seasonalData.map((month) => (
@@ -173,7 +168,7 @@ const SeasonalTimeline = () => {
               className="p-6 bg-gradient-subtle rounded-xl border border-wine-cream/30 hover:scale-105 transition-all duration-300 hover:shadow-lg"
             >
               <h3 className="text-lg font-bold text-wine-charcoal mb-4 text-center">
-                {t('language') === 'fr' ? monthNames[month.month] : monthNamesEn[month.month]}
+                {language === 'fr' ? monthNames[month.month] : monthNamesEn[month.month]}
               </h3>
               
               <div className="space-y-3">
@@ -206,7 +201,6 @@ const SeasonalTimeline = () => {
         </div>
       </div>
 
-      {/* Legend */}
       <div className="mt-8 pt-6 border-t border-wine-cream/30">
         <h4 className="text-lg font-bold text-wine-charcoal mb-4 text-center">
           {t('legende.intensite')}
