@@ -78,9 +78,6 @@ export default function ResourcesTab() {
         </div>
       </section>
 
-      {/* Divider */}
-      <div className="border-t border-wine-cream/30 mb-8"></div>
-
       {/* 1. Regional Scale & Distribution */}
       <section className="mb-8">
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
@@ -259,8 +256,8 @@ export default function ResourcesTab() {
               </div>
               
               <div className="text-left text-sm text-wine-charcoal/70 space-y-1">
-                <div>• {t('couts.elimination')}: {Math.round(currentData.wasteAllocation?.available * 0.625).toLocaleString()}t</div>
-                <div>• {t('boues.traitement')}: {Math.round(currentData.wasteAllocation?.available * 0.375).toLocaleString()}t</div>
+                <div>• {t('couts.elimination')}: {Math.round(currentData.wasteAllocation?.available * 0.625).toLocaleString()}t ({t('resources.incurs.costs') || 'génère des coûts'})</div>
+                <div>• {t('boues.traitement')}: {Math.round(currentData.wasteAllocation?.available * 0.375).toLocaleString()}t ({t('resources.incurs.costs') || 'génère des coûts'})</div>
               </div>
             </div>
           </div>
@@ -272,21 +269,19 @@ export default function ResourcesTab() {
 
       {/* 3. Infrastructure Capability */}
       <section className="mb-8">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-            {t('resources.infrastructure.ready.title') || 'Infrastructure en Place'}
-          </h2>
-          <p className="text-lg text-wine-charcoal/70 mb-4">
-            {t('resources.infrastructure.ready.subtitle') || 'Capacités de collecte et traitement déjà déployées réduisent les risques du projet'}
-          </p>
+        <InfrastructureOverview />
+        
+        {/* Summary callout below infrastructure */}
+        <div className="text-center mt-6">
           <div className="inline-block bg-wine-burgundy/10 border border-wine-burgundy/30 rounded-lg px-6 py-3">
-            <p className="text-2xl font-bold text-wine-burgundy">
-              {totalInstallations} {t('total.facilities') || 'installations existantes'} | {t('resources.infrastructure.mature') || 'Infrastructure mature'}
+            <p className="text-xl font-bold text-wine-burgundy">
+              {totalInstallations} {t('total.facilities')} | {t('resources.infrastructure.mature') || 'Infrastructure mature'}
+            </p>
+            <p className="text-sm text-wine-charcoal/70 mt-2">
+              {t('resources.infrastructure.ready.subtitle') || 'Capacités de collecte et traitement déjà déployées réduisent les risques du projet'}
             </p>
           </div>
         </div>
-        
-        <InfrastructureOverview />
       </section>
 
       {/* Divider */}
@@ -294,14 +289,6 @@ export default function ResourcesTab() {
 
       {/* 4. Biomass Composition */}
       <section className="mb-8">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-            {t('resources.composition.title') || 'Composition de la Biomasse'}
-          </h2>
-          <p className="text-lg text-wine-charcoal/70">
-            {t('resources.composition.subtitle') || 'Comprendre les différentes sources de déchets vitivinicoles'}
-          </p>
-        </div>
         <BiomassBreakdownChart />
       </section>
 
