@@ -6,19 +6,15 @@ import EconomyTab from "./tabs/EconomyTab";
 import PartnershipsTab from "./tabs/PartnershipsTab";
 import ImplementationSupport from "@/components/tabs/ImplementationSupport";
 import DataTab from "./tabs/DataTab";
-import ExecutiveDashboard from "./ExecutiveDashboard";
 import ContactIntegration from "./ContactIntegration";
 import ProfessionalFooter from "./ProfessionalFooter";
 import ErrorHandling from "./ErrorHandling";
 import DashboardHeader from "./DashboardHeader";
 import ScrollToTop from "./ScrollToTop";
-import { Button } from "@/components/ui/button";
-import { HelpCircle } from 'lucide-react';
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("executive");
-  const [showTour, setShowTour] = useState(false);
   const { t } = useLanguage();
 
   return (
@@ -80,7 +76,7 @@ const Dashboard = () => {
       
       <ProfessionalFooter />
       <GuidedTour isOpen={showTour} onClose={() => setShowTour(false)} activeTab={activeTab} onTabChange={setActiveTab} />
-    <ScrollToTop />
+      <ScrollToTop />
     </div>
   );
 };
