@@ -1160,6 +1160,51 @@
   "overview.saf.acronym": "SAF",
   "total.facilities": "Total facilities",
   "existing.capacity": "Existing capacity",
-  "overview.existing.capacity": "Existing capacity"
+  "overview.existing.capacity": "Existing capacity".
+
+  "roi.biomass": "Biomass",
+    "roi.efficiency": "Efficiency",
+    "roi.costs": "Costs",
+    "roi.capex": "CAPEX",
+    "roi.biomass.source": "Based on regional sectoral data",
+    "roi.efficiency.source": "ASTM D7566 certified ATJ technology",
+    "roi.price.source": "IATA projections 2025-2030",
+    "roi.costs.source": "IRENA references and industrial projects",
+    "roi.capex.source": "Biofuel industry benchmarks",
+    "roi.parameter.sources": "Parameter Sources:",
+    "roi.five.year": "5-Year ROI",
+    "roi.return.on.investment": "Return on Investment",
+    
+    "units.liters": "L",
+    "units.tonne": "t",
+    "units.tonnes": "tonnes",
+    "units.liter": "L",
+    "units.kilograms": "kg",
+    "units.percent": "%",
+    "units.million": "M",
+    "units.kilotonnes": "kt",
+    "units.kilo": "k",
+    
+    "cost.benefit.data.sources": "Data Sources",
+    "cost.benefit.data.sources.tooltip": "Traditional valorization: Regional sectoral data 2023 | SAF production: ATJ conversion technology (280 L/t, 70% efficiency) | Pricing: IATA 2025 market projections (€1.45/L base) | Employment: ADEME research multipliers | CO₂: Life-cycle analysis vs conventional jet fuel",
+    "cost.benefit.visual.comparison": "Visual Comparison: Traditional vs SAF Valorization",
+    
+    "constants.saf.conversion": "280 L/t",
+    "constants.saf.conversion.label": "SAF Conversion",
+    "constants.saf.price": "€1.45/L",
+    "constants.saf.price.label": "Price",
+    "constants.co2.avoided": "2.75 kg/L",
+    "constants.co2.avoided.label": "CO₂ Avoided",
+    "constants.efficiency": "70%",
+    "constants.efficiency.label": "Efficiency",
+    "constants.capex.champagne": "€40 M",
+    "constants.capex.languedoc": "€95 M",
+    "constants.capex.label": "CAPEX",
+    
+    "common.year": "year",
+    "common.plus": "+",
+    "currency.euro": "€",
+    
+    "cost.benefit.co2.avoided.cumulative": "Cumulative CO₂ Avoided (6 years)"
 
   }
