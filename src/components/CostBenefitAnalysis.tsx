@@ -7,6 +7,17 @@ import { TrendingUp, TrendingDown, Recycle, Coins } from "lucide-react";
 import { useRegion } from "@/contexts/RegionContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 
+/**
+ * CostBenefitAnalysis Component
+ * 
+ * UPDATED SAF PRICING:
+ * - Base SAF price: €1.45/L (updated from €1.50/L for conservative baseline)
+ * - Comparison between traditional pomace valorization vs SAF production
+ * - Regional data for Champagne and Languedoc-Roussillon
+ * 
+ * Units follow SI standards with proper spacing (e.g., "25 kt" not "25kt")
+ */
+
 interface CostBenefitData {
   category: string;
   traditional: number;
@@ -20,46 +31,57 @@ const CostBenefitAnalysis = () => {
   const { t } = useLanguage();
   const [viewType, setViewType] = useState<'comparison' | 'timeline' | 'breakdown'>('comparison');
 
-  // Region-specific constants based on actual data
+  // ========================================
+  // REGIONAL DATA
+  // Based on actual sectoral data
+  // ========================================
   const getRegionalData = () => {
     if (regionId === 'champagne') {
       return {
-        pomaceVolume: 33000, // Champagne annual pomace (tonnes)
-        traditionalRevenue: 1.2, // M€ traditional valorization
-        traditionalCosts: 0.7, // M€ traditional costs
-        traditionalJobs: 3, // Traditional jobs
-        baseInvestment: 40, // M€ investment
-        operatingCosts: 3.2 // M€ SAF operating costs
+        pomaceVolume: 33000,
+        traditionalRevenue: 1.2,
+        traditionalCosts: 0.7,
+        traditionalJobs: 3,
+        baseInvestment: 40,
+        operatingCosts: 3.2
       };
     } else {
       return {
-        pomaceVolume: 80000, // Languedoc annual pomace (tonnes)
-        traditionalRevenue: 15.2, // M€ traditional valorization  
-        traditionalCosts: 8.5, // M€ traditional costs
-        traditionalJobs: 12, // Traditional jobs
-        baseInvestment: 95, // M€ investment
-        operatingCosts: 11.0 // M€ SAF operating costs
+        pomaceVolume: 80000,
+        traditionalRevenue: 15.2,
+        traditionalCosts: 8.5,
+        traditionalJobs: 12,
+        baseInvestment: 95,
+        operatingCosts: 11.0
       };
     }
   };
 
   const regionalData = getRegionalData();
 
-  // Fixed SAF calculation constants
+  // ========================================
+  // SAF CALCULATION CONSTANTS
+  // UPDATED: Base price from €1.50 to €1.45/L
+  // ========================================
   const SAF_CONSTANTS = {
     conversionRate: 280, // L SAF per tonne pomace
     processingEfficiency: 0.70, // 70% ATJ efficiency
-    safPrice: 1.50, // €/L realistic pricing
+    safPrice: 1.45, // UPDATED: €1.45/L base pricing
     co2Factor: 2.75, // kg CO2 avoided per L SAF
     collectionCost: 40 // €/tonne collection cost
   };
 
-  // Calculate SAF metrics
+  // ========================================
+  // SAF METRICS CALCULATIONS
+  // ========================================
   const safProduction = regionalData.pomaceVolume * SAF_CONSTANTS.conversionRate * SAF_CONSTANTS.processingEfficiency;
   const safRevenue = (safProduction * SAF_CONSTANTS.safPrice) / 1000000; // Convert to M€
   const safProfit = safRevenue - regionalData.operatingCosts;
   const co2Avoided = (safProduction * SAF_CONSTANTS.co2Factor) / 1000; // Convert to tonnes
 
+  // ========================================
+  // COMPARISON DATA
+  // ========================================
   const comparisonData: CostBenefitData[] = [
     {
       category: t('cost.benefit.revenue'),
@@ -94,11 +116,13 @@ const CostBenefitAnalysis = () => {
       traditional: 0,
       saf: Number((co2Avoided / 1000).toFixed(1)), // Convert to kt
       difference: Number((co2Avoided / 1000).toFixed(1)),
-      percentage: 100 // 100% improvement since traditional is 0
+      percentage: 100
     }
   ];
 
-  // Timeline data with CORRECTED cumulative calculations
+  // ========================================
+  // TIMELINE DATA (6-YEAR PROJECTION)
+  // ========================================
   const baseTraditionalProfit = regionalData.traditionalRevenue - regionalData.traditionalCosts;
   const yearOneInvestment = -regionalData.baseInvestment;
   
@@ -141,7 +165,10 @@ const CostBenefitAnalysis = () => {
     }
   ];
 
-  // RESEARCH-BACKED cost breakdown based on IRENA SAF Cost Analysis 2021
+  // ========================================
+  // VALUE CHAIN COST BREAKDOWN
+  // Based on IRENA SAF Cost Analysis 2021
+  // ========================================
   const valueChainData = [
     { name: t('cost.benefit.biomass.collection'), value: 8.5, color: "#8B2635" },
     { name: t('cost.benefit.pretreatment'), value: 12.3, color: "#D4AC0D" },
@@ -156,14 +183,15 @@ const CostBenefitAnalysis = () => {
     return regionId === 'champagne' ? 'Champagne' : 'Languedoc-Roussillon';
   };
 
-  // Helper function to format currency
+  // ========================================
+  // HELPER FUNCTIONS
+  // ========================================
   const formatCurrency = (value: number, unit: string = '') => {
-    return `${t('currency.euro')}${value}${unit}`;
+    return `€${value}${unit}`;
   };
 
-  // Helper function to format positive/negative values
   const formatDifference = (value: number, unit: string = '') => {
-    const sign = value > 0 ? t('common.plus') : '';
+    const sign = value > 0 ? '+' : '';
     return `${sign}${value}${unit}`;
   };
 
@@ -204,40 +232,55 @@ const CostBenefitAnalysis = () => {
         </CardHeader>
 
         <CardContent>
+          {/* ========================================
+              COMPARISON VIEW
+              ======================================== */}
           {viewType === 'comparison' && (
             <div className="space-y-6">
+              {/* Key Metrics Grid */}
               <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                 <div className="text-center p-4 bg-gradient-to-br from-wine-green/10 to-wine-green/5 rounded-xl border border-wine-green/20">
                   <TrendingUp className="text-wine-green mx-auto mb-2" size={24} />
-                  <div className="text-2xl font-bold text-wine-green mb-1">{formatDifference(comparisonData[2].percentage, t('units.percent'))}</div>
+                  <div className="text-2xl font-bold text-wine-green mb-1">
+                    {formatDifference(comparisonData[2].percentage, ' %')}
+                  </div>
                   <div className="text-xs text-wine-charcoal/70">{t('cost.benefit.profit.improvement')}</div>
                 </div>
                 
                 <div className="text-center p-4 bg-gradient-to-br from-wine-burgundy/10 to-wine-burgundy/5 rounded-xl border border-wine-burgundy/20">
                   <Coins className="text-wine-burgundy mx-auto mb-2" size={24} />
-                  <div className="text-2xl font-bold text-wine-burgundy mb-1">{formatCurrency(comparisonData[2].difference, ` ${t('units.million')}`)}</div>
+                  <div className="text-2xl font-bold text-wine-burgundy mb-1">
+                    {formatCurrency(comparisonData[2].difference, ' M')}
+                  </div>
                   <div className="text-xs text-wine-charcoal/70">{t('cost.benefit.additional.benefit')}</div>
                 </div>
                 
                 <div className="text-center p-4 bg-gradient-to-br from-wine-gold/10 to-wine-gold/5 rounded-xl border border-wine-gold/20">
                   <TrendingUp className="text-wine-gold mx-auto mb-2" size={24} />
-                  <div className="text-2xl font-bold text-wine-gold mb-1">{formatDifference(comparisonData[3].difference)}</div>
+                  <div className="text-2xl font-bold text-wine-gold mb-1">
+                    {formatDifference(comparisonData[3].difference)}
+                  </div>
                   <div className="text-xs text-wine-charcoal/70">{t('cost.benefit.jobs.created')}</div>
                 </div>
                 
                 <div className="text-center p-4 bg-gradient-to-br from-wine-green/10 to-wine-green/5 rounded-xl border border-wine-green/20">
                   <Recycle className="text-wine-green mx-auto mb-2" size={24} />
-                  <div className="text-2xl font-bold text-wine-green mb-1">{comparisonData[4].saf} {t('units.kilotonnes')}</div>
+                  <div className="text-2xl font-bold text-wine-green mb-1">
+                    {comparisonData[4].saf} kt
+                  </div>
                   <div className="text-xs text-wine-charcoal/70">{t('cost.benefit.co2.avoided.annual')}</div>
                 </div>
 
                 <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200">
                   <Badge className="bg-blue-600 text-white mx-auto mb-2">{t('cost.benefit.real.data')}</Badge>
-                  <div className="text-xs text-blue-700 font-medium">{(regionalData.pomaceVolume/1000).toFixed(0)} {t('units.kilo')} {t('units.tonnes')}</div>
+                  <div className="text-xs text-blue-700 font-medium">
+                    {(regionalData.pomaceVolume / 1000).toFixed(0)} kt
+                  </div>
                   <div className="text-xs text-blue-600">{getRegionDisplayName()} 2023</div>
                 </div>
               </div>
 
+              {/* Bar Chart */}
               <div className="h-96">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={comparisonData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
@@ -259,6 +302,7 @@ const CostBenefitAnalysis = () => {
                 </ResponsiveContainer>
               </div>
 
+              {/* Detailed Comparison Table */}
               <div className="bg-gradient-subtle p-4 rounded-xl">
                 <h4 className="font-semibold text-wine-charcoal mb-4">{t('cost.benefit.detailed.comparison')}</h4>
                 <div className="overflow-x-auto">
@@ -279,25 +323,25 @@ const CostBenefitAnalysis = () => {
                           <td className="text-right py-2 text-wine-charcoal">
                             {item.category.includes(t('cost.benefit.jobs.created')) || item.category.includes(t('cost.benefit.co2.avoided')) 
                               ? item.traditional 
-                              : formatCurrency(item.traditional, ` ${t('units.million')}`)}
+                              : formatCurrency(item.traditional, ' M')}
                           </td>
                           <td className="text-right py-2 text-wine-charcoal">
                             {item.category.includes(t('cost.benefit.jobs.created')) 
                               ? item.saf
                               : item.category.includes(t('cost.benefit.co2.avoided'))
-                              ? `${item.saf} ${t('units.kilotonnes')}`
-                              : formatCurrency(item.saf, ` ${t('units.million')}`)}
+                              ? `${item.saf} kt`
+                              : formatCurrency(item.saf, ' M')}
                           </td>
                           <td className="text-right py-2">
                             <span className={item.difference > 0 ? 'text-wine-green' : 'text-red-500'}>
                               {item.category.includes(t('cost.benefit.jobs.created')) ? formatDifference(item.difference) : 
-                               item.category.includes(t('cost.benefit.co2.avoided')) ? `${formatDifference(item.difference)} ${t('units.kilotonnes')}` : 
-                               formatDifference(item.difference, ` ${t('units.million')}${t('currency.euro')}`)}
+                               item.category.includes(t('cost.benefit.co2.avoided')) ? `${formatDifference(item.difference)} kt` : 
+                               formatDifference(item.difference, ' M€')}
                             </span>
                           </td>
                           <td className="text-right py-2">
                             <Badge variant={item.percentage > 0 ? 'default' : 'destructive'}>
-                              {formatDifference(item.percentage, t('units.percent'))}
+                              {formatDifference(item.percentage, ' %')}
                             </Badge>
                           </td>
                         </tr>
@@ -309,6 +353,9 @@ const CostBenefitAnalysis = () => {
             </div>
           )}
 
+          {/* ========================================
+              TIMELINE VIEW
+              ======================================== */}
           {viewType === 'timeline' && (
             <div className="space-y-6">
               <div className="h-96">
@@ -352,6 +399,7 @@ const CostBenefitAnalysis = () => {
                 </ResponsiveContainer>
               </div>
 
+              {/* Timeline Metrics */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="bg-wine-cream/20 p-4 rounded-lg">
                   <h5 className="font-semibold text-wine-charcoal mb-2">{t('cost.benefit.breakeven.point')}</h5>
@@ -361,21 +409,27 @@ const CostBenefitAnalysis = () => {
                 
                 <div className="bg-wine-cream/20 p-4 rounded-lg">
                   <h5 className="font-semibold text-wine-charcoal mb-2">{t('cost.benefit.cumulative.profit')} (2029)</h5>
-                  <div className="text-2xl font-bold text-wine-burgundy">{formatCurrency(timelineData[timelineData.length - 1].safCumulative, ` ${t('units.million')}`)}</div>
+                  <div className="text-2xl font-bold text-wine-burgundy">
+                    {formatCurrency(timelineData[timelineData.length - 1].safCumulative, ' M')}
+                  </div>
                   <div className="text-sm text-wine-charcoal/70">{t('cost.benefit.over.six.years')}</div>
                 </div>
                 
                 <div className="bg-wine-cream/20 p-4 rounded-lg">
                   <h5 className="font-semibold text-wine-charcoal mb-2">{t('cost.benefit.annual.growth')}</h5>
-                  <div className="text-2xl font-bold text-wine-gold">{t('common.plus')}15{t('units.percent')}</div>
+                  <div className="text-2xl font-bold text-wine-gold">+15 %</div>
                   <div className="text-sm text-wine-charcoal/70">{t('cost.benefit.average.2025.2029')}</div>
                 </div>
               </div>
             </div>
           )}
 
+          {/* ========================================
+              BREAKDOWN VIEW
+              ======================================== */}
           {viewType === 'breakdown' && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Cost Breakdown Pie Chart */}
               <div className="space-y-4">
                 <h4 className="font-semibold text-wine-charcoal mb-4">{t('cost.benefit.saf.cost.breakdown')}</h4>
                 <div className="h-64">
@@ -395,7 +449,7 @@ const CostBenefitAnalysis = () => {
                         ))}
                       </Pie>
                       <Tooltip 
-                        formatter={(value, name) => [`${Number(value).toFixed(1)}${t('units.percent')}`, name]}
+                        formatter={(value, name) => [`${Number(value).toFixed(1)} %`, name]}
                       />
                     </PieChart>
                   </ResponsiveContainer>
@@ -407,12 +461,13 @@ const CostBenefitAnalysis = () => {
                         className="w-4 h-4 rounded" 
                         style={{ backgroundColor: COLORS[index % COLORS.length] }}
                       ></div>
-                      <span className="text-sm text-wine-charcoal">{entry.name}: {entry.value.toFixed(1)}{t('units.percent')}</span>
+                      <span className="text-sm text-wine-charcoal">{entry.name}: {entry.value.toFixed(1)} %</span>
                     </div>
                   ))}
                 </div>
               </div>
 
+              {/* Regional Economic Impact */}
               <div className="space-y-4">
                 <h4 className="font-semibold text-wine-charcoal">{t('cost.benefit.regional.economic.impact')}</h4>
                 <div className="space-y-3">
@@ -439,7 +494,9 @@ const CostBenefitAnalysis = () => {
                   <div className="bg-gradient-subtle p-3 rounded-lg">
                     <div className="flex justify-between items-center mb-1">
                       <span className="font-medium text-wine-charcoal">{t('cost.benefit.local.taxes')}</span>
-                      <span className="font-bold text-wine-burgundy">{formatCurrency((safRevenue * 0.04).toFixed(1), ` ${t('units.million')}`)}/${t('common.year')}</span>
+                      <span className="font-bold text-wine-burgundy">
+                        {formatCurrency((safRevenue * 0.04).toFixed(1), ' M')}/{t('common.year')}
+                      </span>
                     </div>
                     <div className="text-sm text-wine-charcoal/70">{t('cost.benefit.municipal.revenue')}</div>
                   </div>
@@ -447,7 +504,9 @@ const CostBenefitAnalysis = () => {
                   <div className="bg-gradient-subtle p-3 rounded-lg">
                     <div className="flex justify-between items-center mb-1">
                       <span className="font-medium text-wine-charcoal">{t('cost.benefit.local.purchases')}</span>
-                      <span className="font-bold text-wine-burgundy">{formatCurrency((safRevenue * 0.13).toFixed(1), ` ${t('units.million')}`)}/${t('common.year')}</span>
+                      <span className="font-bold text-wine-burgundy">
+                        {formatCurrency((safRevenue * 0.13).toFixed(1), ' M')}/{t('common.year')}
+                      </span>
                     </div>
                     <div className="text-sm text-wine-charcoal/70">{t('cost.benefit.circular.economy')}</div>
                   </div>
@@ -456,6 +515,7 @@ const CostBenefitAnalysis = () => {
             </div>
           )}
 
+          {/* Regional Context Note */}
           <div className="bg-wine-cream/10 p-4 rounded-lg border border-wine-burgundy/10 mt-6">
             <p className="text-sm text-wine-charcoal/80">
               <strong>{getRegionDisplayName()} {t('cost.benefit.context')}:</strong> {
