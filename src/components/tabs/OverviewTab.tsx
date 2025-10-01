@@ -2,12 +2,10 @@ import TopCommunes from "../TopCommunes";
 import ValoorizationChart from "../ValoorizationChart";
 import { useRegion } from "@/contexts/RegionContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { ChevronUp } from "lucide-react";
-import { useEffect, useState } from "react";
 
 const OverviewTab = () => {
   const { currentData, debugMode, validateData } = useRegion();
-  const { t, debugMode: langDebugMode, language } = useLanguage();
+  const { t, debugMode: langDebugMode } = useLanguage();
   
   const availableBiomass = currentData.wasteAllocation.available;
   const negotiableBiomass = currentData.wasteAllocation.negotiable;
@@ -23,38 +21,13 @@ const OverviewTab = () => {
   
   const debugErrors = debugMode || langDebugMode ? validateData() : [];
   
-  const lastUpdated = "31 décembre 2024";
-  
-  // Scroll to top functionality
-  const [showScrollTop, setShowScrollTop] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 400);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  // UPDATE THIS DATE WHEN YOU MAKE CHANGES
+  const lastUpdated = "30 séptembre 2025";
   
   return (
     <div className="min-h-screen w-full">
-      {/* Scroll to Top Button */}
-      {showScrollTop && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-8 right-8 bg-wine-burgundy hover:bg-wine-burgundy/90 text-white p-3 rounded-full shadow-elegant z-50 transition-all duration-300 hover:scale-110"
-          aria-label="Scroll to top"
-        >
-          <ChevronUp className="h-6 w-6" />
-        </button>
-      )}
-
-      {/* LAST UPDATED BANNER */}
-      <section className="mb-6">
+      {/* LAST UPDATED BANNER - Top of page */}
+      <section className="mb-8">
         <div className="text-center">
           <div className="inline-flex items-center bg-wine-cream/30 backdrop-blur-sm rounded-full px-6 py-2 border border-wine-cream/50">
             <span className="text-sm font-medium text-wine-charcoal">
@@ -99,45 +72,23 @@ const OverviewTab = () => {
           </p>
           
           {/* Value Proposition Banner */}
-          <div className="max-w-4xl mx-auto mb-6">
-            <div className="bg-gradient-to-r from-wine-burgundy/10 to-wine-gold/10 border border-wine-gold/30 rounded-xl p-6">
+          <div className="max-w-4xl mx-auto mb-8">
+            <div className="bg-gradient-to-r from-wine-burgundy/10 to-wine-gold/10 border border-wine-gold/30 rounded-xl p-8">
               <div className="text-center mb-4">
                 <h2 className="text-2xl lg:text-3xl font-bold text-wine-charcoal mb-3">
                   {t('overview.hero.title')}
                 </h2>
-                <div className="text-lg text-wine-charcoal/80 space-y-2">
+                <div className="text-xl text-wine-charcoal/80 space-y-2">
                   <div>
                     <span className="font-semibold">{(currentData.annualPomace / 1000).toFixed(0)}k t</span> {t('overview.hero.regional.waste')} → 
                     <span className="font-semibold text-wine-green ml-2">{(availableBiomass / 1000).toFixed(0)}k t</span> {t('overview.hero.available')} → 
-                    <span className="font-semibold text-wine-burgundy ml-2">{realisticSafProduction.toFixed(1)}M L {language === 'fr' ? 'CAD' : 'SAF'}</span>
+                    <span className="font-semibold text-wine-burgundy ml-2">{realisticSafProduction.toFixed(1)}M L {t('overview.saf.acronym')}</span>
                   </div>
                 </div>
               </div>
-              <div className="text-center mb-4">
+              <div className="text-center">
                 <div className="inline-flex items-center bg-white/50 rounded-full px-6 py-3">
-                  <span className="text-2xl font-bold text-wine-gold">€{realisticRevenue}M/an</span>
-                </div>
-              </div>
-              
-              {/* Stratégie Biomasse */}
-              <div className="bg-white/50 rounded-lg p-4">
-                <h3 className="text-lg font-bold text-wine-charcoal mb-3 text-center">{t('overview.biomass.strategy')}</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
-                  <div className="text-center p-3 bg-gradient-subtle rounded-lg">
-                    <div className="font-bold text-wine-green mb-1">{t('overview.biomass.conservative')}</div>
-                    <div className="text-wine-charcoal/70">30% {t('overview.biomass.available')} ({(availableBiomass / 1000).toFixed(0)} kt)</div>
-                    <div className="text-xs text-wine-charcoal/50 mt-1">{t('overview.biomass.elimination.flow')}</div>
-                  </div>
-                  <div className="text-center p-3 bg-gradient-subtle rounded-lg">
-                    <div className="font-bold text-wine-gold mb-1">{t('overview.biomass.negotiable')}</div>
-                    <div className="text-wine-charcoal/70">+25% ({(negotiableBiomass / 1000).toFixed(0)} kt)</div>
-                    <div className="text-xs text-wine-charcoal/50 mt-1">{t('overview.biomass.surplus')}</div>
-                  </div>
-                  <div className="text-center p-3 bg-gradient-subtle rounded-lg">
-                    <div className="font-bold text-wine-burgundy mb-1">{t('overview.biomass.total.accessible')}</div>
-                    <div className="text-wine-charcoal/70">{t('overview.biomass.up.to')} 55% ({((availableBiomass + negotiableBiomass) / 1000).toFixed(0)} kt)</div>
-                    <div className="text-xs text-wine-charcoal/50 mt-1">{t('overview.biomass.with.partnerships')}</div>
-                  </div>
+                  <span className="text-2xl font-bold text-wine-gold mr-3">€{realisticRevenue}M/an</span>
                 </div>
               </div>
             </div>
@@ -157,6 +108,7 @@ const OverviewTab = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
+            {/* 1. Superficie viticole */}
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-burgundy mb-3">
                 {(currentData.vineyardSurface / 1000).toFixed(0)} k
@@ -166,6 +118,7 @@ const OverviewTab = () => {
               <div className="text-xs text-wine-charcoal/50 mt-1">{t('base.regionale')}</div>
             </div>
             
+            {/* 2. Production annuelle */}
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-gold mb-3">
                 {(currentData.annualPomace / 1000).toFixed(0)} k
@@ -175,6 +128,7 @@ const OverviewTab = () => {
               <div className="text-xs text-wine-charcoal/50 mt-1">{t('matiere.premiere.totale')}</div>
             </div>
             
+            {/* 3. Allocation Flux */}
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-green mb-3">
                 {(availableBiomass / 1000).toFixed(0)} k
@@ -184,6 +138,7 @@ const OverviewTab = () => {
               <div className="text-xs text-wine-charcoal/50 mt-1">30% {t('disponible.saf')}</div>
             </div>
             
+            {/* 4. Potentiel SAF */}
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
               <div className="text-4xl font-bold text-wine-burgundy mb-3">
                 {realisticSafProduction.toFixed(1)} M
@@ -195,6 +150,7 @@ const OverviewTab = () => {
               </div>
             </div>
             
+            {/* 5. Revenue Potential */}
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300 group relative">
               <div className="text-4xl font-bold text-wine-gold mb-3">
                 €{realisticRevenue.toFixed(1)}M
@@ -208,6 +164,7 @@ const OverviewTab = () => {
               </div>
             </div>
             
+            {/* 6. Réduction CO₂ */}
             <div className="text-center p-8 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300 group relative">
               <div className="text-4xl font-bold text-wine-green mb-3">
                 {(realisticCO2Reduction / 1000).toFixed(1)} k {t('tonnes')}
@@ -227,6 +184,7 @@ const OverviewTab = () => {
         </div>
       </section>
 
+      {/* Divider */}
       <div className="border-t border-wine-cream/30 mb-8"></div>
 
       {/* Market Validation Section */}
@@ -257,19 +215,19 @@ const OverviewTab = () => {
             </div>
             
             <div className="bg-gradient-subtle rounded-xl p-6 border border-wine-burgundy/10">
-              <h3 className="text-xl font-bold text-wine-burgundy mb-3 text-center">{t('overview.market.opportunity')}</h3>
+              <h3 className="text-xl font-bold text-wine-burgundy mb-4 text-center">{t('overview.market.opportunity')}</h3>
               <div className="space-y-3 text-sm text-wine-charcoal/70">
                 <div className="text-center p-3 bg-white/50 rounded-lg">
                   <div className="text-2xl font-bold text-wine-burgundy">500 Mt</div>
-                  <div className="text-xs">{t('overview.market.demand.2050')}</div>
+                  <div className="text-xs mt-1">{t('overview.market.demand.2050')}</div>
                 </div>
                 <div className="text-center p-3 bg-white/50 rounded-lg">
                   <div className="text-2xl font-bold text-wine-gold">400 Mt</div>
-                  <div className="text-xs">{t('overview.market.forecast.production')}</div>
+                  <div className="text-xs mt-1">{t('overview.market.forecast.production')}</div>
                 </div>
                 <div className="text-center p-3 bg-wine-green/10 rounded-lg">
                   <div className="text-2xl font-bold text-wine-green">100 Mt</div>
-                  <div className="text-xs">{t('overview.market.deficit')}</div>
+                  <div className="text-xs mt-1">{t('overview.market.deficit')}</div>
                 </div>
               </div>
             </div>
@@ -277,6 +235,7 @@ const OverviewTab = () => {
         </div>
       </section>
 
+      {/* Divider */}
       <div className="border-t border-wine-cream/30 mb-8"></div>
       
       {/* Regional Implementation Section */}
@@ -291,9 +250,9 @@ const OverviewTab = () => {
         </div>
         
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-          <div className="space-y-8">
-            <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-elegant border border-wine-cream/30">
-              <h3 className="text-xl font-bold text-wine-charcoal mb-6 text-center">
+          <div className="space-y-6">
+            <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-elegant border border-wine-cream/30 hover:shadow-wine transition-all duration-500">
+              <h3 className="text-xl font-bold text-wine-charcoal mb-6 text-center text-shadow">
                 {t('communes.title')}
               </h3>
               <div className="space-y-4">
@@ -328,13 +287,13 @@ const OverviewTab = () => {
               </div>
             </div>
             
-            {/* Competitive Advantages */}
+            {/* Regional Context (Moved under communes) */}
             <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-elegant border border-wine-cream/30">
               <h3 className="text-xl font-bold text-wine-charcoal mb-6 text-center">
                 {t('overview.competitive.advantages')}
               </h3>
               <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-4 bg-gradient-subtle rounded-xl border border-wine-burgundy/10">
+                <div className="text-center p-4 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
                   <div className="text-3xl font-bold text-wine-burgundy mb-2">
                     {currentData.ranking}
                   </div>
@@ -346,18 +305,17 @@ const OverviewTab = () => {
                   </div>
                 </div>
                 
-                <div className="text-center p-4 bg-gradient-subtle rounded-xl border border-wine-gold/10">
+                <div className="text-center p-4 bg-gradient-subtle rounded-xl border border-wine-gold/10 hover:scale-105 transition-all duration-300">
                   <div className="text-3xl font-bold text-wine-gold mb-2">
                     {currentData.nationalProductionShare}%
                   </div>
                   <div className="text-sm font-semibold text-wine-charcoal mb-1">{t('production.nationale')}</div>
                   <div className="text-xs text-wine-charcoal/60">
-                    {currentData.hectolitres}
-                    {currentData.id === 'champagne' && ` (${t('segment.premium')})`}
+                    {(currentData.hectolitres / 1000000).toFixed(1)}M {t('hectolitres')}
                   </div>
                 </div>
                 
-                <div className="text-center p-4 bg-gradient-subtle rounded-xl border border-wine-green/10">
+                <div className="text-center p-4 bg-gradient-subtle rounded-xl border border-wine-green/10 hover:scale-105 transition-all duration-300">
                   <div className="text-3xl font-bold text-wine-green mb-2">
                     €{currentData.wineIndustryRevenue}B
                   </div>
@@ -365,23 +323,24 @@ const OverviewTab = () => {
                   <div className="text-xs text-wine-charcoal/60">{t('secteur.vitivinicole')}</div>
                 </div>
                 
-                <div className="text-center p-4 bg-gradient-subtle rounded-xl border border-wine-burgundy/10">
+                <div className="text-center p-4 bg-gradient-subtle rounded-xl border border-wine-burgundy/10 hover:scale-105 transition-all duration-300">
                   <div className="text-3xl font-bold text-wine-burgundy mb-2">
                     {totalInstallations}
                   </div>
-                  <div className="text-sm font-semibold text-wine-charcoal mb-1">{t('overview.total.facilities')}</div>
-                  <div className="text-xs text-wine-charcoal/60">{t('overview.existing.capacity')}</div>
+                  <div className="text-sm font-semibold text-wine-charcoal mb-1">{t('total.facilities')}</div>
+                  <div className="text-xs text-wine-charcoal/60">{t('existing.capacity')}</div>
                 </div>
               </div>
             </div>
           </div>
           
-          <div className="space-y-4">
+          <div className="space-y-6">
             <ValoorizationChart />
           </div>
         </div>
       </section>
 
+      {/* Divider */}
       <div className="border-t border-wine-cream/30 mb-8"></div>
 
       {/* Industry Momentum Section */}
@@ -439,19 +398,19 @@ const OverviewTab = () => {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="bg-white/50 rounded-lg p-4 text-center">
                 <div className="text-2xl font-bold text-wine-burgundy">2%</div>
-                <div className="text-sm">{language === 'fr' ? 'CAD' : 'SAF'} {t('overview.saf.minimum.2025')}</div>
+                <div className="text-sm mt-1">{t('overview.saf.minimum.2025')}</div>
               </div>
               <div className="bg-white/50 rounded-lg p-4 text-center">
                 <div className="text-2xl font-bold text-wine-gold">€4B</div>
-                <div className="text-sm">{t('overview.france.2030')}</div>
+                <div className="text-sm mt-1">{t('overview.france.2030')}</div>
               </div>
               <div className="bg-white/50 rounded-lg p-4 text-center">
                 <div className="text-2xl font-bold text-wine-green">€210B</div>
-                <div className="text-sm">{t('overview.eu.repowereu')}</div>
+                <div className="text-sm mt-1">{t('overview.eu.repowereu')}</div>
               </div>
               <div className="bg-white/50 rounded-lg p-4 text-center">
                 <div className="text-2xl font-bold text-wine-charcoal">2050</div>
-                <div className="text-sm">{t('overview.carbon.neutrality')}</div>
+                <div className="text-sm mt-1">{t('overview.carbon.neutrality')}</div>
               </div>
             </div>
           </div>
