@@ -339,9 +339,6 @@ const EconomyTab = () => {
           <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
             {t('economy.analysis.modules')}
           </h2>
-          <p className="text-lg text-wine-charcoal/70">
-            {t('economy.financial.modeling')}
-          </p>
         </div>
 
         <Tabs defaultValue="roi" className="w-full">
@@ -375,28 +372,44 @@ const EconomyTab = () => {
               </h4>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-burgundy/10 hover:shadow-lg transition-shadow">
+                <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-burgundy/10 hover:shadow-lg transition-shadow group relative">
                   <div className="text-3xl font-bold text-wine-burgundy mb-3">€{scaledEquity}M</div>
                   <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.equity.funding')}</div>
                   <div className="text-sm text-wine-charcoal/60">{t('economy.equity.percentage')}</div>
+                  
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-wine-charcoal text-white p-3 rounded-lg shadow-lg text-xs whitespace-nowrap z-10">
+                    {t('economy.equity.tooltip') || `35% × €${scaledInvestment}M investissement total`}
+                  </div>
                 </div>
                 
-                <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-gold/10 hover:shadow-lg transition-shadow">
+                <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-gold/10 hover:shadow-lg transition-shadow group relative">
                   <div className="text-3xl font-bold text-wine-gold mb-3">€{scaledDebt}M</div>
                   <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.bank.debt')}</div>
                   <div className="text-sm text-wine-charcoal/60">{t('economy.interest.rate')}</div>
+                  
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-wine-charcoal text-white p-3 rounded-lg shadow-lg text-xs whitespace-nowrap z-10">
+                    {t('economy.debt.tooltip') || `50% × €${scaledInvestment}M investissement total (4.5% taux)`}
+                  </div>
                 </div>
                 
-                <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-green/10 hover:shadow-lg transition-shadow">
+                <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-green/10 hover:shadow-lg transition-shadow group relative">
                   <div className="text-3xl font-bold text-wine-green mb-3">€{scaledSubsidies}M</div>
                   <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.subsidies')}</div>
                   <div className="text-sm text-wine-charcoal/60">{t('economy.eu.france.funding')}</div>
+                  
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-wine-charcoal text-white p-3 rounded-lg shadow-lg text-xs whitespace-nowrap z-10">
+                    {t('economy.subsidies.tooltip') || `15% × €${scaledInvestment}M (France 2030 + UE RePowerEU)`}
+                  </div>
                 </div>
                 
-                <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-charcoal/10 hover:shadow-lg transition-shadow">
+                <div className="text-center p-6 bg-white/70 rounded-xl border border-wine-charcoal/10 hover:shadow-lg transition-shadow group relative">
                   <div className="text-3xl font-bold text-wine-charcoal mb-3">€{scaledInvestment}M</div>
                   <div className="text-lg font-semibold text-wine-charcoal mb-2">{t('economy.total.investment')}</div>
                   <div className="text-sm text-wine-charcoal/60">{t('economy.capacity.description', { capacity: (availableBiomass / 1000).toFixed(0) })}</div>
+                  
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-wine-charcoal text-white p-3 rounded-lg shadow-lg text-xs whitespace-nowrap z-10">
+                    {t('economy.investment.tooltip') || `Échelle: (${(availableBiomass / 1000).toFixed(0)}kt ÷ 80kt) × €150M base`}
+                  </div>
                 </div>
               </div>
               
