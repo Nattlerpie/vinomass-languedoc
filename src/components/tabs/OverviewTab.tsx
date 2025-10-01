@@ -22,7 +22,7 @@ const OverviewTab = () => {
   const debugErrors = debugMode || langDebugMode ? validateData() : [];
   
   // UPDATE THIS DATE WHEN YOU MAKE CHANGES
-  const lastUpdated = "30 séptembre 2025";
+  const lastUpdated = "01 Octobre 2025";
   
   return (
     <div className="min-h-screen w-full">
@@ -67,10 +67,7 @@ const OverviewTab = () => {
           <h1 className="text-4xl lg:text-5xl font-bold text-wine-charcoal mb-4">
             {t('header.title', { region: currentData.displayName })}
           </h1>
-          <p className="text-xl text-wine-charcoal/70 max-w-3xl mx-auto mb-6">
-            {t('header.subtitle')}
-          </p>
-          
+                   
           {/* Value Proposition Banner */}
           <div className="max-w-4xl mx-auto mb-8">
             <div className="bg-gradient-to-r from-wine-burgundy/10 to-wine-gold/10 border border-wine-gold/30 rounded-xl p-8">
