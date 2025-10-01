@@ -4,7 +4,7 @@ import OverviewTab from "./tabs/OverviewTab";
 import ResourcesTab from "./tabs/ResourcesTab";
 import EconomyTab from "./tabs/EconomyTab";
 import PartnershipsTab from "./tabs/PartnershipsTab";
-import ImplementationSupport from "@/components/tabs/ImplementationSupport";
+import ImplementationSupport from "./tabs/ImplementationSupport";
 import DataTab from "./tabs/DataTab";
 import ContactIntegration from "./ContactIntegration";
 import ProfessionalFooter from "./ProfessionalFooter";
@@ -75,7 +75,6 @@ const Dashboard = () => {
       </Tabs>
       
       <ProfessionalFooter />
-      <GuidedTour isOpen={showTour} onClose={() => setShowTour(false)} activeTab={activeTab} onTabChange={setActiveTab} />
       <ScrollToTop />
     </div>
   );
