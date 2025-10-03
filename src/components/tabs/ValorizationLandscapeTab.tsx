@@ -356,7 +356,7 @@ const ValorizationLandscapeTab = () => {
               <div className="bg-red-50 rounded-lg p-4 border border-red-200">
                 <p className="text-sm text-wine-charcoal">
                   <strong>Leçons critiques:</strong> Défis techniques majeurs (corrosion acide nitrique, 
-                  problèmes gasification), coûts >$200M construction, production très limitée avant fermeture.
+                  problèmes gasification), coûts &gt;$200M construction, production très limitée avant fermeture.
                   Importance validation technologique avant échelle commerciale.
                 </p>
               </div>
@@ -376,7 +376,7 @@ const ValorizationLandscapeTab = () => {
               <div className="bg-white/50 rounded-lg p-4">
                 <p className="text-sm text-wine-charcoal/70">
                   <strong>Cepsa, Repsol:</strong> Développement SAF à partir d'huile de cuisson usagée et 
-                  déchets agricoles (olive pomace). IAG: achat >28,000 tonnes SAF (plus grand contrat espagnol).
+                  déchets agricoles (olive pomace). IAG: achat &gt;28,000 tonnes SAF (plus grand contrat espagnol).
                   [DÉTAILS PROJETS OLIVE POMACE À RECHERCHER]
                 </p>
               </div>
@@ -772,7 +772,7 @@ const ValorizationLandscapeTab = () => {
               </h3>
               <p className="text-lg mb-6">
                 Ne rien faire = accepter dépendance fossiles, manquer objectifs climat, perdre 
-                opportunités économiques, céder leadership innovation. Coût inaction > coût action.
+                opportunités économiques, céder leadership innovation. Coût inaction &gt; coût action.
               </p>
               <div className="text-3xl font-bold">
                 Il n'y a pas d'alternative à réussir.
