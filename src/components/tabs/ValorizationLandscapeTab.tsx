@@ -6,6 +6,13 @@ const ValorizationLandscapeTab = () => {
 
   return (
     <div className="min-h-screen w-full">
+      {/* DEBUG BANNER - Remove once tab is fully populated */}
+      <div className="bg-yellow-100 border-2 border-yellow-500 p-4 mb-8 rounded-lg">
+        <p className="text-yellow-800 font-bold text-center">
+          🔧 DEBUG: Valorization Landscape Tab is RENDERING ✅ | Region: {currentData.name} | Placeholders marked with [RECHERCHE NÉCESSAIRE] or [XX]
+        </p>
+      </div>
+
       {/* Hero Section */}
       <section className="mb-16">
         <div className="text-center mb-12">
@@ -77,7 +84,7 @@ const ValorizationLandscapeTab = () => {
                   <p><strong>Volume annuel:</strong> [RECHERCHE NÉCESSAIRE]</p>
                   <p><strong>Valorisation actuelle:</strong> Compostage, épandage</p>
                   <p><strong>Potentiel:</strong> Cellulose → bioéthanol</p>
-                  <p><strong>Taux d'utilisation:</strong> <20% valorisé</p>
+                  <p><strong>Taux d'utilisation:</strong> &lt;20% valorisé</p>
                 </div>
               </div>
 
@@ -93,7 +100,7 @@ const ValorizationLandscapeTab = () => {
                   <p><strong>Volume annuel:</strong> 2-4 tonnes/hectare</p>
                   <p><strong>Valorisation actuelle:</strong> Brûlage, compostage</p>
                   <p><strong>Potentiel:</strong> Bioéthanol lignocellulosique</p>
-                  <p><strong>Taux d'utilisation:</strong> <10% valorisé</p>
+                  <p><strong>Taux d'utilisation:</strong> &lt;10% valorisé</p>
                 </div>
               </div>
 
