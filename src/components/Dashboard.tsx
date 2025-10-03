@@ -5,7 +5,8 @@ import ResourcesTab from "./tabs/ResourcesTab";
 import EconomyTab from "./tabs/EconomyTab";
 import PartnershipsTab from "./tabs/PartnershipsTab";
 import ImplementationSupport from "./tabs/ImplementationSupport";
-import DataTab from "./tabs/DataTab";
+import ValorizationLandscapeTab from "./tabs/ValorizationLandscapeTab";
+import AppendixTab from "./tabs/AppendixTab";
 import ContactIntegration from "./ContactIntegration";
 import ProfessionalFooter from "./ProfessionalFooter";
 import ErrorHandling from "./ErrorHandling";
@@ -22,7 +23,7 @@ const Dashboard = () => {
       <DashboardHeader />
       
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-7 bg-white/90 backdrop-blur-sm border border-wine-cream/50 mx-8 mt-8">
+        <TabsList className="grid w-full grid-cols-8 bg-white/90 backdrop-blur-sm border border-wine-cream/50 mx-8 mt-8">
           <TabsTrigger value="executive" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">
             {t('nav.vue.ensemble')}
           </TabsTrigger>
@@ -38,11 +39,14 @@ const Dashboard = () => {
           <TabsTrigger value="implementation" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">
             {t('nav.implementation')}
           </TabsTrigger>
+          <TabsTrigger value="valorization" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">
+            {t('nav.valorization')}
+          </TabsTrigger>
+          <TabsTrigger value="appendix" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">
+            {t('nav.appendix')}
+          </TabsTrigger>
           <TabsTrigger value="contact" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">
             {t('nav.contact')}
-          </TabsTrigger>
-          <TabsTrigger value="data" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">
-            {t('nav.appendix')}
           </TabsTrigger>
         </TabsList>
         
@@ -62,14 +66,17 @@ const Dashboard = () => {
           <TabsContent value="implementation">
             <ImplementationSupport />
           </TabsContent>
+          <TabsContent value="valorization">
+            <ValorizationLandscapeTab />
+          </TabsContent>
+          <TabsContent value="appendix">
+            <AppendixTab />
+          </TabsContent>
           <TabsContent value="contact">
             <div className="space-y-8">
               <ContactIntegration />
               <ErrorHandling />
             </div>
-          </TabsContent>
-          <TabsContent value="data">
-            <DataTab />
           </TabsContent>
         </div>
       </Tabs>
