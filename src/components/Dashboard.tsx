@@ -23,29 +23,29 @@ const Dashboard = () => {
       <DashboardHeader />
       
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-8 bg-white/90 backdrop-blur-sm border border-wine-cream/50 mx-8 mt-8">
-          <TabsTrigger value="executive" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">
+        <TabsList className="grid w-full grid-cols-8 bg-white/90 backdrop-blur-sm border border-wine-cream/50 mx-8 mt-8 gap-1 p-1">
+          <TabsTrigger value="executive" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white px-2 py-2 text-sm whitespace-nowrap">
             {t('nav.vue.ensemble')}
           </TabsTrigger>
-          <TabsTrigger value="resources" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">
+          <TabsTrigger value="resources" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white px-2 py-2 text-sm whitespace-nowrap">
             {t('nav.ressources')}
           </TabsTrigger>
-          <TabsTrigger value="economy" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">
+          <TabsTrigger value="economy" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white px-2 py-2 text-sm whitespace-nowrap">
             {t('nav.economie')}
           </TabsTrigger>
-          <TabsTrigger value="partnerships" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">
+          <TabsTrigger value="partnerships" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white px-2 py-2 text-sm whitespace-nowrap">
             {t('nav.partenaires')}
           </TabsTrigger>
-          <TabsTrigger value="implementation" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">
+          <TabsTrigger value="implementation" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white px-2 py-2 text-sm whitespace-nowrap">
             {t('nav.implementation')}
           </TabsTrigger>
-          <TabsTrigger value="valorization" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">
+          <TabsTrigger value="valorization" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white px-2 py-2 text-sm whitespace-nowrap">
             {t('nav.valorization')}
           </TabsTrigger>
-          <TabsTrigger value="appendix" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">
+          <TabsTrigger value="appendix" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white px-2 py-2 text-sm whitespace-nowrap">
             {t('nav.appendix')}
           </TabsTrigger>
-          <TabsTrigger value="contact" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white">
+          <TabsTrigger value="contact" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white px-2 py-2 text-sm whitespace-nowrap">
             {t('nav.contact')}
           </TabsTrigger>
         </TabsList>
