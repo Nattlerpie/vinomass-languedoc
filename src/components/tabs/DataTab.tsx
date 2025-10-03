@@ -62,108 +62,12 @@ const AppendixTab = () => {
         </div>
       </section>
 
-      {/* II. Economic Modeling */}
+      {/* II. Regulatory Compliance */}
       <section className="mb-16">
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              II. Modélisation Économique
-            </h2>
-            <p className="text-lg text-wine-charcoal/70">
-              Hypothèses, analyse de sensibilité et benchmarking concurrentiel
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12 mb-8">
-            {/* Economic Assumptions */}
-            <div className="space-y-6">
-              <h4 className="text-2xl font-bold text-wine-gold mb-6">Hypothèses Économiques</h4>
-              <div className="space-y-4">
-                <div className="p-4 bg-gradient-subtle rounded-xl border border-wine-gold/20">
-                  <div className="flex justify-between items-center">
-                    <span className="font-bold text-wine-charcoal">Prix SAF (€/L):</span>
-                    <span className="text-wine-gold font-bold">€1.45</span>
-                  </div>
-                  <div className="text-sm text-wine-charcoal/60 mt-1">Marché européen 2024-2025 (conservative)</div>
-                </div>
-                <div className="p-4 bg-gradient-subtle rounded-xl border border-wine-gold/20">
-                  <div className="flex justify-between items-center">
-                    <span className="font-bold text-wine-charcoal">Coût collecte (€/tonne):</span>
-                    <span className="text-wine-gold font-bold">€30-50</span>
-                  </div>
-                  <div className="text-sm text-wine-charcoal/60 mt-1">Transport et manutention</div>
-                </div>
-                <div className="p-4 bg-gradient-subtle rounded-xl border border-wine-gold/20">
-                  <div className="flex justify-between items-center">
-                    <span className="font-bold text-wine-charcoal">Rendement SAF:</span>
-                    <span className="text-wine-gold font-bold">280L/tonne</span>
-                  </div>
-                  <div className="text-sm text-wine-charcoal/60 mt-1">Marc de raisin frais (IFV 2020)</div>
-                </div>
-                <div className="p-4 bg-gradient-subtle rounded-xl border border-wine-gold/20">
-                  <div className="flex justify-between items-center">
-                    <span className="font-bold text-wine-charcoal">Sélectivité ATJ:</span>
-                    <span className="text-wine-gold font-bold">60-70%</span>
-                  </div>
-                  <div className="text-sm text-wine-charcoal/60 mt-1">Alcohol-to-jet conversion (ANF 2023)</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Sensitivity Analysis */}
-            <div className="space-y-6">
-              <h4 className="text-2xl font-bold text-wine-burgundy mb-6">Analyse de Sensibilité</h4>
-              <div className="space-y-4">
-                <div className="p-4 bg-gradient-subtle rounded-xl border border-wine-burgundy/20">
-                  <div className="text-lg font-bold text-wine-charcoal mb-2">Prix SAF ±20%</div>
-                  <div className="text-wine-charcoal/70">Impact ROI: +/-35%</div>
-                </div>
-                <div className="p-4 bg-gradient-subtle rounded-xl border border-wine-burgundy/20">
-                  <div className="text-lg font-bold text-wine-charcoal mb-2">Coût collecte ±€10</div>
-                  <div className="text-wine-charcoal/70">Impact ROI: +/-15%</div>
-                </div>
-                <div className="p-4 bg-gradient-subtle rounded-xl border border-wine-burgundy/20">
-                  <div className="text-lg font-bold text-wine-charcoal mb-2">Rendement ±10%</div>
-                  <div className="text-wine-charcoal/70">Impact ROI: +/-12%</div>
-                </div>
-                <div className="p-4 bg-gradient-subtle rounded-xl border border-wine-burgundy/20">
-                  <div className="text-lg font-bold text-wine-charcoal mb-2">Taux collecte ±10%</div>
-                  <div className="text-wine-charcoal/70">Impact volume: +/-10%</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Competitive Benchmarking */}
-          <div className="bg-wine-cream/10 rounded-xl p-6">
-            <h4 className="text-xl font-bold text-wine-charcoal mb-4">Benchmarking Concurrentiel</h4>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="p-4 bg-white/70 rounded-lg text-center">
-                <div className="text-lg font-bold text-wine-burgundy">Biocarburants 1G</div>
-                <div className="text-wine-charcoal/70">€0.85-1.20/L</div>
-                <div className="text-sm text-wine-charcoal/50">Concurrence directe</div>
-              </div>
-              <div className="p-4 bg-white/70 rounded-lg text-center">
-                <div className="text-lg font-bold text-wine-gold">SAF Synthétique</div>
-                <div className="text-wine-charcoal/70">€2.50-4.00/L</div>
-                <div className="text-sm text-wine-charcoal/50">Technologie émergente</div>
-              </div>
-              <div className="p-4 bg-white/70 rounded-lg text-center">
-                <div className="text-lg font-bold text-wine-green">Kérosène Fossile</div>
-                <div className="text-wine-charcoal/70">€0.73/L</div>
-                <div className="text-sm text-wine-charcoal/50">Référence marché 2024</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* III. Regulatory Compliance */}
-      <section className="mb-16">
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              III. Conformité Réglementaire
+              II. Conformité Réglementaire
             </h2>
             <p className="text-lg text-wine-charcoal/70">
               Cadre législatif et normes applicables
@@ -173,105 +77,12 @@ const AppendixTab = () => {
         </div>
       </section>
 
-      {/* IV. Risk Assessment & Mitigation */}
+      {/* III. Key References */}
       <section className="mb-16">
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              IV. Évaluation et Mitigation des Risques
-            </h2>
-            <p className="text-lg text-wine-charcoal/70">
-              Identification des risques et stratégies d'atténuation
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12">
-            {/* Risk Categories */}
-            <div className="space-y-6">
-              <h4 className="text-2xl font-bold text-wine-burgundy mb-6">Catégories de Risques</h4>
-              <div className="space-y-4">
-                <div className="p-6 bg-gradient-subtle rounded-xl border-l-4 border-red-500">
-                  <div className="text-xl font-bold text-wine-charcoal mb-2">Risques Techniques</div>
-                  <ul className="text-wine-charcoal/70 space-y-1">
-                    <li>• Variabilité qualité matière première</li>
-                    <li>• Défaillances équipements de distillation</li>
-                    <li>• Rendements inférieurs aux prévisions</li>
-                  </ul>
-                </div>
-                <div className="p-6 bg-gradient-subtle rounded-xl border-l-4 border-orange-500">
-                  <div className="text-xl font-bold text-wine-charcoal mb-2">Risques Économiques</div>
-                  <ul className="text-wine-charcoal/70 space-y-1">
-                    <li>• Volatilité prix SAF</li>
-                    <li>• Augmentation coûts énergétiques</li>
-                    <li>• Concurrence accrue biocarburants</li>
-                  </ul>
-                </div>
-                <div className="p-6 bg-gradient-subtle rounded-xl border-l-4 border-yellow-500">
-                  <div className="text-xl font-bold text-wine-charcoal mb-2">Risques Réglementaires</div>
-                  <ul className="text-wine-charcoal/70 space-y-1">
-                    <li>• Évolution mandats SAF</li>
-                    <li>• Nouvelles normes environnementales</li>
-                    <li>• Changements fiscaux sectoriels</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Mitigation Strategies */}
-            <div className="space-y-6">
-              <h4 className="text-2xl font-bold text-wine-green mb-6">Stratégies d'Atténuation</h4>
-              <div className="space-y-4">
-                <div className="p-6 bg-gradient-subtle rounded-xl border border-wine-green/20">
-                  <div className="text-xl font-bold text-wine-charcoal mb-2">Diversification Sources</div>
-                  <div className="text-wine-charcoal/70">Contrats multiples vignerons, zones géographiques diverses</div>
-                </div>
-                <div className="p-6 bg-gradient-subtle rounded-xl border border-wine-green/20">
-                  <div className="text-xl font-bold text-wine-charcoal mb-2">Contrats Long Terme</div>
-                  <div className="text-wine-charcoal/70">Accords pluriannuels compagnies aériennes, prix garantis</div>
-                </div>
-                <div className="p-6 bg-gradient-subtle rounded-xl border border-wine-green/20">
-                  <div className="text-xl font-bold text-wine-charcoal mb-2">Veille Réglementaire</div>
-                  <div className="text-wine-charcoal/70">Monitoring continu évolutions législatives européennes</div>
-                </div>
-                <div className="p-6 bg-gradient-subtle rounded-xl border border-wine-green/20">
-                  <div className="text-xl font-bold text-wine-charcoal mb-2">Assurance Qualité</div>
-                  <div className="text-wine-charcoal/70">Protocoles stricts, certifications ISO, audits réguliers</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Risk Matrix */}
-          <div className="mt-8 bg-wine-cream/10 rounded-xl p-6">
-            <h4 className="text-xl font-bold text-wine-charcoal mb-4 text-center">Matrice de Risques</h4>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="p-4 bg-red-100 rounded-lg text-center">
-                <div className="font-bold text-red-700">Critique</div>
-                <div className="text-sm text-red-600">Volatilité prix SAF</div>
-              </div>
-              <div className="p-4 bg-orange-100 rounded-lg text-center">
-                <div className="font-bold text-orange-700">Élevé</div>
-                <div className="text-sm text-orange-600">Qualité matière première</div>
-              </div>
-              <div className="p-4 bg-yellow-100 rounded-lg text-center">
-                <div className="font-bold text-yellow-700">Modéré</div>
-                <div className="text-sm text-yellow-600">Évolution réglementaire</div>
-              </div>
-              <div className="p-4 bg-green-100 rounded-lg text-center">
-                <div className="font-bold text-green-700">Faible</div>
-                <div className="text-sm text-green-600">Disponibilité matière</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* V. Key References */}
-      <section className="mb-16">
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              V. Références Clés
+              III. Références Clés
             </h2>
             <p className="text-lg text-wine-charcoal/70 mb-6">
               Publications scientifiques et sources principales utilisées
@@ -297,7 +108,7 @@ const AppendixTab = () => {
                     Institut Français de la Vigne et du Vin (IFV), 2020
                   </p>
                   <p className="text-sm text-wine-charcoal/60 italic">
-                    Source primaire: Rendement 280L SAF/tonne, données régionales sur les déchets viticoles
+                    Source primaire: Rendement 280 L SAF/tonne, données régionales sur les déchets viticoles
                   </p>
                 </div>
                 <ExternalLink className="h-5 w-5 text-wine-burgundy flex-shrink-0 ml-4" />
@@ -315,7 +126,7 @@ const AppendixTab = () => {
                     National Academy of Technologies of France, February 2023
                   </p>
                   <p className="text-sm text-wine-charcoal/60 italic">
-                    Validation: Sélectivité ATJ 60-70%, niveaux TRL, efficacité de conversion biomasse-SAF
+                    Validation: Sélectivité ATJ 60-70 %, niveaux TRL, efficacité de conversion biomasse-SAF
                   </p>
                 </div>
                 <ExternalLink className="h-5 w-5 text-wine-gold flex-shrink-0 ml-4" />
@@ -369,7 +180,7 @@ const AppendixTab = () => {
                     Surgenor, C., Green Air News, June 2025
                   </p>
                   <p className="text-sm text-wine-charcoal/60 italic">
-                    Dynamique marché: Production 2M tonnes 2025, prix moyen €1.37/L (hors frais conformité UE)
+                    Dynamique marché: Production 2 M tonnes 2025, prix moyen €1.37/L (hors frais conformité UE)
                   </p>
                 </div>
                 <ExternalLink className="h-5 w-5 text-blue-500 flex-shrink-0 ml-4" />
@@ -387,7 +198,7 @@ const AppendixTab = () => {
                     European Commission, 2018
                   </p>
                   <p className="text-sm text-wine-charcoal/60 italic">
-                    Cadre réglementaire: Réduction GES minimum 65% vs fossile, critères durabilité biomasse
+                    Cadre réglementaire: Réduction GES minimum 65 % vs fossile, critères durabilité biomasse
                   </p>
                 </div>
                 <ExternalLink className="h-5 w-5 text-purple-500 flex-shrink-0 ml-4" />
@@ -404,12 +215,12 @@ const AppendixTab = () => {
         </div>
       </section>
 
-      {/* VI. Data Sources & Validation */}
+      {/* IV. Data Sources & Validation */}
       <section className="mb-16">
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              VI. Sources de Données et Validation
+              IV. Sources de Données et Validation
             </h2>
             <p className="text-lg text-wine-charcoal/70">
               Fiabilité et traçabilité des informations
@@ -489,11 +300,11 @@ const AppendixTab = () => {
                 <div className="space-y-3">
                   <div className="p-4 bg-white/70 rounded-lg">
                     <span className="font-bold text-wine-charcoal">Rendement SAF:</span>
-                    <span className="text-wine-charcoal/70 ml-2">280L/tonne marc (IFV ATLAS 2020)</span>
+                    <span className="text-wine-charcoal/70 ml-2">280 L/tonne marc (IFV ATLAS 2020)</span>
                   </div>
                   <div className="p-4 bg-white/70 rounded-lg">
                     <span className="font-bold text-wine-charcoal">Sélectivité ATJ:</span>
-                    <span className="text-wine-charcoal/70 ml-2">60-70% (ANF 2023, plage validée)</span>
+                    <span className="text-wine-charcoal/70 ml-2">60-70 % (ANF 2023, plage validée)</span>
                   </div>
                   <div className="p-4 bg-white/70 rounded-lg">
                     <span className="font-bold text-wine-charcoal">Prix SAF:</span>
@@ -501,7 +312,7 @@ const AppendixTab = () => {
                   </div>
                   <div className="p-4 bg-white/70 rounded-lg">
                     <span className="font-bold text-wine-charcoal">Collecte:</span>
-                    <span className="text-wine-charcoal/70 ml-2">80% du gisement (€30-50/tonne)</span>
+                    <span className="text-wine-charcoal/70 ml-2">80 % du gisement (€30-50/tonne)</span>
                   </div>
                 </div>
               </div>
@@ -510,12 +321,12 @@ const AppendixTab = () => {
         </div>
       </section>
 
-      {/* VII. Implementation Protocols */}
+      {/* V. Implementation Protocols */}
       <section className="mb-16">
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-elegant border border-wine-cream/30">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-wine-charcoal mb-4">
-              VII. Protocoles de Mise en Œuvre
+              V. Protocoles de Mise en Œuvre
             </h2>
             <p className="text-lg text-wine-charcoal/70">
               Détails opérationnels et procédures d'implémentation
@@ -570,7 +381,7 @@ const AppendixTab = () => {
                 <div className="p-6 bg-gradient-subtle rounded-xl border border-wine-gold/20">
                   <div className="text-xl font-bold text-wine-charcoal mb-2">Collecte Marc</div>
                   <div className="text-wine-charcoal/70">
-                    Protocole standardisé: collecte 24-48h post-pressurage, 
+                    Protocole standardisé: collecte 24-48 h post-pressurage, 
                     contenants certifiés, traçabilité GPS
                   </div>
                 </div>
@@ -604,19 +415,19 @@ const AppendixTab = () => {
             <h4 className="text-xl font-bold text-wine-charcoal mb-4 text-center">Indicateurs Clés de Performance</h4>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="p-4 bg-white/70 rounded-lg text-center">
-                <div className="text-2xl font-bold text-wine-burgundy">95%</div>
+                <div className="text-2xl font-bold text-wine-burgundy">95 %</div>
                 <div className="text-sm text-wine-charcoal/70">Taux collecte</div>
               </div>
               <div className="p-4 bg-white/70 rounded-lg text-center">
-                <div className="text-2xl font-bold text-wine-gold">280L</div>
+                <div className="text-2xl font-bold text-wine-gold">280 L</div>
                 <div className="text-sm text-wine-charcoal/70">Rendement SAF/t</div>
               </div>
               <div className="p-4 bg-white/70 rounded-lg text-center">
-                <div className="text-2xl font-bold text-wine-green">24h</div>
+                <div className="text-2xl font-bold text-wine-green">24 h</div>
                 <div className="text-sm text-wine-charcoal/70">Délai collecte</div>
               </div>
               <div className="p-4 bg-white/70 rounded-lg text-center">
-                <div className="text-2xl font-bold text-wine-charcoal">99.5%</div>
+                <div className="text-2xl font-bold text-wine-charcoal">99.5 %</div>
                 <div className="text-sm text-wine-charcoal/70">Conformité qualité</div>
               </div>
             </div>
@@ -631,7 +442,7 @@ const AppendixTab = () => {
           <div className="space-y-4 text-wine-charcoal/70">
             <div className="p-4 bg-white/50 rounded-lg">
               <strong className="text-wine-charcoal">Nature prospective:</strong> Les projections économiques sont basées sur les conditions 
-              de marché 2024-2025 et peuvent évoluer significativement. Prix SAF baseline €1.45/L avec sensibilité ±20%.
+              de marché 2024-2025 et peuvent évoluer significativement. Prix SAF baseline €1.45/L avec sensibilité ±20 %.
             </div>
             <div className="p-4 bg-white/50 rounded-lg">
               <strong className="text-wine-charcoal">Validation requise:</strong> Toute décision d'investissement doit faire l'objet 
