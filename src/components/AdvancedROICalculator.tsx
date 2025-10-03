@@ -355,7 +355,7 @@ const AdvancedROICalculator = () => {
                     roi > 8 ? 'text-wine-gold' :
                     'text-red-600'
                   }`}>
-                    {roi.toFixed(1)} %
+                    {roi.toFixed(1)}%
                   </div>
                   <div className="text-xs text-wine-charcoal/70">{t('roi.five.year')}</div>
                 </div>
