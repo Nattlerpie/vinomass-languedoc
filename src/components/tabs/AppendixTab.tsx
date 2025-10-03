@@ -89,7 +89,7 @@ const AppendixTab = () => {
             </p>
             <Button 
               className="bg-wine-burgundy hover:bg-wine-burgundy/90 text-white"
-              onClick={() => window.open('/bibliography-complete.pdf', '_blank')}
+              onClick={() => window.open('/circular-economy-wine-aviation-fuel-bibliography.pdf', '_blank')}
             >
               <Download className="mr-2 h-4 w-4" />
               Télécharger Bibliographie Complète (35 sources)
@@ -97,7 +97,25 @@ const AppendixTab = () => {
           </div>
 
           <div className="space-y-6">
-            {/* Reference 1 - IFV ATLAS */}
+            {/* Reference 1 - IFV ATLAS 2017 */}
+            <div className="p-6 bg-gradient-subtle rounded-xl border-l-4 border-wine-burgundy">
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1">
+                  <h4 className="text-lg font-bold text-wine-charcoal mb-2">
+                    ATLAS Projet Biomasse Vitivinicole
+                  </h4>
+                  <p className="text-wine-charcoal/70 mb-2">
+                    Institut Français de la Vigne et du Vin (IFV), 2017
+                  </p>
+                  <p className="text-sm text-wine-charcoal/60 italic">
+                    Supported by FranceAgriMer. Projet initial sur la biomasse vitivinicole et son potentiel de valorisation.
+                  </p>
+                </div>
+                <ExternalLink className="h-5 w-5 text-wine-burgundy flex-shrink-0 ml-4" />
+              </div>
+            </div>
+
+            {/* Reference 2 - IFV ATLAS 2020 */}
             <div className="p-6 bg-gradient-subtle rounded-xl border-l-4 border-wine-burgundy">
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
@@ -115,7 +133,7 @@ const AppendixTab = () => {
               </div>
             </div>
 
-            {/* Reference 2 - ANF SAF Report */}
+            {/* Reference 3 - ANF Decarbonisation */}
             <div className="p-6 bg-gradient-subtle rounded-xl border-l-4 border-wine-gold">
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
@@ -133,73 +151,71 @@ const AppendixTab = () => {
               </div>
             </div>
 
-            {/* Reference 3 - EASA Pricing */}
+            {/* Reference 4 - ADEME Position Paper */}
             <div className="p-6 bg-gradient-subtle rounded-xl border-l-4 border-wine-green">
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
                   <h4 className="text-lg font-bold text-wine-charcoal mb-2">
-                    2024 Aviation Fuels Reference Prices for ReFuelEU Aviation
+                    BIOMASS: A STRATEGIC CHALLENGE FOR THE ECOLOGICAL TRANSITION
                   </h4>
                   <p className="text-wine-charcoal/70 mb-2">
-                    European Union Aviation Safety Agency (EASA), 2024
+                    ADEME Position Paper, n.d.
                   </p>
                   <p className="text-sm text-wine-charcoal/60 italic">
-                    Validation marché: Prix moyen biocarburants aviation €1.67/L (€2,085/tonne)
+                    Cadre stratégique français: rôle de la biomasse dans la transition écologique et énergétique
                   </p>
                 </div>
                 <ExternalLink className="h-5 w-5 text-wine-green flex-shrink-0 ml-4" />
               </div>
             </div>
 
-            {/* Reference 4 - RMI WTP Study */}
-            <div className="p-6 bg-gradient-subtle rounded-xl border-l-4 border-wine-charcoal">
-              <div className="flex items-start justify-between mb-3">
-                <div className="flex-1">
-                  <h4 className="text-lg font-bold text-wine-charcoal mb-2">
-                    Unraveling Willingness to Pay for Sustainable Aviation Fuel
-                  </h4>
-                  <p className="text-wine-charcoal/70 mb-2">
-                    Azarova, V., Singh, H., & Shams, A., RMI, September 2024
-                  </p>
-                  <p className="text-sm text-wine-charcoal/60 italic">
-                    Validation demande: Compagnies aériennes prêtes à payer $6/gallon (~€1.47/L), préférence déchets
-                  </p>
-                </div>
-                <ExternalLink className="h-5 w-5 text-wine-charcoal flex-shrink-0 ml-4" />
-              </div>
-            </div>
-
-            {/* Reference 5 - IATA Market Report */}
+            {/* Reference 5 - Abbate Wine Waste */}
             <div className="p-6 bg-gradient-subtle rounded-xl border-l-4 border-blue-500">
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
                   <h4 className="text-lg font-bold text-wine-charcoal mb-2">
-                    IATA chief hits out at "profiteering" fuel suppliers as SAF production expected to double in 2025
+                    Wine waste valorisation: crushing the research domain
                   </h4>
                   <p className="text-wine-charcoal/70 mb-2">
-                    Surgenor, C., Green Air News, June 2025
+                    Abbate, S., Centobelli, P., & Di Gregorio, M. (2024). Review of Managerial Science, 19, 963–998.
                   </p>
                   <p className="text-sm text-wine-charcoal/60 italic">
-                    Dynamique marché: Production 2 M tonnes 2025, prix moyen €1.37/L (hors frais conformité UE)
+                    Revue systématique: état de l'art sur la valorisation des déchets vinicoles et économie circulaire
                   </p>
+                  <a 
+                    href="https://doi.org/10.1007/s11846-024-00779-5" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-xs text-wine-burgundy hover:underline mt-1 inline-block"
+                  >
+                    https://doi.org/10.1007/s11846-024-00779-5
+                  </a>
                 </div>
                 <ExternalLink className="h-5 w-5 text-blue-500 flex-shrink-0 ml-4" />
               </div>
             </div>
 
-            {/* Reference 6 - RED II Directive */}
+            {/* Reference 6 - Zacharof Biorefinery */}
             <div className="p-6 bg-gradient-subtle rounded-xl border-l-4 border-purple-500">
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
                   <h4 className="text-lg font-bold text-wine-charcoal mb-2">
-                    Renewable Energy Directive (RED II) 2018/2001
+                    Grape Winery Waste as Feedstock for Bioconversions: Applying the Biorefinery Concept
                   </h4>
                   <p className="text-wine-charcoal/70 mb-2">
-                    European Commission, 2018
+                    Zacharof, M.-P. (2017). Waste and Biomass Valorization, 8, 1011–1025.
                   </p>
                   <p className="text-sm text-wine-charcoal/60 italic">
-                    Cadre réglementaire: Réduction GES minimum 65 % vs fossile, critères durabilité biomasse
+                    Concept de bioraffinerie: conversion des déchets vinicoles en biocarburants et produits chimiques à haute valeur
                   </p>
+                  <a 
+                    href="https://doi.org/10.1007/s12649-016-9674-2" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-xs text-wine-burgundy hover:underline mt-1 inline-block"
+                  >
+                    https://doi.org/10.1007/s12649-016-9674-2
+                  </a>
                 </div>
                 <ExternalLink className="h-5 w-5 text-purple-500 flex-shrink-0 ml-4" />
               </div>
@@ -209,7 +225,7 @@ const AppendixTab = () => {
           <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
             <p className="text-sm text-blue-800">
               <strong>Note méthodologique:</strong> Ces 6 références constituent les sources primaires pour les calculs et projections présentés. 
-              La bibliographie complète inclut 35 sources supplémentaires couvrant aspects techniques, réglementaires et économiques.
+              Des sources supplémentaires sont disponibles dans la bibliographie complète téléchargeable ci-dessus.
             </p>
           </div>
         </div>
