@@ -505,7 +505,7 @@ with financial and technical advisors before making investment decisions.
                     annualRoi > 8 ? 'text-wine-gold' :
                     'text-red-600'
                   }`}>
-                    {annualRoi.toFixed(1)} %
+                    {annualRoi.toFixed(1)} &#37
                   </div>
                   <div className="text-xs text-wine-charcoal/70">{t('roi.annual.return')}</div>
                 </div>
