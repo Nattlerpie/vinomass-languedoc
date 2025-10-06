@@ -69,10 +69,7 @@ const Dashboard = () => {
             <AppendixTab />
           </TabsContent>
           <TabsContent value="contact">
-            <div className="space-y-8">
-              <ContactIntegration />
-              <ErrorHandling />
-            </div>
+            <ContactIntegration />
           </TabsContent>
         </div>
       </Tabs>
