@@ -234,25 +234,36 @@ const ContactIntegration = () => {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <Mail className="h-4 w-4 text-gray-500" />
-                <div>
-                  <div className="font-medium">contact@atlas-biomasse.fr</div>
-                  <div className="text-sm text-gray-500">
-                    {language === 'fr' ? 'Email général' : 'General email'}
-                  </div>
-                </div>
-              </div>
+  <Mail className="h-4 w-4 text-gray-500" />
+  <div>
+    <a 
+      href="mailto:nataliegillespie16@gmail.com"
+      className="font-medium hover:text-wine-burgundy transition-colors"
+    >
+      contact@atlas-biomasse.fr
+    </a>
+    <div className="text-sm text-gray-500">
+      {language === 'fr' ? 'Email général' : 'General email'}
+    </div>
+  </div>
+</div>
               <div className="flex items-center gap-3">
-                <Calendar className="h-4 w-4 text-gray-500" />
-                <div>
-                  <Button variant="outline" className="text-sm">
-                    {language === 'fr' ? 'Prendre RDV' : 'Schedule Meeting'}
-                  </Button>
-                  <div className="text-sm text-gray-500 mt-1">
-                    calendly.com/atlas-biomasse
-                  </div>
-                </div>
-              </div>
+  <Calendar className="h-4 w-4 text-gray-500" />
+  <div>
+    <a 
+      href="https://calendly.com/nataliegillespie16"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Button variant="outline" className="text-sm hover:bg-wine-burgundy hover:text-white transition-colors">
+        {language === 'fr' ? 'Prendre RDV' : 'Schedule Meeting'}
+      </Button>
+    </a>
+    <div className="text-sm text-gray-500 mt-1">
+      calendly.com/atlas-biomasse
+    </div>
+  </div>
+</div>
             </CardContent>
           </Card>
         </div>
