@@ -9,7 +9,7 @@ import ImplementationSupport from "./tabs/ImplementationSupport";
 import AppendixTab from "./tabs/AppendixTab";
 import ContactIntegration from "./ContactIntegration";
 import ProfessionalFooter from "./ProfessionalFooter";
-import ErrorHandling from "./ErrorHandling";
+
 import DashboardHeader from "./DashboardHeader";
 import ScrollToTop from "./ScrollToTop";
 import { useLanguage } from "@/contexts/LanguageContext";
