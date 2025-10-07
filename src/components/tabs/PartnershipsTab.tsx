@@ -148,7 +148,9 @@ const PartnershipsTab = () => {
         "TotalEnergies",
         "Haffner Energy",
         "Elyse Energy",
-        "LanzaJet"
+        "Engie",
+        "EDF",
+        "Verso Energy"
       ],
       color: "wine-gold"
     },
