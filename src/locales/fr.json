@@ -521,6 +521,7 @@
   "partnerships.framework.disclaimer": "Cadre d'analyse basé sur les données sectorielles",
   "timeline.months": "mois",
 
+     "partnerships": {
      "opening.title": "From Viable Economics to Strategic Partnerships",
       "opening.subtitle": "Now that economic viability is demonstrated, let's explore the essential partnerships to make this project a reality",
       "opening.economics": "Favorable Economics",
@@ -645,7 +646,7 @@
       "next.protection": "Respect for existing partnerships",
       "methodology.title": "Methodology",
       "framework.disclaimer": "Analysis framework based on sector data and international best practices in SAF partnerships", 
- 
+     }
   "partenariats.requis": "Types de Partenariats Requis",
   "types.principaux": "Types principaux",
   "partenaires.cibles": "Partenaires Cibles",
