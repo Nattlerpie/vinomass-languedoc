@@ -1126,7 +1126,10 @@
     "projections.metric.partners.label": "Domaines partenaires",
     "projections.metric.roi.value": "12 %",
     "projections.metric.roi.label": "ROI projet",
-    
+    "projections.operating.costs": "Coûts d'exploitation",
+"projections.operating.profit": "Bénéfice d'exploitation",
+"projections.cumulative.cash.flow": "Flux de trésorerie cumulé",
+  
     "roi.parameter.sources": "Sources des Paramètres :",
     "roi.biomass.source": "Basé sur données sectorielles régionales",
     "roi.efficiency.source": "Technologie ATJ certifiée ASTM D7566",
