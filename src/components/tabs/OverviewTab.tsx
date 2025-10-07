@@ -22,7 +22,7 @@ const OverviewTab = () => {
   const debugErrors = debugMode || langDebugMode ? validateData() : [];
   
   // UPDATE THIS DATE WHEN YOU MAKE CHANGES
-  const lastUpdated = "01 Octobre 2025";
+  const lastUpdated = "07 Octobre 2025";
   
   return (
     <div className="min-h-screen w-full">
