@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useRegion } from "@/contexts/RegionContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer, AreaChart, Area, BarChart, Bar } from "recharts";
@@ -46,7 +46,7 @@ interface ScenarioData {
 const EconomicProjections = () => {
   const { currentData, regionId } = useRegion();
   const { t } = useLanguage();
-  const [timeframe, setTimeframe] = useState<5 | 10>(5);
+  const [timeframe, setTimeframe] = useState<5 | 10>(10); // ✅ FIXED: Default to 10 years
   const [activeScenario, setActiveScenario] = useState<string>("realistic");
   const [showMethodology, setShowMethodology] = useState<boolean>(false);
 
@@ -127,7 +127,8 @@ const EconomicProjections = () => {
     { sector: t('projections.construction'), direct: 1.0, indirect: 1.1, total: 2.1 }
   ];
 
-  const generateProjectionData = (): ProjectionData[] => {
+  // ✅ FIXED: Memoize projection data generation
+  const projectionData = useMemo(() => {
     const data: ProjectionData[] = [];
     let cumulativeCashFlow = 0;
 
@@ -183,9 +184,8 @@ const EconomicProjections = () => {
     }
 
     return data;
-  };
+  }, [activeScenario, currentScenario.capitalInvestment, currentScenario.safPrice, currentScenario.operatingCostPerLiter, annualRevenue, annualOperatingCosts, annualDepreciation, annualCO2Savings, regionalData.baseEmployment]);
 
-  const projectionData = generateProjectionData();
   const displayData = projectionData.slice(0, timeframe + 1);
 
   const calculateRegionalImpact = () => {
@@ -206,6 +206,7 @@ const EconomicProjections = () => {
 
   const regionalImpact = calculateRegionalImpact();
 
+  // ✅ FIXED: Payback calculation now uses FULL projection data and has proper fallback
   const calculatePaybackPeriod = (data: ProjectionData[]): number => {
     for (let i = 1; i < data.length; i++) {
       if (data[i].cumulativeCashFlow > 0) {
@@ -215,8 +216,12 @@ const EconomicProjections = () => {
         return (data[i - 1].year - 2024) + yearFraction;
       }
     }
-    return timeframe + 1;
+    // Return years from start to end of data if payback not achieved
+    return data.length > 0 ? data[data.length - 1].year - 2024 + 1 : 10;
   };
+
+  // ✅ FIXED: Calculate payback using FULL projection data, not sliced displayData
+  const paybackPeriod = useMemo(() => calculatePaybackPeriod(projectionData), [projectionData]);
 
   const exportProjections = () => {
     const exportData = {
@@ -233,7 +238,7 @@ const EconomicProjections = () => {
         peakEmployment: Math.max(...displayData.map(d => d.employment)),
         totalCarbonSavings: displayData.reduce((acc, d) => acc + d.carbonSavings, 0),
         totalTaxRevenue: displayData.reduce((acc, d) => acc + d.taxRevenue, 0),
-        paybackPeriod: calculatePaybackPeriod(displayData)
+        paybackPeriod: paybackPeriod
       },
       timestamp: new Date().toISOString()
     };
@@ -312,7 +317,7 @@ CO₂ Avoided:
 
 3. KEY PERFORMANCE INDICATORS
 
-Payback Period: ${calculatePaybackPeriod(displayData).toFixed(1)} years
+Payback Period: ${paybackPeriod.toFixed(1)} years
 ${timeframe}-Year Cumulative Profit: €${displayData[displayData.length - 1]?.cumulativeCashFlow.toFixed(1)} M
 ${timeframe}-Year Total CO₂ Avoided: ${displayData.reduce((acc, d) => acc + d.carbonSavings, 0).toFixed(1)} kt
 Total Tax Revenue: €${displayData.reduce((acc, d) => acc + d.taxRevenue, 0).toFixed(1)} M
@@ -679,15 +684,15 @@ Employment Multipliers: OECD Rural Development studies
                         </div>
 
                         <div className={`p-3 rounded-lg border ${
-                          calculatePaybackPeriod(displayData) <= 6 
+                          paybackPeriod <= 6 
                             ? 'bg-wine-green/10 border-wine-green/20' 
                             : 'bg-wine-gold/10 border-wine-gold/20'
                         }`}>
                           <div className="text-center">
                             <div className={`text-lg font-bold mb-1 ${
-                              calculatePaybackPeriod(displayData) <= 6 ? 'text-wine-green' : 'text-wine-gold'
+                              paybackPeriod <= 6 ? 'text-wine-green' : 'text-wine-gold'
                             }`}>
-                              {calculatePaybackPeriod(displayData).toFixed(1)} {t('projections.years')}
+                              {paybackPeriod.toFixed(1)} {t('projections.years')}
                             </div>
                             <div className="text-sm text-wine-charcoal/70">{t('projections.payback.period')}</div>
                           </div>
