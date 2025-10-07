@@ -1096,6 +1096,9 @@
   "projections.phase.two.decision.one": "Optimal facility location",
   "projections.phase.two.decision.two": "Infrastructure financing (debt/equity)",
   "projections.phase.two.decision.three": "Scale-up strategy",
+  "projections.operating.costs": "Operating Costs",
+"projections.operating.profit": "Operating Profit",
+"projections.cumulative.cash.flow": "Cumulative Cash Flow",
   
   "projections.phase.three.title": "Full Production",
   "projections.phase.three.investment": "€90M annual revenue potential",
