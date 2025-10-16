@@ -9,7 +9,6 @@ import ValorizationLandscapeTab from "./tabs/ValorizationLandscapeTab";
 import AppendixTab from "./tabs/AppendixTab";
 import ContactIntegration from "./ContactIntegration";
 import ProfessionalFooter from "./ProfessionalFooter";
-
 import DashboardHeader from "./DashboardHeader";
 import ScrollToTop from "./ScrollToTop";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -39,7 +38,7 @@ const Dashboard = () => {
           <TabsTrigger value="implementation" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white px-2 py-2 text-sm whitespace-nowrap">
             {t('nav.implementation')}
           </TabsTrigger>
-          <TabsTrigger value="valorization" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white transition-all duration-300">
+          <TabsTrigger value="valorization" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white px-2 py-2 text-sm whitespace-nowrap">
             {t('nav.valorization')}
           </TabsTrigger>
           <TabsTrigger value="appendix" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white px-2 py-2 text-sm whitespace-nowrap">
