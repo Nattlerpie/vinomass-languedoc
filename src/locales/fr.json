@@ -1748,6 +1748,9 @@
   "valorization.calculation.methodology": "Méthodologie de Calcul",
   
   "valorization.research.needed": "RECHERCHE NÉCESSAIRE",
-  "valorization.verified.data": "Données Vérifiées"
-   
+  "valorization.verified.data": "Données Vérifiées",
+
+  "nav.valorization": "Valorisation",
+"nav.implementation": "Mise en Œuvre",
+"nav.appendix": "Annexe"
 }
