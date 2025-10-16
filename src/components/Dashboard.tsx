@@ -5,7 +5,7 @@ import ResourcesTab from "./tabs/ResourcesTab";
 import EconomyTab from "./tabs/EconomyTab";
 import PartnershipsTab from "./tabs/PartnershipsTab";
 import ImplementationSupport from "./tabs/ImplementationSupport";
-
+import ValorizationLandscapeTab from "./tabs/ValorizationLandscapeTab";
 import AppendixTab from "./tabs/AppendixTab";
 import ContactIntegration from "./ContactIntegration";
 import ProfessionalFooter from "./ProfessionalFooter";
@@ -38,7 +38,9 @@ const Dashboard = () => {
           </TabsTrigger>
           <TabsTrigger value="implementation" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white px-2 py-2 text-sm whitespace-nowrap">
             {t('nav.implementation')}
-          
+          </TabsTrigger>
+          <TabsTrigger value="valorization" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white transition-all duration-300">
+            {t('nav.valorization')}
           </TabsTrigger>
           <TabsTrigger value="appendix" className="data-[state=active]:bg-wine-burgundy data-[state=active]:text-white px-2 py-2 text-sm whitespace-nowrap">
             {t('nav.appendix')}
@@ -63,7 +65,9 @@ const Dashboard = () => {
           </TabsContent>
           <TabsContent value="implementation">
             <ImplementationSupport />
-         
+          </TabsContent>
+          <TabsContent value="valorization">
+            <ValorizationLandscapeTab />
           </TabsContent>
           <TabsContent value="appendix">
             <AppendixTab />
