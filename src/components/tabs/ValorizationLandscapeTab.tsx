@@ -183,7 +183,7 @@ const ValorizationLandscapeTab = () => {
   ];
 
   // Alternative valorization pathways - Verified data
-  const valorizationpathways = [
+  const valorizationPathways = [
     {
       method: t("valorization.economic.composting"),
       revenue: "€5-15",
