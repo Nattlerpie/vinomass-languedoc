@@ -1627,6 +1627,10 @@
   "valorization.calculation.methodology": "Calculation Methodology",
   
   "valorization.research.needed": "RESEARCH NEEDED",
-  "valorization.verified.data": "Verified Data"
+  "valorization.verified.data": "Verified Data",
+
+  "nav.valorization": "Valorization",
+"nav.implementation": "Implementation",
+"nav.appendix": "Appendix"
 
 }
